@@ -1,0 +1,375 @@
+//@version=6
+indicator(title = 'MCB Clone v1', shorttitle = 'MCB_v1', overlay = false)
+
+// ── WaveTrend Settings ────────────────────────────────────────────────────────
+wtShow          = input.bool(true,  title = 'Show WaveTrend',           group = 'WaveTrend')
+wtBuyShow       = input.bool(true,  title = 'Show Buy dots',            group = 'WaveTrend')
+wtGoldShow      = input.bool(true,  title = 'Show Gold dots',           group = 'WaveTrend')
+wtGoldSellShow  = input.bool(true,  title = 'Show Gold Sell dots',      group = 'WaveTrend')
+wtSellShow      = input.bool(true,  title = 'Show Sell dots',           group = 'WaveTrend')
+wtDivShow       = input.bool(true,  title = 'Show Div dots',            group = 'WaveTrend')
+vwapShow        = input.bool(true,  title = 'Show Fast WT (histogram)', group = 'WaveTrend')
+wtChannelLen    = input.int(9,      title = 'WT Channel Length',        group = 'WaveTrend')
+wtAverageLen    = input.int(12,     title = 'WT Average Length',        group = 'WaveTrend')
+wtMASource      = input.source(hlc3,title = 'WT MA Source',             group = 'WaveTrend')
+wtMALen         = input.int(3,      title = 'WT MA Length',             group = 'WaveTrend')
+obLevel         = input.int(53,     title = 'OB Level 1',               group = 'WaveTrend')
+obLevel2        = input.int(60,     title = 'OB Level 2',               group = 'WaveTrend')
+obLevel3        = input.int(100,    title = 'OB Level 3',               group = 'WaveTrend')
+osLevel         = input.int(-53,    title = 'OS Level 1',               group = 'WaveTrend')
+osLevel2        = input.int(-60,    title = 'OS Level 2',               group = 'WaveTrend')
+osLevel3        = input.int(-75,    title = 'OS Level 3',               group = 'WaveTrend')
+wtShowDiv       = input.bool(true,  title = 'Show Regular Divs',        group = 'WaveTrend')
+wtShowHiddenDiv = input.bool(false, title = 'Show Hidden Divs',         group = 'WaveTrend')
+showHiddenDiv_nl= input.bool(true,  title = 'No OB/OS limit on hidden', group = 'WaveTrend')
+wtDivOBLevel    = input.int(45,     title = 'Bear Div min level',       group = 'WaveTrend')
+wtDivOSLevel    = input.int(-65,    title = 'Bull Div min level',       group = 'WaveTrend')
+wtDivOBLevel_addshow = input.bool(true, title = 'Show 2nd Regular Divs',group = 'WaveTrend')
+wtDivOBLevel_add= input.int(15,     title = '2nd Bear Div level',       group = 'WaveTrend')
+wtDivOSLevel_add= input.int(-40,    title = '2nd Bull Div level',       group = 'WaveTrend')
+
+// ── Gold Sell Settings ────────────────────────────────────────────────────────
+// Mirror of Gold Buy: bear div at extreme OB with RSI overbought
+wtGoldSellRsiMin = input.int(70,   title = 'Gold Sell RSI min',        group = 'Gold Sell')
+wtGoldSellDrop   = input.int(5,    title = 'Gold Sell min WT drop',    group = 'Gold Sell')
+
+// ── Money Flow Settings ───────────────────────────────────────────────────────
+// Corrected formula: EMA(SMA((close-open)/stdev(close,stdevLen)*mult, period) - posY, smooth)
+// Clone used (close-open)/(high-low) as body ratio — real MCB uses stdev(close) in denominator.
+mfiShow     = input.bool(true,  title = 'Show Money Flow',       group = 'Money Flow')
+mfiPeriod   = input.int(60,     title = 'Period',                group = 'Money Flow')
+mfiMult     = input.float(150,  title = 'Multiplier',            group = 'Money Flow')
+mfiPosY     = input.float(2.5,  title = 'Y offset',              group = 'Money Flow')
+mfiStdevLen = input.int(7,      title = 'Stdev length',          group = 'Money Flow')
+mfiSmooth   = input.int(4,      title = 'Outer EMA smooth',      group = 'Money Flow')
+
+// ── Money Flow Divergence Settings ───────────────────────────────────────────
+mfiDivShow      = input.bool(true,  title = 'Show MFI Divs',          group = 'MFI Divergence')
+mfiShowHiddenDiv= input.bool(false, title = 'Show Hidden MFI Divs',   group = 'MFI Divergence')
+mfiDivOBLevel   = input.float(2.5,  title = 'Bear Div min level',     group = 'MFI Divergence')
+mfiDivOSLevel   = input.float(-2.5, title = 'Bull Div min level',     group = 'MFI Divergence')
+
+// ── Divergence Stack Settings ─────────────────────────────────────────────────
+// Fires when 2 divs of the same direction (WT or MFI) occur within stackWindow bars.
+// Bar distance is measured between fractal-confirmation bars (2 bars after the visual dot).
+stackShow       = input.bool(true,  title = 'Show Div Stack',         group = 'Div Stack')
+stackWindow     = input.int(30,     title = 'Max candles between divs',group = 'Div Stack', minval = 2, tooltip = 'Distance is counted between fractal-confirmation bars, which are 2 bars after the painted dot.')
+stackWTOnly     = input.bool(false, title = 'WT only (ignore MFI)',   group = 'Div Stack')
+
+// ── Pre-Divergence Warning Settings ──────────────────────────────────────────
+preDivShow      = input.bool(true,   title = 'Show Pre-Div bg',              group = 'Pre-Div Warning')
+preDivWTBull    = input.bool(true,   title = 'WT Bull',                      group = 'Pre-Div Warning')
+preDivWTBear    = input.bool(true,   title = 'WT Bear',                      group = 'Pre-Div Warning')
+preDivOSFilter  = input.float(0.0,   title = 'WT Bull — wt2 must be below',  group = 'Pre-Div Warning', tooltip = 'Pre-bull bg fires only when wt2 is below this value. Lower = stricter. Set to 100 to always show.')
+preDivOBFilter  = input.float(0.0,   title = 'WT Bear — wt2 must be above',  group = 'Pre-Div Warning', tooltip = 'Pre-bear bg fires only when wt2 is above this value. Higher = stricter. Set to -100 to always show.')
+preDivMaxAge = input.int(100, title = 'Max bars since reference fractal', group = 'Pre-Div Warning', minval = 1, tooltip = 'Pre-div warning is suppressed if the reference fractal is older than this many bars.')
+preDivSwingBuf = input.int(5, title = 'Swing price buffer (bars)', group = 'Pre-Div Warning', minval = 1, tooltip = 'Looks for the true price extreme within this many bars back from the fractal pivot bar. Fixes cases where price low/high occurs a few bars before the WT fractal.')
+preDivMFIBull   = input.bool(true,   title = 'MFI Bull',                     group = 'Pre-Div Warning')
+preDivMFIBear   = input.bool(true,   title = 'MFI Bear',                     group = 'Pre-Div Warning')
+preDivMFIOS     = input.float(0.0,   title = 'MFI Bull — mfi must be below', group = 'Pre-Div Warning', tooltip = 'Pre-bull MFI bg fires only when mfi is below this value.')
+preDivMFIOB     = input.float(0.0,   title = 'MFI Bear — mfi must be above', group = 'Pre-Div Warning', tooltip = 'Pre-bear MFI bg fires only when mfi is above this value.')
+preDivBullColor = input.color(color.new(#00e676, 90), 'Bull bg',             group = 'Pre-Div Warning')
+preDivBearColor = input.color(color.new(#ff5252, 90), 'Bear bg',             group = 'Pre-Div Warning')
+
+// ── RSI Settings ──────────────────────────────────────────────────────────────
+rsiShow       = input.bool(true,  title = 'Show RSI',            group = 'RSI')
+rsiSRC        = input.source(close, title = 'Source',            group = 'RSI')
+rsiLen        = input.int(14,   title = 'Length',                group = 'RSI')
+rsiOversold   = input.int(30,   title = 'Oversold',              group = 'RSI')
+rsiOverbought = input.int(60,   title = 'Overbought',            group = 'RSI')
+
+// ── Stochastic RSI Settings ───────────────────────────────────────────────────
+stochShow     = input.bool(true,  title = 'Show Stoch RSI',      group = 'Stoch RSI')
+stochUseLog   = input.bool(true,  title = 'Use Log?',            group = 'Stoch RSI')
+stochAvg      = input.bool(false, title = 'Use avg of K & D?',   group = 'Stoch RSI')
+stochSRC      = input.source(close, title = 'Source',            group = 'Stoch RSI')
+stochLen      = input.int(14,   title = 'Stoch Length',          group = 'Stoch RSI')
+stochRsiLen   = input.int(14,   title = 'RSI Length',            group = 'Stoch RSI')
+stochKSmooth  = input.int(3,    title = 'K Smooth',              group = 'Stoch RSI')
+stochDSmooth  = input.int(3,    title = 'D Smooth',              group = 'Stoch RSI')
+
+// ── Colors ────────────────────────────────────────────────────────────────────
+colorRed    = #ff0000
+colorGreen  = #3fff00
+colorOrange = #e2a400
+colorWhite  = #ffffff
+colorMagenta= #ff00ff
+
+rsiobcolor      = input.color(color.new(#e13e3e, 0),  'RSI OB',           group = 'Colors')
+rsioscolor      = input.color(color.new(#3ee145, 0),  'RSI OS',           group = 'Colors')
+rsinacolor      = input.color(color.new(#c33ee1, 0),  'RSI Mid',          group = 'Colors')
+mfiColorAbove   = input.color(color.new(#3ee145, 0),  'MFI > 0',          group = 'Colors')
+mfiColorBelow   = input.color(color.new(#ff3d2e, 0),  'MFI < 0',          group = 'Colors')
+WTBearDivColor  = input.color(color.new(#e60000, 0),  'Bear Div',         group = 'Colors')
+wtBullDivColor  = input.color(color.new(#00e676, 0),  'Bull Div',         group = 'Colors')
+signalcolorup   = input.color(color.new(#00e676, 0),  'Buy dot',          group = 'Colors')
+signalcolordown = input.color(color.new(#ff5252, 0),  'Sell dot',         group = 'Colors')
+colorWT1blue    = input.color(color.new(#4994ec, 0),  'WT1',              group = 'Colors')
+colorWT2purple  = input.color(color.new(#1f1559, 0),  'WT2',              group = 'Colors')
+VWAPColor       = input.color(color.new(#ffffff, 50), 'Histogram',        group = 'Colors')
+stochkcolor     = input.color(color.new(#21baf3, 70), 'Stoch K',          group = 'Colors')
+stochdcolor     = input.color(color.new(#673ab7, 90), 'Stoch D',          group = 'Colors')
+goldSellColor   = input.color(color.new(#ff6600, 0),  'Gold Sell dot',    group = 'Colors')
+mfiBearDivColor = input.color(color.new(#ff1744, 0),  'MFI Bear Div',     group = 'Colors')
+mfiBullDivColor = input.color(color.new(#00e5ff, 0),  'MFI Bull Div',     group = 'Colors')
+stackBullColor  = input.color(color.new(#00ff88, 0),  'Stack Bull',       group = 'Colors')
+stackBearColor  = input.color(color.new(#ff0055, 0),  'Stack Bear',       group = 'Colors')
+
+// ── Functions ─────────────────────────────────────────────────────────────────
+
+f_top_fractal(src) =>
+    src[4] < src[2] and src[3] < src[2] and src[2] > src[1] and src[2] > src[0]
+
+f_bot_fractal(src) =>
+    src[4] > src[2] and src[3] > src[2] and src[2] < src[1] and src[2] < src[0]
+
+f_fractalize(src) =>
+    f_top_fractal(src) ? 1 : f_bot_fractal(src) ? -1 : 0
+
+// Returns [isTop, isBot, highPrev, lowPrev, bearSignal, bullSignal, bearDivHidden, bullDivHidden]
+f_findDivs(src, topLimit, botLimit, useLimits) =>
+    isTop      = f_fractalize(src) > 0 and (useLimits ? src[2] >= topLimit : true)
+    isBot      = f_fractalize(src) < 0 and (useLimits ? src[2] <= botLimit : true)
+    highPrev   = ta.valuewhen(isTop, src[2],  0)[2]
+    highPrice  = ta.valuewhen(isTop, high[2], 0)[2]
+    lowPrev    = ta.valuewhen(isBot, src[2],  0)[2]
+    lowPrice   = ta.valuewhen(isBot, low[2],  0)[2]
+    bearSignal     = isTop and high[2] > highPrice and src[2] < highPrev
+    bullSignal     = isBot and low[2]  < lowPrice  and src[2] > lowPrev
+    bearDivHidden  = isTop and high[2] < highPrice and src[2] > highPrev
+    bullDivHidden  = isBot and low[2]  > lowPrice  and src[2] < lowPrev
+    [isTop, isBot, highPrev, lowPrev, bearSignal, bullSignal, bearDivHidden, bullDivHidden]
+
+// MFI divergence uses close as proxy for high/low since it has no OHLC context.
+// fractal tops/bottoms on the mfi series directly.
+f_findDivs_mfi(src, topLimit, botLimit, useLimits) =>
+    isTop      = f_fractalize(src) > 0 and (useLimits ? src[2] >= topLimit : true)
+    isBot      = f_fractalize(src) < 0 and (useLimits ? src[2] <= botLimit : true)
+    highPrev   = ta.valuewhen(isTop, src[2],  0)[2]
+    highPrice  = ta.valuewhen(isTop, high[2], 0)[2]
+    lowPrev    = ta.valuewhen(isBot, src[2],  0)[2]
+    lowPrice   = ta.valuewhen(isBot, low[2],  0)[2]
+    bearSignal     = isTop and high[2] > highPrice and src[2] < highPrev
+    bullSignal     = isBot and low[2]  < lowPrice  and src[2] > lowPrev
+    bearDivHidden  = isTop and high[2] < highPrice and src[2] > highPrev
+    bullDivHidden  = isBot and low[2]  > lowPrice  and src[2] < lowPrev
+    [isTop, isBot, highPrev, lowPrev, bearSignal, bullSignal, bearDivHidden, bullDivHidden]
+
+// Corrected Money Flow — uses stdev(close, stdevLen) as denominator instead of (high-low).
+// Outer EMA(smooth) reduces spurious zero crossings to match MCB crossing frequency.
+f_mfi(_period, _mult, _posY, _stdevLen, _smooth, _tf) =>
+    request.security(syminfo.tickerid, _tf,
+        ta.ema(
+            ta.sma((close - open) / ta.stdev(close, _stdevLen) * _mult, _period) - _posY,
+            _smooth
+        )
+    )
+
+f_wavetrend(src, chlen, avg, malen, tf) =>
+    tfsrc        = request.security(syminfo.tickerid, tf, src)
+    esa          = ta.ema(tfsrc, chlen)
+    de           = ta.ema(math.abs(tfsrc - esa), chlen)
+    ci           = (tfsrc - esa) / (0.015 * de)
+    wt1          = request.security(syminfo.tickerid, tf, ta.ema(ci, avg))
+    wt2          = request.security(syminfo.tickerid, tf, ta.sma(wt1, malen))
+    wtVwap       = wt1 - wt2
+    wtOversold   = wt2 <= osLevel
+    wtOverbought = wt2 >= obLevel
+    wtCross      = ta.cross(wt1, wt2)
+    wtCrossUp    = wt2 - wt1 <= 0
+    wtCrossDown  = wt2 - wt1 >= 0
+    [wt1, wt2, wtOversold, wtOverbought, wtCross, wtCrossUp, wtCrossDown, wtVwap]
+
+f_stochrsi(_src, _stochlen, _rsilen, _smoothk, _smoothd, _log, _avg) =>
+    src   = _log ? math.log(_src) : _src
+    rsi1  = ta.rsi(src, _rsilen)
+    kk    = ta.sma(ta.stoch(rsi1, rsi1, rsi1, _stochlen), _smoothk)
+    d1    = ta.sma(kk, _smoothd)
+    avg_1 = math.avg(kk, d1)
+    k     = _avg ? avg_1 : kk
+    [k, d1]
+
+// ── Calculate ─────────────────────────────────────────────────────────────────
+
+rsi      = ta.rsi(rsiSRC, rsiLen)
+rsiColor = rsi <= rsiOversold ? rsioscolor : rsi >= rsiOverbought ? rsiobcolor : rsinacolor
+
+mfi      = f_mfi(mfiPeriod, mfiMult, mfiPosY, mfiStdevLen, mfiSmooth, timeframe.period)
+mfiColor = mfi > 0 ? mfiColorAbove : mfiColorBelow
+
+[wt1, wt2, wtOversold, wtOverbought, wtCross, wtCrossUp, wtCrossDown, wtVwap] =
+     f_wavetrend(wtMASource, wtChannelLen, wtAverageLen, wtMALen, timeframe.period)
+
+[stochK, stochD] =
+     f_stochrsi(stochSRC, stochLen, stochRsiLen, stochKSmooth, stochDSmooth, stochUseLog, stochAvg)
+
+// WaveTrend divergences — now returns highPrev as 3rd value
+[wtIsTop, wtIsBot, wtHigh_prev, wtLow_prev, wtBearDiv, wtBullDiv, wtBearDivHidden, wtBullDivHidden] =
+     f_findDivs(wt2, wtDivOBLevel, wtDivOSLevel, true)
+
+[wtIsTop_add, wtIsBot_add, _wtHighPrevAdd, wtLow_prev_add, wtBearDiv_add, wtBullDiv_add, wtBearDivHidden_add, wtBullDivHidden_add] =
+     f_findDivs(wt2, wtDivOBLevel_add, wtDivOSLevel_add, true)
+
+// MFI divergences
+[mfiIsTop, mfiIsBot, _mfiHighPrev, _mfiLowPrev, mfiBearDiv, mfiBullDiv, mfiBearDivHidden, mfiBullDivHidden] =
+     f_findDivs_mfi(mfi, mfiDivOBLevel, mfiDivOSLevel, true)
+
+wtBearDivHidden_ = showHiddenDiv_nl ? wtBearDivHidden : wtBearDivHidden
+wtBullDivHidden_ = showHiddenDiv_nl ? wtBullDivHidden : wtBullDivHidden
+
+wtBearDivColorPlot = (wtShowDiv and wtBearDiv) or (wtShowHiddenDiv and wtBearDivHidden_) ? WTBearDivColor : na
+wtBullDivColorPlot = (wtShowDiv and wtBullDiv) or (wtShowHiddenDiv and wtBullDivHidden_) ? wtBullDivColor : na
+
+wtBearDivColor_add = (wtShowDiv and wtDivOBLevel_addshow and wtBearDiv_add) ? WTBearDivColor : na
+wtBullDivColor_add = (wtShowDiv and wtDivOBLevel_addshow and wtBullDiv_add) ? wtBullDivColor : na
+
+// MFI divergence colors
+mfiBearDivColorPlot = (mfiDivShow and mfiBearDiv) or (mfiShowHiddenDiv and mfiBearDivHidden) ? mfiBearDivColor : na
+mfiBullDivColorPlot = (mfiDivShow and mfiBullDiv) or (mfiShowHiddenDiv and mfiBullDivHidden) ? mfiBullDivColor : na
+
+// // ── Divergence Stack ──────────────────────────────────────────────────────────
+// Stack = exactly one WT regular div + one MFI regular div, same direction,
+// within stackWindow bars. WT+WT or MFI+MFI pairs do NOT fire.
+// Note: WT and MFI divs both confirm 2 bars after their pivot (same fractal lag),
+// so bar distance between confirmation bars equals distance between pivot bars.
+// Same-bar confirmation of both legs = gap 0 = valid stack.
+
+wtBullDivAny = wtBullDiv or wtBullDiv_add
+wtBearDivAny = wtBearDiv or wtBearDiv_add
+
+lastWTBullBar  = ta.valuewhen(wtBullDivAny, bar_index, 0)
+lastWTBearBar  = ta.valuewhen(wtBearDivAny, bar_index, 0)
+lastMFIBullBar = ta.valuewhen(mfiBullDiv,   bar_index, 0)
+lastMFIBearBar = ta.valuewhen(mfiBearDiv,   bar_index, 0)
+
+bullStack = (wtBullDivAny and not na(lastMFIBullBar) and bar_index - lastMFIBullBar <= stackWindow) or (mfiBullDiv   and not na(lastWTBullBar)  and bar_index - lastWTBullBar  <= stackWindow)
+
+bearStack = (wtBearDivAny and not na(lastMFIBearBar) and bar_index - lastMFIBearBar <= stackWindow) or (mfiBearDiv   and not na(lastWTBearBar)  and bar_index - lastWTBearBar  <= stackWindow)
+// ── Pre-Divergence Warning Logic ──────────────────────────────────────────────
+// Store WT value and price at the most recent confirmed fractal pivot.
+// These persist between fractals as the reference anchor.
+refBotWT2     = ta.valuewhen(wtIsBot,  wt2[2], 0)
+refBotLow     = ta.valuewhen(wtIsBot,  ta.lowest(low,   preDivSwingBuf)[2], 0)
+refTopWT2     = ta.valuewhen(wtIsTop,  wt2[2], 0)
+refTopHigh    = ta.valuewhen(wtIsTop,  ta.highest(high, preDivSwingBuf)[2], 0)
+
+refBotMFI     = ta.valuewhen(mfiIsBot, mfi[2], 0)
+refBotMFILow  = ta.valuewhen(mfiIsBot, ta.lowest(low,   preDivSwingBuf)[2], 0)
+refTopMFI     = ta.valuewhen(mfiIsTop, mfi[2], 0)
+refTopMFIHigh = ta.valuewhen(mfiIsTop, ta.highest(high, preDivSwingBuf)[2], 0)
+refBotBar     = ta.valuewhen(wtIsBot,  bar_index, 0)
+refTopBar     = ta.valuewhen(wtIsTop,  bar_index, 0)
+refBotMFIBar  = ta.valuewhen(mfiIsBot, bar_index, 0)
+refTopMFIBar  = ta.valuewhen(mfiIsTop, bar_index, 0)
+
+// Price is breaking below/above the reference fractal, but WT/MFI is holding — potential div forming.
+preBullWT_raw  = not na(refBotLow)     and (bar_index - refBotBar)    <= preDivMaxAge and low  < refBotLow     and wt2 > refBotWT2  and wt2 < preDivOSFilter
+preBearWT_raw  = not na(refTopHigh)    and (bar_index - refTopBar)    <= preDivMaxAge and high > refTopHigh   and wt2 < refTopWT2  and wt2 > preDivOBFilter
+preBullMFI_raw = not na(refBotMFILow)  and (bar_index - refBotMFIBar) <= preDivMaxAge and low  < refBotMFILow and mfi > refBotMFI  and mfi < preDivMFIOS
+preBearMFI_raw = not na(refTopMFIHigh) and (bar_index - refTopMFIBar) <= preDivMaxAge and high > refTopMFIHigh and mfi < refTopMFI  and mfi > preDivMFIOB
+
+// Suppress on the bar the actual div dot confirms.
+preBullWT_bg  = preDivShow and preDivWTBull  and preBullWT_raw  and not (wtBullDiv or wtBullDiv_add)
+preBearWT_bg  = preDivShow and preDivWTBear  and preBearWT_raw  and not (wtBearDiv or wtBearDiv_add)
+preBullMFI_bg = preDivShow and preDivMFIBull and preBullMFI_raw and not mfiBullDiv
+preBearMFI_bg = preDivShow and preDivMFIBear and preBearMFI_raw and not mfiBearDiv
+
+signalColor = wt2 - wt1 > 0 ? signalcolordown : signalcolorup
+
+buySignal    = wtCross and wtCrossUp   and wtOversold
+sellSignal   = wtCross and wtCrossDown and wtOverbought
+
+buySignalDiv  = (wtShowDiv and wtBullDiv) or (wtShowDiv and wtBullDiv_add)
+sellSignalDiv = (wtShowDiv and wtBearDiv) or (wtShowDiv and wtBearDiv_add)
+
+buySignalDiv_color  = wtBullDiv ? colorGreen : color.new(colorGreen, 60)
+sellSignalDiv_color = wtBearDiv ? colorRed   : color.new(colorRed,   60)
+
+lastRsi   = ta.valuewhen(wtIsBot, rsi[2], 0)[2]
+wtGoldBuy = wtShowDiv and wtBullDiv and wtLow_prev <= osLevel3 and wt2 > osLevel3 and wtLow_prev - wt2 <= -5 and lastRsi < 30
+
+// Golden Sell: mirror of Golden Buy — bear div at extreme OB, wt2 just dropped below obLevel3, RSI overbought
+lastRsiTop  = ta.valuewhen(wtIsTop, rsi[2], 0)[2]
+wtGoldSell  = wtShowDiv and wtBearDiv and wtHigh_prev >= obLevel3 and wt2 < obLevel3 and wtHigh_prev - wt2 >= wtGoldSellDrop and lastRsiTop > wtGoldSellRsiMin
+
+// ── Draw ──────────────────────────────────────────────────────────────────────
+
+plot(0, color = color.new(colorWhite, 50), display = display.pane)
+
+// MFI bar strip at bottom
+mfiBarTop = plot(mfiShow ? -95 : na, title = 'MFI Bar TOP',    display = display.none)
+mfiBarBot = plot(mfiShow ? -99 : na, title = 'MFI Bar BOTTOM', display = display.none)
+fill(mfiBarTop, mfiBarBot, title = 'MFI Bar', color = color.new(mfiColor, 75))
+
+// WaveTrend areas
+plot(wtShow ? wt1 : na, style = plot.style_area, title = 'WT Wave 1', color = color.new(colorWT1blue,   30), display = display.pane)
+plot(wtShow ? wt2 : na, style = plot.style_area, title = 'WT Wave 2', color = color.new(colorWT2purple, 25), display = display.pane)
+
+// Histogram (called "VWAP" in MCB — it is wt1 - wt2)
+plot(vwapShow ? wtVwap : na, title = 'VWAP', color = VWAPColor, style = plot.style_line, linewidth = 2, display = display.pane)
+
+// Money Flow area
+plot(mfiShow ? mfi : na, style = plot.style_area, title = 'Mny Flow', color = color.new(mfiColor, 50), display = display.pane)
+
+// WaveTrend divergence dots on wt2
+plot(series = wtIsTop     ? wt2[2] : na, title = 'WT Bear Div',     color = wtBearDivColorPlot, linewidth = 2, offset = -2, display = display.pane)
+plot(series = wtIsBot     ? wt2[2] : na, title = 'WT Bull Div',     color = wtBullDivColorPlot, linewidth = 2, offset = -2, display = display.pane)
+plot(series = wtIsTop_add ? wt2[2] : na, title = 'WT 2nd Bear Div', color = wtBearDivColor_add, linewidth = 2, offset = -2, display = display.pane)
+plot(series = wtIsBot_add ? wt2[2] : na, title = 'WT 2nd Bull Div', color = wtBullDivColor_add, linewidth = 2, offset = -2, display = display.pane)
+
+// MFI divergence dots plotted at the mfi level
+plot(series = mfiIsTop ? mfi[2] : na, title = 'MFI Bear Div', color = mfiBearDivColorPlot, linewidth = 2, offset = -2, display = display.pane)
+plot(series = mfiIsBot ? mfi[2] : na, title = 'MFI Bull Div', color = mfiBullDivColorPlot, linewidth = 2, offset = -2, display = display.pane)
+
+// RSI line
+plot(rsiShow ? rsi : na, title = 'RSI', color = color.new(rsiColor, 25), linewidth = 2, display = display.pane)
+
+// Stochastic RSI
+stochKplot = plot(stochShow ? stochK : na, title = 'Stoch K', color = stochkcolor, linewidth = 2, display = display.pane)
+stochDplot = plot(stochShow ? stochD : na, title = 'Stoch D', color = stochdcolor, linewidth = 1, display = display.pane)
+fill(stochKplot, stochDplot, title = 'KD Fill', color = stochK >= stochD ? color.new(#21baf3, 95) : color.new(#673ab7, 90))
+
+// OB/OS reference lines
+//plot(obLevel2, title = 'OB 2', color = color.new(#fd4545, 85), linewidth = 1, style = plot.style_stepline, display = display.pane)
+//plot(obLevel3, title = 'OB 3', color = color.new(#ec4e4e, 95), linewidth = 1, style = plot.style_circles,  display = display.pane)
+//plot(osLevel2, title = 'OS 2', color = color.new(#3ee145, 85), linewidth = 1, style = plot.style_stepline, display = display.pane)
+
+// WT cross circles
+plot(wtCross ? wt2 : na, title = 'WT Cross', color = color.new(signalColor, 15), style = plot.style_circles, linewidth = 3, display = display.pane)
+
+// Signal dots
+plotchar(wtBuyShow       and buySignal     ? -107 : na, title = 'Buy',       char = '·', color = color.new(colorGreen,   50), location = location.absolute, size = size.small)
+plotchar(wtSellShow      and sellSignal    ?  105 : na, title = 'Sell',      char = '·', color = color.new(colorRed,     50), location = location.absolute, size = size.small)
+//plotchar(wtDivShow       and buySignalDiv  ? -106 : na, title = 'Div Buy',   char = '•', color = color.new(buySignalDiv_color,  15), location = location.absolute, size = size.normal, offset = -2)
+//plotchar(wtDivShow       and sellSignalDiv ?  106 : na, title = 'Div Sell',  char = '•', color = color.new(sellSignalDiv_color, 15), location = location.absolute, size = size.normal, offset = -2)
+//plotchar(wtGoldBuy       and wtGoldShow    ? -106 : na, title = 'Gold Buy',  char = '•', color = color.new(colorOrange,  15), location = location.absolute, size = size.huge,   offset = -2)
+//plotchar(wtGoldSell      and wtGoldSellShow?  108 : na, title = 'Gold Sell', char = '•', color = color.new(goldSellColor, 15), location = location.absolute, size = size.huge,   offset = -2)
+
+// MFI divergence signal dots (plotted just above/below the MFI strip)
+//plotchar(mfiDivShow and mfiBearDiv ? -93 : na, title = 'MFI Bear Div dot', char = '▼', color = color.new(mfiBearDivColor, 0), location = location.absolute, size = size.tiny, offset = -2)
+//plotchar(mfiDivShow and mfiBullDiv ? -93 : na, title = 'MFI Bull Div dot', char = '▲', color = color.new(mfiBullDivColor, 0), location = location.absolute, size = size.tiny, offset = -2)
+
+// Divergence stack — large diamond chars above/below the pane centre
+// Bull stack at -110, bear stack at +112 to stand out from other signals
+plotchar(stackShow and bullStack ? -110 : na, title = 'Bull Stack', char = '◆', color = stackBullColor, location = location.absolute, size = size.small, offset = -2)
+plotchar(stackShow and bearStack ?  112 : na, title = 'Bear Stack', char = '◆', color = stackBearColor, location = location.absolute, size = size.small, offset = -2)
+
+// Pre-divergence background fills
+bgcolor(preBullWT_bg  ? preDivBullColor : na, title = 'WT Pre-Bull Div')
+bgcolor(preBearWT_bg  ? preDivBearColor : na, title = 'WT Pre-Bear Div')
+bgcolor(preBullMFI_bg ? preDivBullColor : na, title = 'MFI Pre-Bull Div')
+bgcolor(preBearMFI_bg ? preDivBearColor : na, title = 'MFI Pre-Bear Div')
+
+// ── Alerts ────────────────────────────────────────────────────────────────────
+alertcondition(buySignal,   'Buy Signal',       'MCB Clone — WT Buy')
+alertcondition(sellSignal,  'Sell Signal',      'MCB Clone — WT Sell')
+alertcondition(wtGoldBuy,   'Gold Buy',         'MCB Clone — Gold Buy')
+alertcondition(wtGoldSell,  'Gold Sell',        'MCB Clone — Gold Sell')
+alertcondition(mfiBullDiv,  'MFI Bull Div',     'MCB Clone — MFI Bull Divergence')
+alertcondition(mfiBearDiv,  'MFI Bear Div',     'MCB Clone — MFI Bear Divergence')
+alertcondition(bullStack,   'Bull Div Stack',   'MCB Clone — Bull Divergence Stack')
+alertcondition(bearStack,   'Bear Div Stack',   'MCB Clone — Bear Divergence Stack')
+alertcondition(preBullWT_bg,  'Pre-Bull WT Div Watch',  'MCB Clone — WT: potential bull div forming')
+alertcondition(preBearWT_bg,  'Pre-Bear WT Div Watch',  'MCB Clone — WT: potential bear div forming')
+alertcondition(preBullMFI_bg, 'Pre-Bull MFI Div Watch', 'MCB Clone — MFI: potential bull div forming')
+alertcondition(preBearMFI_bg, 'Pre-Bear MFI Div Watch', 'MCB Clone — MFI: potential bear div forming')
