@@ -226,3 +226,41 @@ is not a resurrection tool.
 
 Per the operating rules: STOPPED here. No Phase 1 work will start without
 the trader's explicit written go after the blocking items are resolved.
+
+## 9. Trader rulings received 2026-07-08 (logged verbatim intent, blind, pre-results)
+
+- Item 2 (terminal): Breakout terminal. Swap modeled as 0.0055% charged at
+  each 4h boundary crossed while a position is open. Account size $10k.
+  Account MODEL still open (1-Step Classic/Pro/Turbo or 2-Step); K5 limit
+  pends this.
+- Item 3 (same-direction concurrency): independent additional position.
+  Each signal trades independently at the per-trade risk fraction.
+- Item 4 (pre-div zero-line filter): consistent with the code. Bull
+  front-run turn requires the oscillator below 0, bear above 0, on the
+  current bar. CONFIRMED.
+- Item 5 (Variant B timing): front-run completes only at or after leg 1's
+  confirmation bar. CONFIRMED.
+- Item 7 (dedup): leg-consumption rule CONFIRMED.
+- SPEC AMENDMENT 1 (blind, agreed in conversation before any P&L existed):
+  risk per trade changed from 1% to 0.5% of current equity. Motivated by
+  Breakout equity-limit survivability (K5), decided without reference to
+  any backtest result. FROZEN_SPEC.md section 5 sizing is superseded by
+  this amendment; the spec file itself is not edited.
+- Item 7 slippage: trader proposed zero slippage on the argument that
+  market-at-close fills are symmetric around the backtest price. Auditor
+  REFUSED zero as baseline: symmetry covers drift between signal close and
+  fill, but not (a) taker fills crossing the spread, which is paid on every
+  fill by construction, and (b) stop-market exits filling in adverse fast
+  tape, where ATR stops sit exactly where liquidation cascades run. Both
+  are systematic, not zero-mean. Counter-proposal pending trader response:
+  1 bp per fill baseline (small because $10k positions have negligible
+  impact in BTC perp), Phase 1 still sweeps slippage upward, K3 kill
+  requires positive expectancy at 3 bps per fill.
+- Item 1 (port validation): trader asked why self-computed values do not
+  suffice. Auditor position: the port computes values, but validation
+  checks the TRANSLATION of Pine semantics against TradingView's own
+  execution (ema seeding, population vs sample stdev, valuewhen chains,
+  fractal edge cases). The WT path is incidentally validated via the old
+  export columns; the canonical MFI formula and all divergence event logic
+  have zero independent checks. A fresh MCB Clone v1 export remains
+  BLOCKING for any backtest.
