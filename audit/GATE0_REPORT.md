@@ -251,10 +251,19 @@ holdout verdict, and used for validation only (audit/validate_port2.py).
   canonical source; the decisive check is that the canonical logic applied
   to TV's own values reproduces the port's events exactly.
 - Verdict: PORT VALIDATED against the canonical MCB_Clone_v1.pine.
-  NEW BLOCKING AMBIGUITY: the trader's live chart provably runs a different
-  variant. The trader must declare which signal set is the system of
-  record and reconcile the chart before Phase 1, since live execution
-  follows the chart while the audit follows the canonical source.
+- CORRECTION (same day): the trader supplied the chart's running source and
+  it is IDENTICAL to the canonical file, so the "different chart revision"
+  inference above is RETRACTED. The MFI bull cell suppression remains
+  unexplained after exhaustive hypothesis testing (fractal width variants,
+  level thresholds, regular/hidden div filters, chained references,
+  distance rules; killer counterexamples: pivot 267 rejected vs 277 shown
+  kills level filters, 160 shown vs 267 rejected kills div-type filters).
+  The suppression is chain-specific: all 19 WT pivots and 13 MFI tops
+  export exactly per the code. Remaining suspects are outside the code:
+  a TradingView export anomaly or transient staleness at export time.
+  Discriminating experiment requested from the trader: re-export the same
+  view (reproducibility test) plus a studied-span export (validation depth
+  with no further holdout burn). Phase 1 remains blocked pending this.
 
 ## 9. Trader rulings received 2026-07-08 (logged verbatim intent, blind, pre-results)
 
