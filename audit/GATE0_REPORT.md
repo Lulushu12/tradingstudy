@@ -231,8 +231,8 @@ the trader's explicit written go after the blocking items are resolved.
 
 - Item 2 (terminal): Breakout terminal. Swap modeled as 0.0055% charged at
   each 4h boundary crossed while a position is open. Account size $10k.
-  Account MODEL still open (1-Step Classic/Pro/Turbo or 2-Step); K5 limit
-  pends this.
+  Account model: 1-Step Classic (3% max daily loss, 6% static max
+  drawdown on $10k). RESOLVED.
 - Item 3 (same-direction concurrency): independent additional position.
   Each signal trades independently at the per-trade risk fraction.
 - Item 4 (pre-div zero-line filter): consistent with the code. Bull
