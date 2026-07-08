@@ -265,6 +265,46 @@ holdout verdict, and used for validation only (audit/validate_port2.py).
   view (reproducibility test) plus a studied-span export (validation depth
   with no further holdout burn). Phase 1 remains blocked pending this.
 
+## 8b. Final port validation verdict (2026-07-08, rounds 2-3)
+
+Evidence base: three TradingView exports from the trader's chart (the burned
+July window twice, independently; 2026-04-13..2026-06-21 studied; and
+2024-01-01..2024-04-30 studied, 11,304 compared bars). Rows of the second
+export falling in the still-quarantined holdout span (1,343 rows) were
+dropped by timestamp filter before any analysis and never inspected; the
+stored copy in audit/burned/ has them removed.
+
+- Values: wt1/wt2 match to 9e-11 absolute, mfi to 6e-7 absolute (3e-7
+  relative), across all three exports. PASS.
+- Bear/top event chains: WT primary 352/352, WT secondary 525/525, MFI
+  541/541 in 2024; 172/172, 304/304, 273/272 (one TV-only event at a file
+  edge) in 2026; all exact in the July window. PASS.
+- Bull/bot event chains: TradingView's rendered bull dots deviate from the
+  canonical code by ~2% (WT primary), ~8% (WT secondary), ~34% (MFI).
+  PROVEN NOT TO BE A PORT DEFECT: applying the pasted script's logic to
+  TradingView's OWN exported oscillator values reproduces the port's event
+  set, and TV's rendered bull cells include bars that are not local minima
+  of TV's own values (impossible under the pasted code, e.g. WT bull
+  2024-03-27: TV dot sits on a bar whose wt2 exceeds the adjacent bar's).
+  The deviation is reproducible across two independent exports of the same
+  window, affects only bull dots, and matches no tested variant of the
+  code: fractal widths/strictness, level filters and placements, hidden or
+  chained divergences, price fractals, smoothed or less-smoothed detection
+  series, epsilon margins. Deviation structure: some dots shifted +1/+2
+  bars carrying their own bar's value, ~25-35% of shallow pivots dropped,
+  a few extra dots on 3-bar minima.
+- VERDICT: the port is VALIDATED against the canonical MCB_Clone_v1.pine,
+  which is the system of record per FROZEN_SPEC.md. Gate 0 item 1 CLOSED.
+- SEPARATE LIVE-TRADING INTEGRITY FLAG (carried into all phases): the
+  trader's chart renders bull-side dots that its own pasted source cannot
+  produce. The trader's live bull entries and screen intuition follow the
+  chart, not the code. Recommended experiment: remove the indicator
+  instance from the chart, re-add it fresh from the Pine editor, re-export
+  the same window. If dots then match canonical, the chart was running a
+  stale compiled snapshot and is now fixed; if not, escalate before any
+  live trading resumes. Until resolved, "what the trader sees" and "what
+  the audit tests" disagree on bull signals.
+
 ## 9. Trader rulings received 2026-07-08 (logged verbatim intent, blind, pre-results)
 
 - Item 2 (terminal): Breakout terminal. Swap modeled as 0.0055% charged at
