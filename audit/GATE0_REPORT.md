@@ -227,6 +227,35 @@ is not a resurrection tool.
 Per the operating rules: STOPPED here. No Phase 1 work will start without
 the trader's explicit written go after the blocking items are resolved.
 
+## 8a. Port validation result (2026-07-08, fresh export)
+
+The trader supplied a fresh MCB Clone v1 export. It accidentally covered
+holdout-span bars (2026-07-05 16:15 to 2026-07-08 19:00 UTC); that window
+is burned, recorded in HOLDOUT_DO_NOT_TOUCH.md, excluded from the final
+holdout verdict, and used for validation only (audit/validate_port2.py).
+
+- Values: wt1, wt2, wt1-wt2, mfi all reproduce TradingView within 2e-7
+  absolute (mfi within 7e-9) after a 120-bar cold-start burn-in. PASS.
+- Pivot events (fractal + level filter): WT primary top and bottom, WT
+  secondary top and bottom, MFI top all match TradingView exactly, event
+  for event, value for value (one warm-up artifact at the file edge on the
+  WT secondary top chain, off by one bar, explained by cold start). PASS.
+- MFI bottom chain: the chart plot shows only 12 of the 21 pivots that the
+  canonical script's logic produces WHEN APPLIED TO TRADINGVIEW'S OWN
+  EXPORTED MFI VALUES. The missing 9 are not explained by any condition in
+  the canonical script (tested: regular-div-only, regular-or-hidden,
+  level-filter variants). The exported stack event timing also disagrees
+  with the canonical stack block. Conclusion: the indicator RUNNING ON THE
+  TRADER'S CHART differs from the pasted canonical source for at least the
+  MFI bull dot plot and the stack block. The port itself is faithful to the
+  canonical source; the decisive check is that the canonical logic applied
+  to TV's own values reproduces the port's events exactly.
+- Verdict: PORT VALIDATED against the canonical MCB_Clone_v1.pine.
+  NEW BLOCKING AMBIGUITY: the trader's live chart provably runs a different
+  variant. The trader must declare which signal set is the system of
+  record and reconcile the chart before Phase 1, since live execution
+  follows the chart while the audit follows the canonical source.
+
 ## 9. Trader rulings received 2026-07-08 (logged verbatim intent, blind, pre-results)
 
 - Item 2 (terminal): Breakout terminal. Swap modeled as 0.0055% charged at

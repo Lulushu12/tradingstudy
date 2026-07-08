@@ -18,6 +18,15 @@ never prints row content. Extending is allowed; reading is not.
 STUDIED SPAN (allowed): bars opening 2021-01-07 07:00:00 UTC through
 2026-06-21 16:45:00 UTC inclusive.
 
+BREACH RECORD (2026-07-08): the trader uploaded a fresh TradingView export
+for port validation which, unnoticed by both parties until read, covered
+2026-07-05 16:15 through 2026-07-08 19:00 UTC bar opens, inside the holdout
+span. That window is BURNED: it has been seen and used for port validation
+(audit/burned/validation_export_BURNED_holdout_span.csv) and is EXCLUDED
+from the final holdout verdict. Quarantine remains fully in force for the
+unseen spans: 2026-06-21 17:00 through 2026-07-05 16:00 UTC bar opens, and
+everything after 2026-07-08 19:00 UTC.
+
 CONTAMINATION NOTE (from the trader, to be confirmed): the trader has traded
 live and replay-practiced on recent data. The holdout span overlaps the
 trader's lived market experience and is therefore weaker than a true blind
