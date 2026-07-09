@@ -104,6 +104,48 @@ risk, same or opposite direction as anything already open.
   within one year > 50%: untradeable at the venue.
 - A kill is a kill. No re-thresholding, no reruns, no optimization.
 
+## CANDIDATE 2: convergence rule (frozen 2026-07-09, after candidate 1's
+## sandbox death, before any candidate 2 number existed)
+
+Provenance, stated honestly: after candidate 1 died in the sandbox
+(-0.1391R, run 2 in the ledger), the trader disclosed that the tested
+rule was mis-specified: the system as actually traded also accepts the
+HA momentum candle and the SHA flip converging on DIFFERENT bars inside
+the 3-candle window. This rewrite is candidate 2 of the same family on
+the same data. It is the one permitted rewrite; a further rule change
+after its sandbox run kills the family for good. Its selection judgment
+is partly informed by a seen failure, and the ledger says so. The
+take profit stays 2R as originally declared; the trader's post-result
+1:1 proposal was refused as result-driven.
+
+Rule (long side; shorts fully mirrored). Window as before: bars r+1,
+r+2, r+3 after the most recent red HA bar r. Setup completes at the
+first bar t in the window such that:
+
+1. There exists a bar k in the same window, k <= t, where the HA
+   momentum candle occurred (green, no lower wick) AND Mny Flow at k
+   is > 0 (MFI is evaluated on the momentum bar, per the trader).
+2. SHA is bullish at t: shaClose(t) > shaOpen(t). Order does not
+   matter: SHA may have been bullish all along (then t = k and this
+   reduces exactly to candidate 1) or may flip bullish after the
+   momentum bar (then t > k).
+3. Bar t's HA candle is green (strict). Doji excluded (resolution of a
+   conflict between the trader's rulings 2 and 5 of 2026-07-09 in favor
+   of the stricter reading; HA dojis occurred once in 139,736 sandbox
+   bars, so the choice is immaterial).
+4. The long window is not yet consumed by an actual entry (skipped
+   entries still do not consume, per R7 as amended).
+
+Entry: market at bar t+1 open. Stop: real low of bar t (the completion
+bar, confirmed by the trader). Minimum stop distance 0.6% of entry,
+skip without consuming. Take profit 2R. No time exit. Concurrency,
+costs, segments, pass bars, and kill checks identical to candidate 1.
+
+Multiplicity note: this is the second test of this family on this
+sandbox. Any sandbox survival must be read with that selection in mind,
+and a validation survival would additionally need to clear a
+multiplicity discount before being taken seriously.
+
 ## Contamination statement (trader, 2026-07-09, verbatim substance)
 
 The idea came from a YouTube video. The trader once built a spreadsheet
