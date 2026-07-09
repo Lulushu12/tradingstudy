@@ -46,15 +46,18 @@ window:
 1. Mny Flow at t > 0 (displayed value).
 2. SHA bullish at t: shaClose > shaOpen.
 3. Bar t is a momentum candle.
-4. No earlier bar in this window already produced a signal (first signal
-   in the window wins; the window is then consumed).
+4. No earlier bar in this window already produced an ENTRY (the first
+   actual entry in the window consumes it; signals skipped by the
+   minimum stop distance rule do not, per R7 below).
 
 Entry: market at bar t+1 open.
 
 Stop loss: the real (not HA) low of bar t. If the stop distance is less
-than 0.6% of the entry price the entry is INVALID and skipped, and the
-window is still consumed (resolution R7: a skipped entry does not create
-a second chance in the same window).
+than 0.6% of the entry price the entry is INVALID and skipped
+(resolution R7, amended by the trader 2026-07-09 pre-freeze: a skipped
+entry does NOT consume the window; a later bar inside the same 3-candle
+window that meets all conditions is still a valid entry. Only an actual
+entry consumes the window).
 
 Take profit: 2R (entry + 2 x stop distance for longs).
 
