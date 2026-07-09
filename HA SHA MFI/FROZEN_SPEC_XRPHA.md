@@ -128,6 +128,28 @@ until the data says otherwise.
   port validation of HA, SHA, and Mny Flow against exported columns.
   Tolerance target 1e-7 relative or an explained, bounded mismatch. Port
   failure stops the study.
+
+## Gate 0 resolutions (recorded 2026-07-09, per the clauses above)
+
+- Mny Flow is fed REAL open/close, not HA. Resolved empirically: real
+  input matches the export (interior max abs diff 1.9e-6, median 3.8e-9,
+  zero sign disagreements on 224,762 bars); HA input fails by orders of
+  magnitude. This is now the spec.
+- Smoothed HA confirmed as HA-then-EMA10 (attempt 1), matching to
+  machine epsilon in the interior. The alternative order (EMA10-then-HA)
+  does not match.
+- Column identity: the export's main open/high/low/close are the REAL
+  candles; the "Bars" and "Hollow Candles" column sets are identical to
+  each other and hold the Heikin Ashi series. Names are misleading;
+  resolved by perp-continuity test and HA recomputation to 1e-16.
+- Four additional small holes found beyond the known one: 1 bar
+  (2020-01-06), 3 bars (2021-03-02), 1 bar (2022-05-01), 2 bars
+  (2022-05-28). Total missing including the known 56-bar hole: 63 bars
+  of 228,125.
+- Exported indicator columns carry warm-up NaN scars at every chunk
+  splice (TradingView recomputes per chunk). The study therefore uses
+  the port_* columns computed over the full continuous merged series,
+  which are scar-free and match the trader's full-history chart.
 - Every executed test is logged in "HA SHA MFI/TEST_LEDGER.md".
 - Each phase (Gate 0, sandbox, validation) requires the trader's
   explicit written go before it runs.
