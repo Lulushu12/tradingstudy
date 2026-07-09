@@ -18,6 +18,11 @@ never prints row content. Extending is allowed; reading is not.
 STUDIED SPAN (allowed): bars opening 2021-01-07 07:00:00 UTC through
 2026-06-21 16:45:00 UTC inclusive.
 
+SCOPE EXTENSION (2026-07-08, research cycle 1): the quarantine covers ALL
+BTCUSDT market data after the cutoff, explicitly including funding rates,
+open interest metrics, premium index, and SPOT klines (spot prices proxy
+perp prices). Research downloads must not fetch past 2026-06-21.
+
 BREACH RECORD (2026-07-08): the trader uploaded a fresh TradingView export
 for port validation which, unnoticed by both parties until read, covered
 2026-07-05 16:15 through 2026-07-08 19:00 UTC bar opens, inside the holdout
