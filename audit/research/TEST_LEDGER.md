@@ -11,5 +11,7 @@ RESEARCH_PROTOCOL.md before test 1.
 | 4 | 2026-07-09 | C4 weekend move fade | sandbox | 1 | DEAD (+0.075R, n=89) |
 | 5 | 2026-07-09 | C5 compression breakout | sandbox | 1 | DEAD (-0.033R, n=21) |
 
-Validation runs used: none. C1 validation pends the trader's explicit go
-and is one-shot. Dead candidates stay dead; no re-thresholding.
+| 6 | 2026-07-09 | C1 funding extreme fade | validation (one-shot) | 1 | DEAD (-0.071R, n=110, 0/5 windows nonneg) |
+
+Validation runs used: 1 of 1 permitted. CYCLE 1 CLOSED: all five candidates
+dead. Per protocol this verdict stands; no re-thresholding, no reruns.
