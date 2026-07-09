@@ -1,0 +1,50 @@
+4H bars: 11950, partial buckets (n15<16): 5
+signals: 859 (long 386, short 473)
+
+PORT FIDELITY (study cost model, expect ~+0.21R): study-model: n=500 exp=+0.2109R (SE 0.0661) win=41.6% PF=1.349 streak=8 (19d)
+
+AUDIT MODEL (full cost stack, worst-case bars): skipped_busy=359
+pooled: n=500 exp=+0.1755R (SE 0.0659) win=41.6% PF=1.281 streak=8 (19d)
+
+Per window:
+  2021H1: n=27 exp=-0.2567R (SE 0.2533) win=25.9% PF=0.665 streak=6 (24d)
+  2021H2: n=28 exp=+0.5450R (SE 0.2803) win=53.6% PF=2.120 streak=4 (13d)
+  2022H1: n=42 exp=+0.3054R (SE 0.2309) win=45.2% PF=1.529 streak=5 (14d)
+  2022H2: n=37 exp=+0.2181R (SE 0.2431) win=43.2% PF=1.359 streak=6 (22d)
+  2023H1: n=53 exp=+0.2243R (SE 0.2031) win=43.4% PF=1.370 streak=8 (19d)
+  2023H2: n=55 exp=+0.1548R (SE 0.1999) win=41.8% PF=1.242 streak=7 (21d)
+  2024H1: n=52 exp=+0.3745R (SE 0.2061) win=48.1% PF=1.683 streak=4 (22d)
+  2024H2: n=55 exp=+0.1919R (SE 0.1990) win=41.8% PF=1.311 streak=7 (8d)
+  2025H1: n=55 exp=+0.0739R (SE 0.1957) win=38.2% PF=1.112 streak=7 (22d)
+  2025H2: n=51 exp=-0.0306R (SE 0.2004) win=35.3% PF=0.956 streak=7 (25d)
+  2026H1: n=45 exp=+0.1240R (SE 0.2181) win=40.0% PF=1.193 streak=8 (38d)
+
+Train/test split as the study defined it:
+  train(<2025): n=349 exp=+0.2282R (SE 0.0793) win=43.3% PF=1.378 streak=8 (19d)
+  test(>=2025): n=151 exp=+0.0535R (SE 0.1180) win=37.7% PF=1.080 streak=8 (38d)
+
+Per regime:
+  bull: n=269 exp=+0.2090R (SE 0.0901) win=42.8% PF=1.342 streak=8 (19d)
+  bear: n=135 exp=+0.0820R (SE 0.1253) win=38.5% PF=1.125 streak=8 (38d)
+  chop: n=96 exp=+0.2130R (SE 0.1510) win=42.7% PF=1.349 streak=8 (59d)
+  highvol: n=189 exp=+0.0879R (SE 0.1056) win=38.1% PF=1.135 streak=7 (27d)
+  lowvol: n=311 exp=+0.2287R (SE 0.0842) win=43.7% PF=1.377 streak=7 (17d)
+
+Cost sweep (slippage bp/fill):
+    0 bp: +0.1847R (n=500)
+    1 bp: +0.1755R (n=500)
+    2 bp: +0.1662R (n=500)
+    3 bp: +0.1569R (n=500)
+    5 bp: +0.1384R (n=500)
+   10 bp: +0.0921R (n=500)
+   15 bp: +0.0458R (n=500)
+   20 bp: -0.0005R (n=500)
+   30 bp: -0.0932R (n=500)
+  breakeven slippage: 19.9 bp/fill
+
+Kill checks (K-form):
+  K1 pooled expectancy: +0.1755R -> pass
+  K2 windows negative: 2/11 -> pass
+  K3 breakeven slippage: pass
+  K4 without best window (2021H2): +0.1536R -> pass
+  K5 P(breach Classic in 1y at 0.5% risk): 3.2% -> pass (closed-trade approx, optimistic)
