@@ -1,0 +1,20 @@
+# Leverage and Position Size
+
+Source lesson: leverage-and-poaition-size
+(Supplemental risk-management session; two topics — profit-taking styles, and how leverage/position size are actually derived.)
+
+## Two profit-taking styles compared
+1. **Single stop / single target (no partials)**: relies entirely on a strategy's backtested win rate and a strict minimum risk/reward ratio (e.g. only take trades offering 4:1 or better). With a high enough R:R, a trader can lose several trades in a row and still be net profitable on the next win. Requires being selective — skip any setup that doesn't clear the minimum R:R threshold, even if it looks directionally correct (example given: don't take a long right next to overhead resistance just because a bounce looks plausible, if the reward-to-risk isn't attractive).
+2. **Partial profit-taking (the instructor's preferred style)**: take an initial partial (e.g. 50%) at a modest first target, then move the stop to breakeven. This locks in a small guaranteed gain and removes the pressure of watching the rest of the trade — described as a significant psychological benefit. Tradeoff: locking in early partials reduces the trade's *effective* realized R:R compared to holding for the full target (numeric example: an "8:1" setup realized as roughly 3.5% total instead of the full 5% it could have paid, because half the position was taken off early at a smaller gain).
+   - This style also allows taking trades from less pristine levels/tighter stops than the no-partials style would require, since the early partial removes most of the downside risk quickly.
+- Choice between the two is personal/style-dependent — no universal "better" answer; back-test to see which suits your strategy and temperament.
+
+## Leverage and position size — the actual mechanics
+- Core principle stated directly: **leverage and position size are derived from the entry (specifically the stop-loss distance), not chosen independently.**
+- Worked numeric example (illustrative, not literal current figures): with a fixed % of account you're willing to risk (e.g. 1–2%), and a 1x leverage baseline, that risk-% translates to a specific dollar/contract amount at a 1% stop-loss distance. If a trade setup allows a *tighter* stop-loss (e.g. 0.1% instead of 1%) because the entry is more precise, you can proportionally **increase leverage** to put a much larger notional position on the trade while keeping the actual dollar risk (and % of account at risk) identical.
+- Demonstrated directly on an exchange interface: moving the leverage slider changes how much notional/contract size a fixed "risk %" position translates to, but the **order cost / margin at risk stays constant** as long as the position size is scaled correctly for the stop distance — liquidation price moves in tandem with leverage so that it lines up with the stop-loss level, not beyond it.
+- Practical shortcut given: whatever your 1% "max buying power" figure is on the exchange (visible when leverage is maxed and 100% of account is selected), moving the decimal two places to the left of that number gives the contract size that corresponds to risking 1% of the account, *regardless of what leverage is currently selected* — because raising leverage raises both the notional size available and proportionally lowers the required margin, netting out to the same risk percentage for the same-sized position.
+- Conclusion: a tighter, more precise stop-loss (achieved through a better/more confluent entry) is what actually earns you the ability to use higher leverage safely — leverage isn't chosen for its own sake, it's the byproduct of how tight a valid stop can be for a given setup while keeping account risk fixed at the trader's chosen %.
+
+## Standing takeaway
+Position sizing/leverage decisions should flow directly from (a) a fixed max % of account risked per trade (commonly cited as 1–3% throughout the course) and (b) the stop-loss distance implied by the actual trade setup — never chosen as an arbitrary leverage multiplier first.
