@@ -285,3 +285,122 @@ quant/src/candidate.py    pre-registered rule evaluation
 quant/src/account.py      account-level Monte Carlo
 quant/src/holdout.py      final holdout (run once)
 ```
+
+---
+
+# Part 2 — Prop-firm payout economics
+
+Different question, different answer. "Can this make 10%/month" asks about the
+return process. "Is buying an evaluation +EV" asks about an asymmetric option:
+downside capped at the fee, upside an uncapped share of someone else's capital.
+
+## Contract terms modelled (verified 2026-07-30)
+
+- 1-Step Classic: +10% target, 6% static floor, 3% daily loss
+- Passing yields a funded account starting fresh at the original size, floor
+  again 6% below it, no profit target
+- **The floor never trails.** Cushion = balance - floor, so withdrawing profit
+  is precisely what re-exposes the account
+- **Evaluation fee refunded in full with the first funded payout**
+- 80% split (90% purchasable; 95% after 3 months and 2 payouts)
+- Busted accounts are gone; no reset, only a new purchase
+
+Monte Carlo over full lifecycles (evaluation to funded to payouts to bust),
+20-30k paths per cell, 24-month horizon, empirical daily trade clustering
+(1.24 trades/day, up to 10, 53% zero-days), R values drawn from the real
+outcome classes with win probability tuned to a target expectancy.
+
+## The result that needed checking
+
+Raw breakeven came out at **-0.0012R**, i.e. apparently zero edge. If buying
+evaluations were +EV with no skill, Breakout would be insolvent.
+
+It resolves cleanly: **R is already net of fees and slippage.** "Zero net
+expectancy" is not "no skill" — a no-skill trader has *negative* net
+expectancy equal to the cost drag. The correct null is the unconditional
+expectancy of the template: **-0.0148R** on TRAIN.
+
+| True expR | P(funded) | P(paid) | Mean banked | EV | Interpretation |
+|---|---|---|---|---|---|
+| -0.286 | 0.0% | 0.0% | $0 | **-$800** | coin flipper, holdout regime |
+| -0.050 | 7.2% | 3.5% | $152 | -$648 | no skill, poor conditions |
+| **-0.015** | 21.2% | 12.9% | $674 | **-$126** | **no skill, TRAIN-average** |
+| 0.000 | 29.9% | 20.1% | $1,155 | +$355 | exactly covers costs |
+| +0.024 | 47.1% | 35.4% | $2,418 | +$1,618 | posterior estimate |
+| +0.143 | 97.4% | 95.3% | $18,299 | +$17,499 | studied-data estimate |
+
+The firm's model is intact. But note how *cheap* the no-skill ticket is: -$126
+on an $800 fee, because the fee refund plus a 37.5% raw chance of drifting +10%
+before -6% nearly pays for itself. The asymmetry is real; it just isn't free.
+
+## The honest edge estimate
+
+| Source | Estimate | n | SE |
+|---|---|---|---|
+| Studied data | +0.1426R | 3391 | 0.053 |
+| Holdout | -0.6135R | 52 | 0.123 |
+| **Inverse-variance posterior** | **+0.0238R** | — | 0.0488 |
+
+**95% CI [-0.0717, +0.1194] — it straddles zero.** I do not know whether this
+edge is positive. And the blend assumes one stationary edge, which the per-year
+figures (+0.23, +0.22, +0.01, +0.08, +0.09, +0.37) contradict; the forward value
+depends on the future regime mix, which this data cannot estimate.
+
+## EV across that interval (0.25% risk, withdraw at +2%)
+
+| True expR | P(funded) | Mean banked | EV | P(lose the fee) |
+|---|---|---|---|---|
+| -0.072 (CI low) | 3.3% | $55 | -$745 | 98.6% |
+| 0.000 | 29.7% | $1,151 | +$351 | 80.2% |
+| **+0.024 (posterior)** | **46.9%** | **$2,378** | **+$1,578** | **65.4%** |
+| +0.119 (CI high) | 94.6% | $14,279 | +$13,479 | 9.2% |
+
+At the posterior the purchase is **+EV at roughly 2x the fee, but you lose the
+fee about two times in three.** The mean is carried entirely by the ~35% of
+accounts that get funded and then pay repeatedly. Across the confidence interval
+the answer swings from near-total loss to 17x. **The uncertainty dominates the
+estimate.**
+
+## Two operational findings that are robust across the whole range
+
+**1. Undersize aggressively.** At the measured edge:
+
+| Risk/trade | P(funded) | EV |
+|---|---|---|
+| **0.25%** | 97.4% | **$17,514** |
+| 0.50% | 78.0% | $14,560 |
+| 1.00% | 34.5% | $1,543 |
+| 1.50% | 24.7% | $396 |
+
+An 11x EV difference from sizing alone. Busts are absorbing, so survival
+compounds and leverage does not.
+
+**2. Bank early and often — the opposite of the usual instinct.** At the
+posterior edge:
+
+| Withdraw at | P(paid) | Payouts | EV |
+|---|---|---|---|
+| **+2%** | 34.6% | 1.08 | **+$1,529** |
+| +5% | 23.9% | 0.39 | +$1,068 |
+| +10% | 11.7% | 0.13 | +$391 |
+| +20% | 1.8% | 0.02 | -$486 |
+
+Because the floor is static, "letting profits run to build a cushion" is a bet
+that the account survives long enough to build one. At a weak edge it usually
+does not. Withdrawing at +2% was optimal at *both* the optimistic and the
+posterior edge, so this conclusion does not depend on the edge estimate.
+
+**Account size is close to ROI-neutral** ($5k: EV $75/$45 fee; $100k: EV
+$1,574/$800), so size the purchase to what you can afford to lose, not for edge.
+
+## Verdict on Part 2
+
+Unlike 10%/month, this is not a no. At the posterior edge, buying a Classic
+evaluation is positive expected value at roughly 2x the fee — but with a 65%
+chance of losing the fee outright, and a confidence interval that includes
+"you lose almost every time."
+
+The single thing that would move this from a coin-flip-with-positive-drift to a
+genuine business is resolving whether the edge is actually positive, which needs
+the regime filter built and tested on fresh quarantined data, not more analysis
+of this data.

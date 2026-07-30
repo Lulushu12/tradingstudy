@@ -1,0 +1,61 @@
+========================================================================================
+1. What is the correct null? R is already net of costs.
+========================================================================================
+Unconditional 4h/2xATR/2:1 expectancy, i.e. a coin-flip trader paying
+the same costs, measured earlier:
+   TRAIN  -0.0148R      TEST  +0.0112R      HOLDOUT  -0.2860R
+
+So a no-skill trader sits near -0.015R, not 0.000R. Pricing that:
+
+  true expR  P(funded)  P(paid)    mean $     EV $     ROI   interpretation
+    -0.2860       0.0%     0.0%         0     -800   -1.00   holdout-regime coin flipper
+    -0.0500       7.2%     3.5%       152     -648   -0.81   no skill, poor conditions
+    -0.0148      21.2%    12.9%       674     -126   -0.16   no skill, TRAIN-average conditions
+     0.0000      29.9%    20.1%      1155      355   +0.44   exactly covers costs
+     0.0244      47.1%    35.4%      2418     1618   +2.02   POSTERIOR (studied data + holdout)
+     0.0500      65.7%    54.3%      4581     3781   +4.73   half the lower CI bound
+     0.1426      97.4%    95.3%     18299    17499  +21.87   studied-data point estimate
+
+========================================================================================
+2. The honest edge estimate
+========================================================================================
+studied data : +0.1426R  (n=3391, bootstrap SE ~0.053)
+holdout      : -0.6135R  (n=52,   SE ~0.123)
+inverse-variance posterior: +0.0238R  SE 0.0488  95% CI [-0.0717, +0.1194]
+
+Caveat that matters more than the arithmetic: this blend assumes one
+stationary edge. The per-year table (+0.23, +0.22, +0.01, +0.08, +0.09,
++0.37) says the edge is regime-conditional, so the forward value depends
+on the future regime mix, which is not estimable from this data.
+
+========================================================================================
+3. EV across the posterior CI, at the frozen 0.25% risk
+========================================================================================
+     expR  P(funded)  P(paid)    mean $     EV $  P(lose fee)
+  -0.0717       3.3%     1.4%        55     -745        98.6%
+  -0.0500       7.4%     3.6%       155     -645        96.4%
+   0.0000      29.7%    19.8%      1151      351        80.2%
+   0.0238      46.9%    34.6%      2378     1578        65.4%
+   0.0500      65.9%    54.2%      4563     3763        45.8%
+   0.1194      94.6%    90.8%     14279    13479         9.2%
+   0.1000      90.2%    84.4%     11096    10296        15.6%
+
+========================================================================================
+4. Withdrawal policy at the POSTERIOR edge (not the optimistic one)
+========================================================================================
+ withdraw at   keep  P(paid)  payouts    mean $     EV $
+          2%     0%    34.6%     1.08      2329     1529
+          5%     0%    23.9%     0.39      1868     1068
+         10%     0%    11.7%     0.13      1191      391
+         10%     5%    11.7%     0.18       865       65
+         20%     0%     1.8%     0.02       314     -486
+         20%     5%     1.8%     0.02       248     -552
+
+========================================================================================
+5. Account size: fee scales, edge does not
+========================================================================================
+     size    fee  EV @posterior  EV @+0.1426R  EV @-0.015R
+    5,000     45             75           869          -10
+   25,000    250            361          4345          -73
+   50,000    450            754          8692         -102
+  100,000    800           1574         17389         -117
