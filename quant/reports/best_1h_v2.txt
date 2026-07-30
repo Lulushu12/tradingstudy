@@ -1,0 +1,80 @@
+=== 1h: rows 239,520  conditions 1196  months 66  min-cover 56 ===
+
+  beam, LONG
+    depth 1:   0.06%/mo  n=23947 ratio   0.01  months 66  [kyle>=2.985e-06]
+    depth 2:   0.75%/mo  n=1877  ratio   0.13  months 56  [to_hi480<=2.404 & gap<=-0.003866]
+    depth 3:   1.89%/mo  n=1049  ratio   0.31  months 60  [to_hi480<=2.404 & vol_per_trade_z>=0.5006 & hi_pos>=0.9492]
+    depth 4:   2.31%/mo  n=903   ratio   0.46  months 58  [to_hi480<=2.404 & vol_per_trade_z>=0.5006 & extreme_late>=0.9831 & efficiency>=0.04057]
+
+  beam, SHORT
+    depth 1:   0.28%/mo  n=23904 ratio   0.05  months 66  [to_hi96>=10.06]
+    depth 2:   1.04%/mo  n=13290 ratio   0.17  months 64  [to_lo480<=3.786 & dow>=3]
+    depth 3:   1.71%/mo  n=2679  ratio   0.36  months 63  [to_lo480<=3.786 & dow>=2 & rpt_rank<=0.1875]
+    depth 4:   2.31%/mo  n=1072  ratio   0.39  months 61  [to_lo480<=3.786 & dq<=-0.1168 & range_per_trade>=1.065e-07 & extreme_late>=0.6441]
+
+  best single rules (coverage-constrained):
+      2.31%/mo LONG  n=903    ratio  0.46 months 58  to_hi480<=2.404 & vol_per_trade_z>=0.5006 & extreme_late>=0.9831 & efficiency>=0.04057
+      2.31%/mo SHORT n=1072   ratio  0.39 months 61  to_lo480<=3.786 & dq<=-0.1168 & range_per_trade>=1.065e-07 & extreme_late>=0.6441
+      2.25%/mo LONG  n=896    ratio  0.44 months 59  to_hi480<=2.404 & vol_per_trade_z>=0.5006 & extreme_late>=0.9831 & disp6>=-0.6491
+      2.24%/mo SHORT n=883    ratio  0.38 months 58  to_lo480<=3.786 & dq<=-0.1168 & since_hi96>=67 & ats_rank480>=0.3917
+      2.24%/mo LONG  n=880    ratio  0.37 months 58  to_hi480<=2.404 & vol_per_trade_z>=0.5006 & extreme_late>=0.9831 & efficiency>=0.06097
+      2.23%/mo SHORT n=1093   ratio  0.43 months 60  to_lo480<=3.786 & dq<=-0.1168 & range_per_trade>=7.738e-08 & hi_pos<=0.1525
+      2.21%/mo SHORT n=2585   ratio  0.37 months 63  to_lo480<=3.786 & dow>=2 & rpt_rank<=0.2875 & sess_eu<=0
+      2.18%/mo SHORT n=1094   ratio  0.42 months 60  to_lo480<=3.786 & tbi<=-0.05844 & range_per_trade>=7.738e-08 & hi_pos<=0.1525
+
+  portfolio (set union)
+  + LONG    2.31%/mo n=903    ratio  0.46 risk 0.70% months 58/66 posmo 59%  [to_hi480<=2.404 & vol_per_trade_z>=0.5006 & extreme_late>=0.9831 & efficiency>=0.04057]
+  + SHORT   3.51%/mo n=1975   ratio  0.61 risk 0.36% months 66/66 posmo 68%  [to_lo480<=3.786 & dq<=-0.1168 & range_per_trade>=1.065e-07 & extreme_late>=0.6441]
+  + LONG    4.69%/mo n=3477   ratio  0.82 risk 0.32% months 66/66 posmo 73%  [to_hi480<=4.442 & gap<=-0.003866 & accel>=-0.3215 & rpt_z>=-0.8786]
+  + LONG    5.01%/mo n=3820   ratio  1.00 risk 0.32% months 66/66 posmo 76%  [to_hi480<=2.404 & vol_per_trade_z>=0.5006 & hi_pos>=0.9492 & atr_rank>=0.2458]
+  + SHORT   5.50%/mo n=4212   ratio  0.92 risk 0.32% months 66/66 posmo 73%  [to_lo480<=3.786 & dq<=-0.1168 & range_per_trade>=7.738e-08 & hi_pos<=0.1525]
+  + SHORT   5.50%/mo n=5032   ratio  1.16 risk 0.23% months 66/66 posmo 71%  [pos96<=0.25 & to_lo96>=2.502 & atr_rank>=0.8104 & rpt_z>=-0.1085]
+  + LONG    6.28%/mo n=6313   ratio  1.19 risk 0.23% months 66/66 posmo 74%  [to_hi480<=2.404 & close_loc>=0.8968 & to_lo480<=25.19 & sess_eu<=0]
+  + SHORT   6.43%/mo n=6464   ratio  1.17 risk 0.23% months 66/66 posmo 74%  [to_lo480<=3.786 & tbi<=-0.05844 & range_per_trade>=7.738e-08 & dow>=2]
+  + LONG    6.49%/mo n=6615   ratio  1.13 risk 0.23% months 66/66 posmo 74%  [to_hi480<=2.404 & ats_z96>=0.8873 & hi_pos>=0.9492]
+  + LONG    6.49%/mo n=6631   ratio  1.09 risk 0.23% months 66/66 posmo 74%  [to_hi480<=2.404 & vol_per_trade_z>=0.5006 & extreme_late>=0.9831 & disp6>=0.02042]
+
+==============================================================================
+RULE SET
+  LONG   to_hi480<=2.40447 & vol_per_trade_z>=0.500629 & extreme_late>=0.983051 & efficiency>=0.0405702
+  SHORT  to_lo480<=3.78586 & dq<=-0.11675 & range_per_trade>=1.06525e-07 & extreme_late>=0.644068
+  LONG   to_hi480<=4.44198 & gap<=-0.00386566 & accel>=-0.321476 & rpt_z>=-0.878629
+  LONG   to_hi480<=2.40447 & vol_per_trade_z>=0.500629 & hi_pos>=0.949153 & atr_rank>=0.245833
+  SHORT  to_lo480<=3.78586 & dq<=-0.11675 & range_per_trade>=7.73813e-08 & hi_pos<=0.152542
+  SHORT  pos96<=0.25 & to_lo96>=2.50159 & atr_rank>=0.810417 & rpt_z>=-0.108476
+  LONG   to_hi480<=2.40447 & close_loc>=0.896755 & to_lo480<=25.1885 & sess_eu<=0
+  SHORT  to_lo480<=3.78586 & tbi<=-0.0584403 & range_per_trade>=7.73813e-08 & dow>=2
+  LONG   to_hi480<=2.40447 & ats_z96>=0.887269 & hi_pos>=0.949153
+  LONG   to_hi480<=2.40447 & vol_per_trade_z>=0.500629 & extreme_late>=0.983051 & disp6>=0.0204207
+==============================================================================
+
+=== 1h optimised rule set: 6631 trades, 2021-01-21 -> 2026-06-19 ===
+raw expR +0.2833  win rate 0.433
+   risk   heat  taken   final%   CAGR%  maxDD%  mean/mo  worst mo  >=10%          breach
+  0.25%   2.0%   4906   930.1%   53.9%   14.1%    3.77%    -6.38%    18%               -
+  0.25%   4.0%    402    27.0%  215.9%    7.4%    6.34%    -1.82%    25%      daily_loss
+  0.25%   6.0%    424    31.1%  267.8%    7.6%    7.24%    -1.82%    25%      daily_loss
+  0.50%   2.0%     15    -6.1%  -96.2%    5.6%   -6.08%    -6.08%     0%       static_dd
+  0.50%   4.0%     15    -6.1%  -97.8%    5.6%   -6.08%    -6.08%     0%       static_dd
+  0.50%   6.0%     15    -6.1%  -97.8%    5.6%   -6.08%    -6.08%     0%       static_dd
+  0.75%   2.0%     11    -6.1%  -97.9%    5.4%   -6.14%    -6.14%     0%       static_dd
+  0.75%   4.0%      5    -3.8% -100.0%    3.0%   -3.79%    -3.79%     0%      daily_loss
+  0.75%   6.0%      5    -3.8% -100.0%    3.0%   -3.79%    -3.79%     0%      daily_loss
+  1.00%   2.0%      4    -4.0% -100.0%    3.0%   -4.03%    -4.03%     0%      daily_loss
+  1.00%   4.0%      4    -4.0% -100.0%    3.0%   -4.03%    -4.03%     0%      daily_loss
+  1.00%   6.0%      4    -4.0% -100.0%    3.0%   -4.03%    -4.03%     0%      daily_loss
+  1.50%   2.0%      3    -4.5% -100.0%    3.0%   -4.52%    -4.52%     0%      daily_loss
+  1.50%   4.0%      3    -4.5% -100.0%    3.0%   -4.52%    -4.52%     0%      daily_loss
+  1.50%   6.0%      3    -4.5% -100.0%    3.0%   -4.52%    -4.52%     0%      daily_loss
+
+best surviving config: risk 0.25% heat 2.0%
+  mean 3.77%/mo  median 2.98%  positive 70%  >=10% in 18% of months
+  monthly returns by year:
+    2021:   -1.8  +13.1   +3.7  +10.3   +3.3   +1.6   +4.4  +16.7   +6.5   -2.2   +2.8   +1.1
+    2022:  +12.9   -0.2   +7.2   +3.5   +4.3   +9.7   -0.4   -0.5   -0.9   +3.5   -4.5   +4.9
+    2023:   +6.0   -6.2   +1.6   +2.2   -4.4  +15.0   -0.8   +3.9   +0.2   +4.4   -1.9  +13.4
+    2024:   -2.1  +12.8   +2.8   +2.2   +3.1   +1.5   +6.3   +4.3   -0.8   -2.1  +16.9   -3.4
+    2025:   +1.5  +11.8   -6.4   +3.8   +6.9   -0.0  +21.1   -6.2  +13.7   +1.9   +4.5   -5.1
+    2026:   +7.8   +6.8   -3.4   +1.8   +2.3  +11.9
+
+saved reports/ruleset_1h.json

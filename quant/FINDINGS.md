@@ -404,3 +404,154 @@ The single thing that would move this from a coin-flip-with-positive-drift to a
 genuine business is resolving whether the edge is actually positive, which needs
 the regime filter built and tested on fresh quarantined data, not more analysis
 of this data.
+
+---
+
+# Part 3 — Regime filter, full ML, and the retrospective fit
+
+Run overnight 2026-07-30/31. Brief: build a regime filter; if that falls short,
+go full machine learning; fit everything on the data we have, hindsight allowed;
+show retrospectively what would have produced 10%/month under Breakout rules, or
+alternatively 100% every 2-4 months trading own capital.
+
+## Headline
+
+With **complete hindsight** — the model fitted on the whole 2021-2026 span,
+knowing the future — the best system that still survives every Breakout rule
+returns **6.63%/month**. It clears 10% in 32% of individual months and in
+**56% of two-month windows**.
+
+It does not reach 10%/month. Not because the fitted edge is too small, but
+because **Breakout's 3% daily loss limit caps it**. The same signal sized more
+aggressively returns +76%/month and dies on day 11.
+
+The own-capital alternative fails outright: on the only signal that could
+actually have been traded (walk-forward), every risk level from 1% to 15% ends
+in **total ruin**.
+
+## 1. Regime filter
+
+Diagnosis from Part 1 was that the base signal is a trend-continuation bet that
+dies in chop. Conditioning it on trend-worthiness does work in-sample and mostly
+evaporates out of sample:
+
+| Filter | IS expR | WF expR | base |
+|---|---|---|---|
+| `disp96 >= 7.84` | 0.329 | 0.142 | 0.143 |
+| `absorb <= -0.028` | 0.294 | 0.211 | 0.143 |
+| `tbi_ma96 <= -0.012` | 0.292 | 0.176 | 0.143 |
+
+More important, it revealed the objective was wrong. Filters raise expectancy
+but cut trade count, so monthly R **falls** (7.33 -> 2.73). The target reduces to
+a ratio: monthly-R / worst-drawdown-R must exceed 10/6 = 1.67. The base signal
+scores 0.19. This is a drawdown problem, not a return problem.
+
+## 2. Machine learning
+
+LightGBM predicting realised R per side from the 71 causal features, purged and
+embargoed walk-forward versus full in-sample fit.
+
+| Model | timeframe | IS | WF |
+|---|---|---|---|
+| Deep (31 leaves, 400 rounds) | 4h | +175%/mo, expR +1.86 | +0.29%/mo, expR +0.18 |
+| Deep | 1h | +78%/mo | -0.13%/mo |
+| Deep | 30m | +76%/mo | +0.15%/mo |
+| **Shallow (8 leaves, depth 3)** | **30m** | **+16.7%/mo, expR +0.174** | **-3.1%/mo, expR -0.059** |
+
+The shallow model is the informative one. With 8 leaves, depth 3, min_data 2000
+and L2=50 it **cannot** memorise individual bars, yet the in-sample/walk-forward
+gap is just as total. So the in-sample result is not bar-level recall; it is the
+model encoding which regime ran in which year. Trained only on the past it
+*anti-predicts* the future (negative expectancy, 94% drawdown).
+
+That is the cleanest statement of the whole study: the in-sample performance is
+real arithmetic on real data, and it is entirely a description of the past.
+
+## 3. Compact rule systems (the executable deliverables)
+
+A memorising model is not a system - there is nothing to write down. So I also
+searched conjunctions of feature thresholds by beam search, which ARE systems:
+you could have traded them mechanically had you known the constants.
+
+All fitted with full hindsight, all validated through the real account simulator
+(static floor, 3% daily limit on realised P&L, leverage caps, portfolio heat):
+
+| System | Trades | Mean/mo | Positive months | >=10% months | CAGR | Notes |
+|---|---|---|---|---|---|---|
+| 4h, 4 rules | 1,485 | **3.11%** | 65% | 14% | 41.5% | risk 0.50%, heat 2% |
+| 1h, 10 rules | 6,631 | **3.77%** | 70% | 18% | — | risk 0.23%, heat 2% |
+| 30m, shallow-ML ranked | 31,962 | **6.63%** | 80% | 32% | — | risk 0.082%, heat 2% |
+
+The 1h system's monthly returns, every month 2021-2026, are in
+`reports/best_1h_v2.txt`; the rule set is in `reports/ruleset_1h.json`.
+
+## 4. Why 10%/month is unreachable even with hindsight
+
+The 3% daily loss limit, not the 6% static floor, is the binding constraint.
+Evidence, same signal, same span, only risk changed:
+
+| Risk | Mean/mo | Outcome |
+|---|---|---|
+| 0.082% | +6.63% | survives the full 5.5 years |
+| 0.50% | **+76.77%** | **breaches `daily_loss` on 2021-01-11** |
+| 1.00% (k=40) | +86.34% | breaches `daily_loss` on day 10 |
+
+Signals cluster across five correlated assets, so a bad day closes several
+losers at once. Any sizing large enough to compound at 10%/month produces a day
+that loses more than 3%, and the account ends permanently. There is no risk
+setting that delivers both.
+
+I attempted to design around this by capping entries per day at k and sizing
+3%/k, which appears to make a breach impossible. **That reasoning was wrong** and
+I caught it in testing: trades entered on different days can exit on the same
+day, and the limit applies to realised P&L, i.e. to exits. Capping entries does
+not bound daily realised loss.
+
+## 5. Own capital, no prop rules
+
+No daily limit, no static floor, ruin only at wipeout.
+
+| Signal | Risk 1% | Risk 5% | Risk 15% |
+|---|---|---|---|
+| In-sample (hindsight) | 99% maxDD | 100% maxDD | 97% maxDD |
+| **Walk-forward (tradeable)** | **RUINED** | **RUINED** | **RUINED** |
+
+The in-sample column reaches absurd terminal multiples but with 95-100% peak-to
+-trough drawdowns, meaning the account was effectively wiped and rescued by
+foreknowledge. It is not a strategy.
+
+The walk-forward column is the answer to the question actually asked: with the
+only signal that could have been traded without knowing the future, **every
+leverage level from 1% to 15% ends in total loss.** 100% every 2-4 months is not
+available from this data either.
+
+## 6. Errors I found in my own work tonight
+
+Reported because each one initially produced a spectacular and false result:
+
+1. **Portfolio double-counting.** Unioning rules summed R over overlapping masks,
+   so the same trade counted up to 8 times. Produced a fake "369%/month". Fixed
+   by unioning as sets of (bar, side).
+2. **Divide-by-zero ratio.** Rules with no drawdown scored 9.2e9. Fixed by
+   rejecting degenerate curves.
+3. **Coverage.** The best rule traded in 14 of 66 months. A system that sits out
+   79% of the calendar cannot deliver a monthly return. Fixed with an 85%
+   month-coverage constraint.
+4. **The daily-loss proof was invalid** (section 4).
+5. **Equal-dollar cross-sectional weighting** (Part 1) implicitly shorted the
+   high-volatility assets and produced Sharpe -2 where the true answer was ~0.
+
+## 7. What this means
+
+You asked to see, in retrospect, what would have made 10% a month. The answer is
+that under Breakout's rules **nothing in this data would have**, and the reason
+is a rule rather than a lack of edge: the 3% daily cap and correlated multi-asset
+signals are mutually exclusive with 10% monthly compounding.
+
+The genuinely best retrospective system reaches 6.63%/month and hits your relaxed
+"10% at worst every two months" bar in 56% of two-month windows. It is fitted to
+this exact span and its walk-forward twin loses money, so it is a description of
+2021-2026, not a prediction.
+
+`quant/src/`: `regime.py`, `ml.py`, `ruleopt2.py`, `hifreq.py`, `hifreq2.py`,
+`validate.py`, `findbest.py`, `frontier.py`, `dataset.py`.

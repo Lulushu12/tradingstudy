@@ -1,0 +1,22 @@
+=== 30min: rows 479,040 ===
+
+--- IS ---
+  k=8   n=15979  expR +0.163  BEST SURVIVING: risk 0.20% heat 1%  mean/mo  +4.40%  worst -11.32%  pos 71%  >=10% 15%  CAGR 64%  maxDD 15%
+  k=16  n=31962  expR +0.168  BEST SURVIVING: risk 0.10% heat 1%  mean/mo  +5.06%  worst  -5.16%  pos 77%  >=10% 15%  CAGR 78%  maxDD 14%
+  k=24  n=47941  expR +0.174  NONE SURVIVED (all breach). best-before-breach risk 0.50%: mean/mo +76.77% breach=daily_loss @ 2021-01-11 14:03:00+00:00
+  k=40  n=79901  expR +0.170  NONE SURVIVED (all breach). best-before-breach risk 0.50%: mean/mo +86.34% breach=daily_loss @ 2021-01-11 03:36:00+00:00
+
+--- WF ---
+  k=8   n=9974   expR -0.068  NONE SURVIVED (all breach). best-before-breach risk 0.10%: mean/mo -6.01% breach=static_dd @ 2023-01-29 09:11:00+00:00
+  k=16  n=19950  expR -0.061  NONE SURVIVED (all breach). best-before-breach risk 1.00%: mean/mo +18.94% breach=daily_loss @ 2023-01-17 18:52:00+00:00
+  k=24  n=29924  expR -0.059  NONE SURVIVED (all breach). best-before-breach risk 1.00%: mean/mo +16.03% breach=daily_loss @ 2023-01-06 19:37:00+00:00
+  k=40  n=49869  expR -0.055  NONE SURVIVED (all breach). best-before-breach risk 1.00%: mean/mo +18.05% breach=daily_loss @ 2023-01-06 22:50:00+00:00
+
+=== all surviving configs, ranked by mean monthly ===
+  IS_k16     risk 0.10% heat 1%  mean/mo  +5.06%  worst  -5.16%  pos 77%  >=10% 15%  CAGR     78%  maxDD 14%
+  IS_k8      risk 0.20% heat 1%  mean/mo  +4.40%  worst -11.32%  pos 71%  >=10% 15%  CAGR     64%  maxDD 15%
+  IS_k8      risk 0.10% heat 3%  mean/mo  +4.02%  worst  -7.96%  pos 76%  >=10% 18%  CAGR     58%  maxDD 16%
+  IS_k8      risk 0.10% heat 6%  mean/mo  +4.02%  worst  -7.96%  pos 76%  >=10% 18%  CAGR     58%  maxDD 16%
+  IS_k8      risk 0.10% heat 2%  mean/mo  +4.01%  worst  -7.96%  pos 76%  >=10% 18%  CAGR     58%  maxDD 16%
+  IS_k8      risk 0.35% heat 1%  mean/mo  +3.69%  worst  -8.10%  pos 76%  >=10% 9%  CAGR     53%  maxDD 12%
+  IS_k8      risk 0.10% heat 1%  mean/mo  +3.37%  worst  -7.81%  pos 74%  >=10% 12%  CAGR     47%  maxDD 13%
