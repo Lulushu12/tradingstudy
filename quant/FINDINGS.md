@@ -555,3 +555,55 @@ this exact span and its walk-forward twin loses money, so it is a description of
 
 `quant/src/`: `regime.py`, `ml.py`, `ruleopt2.py`, `hifreq.py`, `hifreq2.py`,
 `validate.py`, `findbest.py`, `frontier.py`, `dataset.py`.
+
+---
+
+# Part 4 — The two relaxed targets, measured on their own terms
+
+Part 3 optimised mean monthly return, which is not the same objective as either
+relaxed target. Re-run with the correct statistics.
+
+## (a) 10% every one-to-two months, under Breakout rules
+
+Config chosen to maximise P(rolling 2-month return >= 10%).
+
+Best: 30m in-sample signal, risk 0.085%, heat 2%, mean +6.81%/mo.
+
+| Window | Median | Worst | P(>=10%) |
+|---|---|---|---|
+| 1 month | +6.0% | -11.0% | 32% |
+| **2 months** | **+12.7%** | **-8.6%** | **58%** |
+| 3 months | +19.9% | -11.3% | 71% |
+
+So the MEDIAN two-month return is 12.7% and clears the bar. But 42% of
+two-month windows do not, and the worst loses 8.6%. "At worst every two months"
+is not met; "typically every two months" is.
+
+The 1h compact rule set is worse on this measure (2-month median +6.3%,
+P(>=10%) 39%).
+
+The walk-forward version of the same signal survived no risk level at all.
+
+## (b) 100% every 2-4 months, no daily limit, no static floor
+
+| Signal | Risk | Ruined | Final x | maxDD | Median 3mo | P(3mo >= 100%) |
+|---|---|---|---|---|---|---|
+| 30m IS | 5% | no | 1.36e9 | **84%** | +152% | 60% |
+| 30m IS | 10% | no | 2.2e13 | **95%** | +225% | 54% |
+| 1h rules IS | 2% | no | 3.0e6 | **79%** | +91% | 48% |
+| 1h rules IS (heat 10%) | 2% | no | 8,041 | **67%** | +40% | 25% |
+| **30m WF** | 2% | **RUINED** | 0.02 | 99% | -25% | 12% |
+| **30m WF** | 5% | **RUINED** | 0.02 | 99% | -34% | 11% |
+
+**No configuration reached 100% per 2-4 months without ruin and with a maximum
+drawdown under 60%.** The in-sample configurations that do double every three
+quarters of the time did so while at some point losing 67% to 95% of the
+account. The walk-forward signal is wiped out at essentially every setting.
+
+## Verdict
+
+(a) is met on a median basis in-sample and fails 42% of two-month windows.
+(b) is not met under any configuration, in-sample or otherwise.
+
+Both (a) and (b) exist only in the hindsight fit. Their walk-forward twins
+either fail to survive Breakout's rules at any risk level, or go to zero.

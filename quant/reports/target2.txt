@@ -1,0 +1,51 @@
+====================================================================================
+TARGET (a)  10% per one-to-two months, under full Breakout rules
+            config chosen to MAXIMISE P(2-month return >= 10%)
+====================================================================================
+  30m IS                 risk 0.085% heat 2%  mean/mo +6.81%
+      window   median    worst  P(>=10%)
+          1mo     6.0%   -11.0%       32%
+          2mo    12.7%    -8.6%       58%
+          3mo    19.9%   -11.3%       71%
+  30m WF                 no config survived Breakout rules
+  1h rules IS            risk 0.243% heat 2%  mean/mo +3.77%
+      window   median    worst  P(>=10%)
+          1mo     2.9%    -6.2%       17%
+          2mo     6.3%    -4.3%       39%
+          3mo    10.4%    -2.4%       51%
+
+====================================================================================
+TARGET (b)  100% every 2-4 months, no daily limit, no static floor
+====================================================================================
+
+  --- 30m IS ---
+    risk  heat  ruined   final x   maxDD  med 2mo  med 3mo  med 4mo  P(3mo>=100%)
+    2%   10%   False2186134162.86     84%      88%     162%     202%           56%
+    2%   30%   False9838363.37    100%      50%     120%      89%           52%
+    5%   10%   False1357752623.62     84%      81%     152%     202%           60%
+    5%   30%   False3867693768.49    100%      80%     173%     209%           52%
+   10%   10%   False1127127171.45     77%      60%     132%     154%           52%
+   10%   30%   False22346003046598.82     95%     112%     225%     280%           54%
+   20%   30%   False880636185.31     81%      57%      98%     171%           49%
+
+  --- 30m WF ---
+    risk  heat  ruined   final x   maxDD  med 2mo  med 3mo  med 4mo  P(3mo>=100%)
+    2%   10%    True      0.02     99%     -17%     -25%     -31%           12%
+    2%   30%    True      0.02     99%     nan%     nan%     nan%            0%
+    5%   10%    True      0.02     99%     -29%     -34%     -34%           11%
+    5%   30%    True      0.02    100%     -26%     -65%     -65%           33%
+   10%   10%   False      0.03     99%     -15%     -22%     -22%           11%
+   10%   30%    True      0.02    100%      -5%     -23%     -14%           17%
+   20%   30%    True      0.02    100%     -20%     -17%     -27%           14%
+
+  --- 1h rules IS ---
+    risk  heat  ruined   final x   maxDD  med 2mo  med 3mo  med 4mo  P(3mo>=100%)
+    2%   10%   False   8040.81     67%      31%      40%      67%           25%
+    2%   30%   False3014070.07     79%      59%      91%     150%           48%
+    5%   10%   False    512.88     77%      15%      18%      31%           22%
+    5%   30%   False   1241.43     97%      24%      23%      42%           30%
+   10%   10%   False      4.12     93%      -3%      -8%      -3%           14%
+   10%   30%   False    119.06     94%      13%       2%      17%           30%
+   20%   30%   False      1.86     98%     -10%     -13%     -15%           16%
+
+  any config meeting (b) without ruin and with maxDD < 60%: False
