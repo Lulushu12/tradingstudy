@@ -1,0 +1,77 @@
+==================================================================================
+1.  CORRELATION: can prop accounts be run in parallel at all?
+==================================================================================
+/home/user/tradingstudy/quant/src/business.py:39: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  T["month"] = pd.DatetimeIndex(T.entry_dt).to_period("M")
+Monthly R correlation between per-asset streams (same system):
+symbol   BNBUSDT  BTCUSDT  ETHUSDT  SOLUSDT  XRPUSDT
+symbol                                              
+BNBUSDT    1.000    0.324    0.424    0.118    0.141
+BTCUSDT    0.324    1.000    0.665    0.267    0.299
+ETHUSDT    0.424    0.665    1.000    0.229    0.336
+SOLUSDT    0.118    0.267    0.229    1.000    0.196
+XRPUSDT    0.141    0.299    0.336    0.196    1.000
+
+  mean pairwise correlation rho = 0.300
+  5 assets -> effective independent streams = 2.27
+  variance reduction available = 0.67x (1.00 = none, 0.45 = perfect)
+
+  Running N accounts SIMULTANEOUSLY on the same system:
+     N   eff. independent    sd of mean outcome
+     1               1.00                 1.00x
+     2               1.54                 0.81x
+     5               2.27                 0.66x
+    10               2.70                 0.61x
+    20               2.99                 0.58x
+
+  Running N accounts SEQUENTIALLY (different time periods, rho~0):
+     N   eff. independent    sd of mean outcome
+     1               1.00                 1.00x
+     2               2.00                 0.71x
+     5               5.00                 0.45x
+    10              10.00                 0.32x
+    20              20.00                 0.22x
+
+==================================================================================
+2.  PROP CHURN ECONOMICS (per account, and annualised)
+==================================================================================
+
+ true expR  EV/account  ROI on fee  P(lose fee)  ann. EV @6 acc  ann. fees
+   -0.0148        -133       -0.17        87.2%            -796       4800
+    0.0000         328       +0.41        80.4%            1965       4800
+    0.0240        1546       +1.93        65.4%            9279       4800
+    0.0500        3706       +4.63        45.8%           22236       4800
+    0.1426       17443      +21.80         4.4%          104658       4800
+
+==================================================================================
+3.  BANKROLL SURVIVAL: sequential account buying, 24 cycles
+==================================================================================
+
+  true expR +0.0240: P(account pays) 34.6%, mean payout when it does $6,722
+    bankroll   start $  P(broke)   median end   mean end   P(2x)
+        5 fees      4000     12.9%        38576      36895   86.9%
+       10 fees      8000      1.4%        42576      44528   94.4%
+       20 fees     16000      0.0%        50576      52430   88.8%
+       50 fees     40000      0.0%        74576      76591   45.1%
+
+  true expR +0.1426: P(account pays) 95.3%, mean payout when it does $19,080
+    bankroll   start $  P(broke)   median end   mean end   P(2x)
+        5 fees      4000      0.0%       423645     420693  100.0%
+       10 fees      8000      0.0%       427645     424812  100.0%
+       20 fees     16000      0.0%       435645     433065  100.0%
+       50 fees     40000      0.0%       459645     457213  100.0%
+
+==================================================================================
+4.  OWN MONEY: growth-optimal sizing on the real R distribution
+==================================================================================
+
+  --- vol_spike_cont, all 5 assets (expR +0.1426, 52 trades/mo) ---
+  growth-optimal f (full Kelly) = 8.0% of bankroll per trade
+  log-growth per trade at f*    = 0.00547
+  implied monthly growth        = 33.1%
+        f    g/trade   monthly      annual            note
+     1.0%    0.00133      7.2%        130%                
+     2.0%    0.00247     13.8%        369%                
+     4.0%    0.00419     24.4%       1278%      half-Kelly
+     8.0%    0.00547     33.1%       2986%      FULL Kelly
+    12.0%    0.00401     23.3%       1135%                

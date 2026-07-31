@@ -607,3 +607,126 @@ account. The walk-forward signal is wiped out at essentially every setting.
 
 Both (a) and (b) exist only in the hindsight fit. Their walk-forward twins
 either fail to survive Breakout's rules at any risk level, or go to zero.
+
+---
+
+# Part 5 — Business model
+
+The per-account return is unattractive. That is the wrong unit. Below is the
+analysis of what actually scales.
+
+## 1. Parallelism is unavailable; sequencing is not
+
+Monthly-R correlation between per-asset streams running the same system:
+
+|  | BNB | BTC | ETH | SOL | XRP |
+|---|---|---|---|---|---|
+| BTC | 0.324 | 1.000 | 0.665 | 0.267 | 0.299 |
+| ETH | 0.424 | 0.665 | 1.000 | 0.229 | 0.336 |
+| SOL | 0.118 | 0.267 | 0.229 | 1.000 | 0.196 |
+
+Mean pairwise **rho = 0.30**. Five assets give only **2.27 effective independent
+streams**.
+
+| Accounts | Simultaneous (eff.) | Sequential (eff.) |
+|---|---|---|
+| 5 | 2.27 | 5.00 |
+| 20 | **2.99** | **20.00** |
+
+Twenty accounts run at once are worth three. Twenty run one after another are
+worth twenty. **The scaling dimension is time, not account count.**
+
+## 2. The right unit is return on FEE, not on notional
+
+A prop fee is not capital deployed, it is the price of an option on someone
+else's balance sheet. Downside is capped at $800; upside is a share of $100k.
+
+| True expR | EV/account | ROI on fee | P(lose fee) | Annual EV @6 accts |
+|---|---|---|---|---|
+| -0.0148 (no skill) | -$133 | -0.17 | 87% | -$796 |
+| 0.0000 | +$328 | +0.41 | 80% | +$1,965 |
+| **+0.0240 (posterior)** | **+$1,546** | **+1.93** | 65% | **+$9,279** |
+| +0.0500 | +$3,706 | +4.63 | 46% | +$22,236 |
+| +0.1426 (studied) | +$17,443 | +21.80 | 4% | +$104,658 |
+
+"1.5% per month" and "+193% on capital at risk" are the same system described in
+two different units. The second is the one that matters for a business.
+
+Bankroll survival, buying accounts sequentially, posterior edge:
+
+| Bankroll | P(broke) | Median end | P(2x) |
+|---|---|---|---|
+| 5 fees ($4,000) | 12.9% | $38,576 | 87% |
+| **10 fees ($8,000)** | **1.4%** | **$42,576** | **94%** |
+| 20 fees ($16,000) | 0.0% | $50,576 | 89% |
+
+Caveat that matters: this models 24 cycles as sequential draws. A funded account
+pays out over up to 24 months, so the calendar time to run 24 cycles is years,
+not months. The EV is right; the speed is optimistic.
+
+## 3. Own money: growth-optimal sizing, and how fragile it is
+
+Full Kelly on the real R distribution is f* = 8.0% per trade, implying 33%/month.
+Half-Kelly 4% implies 24.4%/month, which would double capital every ~3.2 months
+and meet the second target.
+
+That is computed at the studied-data edge of +0.1426R. **Kelly is unforgiving
+about that assumption.** Monthly growth when you size for one edge and the truth
+is another (half-Kelly sizing):
+
+| Sized for | f used | truth -0.015 | truth 0.000 | truth +0.024 | truth +0.050 | truth +0.143 |
+|---|---|---|---|---|---|---|
+| +0.024 | 0.6% | -0.6% | -0.3% | **+0.6%** | +1.3% | +4.3% |
+| +0.050 | 1.4% | -1.8% | -1.0% | +1.1% | **+2.3%** | +10.2% |
+| **+0.143** | **3.9%** | **-10.0%** | **-6.6%** | **-1.3%** | +2.4% | **+23.1%** |
+
+Size for the optimistic edge and be wrong, and growth is negative **even though
+the edge is still positive**. And the path is worse than the growth rate:
+
+| f | true expR | median DD | P(DD>50%) | median 24mo | P(lose half) |
+|---|---|---|---|---|---|
+| 1.0% | +0.024 | 37% | 18% | 1.19x | 3% |
+| 1.0% | +0.143 | 21% | 0% | 5.28x | 0% |
+| 4.0% | +0.024 | 91% | 100% | **0.53x** | **49%** |
+| 4.0% | +0.143 | 66% | 95% | 190x | 0% |
+| 8.0% | +0.024 | 100% | 100% | 0.01x | 86% |
+
+The 24%/month plan requires surviving a 66% drawdown in the *good* case and
+loses half the account in the likely one. **f = 1% is the only sizing that is
+positive in both worlds.**
+
+## 4. The number that governs everything
+
+Trades needed to distinguish a +0.1426R edge from a +0.024R one, 95%
+confidence, 80% power: **1,074 trades = 21 months at 52 trades/month.**
+
+You cannot know which world you are in for about two years, and the correct
+action differs enormously between them. That, not the return figure, is the
+central problem.
+
+## 5. The business model this implies
+
+Use the prop structure as **paid-for out-of-sample validation with capped
+downside**, and let it resolve the edge question before own capital is scaled.
+
+**Phase 1 (roughly 21 months).** Run prop evaluations sequentially, never in
+parallel, at 0.25% risk and 2% heat. Bankroll 10 fees ($8,000), P(broke) 1.4%
+at the pessimistic edge. Expected +$9,279/yr at the posterior edge, +$104,658 at
+the studied one, and about -$800/yr if there is no edge at all. Own capital
+either stays out or runs at f = 1%, the only sizing positive in both worlds.
+The trade record accumulating across those accounts IS the experiment.
+
+**Phase 2 (after ~1,074 trades).** The edge is now measured, not assumed. If it
+confirms near +0.14R, scale own capital toward f = 2-4% knowing the drawdown
+profile above. If it lands near +0.024R, stay on prop churn, which remains +EV
+at roughly 2x on fees. If it is at or below zero, stop.
+
+Why this is the right structure: it is the only configuration where the
+downside is bounded ($800 a throw), the experiment pays for itself while
+running, and the irreversible decision (levering own capital) is deferred until
+the evidence exists to make it. Sizing own capital at 4% today is a coin flip on
+an unresolved question with a 49% chance of losing half.
+
+**What it is not.** It is not 10%/month, and it is not 100% per quarter with any
+confidence. It is a capped-downside option on an unresolved edge, run at a scale
+where variance cannot ruin you before the answer arrives.
