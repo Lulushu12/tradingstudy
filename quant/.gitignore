@@ -1,5 +1,3 @@
-data/raw1m/
-data/labels/
-data/sets/
-data/equity/
+data/
 __pycache__/
+*.pyc

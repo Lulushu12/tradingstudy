@@ -1,0 +1,66 @@
+=== 1h: 239,520 rows, 5 symbols ===
+    BASE 71 features | AUX 40 features | BOTH 111
+    unconditional expR: long -0.0859  short -0.0354
+
+   set   thr       n     expR  monthly R   maxDD R   ratio  %/mo @6% floor
+  BASE   0.0   93294  -0.0049      -6.90    1979.7  -0.003          -0.02%
+  BASE   0.1   43532   0.0204      13.53     882.1   0.015           0.09%
+  BASE   0.2   15948   0.0444      10.79     597.9   0.018           0.11%
+  BASE   0.3    4584  -0.0016      -0.11     223.3  -0.000          -0.00%
+  BASE   0.4    1100   0.0070       0.12     185.5   0.001           0.00%
+  BASE   0.5     239   0.0996       0.36      66.9   0.005           0.03%
+   AUX   0.0  100381  -0.0274     -41.88    3799.2  -0.011          -0.07%
+   AUX   0.1   57538  -0.0199     -17.45    1772.1  -0.010          -0.06%
+   AUX   0.2   30678  -0.0069      -3.25     728.8  -0.004          -0.03%
+   AUX   0.3   16272  -0.0054      -1.35     565.6  -0.002          -0.01%
+   AUX   0.4    7977  -0.0082      -1.00     553.4  -0.002          -0.01%
+   AUX   0.5    4305   0.0306       2.01     388.1   0.005           0.03%
+   AUX   0.8    1166   0.1371       2.44     201.9   0.012           0.07%
+   AUX   1.0     297   0.2804       1.27      45.0   0.028           0.17%
+  BOTH   0.0  102471  -0.0013      -2.10    1928.8  -0.001          -0.01%
+  BOTH   0.1   57735   0.0069       6.10    1419.9   0.004           0.03%
+  BOTH   0.2   27461   0.0517      21.65     563.2   0.038           0.23%
+  BOTH   0.3   11822   0.1170      21.08     329.6   0.064           0.38%
+  BOTH   0.4    5036   0.1405      10.79     258.9   0.042           0.25%
+  BOTH   0.5    2311   0.0995       3.51     209.3   0.017           0.10%
+  BOTH   0.8     336   0.2489       1.27      50.3   0.025           0.15%
+
+top AUX features by in-sample gain:
+   ax_oi_usd                      37914
+   ax_acct_ratio                  24970
+   ax_premium_ma24                21533
+   ax_oi                          17460
+   ax_oi_chg96                    16350
+   ax_smart_vs_crowd              14950
+   ax_tt_size                     14846
+   ax_funding_ma21                13468
+   ax_tt_size_vs_count            12867
+   ax_acct_z96                    11357
+   ax_tt_count                     9638
+   ax_funding_z                    8669
+
+top features overall (BOTH), aux marked *:
+     dow                            23305
+     since_lo480                    21248
+   * ax_oi_usd                      20014
+     since_hi480                    19898
+   * ax_acct_ratio                  17074
+   * ax_premium_ma24                16107
+     to_hi480                       15143
+     to_hi96                        14473
+     atr_rank                       13560
+     pos480                         12165
+   * ax_smart_vs_crowd              11853
+   * ax_oi                          11418
+   * ax_acct_z96                    11186
+   * ax_oi_chg96                    10307
+   * ax_funding_ma21                 9652
+
+   9/20 of the top features are auxiliary (40/111 = 36% of the pool)
+
+=== VERDICT (walk-forward, best threshold per set) ===
+   AUX    +0.169%/month
+   BASE   +0.108%/month
+   BOTH   +0.384%/month
+
+   adding auxiliary data changed walk-forward monthly return by +0.276 percentage points
