@@ -1,0 +1,12 @@
+zips/
+fzips/
+m15/
+*.parquet
+*.xml
+syms.txt
+usdt.txt
+sig_syms.txt
+files.txt
+ffiles.txt
+m15files.txt
+__pycache__/
