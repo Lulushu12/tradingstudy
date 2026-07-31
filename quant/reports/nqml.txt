@@ -1,0 +1,10 @@
+NQ 1h: 12,447 bars  2024-04-10 02:00:00+00:00 -> 2026-07-31 07:00:00+00:00  33 features (11 volume-derived)
+unconditional expR: long -0.0010  short -0.0167
+  IS thr=0.0  n=10322  expR +0.5573  monthly +207.98R  maxDD   64.8R  ratio 3.208  -> at 6% floor: risk 0.093% = +19.25%/mo
+  IS thr=0.1  n=6995   expR +0.7395  monthly +187.00R  maxDD   57.8R  ratio 3.237  -> at 6% floor: risk 0.104% = +19.42%/mo
+  IS thr=0.2  n=3932   expR +0.9105  monthly +129.42R  maxDD   32.7R  ratio 3.963  -> at 6% floor: risk 0.184% = +23.78%/mo
+  IS thr=0.3  n=1918   expR +1.1394  monthly +79.01R  maxDD   18.2R  ratio 4.345  -> at 6% floor: risk 0.330% = +26.07%/mo
+  WF thr=0.0  n=6213   expR +0.0024  monthly  +0.53R  maxDD  308.4R  ratio 0.002  -> at 6% floor: risk 0.019% = +0.01%/mo
+  WF thr=0.1  n=4358   expR -0.0026  monthly  -0.40R  maxDD  252.0R  ratio -0.002  -> at 6% floor: risk 0.024% = -0.01%/mo
+  WF thr=0.2  n=2485   expR -0.0468  monthly  -4.21R  maxDD  224.5R  ratio -0.019  -> at 6% floor: risk 0.027% = -0.11%/mo
+  WF thr=0.3  n=1317   expR -0.1081  monthly  -5.15R  maxDD  189.6R  ratio -0.027  -> at 6% floor: risk 0.032% = -0.16%/mo

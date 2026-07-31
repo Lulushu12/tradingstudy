@@ -1,4 +1,5 @@
 data/raw1m/
 data/labels/
 data/sets/
+data/equity/
 __pycache__/

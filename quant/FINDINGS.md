@@ -730,3 +730,126 @@ an unresolved question with a 49% chance of losing half.
 **What it is not.** It is not 10%/month, and it is not 100% per quarter with any
 confidence. It is a capped-downside option on an unresolved edge, run at a scale
 where variance cannot ruin you before the answer arrives.
+
+---
+
+# Part 6 — NASDAQ-100: cross-sectional equities and NQ futures
+
+## Was volume used on crypto?
+
+Yes, centrally. 21 of the 71 crypto features were volume or order-flow derived:
+`volume`, `quote_volume`, `trades`, `taker_buy_base/quote`, `tbi` (aggressor
+imbalance) and its 8/24/96-bar means and z-scores, `dq`, `dq_cum24`, `absorb`,
+`flow_eff`, `avg_trade_usd`, `ats_z96`, `ats_rank480`, `trade_intensity`,
+`vol_per_trade_z`, `range_per_trade`, `rpt_z`, `kyle` (impact per root notional),
+`updn_ratio`.
+
+The one rule that survived every crypto test, `vol_spike_cont`, IS a volume rule
+(trade count above 1.8x its 96-bar average). `kyle`, `vol_per_trade_z` and
+`range_per_trade` appear throughout the optimised rule sets. Crypto also supplied
+something equities cannot: a true taker buy/sell split, i.e. real aggressor-side
+flow rather than a proxy.
+
+## Why NASDAQ was worth trying
+
+Two structural advantages over crypto perps:
+- **Cost.** NQ futures round-trip is about 0.005% (roughly $4 on ~$500k notional
+  plus a 0.25pt spread) versus 0.12% on crypto. Cost drag killed every crypto edge.
+- **Breadth.** Crypto gave 5 assets at rho=0.30, i.e. 2.27 effective independent
+  streams. Ninety-plus names with market beta removed give far more, and breadth
+  is what turns a small edge into a usable Sharpe.
+
+## Data
+97 Nasdaq-100 names, daily OHLCV + adjusted close, 1998-2026, 550,284 rows.
+NQ=F hourly, 12,447 bars, 2024-04 to 2026-07 (Yahoo serves ~2 years of intraday).
+47 cross-sectional features, 17 volume-derived.
+
+## Result 1: cross-sectional long/short is the first positive walk-forward
+### result in this entire study
+
+Risk-parity long/short, top and bottom decile, net of 5bps round trip:
+
+| Horizon | WF ann. | WF Sharpe | maxDD | Positive months |
+|---|---|---|---|---|
+| 1 day | +6.7% | **+0.65** | 42.9% | 58% |
+| 5 day | +6.5% | **+0.68** | 35.6% | 53% |
+| 21 day | +2.0% | +0.22 | 28.8% | 54% |
+
+Crypto's walk-forward Sharpe was 0.07 or negative everywhere. This is genuinely
+positive out-of-sample, market-neutral, over 28 years, and is consistent with the
+published cross-sectional equity anomaly literature.
+
+**Volume carries as much signal as price, with a smoother ride:**
+
+| Feature set | WF Sharpe | maxDD |
+|---|---|---|
+| volume only (12 features) | **+0.55** | **24.4%** |
+| price only (33 features) | +0.54 | 29.5% |
+| both | +0.68 | 35.6% |
+
+## Result 2: but it has decayed to nothing
+
+Walk-forward annualised return by year:
+
+```
+2004 +14.6  2005 +13.6  2006  +3.7  2007  +7.2  2008 +31.4  2009 +24.1
+2010 +11.0  2011  -3.6  2012  -9.6  2013 +10.3  2014 +15.0  2015 +13.0
+2016  +6.9  2017  -5.2  2018 +19.3  2019  +3.1  2020 +31.1  2021  -3.5
+2022  -6.6  2023 -12.4  2024  -9.6  2025  +8.4  2026  -6.5
+```
+
+First half **+10.7%/yr**, second half **+3.2%/yr**, and five of the last six
+years negative. Two readings, and both are bad for trading it forward: either
+survivorship bias inflates the early era (the universe is today's index
+membership over 28 years), or the factor has been arbitraged away. The
+literature supports the second; the data cannot separate them.
+
+Threats tested:
+- **Calendar artefact: CLEARED.** Removing `dow`/`dom` moves Sharpe 0.68 -> 0.63.
+- **Cost: FAILS at realistic retail levels.** Edge crosses zero at ~22bps round
+  trip. At 20bps, which is realistic for shorting 90 names daily, it is +1.3%/yr
+  at Sharpe 0.14. Short borrow is not modelled at all.
+- **Leverage to target: RUIN.** Unlevered Calmar is 0.18. 2%/month needs 4.1x,
+  5%/month 12.3x, 10%/month 33x. All imply a 100% drawdown.
+
+## Result 3: NQ futures intraday, and a bug worth reporting
+
+First run showed unconditional expR of **+0.1942 long** vs -0.0017 short, which
+looked like a large directional edge. It was not. I had resolved stops and
+targets on hourly CLOSES, ignoring bar highs and lows, so stop-outs went
+undetected and losers were scored as winners. For crypto I used the true 1-minute
+path; Yahoo gives no sub-hourly futures data, so I re-ran on true bar high/low.
+
+After the fix:
+
+| | expR | monthly | implied |
+|---|---|---|---|
+| unconditional long | **-0.0010** | — | — |
+| unconditional short | -0.0167 | — | — |
+| WF thr=0.0 | +0.0024 | +0.53R | **+0.01%/mo** |
+| WF thr=0.3 | -0.1081 | -5.15R | -0.16%/mo |
+| IS thr=0.3 | +1.1394 | +79R | +26.07%/mo |
+
+The entire apparent long edge was an artefact of undetected stop-outs. Corrected,
+NQ sits on the same martingale null as BTC, and walk-forward is zero. In-sample
+reaches 26%/month, the same hindsight premium seen everywhere in this study.
+
+## Verdict on NASDAQ
+
+Better than crypto, and for the predicted reason: cheap execution plus real
+breadth produced the only positive out-of-sample Sharpe in the project (0.65-0.68
+on the cross-sectional book). Volume features carried it as strongly as price
+features, which answers the question directly.
+
+It still does not reach the target, for the same arithmetic as everywhere else:
+Calmar 0.18 means any leverage sufficient for 2%/month implies ruin. And the
+edge has been flat-to-negative since 2021, so even the modest version is not
+something I would trade forward without knowing whether survivorship or decay
+explains it.
+
+What this result IS: a legitimate institutional quant equity strategy. Sharpe
+0.65 market-neutral at 5bps execution is roughly what systematic equity funds
+run, unlevered, on prime-broker cost structures. It is not a retail path to
+10%/month, and no amount of leverage converts it into one.
+
+`quant/src/`: `eqfetch.py`, `eqml.py`, `eqstress.py`, `nqml.py`.

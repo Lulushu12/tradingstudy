@@ -1,0 +1,20 @@
+loading universe ...
+  97 symbols, 550,284 rows, 1998-01-02 -> 2026-07-30
+  47 features (17 volume-derived)
+
+=== horizon 1d ===
+  IS: ann  +80.2%  vol  13.7%  Sharpe +5.87  maxDD   7.9%  mean/mo +7.02%  pos 92%
+  WF: ann   +6.7%  vol  10.3%  Sharpe +0.65  maxDD  42.9%  mean/mo +0.55%  pos 58%
+  top features: dow, range_pct, dom, intraday_ret, intraday_sum5, up_wick, close_loc, vol63
+
+=== horizon 5d ===
+  IS: ann  +42.0%  vol  13.1%  Sharpe +3.21  maxDD   6.8%  mean/mo +3.56%  pos 84%
+  WF: ann   +6.5%  vol   9.5%  Sharpe +0.68  maxDD  35.6%  mean/mo +0.54%  pos 53%
+  top features: dow, vol63, amihud21, dom, mom126, intraday_sum63, vol21, mom252_21
+
+=== horizon 21d ===
+  IS: ann  +27.3%  vol  14.7%  Sharpe +1.85  maxDD  11.4%  mean/mo +2.21%  pos 69%
+  WF: ann   +2.0%  vol   9.1%  Sharpe +0.22  maxDD  28.8%  mean/mo +0.15%  pos 54%
+  top features: vol63, dow, amihud21, intraday_sum63, mom126, vol_of_vol, dom, mom252
+
+saved reports/eqml.csv
