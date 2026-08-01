@@ -12,3 +12,8 @@ m15files.txt
 __pycache__/
 meme_*.parquet
 meme_closes.npy
+launch_cohort.parquet
+dex_paths.parquet
+dex_signals.parquet
+fetch_set.parquet
+launch_signals_binance.parquet
