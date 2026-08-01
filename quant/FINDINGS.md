@@ -932,3 +932,80 @@ market on the higher-timeframe signal.
 
 `quant/src/`: `mcb.py` (MCB Clone v1 port), `mtf.py` (session levels, HTF
 gating, pullback refinement), `splitentry.py`, `run_mtf.py`.
+
+---
+
+# Part 8 — Divergence-driven exits and stop management
+
+Part 7 showed a same-direction divergence appearing AFTER entry marks the losing
+cohort. That cannot be used to select entries (membership is only knowable after
+the fact) but it CAN be used to manage risk, because you are already in the
+trade when the divergence prints. Causal, and tradeable.
+
+Variants against an identical entry (4h vol_spike_cont, market fill, 2xATR stop,
+2R target, 3,391 signals, 5 assets):
+
+- **TIGHTEN** on the first same-direction divergence after entry, move the stop
+  to that divergence pivot's own extreme plus a buffer
+- **REDDOT** exit at market on the first adverse trigger-wave cross
+- **BOTH**
+
+R is always measured against the ORIGINAL risk, since that is what the position
+was sized on, so a tightened stop that is hit loses less than 1R.
+
+## Results (15m divergences, 5% buffer)
+
+| Variant | expR | avg win | avg loss | %stop | %moved | maxDD | %/mo |
+|---|---|---|---|---|---|---|---|
+| BASE | +0.1448 | +1.771 | -0.982 | 56% | 0% | 104.9R | 0.43% |
+| **TIGHTEN** | +0.1197 | +1.365 | **-0.606** | 77% | 66% | **54.7R** | **0.68%** |
+| REDDOT | -0.0158 | +0.263 | -0.299 | 7% | 0% | 84.1R | -0.06% |
+| BOTH | -0.0131 | +0.264 | -0.288 | 11% | 11% | 75.1R | -0.05% |
+
+Stable across the buffer sweep: 0.67% / 0.68% / 0.59% at buffers 0 / 5% / 15%.
+
+**REDDOT fails even when defined correctly.** The first run used any WaveTrend
+cross-down, which exited 98% of trades almost immediately. Restricting it to the
+true Market Cipher red dot (cross while overbought) still exits 92% of trades,
+because on a 15m chart that event occurs many times inside a multi-day hold.
+It is not an exit rule at this timeframe pairing, it is churn.
+
+## What survives a bootstrap, and what does not
+
+Paired block bootstrap, 4,000 resamples, block 40:
+
+| Statistic | Estimate | 95% CI | Verdict |
+|---|---|---|---|
+| maxDD difference | **-39.2R** | **[-98.8, -0.7]** | **REAL** (P=0.978) |
+| monthly-return difference | +0.123pp | [-0.270, +0.580] | not established (P=0.761) |
+
+The drawdown reduction is statistically solid. The return improvement is not.
+
+Stability is mixed and argues for caution:
+
+| Year | 2021 | 2022 | 2023 | 2024 | 2025 | 2026 |
+|---|---|---|---|---|---|---|
+| Better | BASE | TIGHTEN | TIGHTEN | BASE | BASE | BASE |
+
+Per symbol, TIGHTEN reduces expR on BTC (+0.145 -> +0.094), SOL (+0.163 ->
++0.108) and BNB (+0.138 -> +0.104), is flat on ETH, and improves only XRP
+(+0.159 -> +0.179).
+
+## Verdict
+
+The idea is mechanically sound and it does what it was designed to do: average
+loss falls 38% and maximum drawdown roughly halves, both robustly. That matters
+specifically under Breakout rules, where position size is set by the distance to
+a static floor — halving drawdown roughly doubles the size that floor permits.
+
+But raw per-trade edge falls, on four of five symbols and in four of six years,
+and the headline monthly-return gain does not clear a bootstrap. The honest
+statement is: **a real and reliable drawdown reduction, purchased with a real
+reduction in expectancy, whose net effect on risk-adjusted return is positive at
+about 76% confidence rather than established.**
+
+It is the most promising structural idea tested in this study, and it is still
+not enough to change the headline conclusion.
+
+`quant/src/`: `exits.py`, `run_exits.py`, `mcb.py` (extended to return
+divergence pivot levels).

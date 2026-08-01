@@ -1,0 +1,22 @@
+
+=== 4h signal, 15min divergence exits (stop buffer 5% of original risk) ===
+variant       n     expR  avg win  avg loss   %tgt  %stop   %sig  %moved    mo R   maxDD    %/mo
+BASE       3391   0.1448    1.771    -0.982    35%    56%     0%      0%    7.56   104.9   0.43%
+TIGHTEN    3391   0.1197    1.365    -0.606    23%    77%     0%     66%    6.25    54.7   0.68%
+REDDOT     3391  -0.0239    0.242    -0.180     1%     1%    98%      0%   -1.25    84.3  -0.09%
+BOTH       3391  -0.0237    0.242    -0.179     1%     1%    98%      1%   -1.24    83.7  -0.09%
+
+=== 4h signal, 5min divergence exits (stop buffer 5% of original risk) ===
+variant       n     expR  avg win  avg loss   %tgt  %stop   %sig  %moved    mo R   maxDD    %/mo
+BASE       3391   0.1448    1.771    -0.982    35%    56%     0%      0%    7.56   104.9   0.43%
+TIGHTEN    3391   0.0667    1.086    -0.406    15%    85%     0%     88%    3.48    43.7   0.48%
+REDDOT     3391  -0.0344    0.146    -0.120     0%     0%   100%      0%   -1.80   119.1  -0.09%
+BOTH       3391  -0.0343    0.146    -0.120     0%     0%    99%      1%   -1.79   118.9  -0.09%
+
+=== ranked by monthly return ===
+   15min TIGHTEN   expR +0.1197  avg loss -0.606  +0.68%/mo
+    5min TIGHTEN   expR +0.0667  avg loss -0.406  +0.48%/mo
+    5min BASE      expR +0.1448  avg loss -0.982  +0.43%/mo
+   15min BASE      expR +0.1448  avg loss -0.982  +0.43%/mo
+   15min BOTH      expR -0.0237  avg loss -0.179  -0.09%/mo
+   15min REDDOT    expR -0.0239  avg loss -0.180  -0.09%/mo

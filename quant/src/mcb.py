@@ -88,6 +88,7 @@ def regular_divergences(df, osc, kind, lvl_primary, lvl_secondary,
     n = len(o)
     out = np.zeros(n, bool)
     strength = np.zeros(n)
+    level = np.full(n, np.nan)      # price of the pivot that formed the div
 
     conf = bot if kind == "bull" else top
     prev_p = -1
@@ -103,6 +104,7 @@ def regular_divergences(df, osc, kind, lvl_primary, lvl_secondary,
                 if price_ll and osc_hl and lvl_ok:
                     out[i] = True
                     strength[i] = 2.0 if o[p] <= lvl_primary else 1.0
+                    level[i] = lo[p]
             else:
                 price_hh = hi[p] > hi[prev_p]
                 osc_lh = o[p] < o[prev_p]
@@ -110,8 +112,9 @@ def regular_divergences(df, osc, kind, lvl_primary, lvl_secondary,
                 if price_hh and osc_lh and lvl_ok:
                     out[i] = True
                     strength[i] = 2.0 if o[p] >= lvl_primary else 1.0
+                    level[i] = hi[p]
         prev_p = p
-    return out, strength
+    return out, strength, level
 
 
 def build(df):
@@ -122,10 +125,12 @@ def build(df):
     f = pd.DataFrame(index=df.index)
     f["wt1"], f["wt2"], f["mfi"], f["atr"] = wt1, wt2, mfi, atr
 
-    wt_bull, wt_bull_s = regular_divergences(df, wt2, "bull", -65, -40)
-    wt_bear, wt_bear_s = regular_divergences(df, wt2, "bear", 45, 15)
-    mfi_bull, _ = regular_divergences(df, mfi, "bull", -2.5, -2.5)
-    mfi_bear, _ = regular_divergences(df, mfi, "bear", 2.5, 2.5)
+    wt_bull, wt_bull_s, wt_bull_lvl = regular_divergences(df, wt2, "bull", -65, -40)
+    wt_bear, wt_bear_s, wt_bear_lvl = regular_divergences(df, wt2, "bear", 45, 15)
+    mfi_bull, _, mfi_bull_lvl = regular_divergences(df, mfi, "bull", -2.5, -2.5)
+    mfi_bear, _, mfi_bear_lvl = regular_divergences(df, mfi, "bear", 2.5, 2.5)
+    f["div_bull_level"] = np.where(np.isfinite(wt_bull_lvl), wt_bull_lvl, mfi_bull_lvl)
+    f["div_bear_level"] = np.where(np.isfinite(wt_bear_lvl), wt_bear_lvl, mfi_bear_lvl)
     f["wt_div_bull"] = wt_bull
     f["wt_div_bear"] = wt_bear
     f["mfi_div_bull"] = mfi_bull
