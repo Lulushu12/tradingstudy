@@ -1,0 +1,55 @@
+
+--- 4h signal -> 15min stack trigger (confirm rate 1%) ---
+  A market only      n=3391  expR +0.1448  per-unit-risk +0.1448  deployed 1.00  monthly  +7.56R  maxDD  105.9R  +0.43%/mo
+  C split 50/50      n=3391  expR +0.0722  per-unit-risk +0.1432  deployed 0.50  monthly  +3.77R  maxDD   54.0R  +0.42%/mo
+  market-entry expR on UNCONFIRMED signals +0.1503 vs CONFIRMED -0.4297  -> winners ARE in the skipped set
+
+--- 4h signal -> 15min div trigger (confirm rate 11%) ---
+  A market only      n=3391  expR +0.1448  per-unit-risk +0.1448  deployed 1.00  monthly  +7.56R  maxDD  105.9R  +0.43%/mo
+  B precision only   n=358   expR +0.0801  per-unit-risk +0.0801  deployed 1.00  monthly  +0.44R  maxDD   21.0R  +0.13%/mo
+  C split 50/50      n=3391  expR +0.0766  per-unit-risk +0.1386  deployed 0.55  monthly  +4.00R  maxDD   58.2R  +0.41%/mo
+  market-entry expR on UNCONFIRMED signals +0.1862 vs CONFIRMED -0.2106  -> winners ARE in the skipped set
+
+--- 4h signal -> 15min cross trigger (confirm rate 100%) ---
+  A market only      n=3391  expR +0.1448  per-unit-risk +0.1448  deployed 1.00  monthly  +7.56R  maxDD  105.9R  +0.43%/mo
+  B precision only   n=3391  expR +0.1487  per-unit-risk +0.1487  deployed 1.00  monthly  +7.76R  maxDD   91.4R  +0.51%/mo
+  C split 50/50      n=3391  expR +0.1467  per-unit-risk +0.1467  deployed 1.00  monthly  +7.66R  maxDD   98.2R  +0.47%/mo
+
+--- 4h signal -> 15min cross_ext trigger (confirm rate 42%) ---
+  A market only      n=3391  expR +0.1448  per-unit-risk +0.1448  deployed 1.00  monthly  +7.56R  maxDD  105.9R  +0.43%/mo
+  B precision only   n=1420  expR +0.1084  per-unit-risk +0.1084  deployed 1.00  monthly  +2.37R  maxDD   48.6R  +0.29%/mo
+  C split 50/50      n=3391  expR +0.0951  per-unit-risk +0.1340  deployed 0.71  monthly  +4.96R  maxDD   72.8R  +0.41%/mo
+  market-entry expR on UNCONFIRMED signals +0.4209 vs CONFIRMED -0.2347  -> winners ARE in the skipped set
+
+--- 4h signal -> 5min stack trigger (confirm rate 7%) ---
+  A market only      n=3391  expR +0.1448  per-unit-risk +0.1448  deployed 1.00  monthly  +7.56R  maxDD  105.9R  +0.43%/mo
+  B precision only   n=251   expR +0.0187  per-unit-risk +0.0187  deployed 1.00  monthly  +0.07R  maxDD   33.7R  +0.01%/mo
+  C split 50/50      n=3391  expR +0.0731  per-unit-risk +0.1361  deployed 0.54  monthly  +3.82R  maxDD   60.8R  +0.38%/mo
+  market-entry expR on UNCONFIRMED signals +0.1804 vs CONFIRMED -0.3087  -> winners ARE in the skipped set
+
+--- 4h signal -> 5min div trigger (confirm rate 53%) ---
+  A market only      n=3391  expR +0.1448  per-unit-risk +0.1448  deployed 1.00  monthly  +7.56R  maxDD  105.9R  +0.43%/mo
+  B precision only   n=1781  expR +0.1219  per-unit-risk +0.1219  deployed 1.00  monthly  +3.34R  maxDD   56.3R  +0.36%/mo
+  C split 50/50      n=3391  expR +0.1044  per-unit-risk +0.1369  deployed 0.76  monthly  +5.45R  maxDD   75.0R  +0.44%/mo
+  market-entry expR on UNCONFIRMED signals +0.4044 vs CONFIRMED -0.0900  -> winners ARE in the skipped set
+
+--- 4h signal -> 5min cross trigger (confirm rate 100%) ---
+  A market only      n=3391  expR +0.1448  per-unit-risk +0.1448  deployed 1.00  monthly  +7.56R  maxDD  105.9R  +0.43%/mo
+  B precision only   n=3391  expR +0.1352  per-unit-risk +0.1352  deployed 1.00  monthly  +7.06R  maxDD   99.9R  +0.42%/mo
+  C split 50/50      n=3391  expR +0.1400  per-unit-risk +0.1400  deployed 1.00  monthly  +7.31R  maxDD  102.9R  +0.43%/mo
+
+--- 4h signal -> 5min cross_ext trigger (confirm rate 93%) ---
+  A market only      n=3391  expR +0.1448  per-unit-risk +0.1448  deployed 1.00  monthly  +7.56R  maxDD  105.9R  +0.43%/mo
+  B precision only   n=3142  expR +0.1285  per-unit-risk +0.1285  deployed 1.00  monthly  +6.22R  maxDD   97.6R  +0.38%/mo
+  C split 50/50      n=3391  expR +0.1320  per-unit-risk +0.1370  deployed 0.96  monthly  +6.89R  maxDD  100.5R  +0.41%/mo
+  market-entry expR on UNCONFIRMED signals +0.8643 vs CONFIRMED +0.0873  -> winners ARE in the skipped set
+
+=== best configurations by monthly return ===
+   15min cross      B precision only   expR +0.1487  +0.51%/mo  confirm 100%
+   15min cross      C split 50/50      expR +0.1467  +0.47%/mo  confirm 100%
+    5min div        C split 50/50      expR +0.1044  +0.44%/mo  confirm 53%
+   15min cross      A market only      expR +0.1448  +0.43%/mo  confirm 100%
+    5min div        A market only      expR +0.1448  +0.43%/mo  confirm 53%
+   15min div        A market only      expR +0.1448  +0.43%/mo  confirm 11%
+   15min stack      A market only      expR +0.1448  +0.43%/mo  confirm 1%
+    5min cross      A market only      expR +0.1448  +0.43%/mo  confirm 100%

@@ -9,3 +9,32 @@ fetching auxiliary series for ['BTCUSDT', 'ETHUSDT', 'SOLUSDT', 'XRPUSDT', 'BNBU
   SOLUSDT   metrics   490,014 rows  2021-12-01 00:00:00+00:00 -> 2026-07-30 23:55:00+00:00
   SOLUSDT   premium    48,000 rows  2021-01-01 00:00:00+00:00 -> 2026-06-30 23:00:00+00:00
   XRPUSDT   funding     6,114 rows  2021-01-01 00:00:00.002000+00:00 -> 2026-07-31 16:00:00+00:00
+  XRPUSDT   metrics   490,034 rows  2021-12-01 00:00:00+00:00 -> 2026-07-30 23:55:00+00:00
+  XRPUSDT   premium    48,000 rows  2021-01-01 00:00:00+00:00 -> 2026-06-30 23:00:00+00:00
+  BNBUSDT   funding     6,021 rows  2021-01-01 00:00:00.002000+00:00 -> 2026-07-31 16:00:00+00:00
+  BNBUSDT   metrics   490,320 rows  2021-12-01 00:00:00+00:00 -> 2026-07-30 23:55:00+00:00
+  BNBUSDT   premium    47,976 rows  2021-01-01 00:00:00+00:00 -> 2026-06-30 23:00:00+00:00
+ADAUSDT: 2,934,720 bars  2021-01-01 00:00:00+00:00 -> 2026-07-31 23:59:00+00:00  missing_months=1  gap_bars=0
+DOGEUSDT: 2,934,720 bars  2021-01-01 00:00:00+00:00 -> 2026-07-31 23:59:00+00:00  missing_months=1  gap_bars=0
+LINKUSDT: 2,934,720 bars  2021-01-01 00:00:00+00:00 -> 2026-07-31 23:59:00+00:00  missing_months=1  gap_bars=0
+LTCUSDT: 2,927,520 bars  2021-01-01 00:00:00+00:00 -> 2026-07-31 23:59:00+00:00  missing_months=1  gap_bars=7,200
+AVAXUSDT: 2,934,720 bars  2021-01-01 00:00:00+00:00 -> 2026-07-31 23:59:00+00:00  missing_months=1  gap_bars=0
+DOTUSDT: 2,934,720 bars  2021-01-01 00:00:00+00:00 -> 2026-07-31 23:59:00+00:00  missing_months=1  gap_bars=0
+ATOMUSDT: 2,934,720 bars  2021-01-01 00:00:00+00:00 -> 2026-07-31 23:59:00+00:00  missing_months=1  gap_bars=0
+UNIUSDT: 2,934,720 bars  2021-01-01 00:00:00+00:00 -> 2026-07-31 23:59:00+00:00  missing_months=1  gap_bars=0
+ETCUSDT: 2,934,720 bars  2021-01-01 00:00:00+00:00 -> 2026-07-31 23:59:00+00:00  missing_months=1  gap_bars=0
+FILUSDT: 2,927,520 bars  2021-01-01 00:00:00+00:00 -> 2026-07-31 23:59:00+00:00  missing_months=1  gap_bars=7,200
+NEARUSDT: 2,927,520 bars  2021-01-01 00:00:00+00:00 -> 2026-07-31 23:59:00+00:00  missing_months=1  gap_bars=7,200
+AAVEUSDT: 2,934,720 bars  2021-01-01 00:00:00+00:00 -> 2026-07-31 23:59:00+00:00  missing_months=1  gap_bars=0
+ALGOUSDT: 2,934,720 bars  2021-01-01 00:00:00+00:00 -> 2026-07-31 23:59:00+00:00  missing_months=1  gap_bars=0
+EOSUSDT: 2,305,984 bars  2021-01-01 00:00:00+00:00 -> 2025-05-21 09:03:00+00:00  missing_months=14  gap_bars=0
+XLMUSDT: 2,927,520 bars  2021-01-01 00:00:00+00:00 -> 2026-07-31 23:59:00+00:00  missing_months=1  gap_bars=7,200
+TRXUSDT: 2,927,520 bars  2021-01-01 00:00:00+00:00 -> 2026-07-31 23:59:00+00:00  missing_months=1  gap_bars=7,200
+VETUSDT: 2,927,520 bars  2021-01-01 00:00:00+00:00 -> 2026-07-31 23:59:00+00:00  missing_months=1  gap_bars=7,200
+SANDUSDT: 2,892,540 bars  2021-01-25 07:00:00+00:00 -> 2026-07-31 23:59:00+00:00  missing_months=1  gap_bars=7,200
+AXSUSDT: 2,934,720 bars  2021-01-01 00:00:00+00:00 -> 2026-07-31 23:59:00+00:00  missing_months=1  gap_bars=0
+THETAUSDT: 2,934,720 bars  2021-01-01 00:00:00+00:00 -> 2026-07-31 23:59:00+00:00  missing_months=1  gap_bars=0
+FTMUSDT: 2,927,520 bars  2021-01-01 00:00:00+00:00 -> 2026-07-31 23:59:00+00:00  missing_months=1  gap_bars=7,200
+GRTUSDT: 2,927,520 bars  2021-01-01 00:00:00+00:00 -> 2026-07-31 23:59:00+00:00  missing_months=1  gap_bars=7,200
+CHZUSDT: 2,905,500 bars  2021-01-21 07:00:00+00:00 -> 2026-07-31 23:59:00+00:00  missing_months=1  gap_bars=0
+ENJUSDT: 2,934,720 bars  2021-01-01 00:00:00+00:00 -> 2026-07-31 23:59:00+00:00  missing_months=1  gap_bars=0

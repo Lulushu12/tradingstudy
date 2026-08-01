@@ -853,3 +853,82 @@ run, unlevered, on prime-broker cost structures. It is not a retail path to
 10%/month, and no amount of leverage converts it into one.
 
 `quant/src/`: `eqfetch.py`, `eqml.py`, `eqstress.py`, `nqml.py`.
+
+---
+
+# Part 7 — Multi-timeframe cascade, MCB triggers, split entries
+
+Tests three things the study had not: session-anchored confluence levels, HTF
+regime gating, and lower-timeframe entry timing — the last using MCB Clone v1
+(WaveTrend + MFI clone divergences and trigger-wave crosses) ported from
+FROZEN_SPEC.md, and evaluated with a split-entry structure.
+
+Setup: 4h `vol_spike_cont` decides direction (the one rule that survived every
+earlier test, pooled +0.1448R over 3,391 signals on 5 assets). A lower timeframe
+(15m or 5m) decides the moment. Three entry variants on identical signals:
+A all at market, B all on confirmation else skip, C half at market and half on
+confirmation.
+
+## The main result: confirmation selects LOSERS
+
+| LTF trigger | Confirm rate | expR on UNCONFIRMED | expR on CONFIRMED |
+|---|---|---|---|
+| 15m stacked div | 1% | +0.150 | **-0.430** |
+| 15m either-osc div | 11% | +0.186 | -0.211 |
+| 15m WT cross into OB/OS | 42% | **+0.421** | -0.235 |
+| 5m stacked div | 7% | +0.180 | -0.309 |
+| 5m either-osc div | 53% | **+0.404** | -0.090 |
+| 5m WT cross into OB/OS | 93% | **+0.864** | +0.087 |
+
+Every selective trigger shows the same sign. The mechanism is not mysterious: if
+4h says long and 15m then prints a bullish divergence or an oversold cross,
+price PULLED BACK — the move failed to run. Signals that never offer a pullback
+entry are the ones that went straight up. For a momentum signal this is exactly
+backwards, and "wait for lower-timeframe confirmation" is actively harmful here.
+
+## The trap in that table
+
+The +0.42 and +0.86 figures on unconfirmed signals look like a spectacular
+filter. **They are not tradeable.** Whether a signal confirms is determined by
+price action AFTER entry, inside the 8-hour window. Membership in the
+"unconfirmed" set is unknowable at signal time, so filtering on it is
+look-ahead. Recorded here because it is the most seductive number in this part.
+
+## Split entry: validated, but it does not beat market entry
+
+The split proposal fixes a real flaw in the pure-precision design — waiting
+skips the runners — and it does what it was meant to:
+
+| Config | A market | B precision | C split 50/50 |
+|---|---|---|---|
+| 15m div | +0.43%/mo | +0.13%/mo | **+0.41%/mo** |
+| 15m cross_ext | +0.43%/mo | +0.29%/mo | **+0.41%/mo** |
+| 5m div | +0.43%/mo | +0.36%/mo | **+0.44%/mo** |
+| 5m cross_ext | +0.43%/mo | +0.38%/mo | **+0.41%/mo** |
+
+C beats B in every single configuration, which is exactly the claim the split
+was designed to make. But C does not beat A: taking everything at market is
+already optimal for this signal, because the signal's edge lives in the moves
+that never retrace.
+
+## The one config that looked better, and did not survive a bootstrap
+
+15m WaveTrend cross confirms 100% of the time, so it selects nothing — it is a
+pure timing shift. It showed expR +0.1487 vs +0.1448 and maxDD 91.4R vs 105.9R,
+i.e. +0.51%/mo vs +0.43%/mo. Block bootstrap, 4,000 resamples, paired:
+
+- difference in expR **+0.0039, 95% CI [-0.022, +0.029]**, P(B>A) = 0.595
+- difference in maxDD 95% CI **[-41.1, +19.0]R**, P(B lower) = 0.718
+
+Both straddle zero. The improvement is noise.
+
+## Verdict
+
+For a momentum signal, entry timing on lower timeframes does not add edge, and
+confirmation-based entry subtracts it. The split-entry structure is the correct
+way to run a two-tranche entry if one is used at all — it dominated
+precision-only everywhere — but for this system the best entry remains 100% at
+market on the higher-timeframe signal.
+
+`quant/src/`: `mcb.py` (MCB Clone v1 port), `mtf.py` (session levels, HTF
+gating, pullback refinement), `splitentry.py`, `run_mtf.py`.
