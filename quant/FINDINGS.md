@@ -1175,3 +1175,67 @@ more uncertainty than a point estimate suggests.
 The correctly specified null (shift the MCB event timestamps by 7-90 days,
 preserving market, trades and drawdown structure while breaking only the
 divergence-to-outcome alignment) is in `selection2.py`.
+
+---
+
+# Part 10 — Is the edge clustered, and can bad clusters be filtered?
+
+## Concentrated, but not autocorrelated
+
+Null = the same trades with their time order shuffled, which preserves the
+return distribution exactly and destroys only the sequencing.
+
+| Statistic | Real | Null mean | Percentile |
+|---|---|---|---|
+| Monthly std | 18.07 | 8.16 | **100%** |
+| **Top-10% of months' share of total profit** | **69.2%** | 32.3% | **100%** |
+| Longest negative run (months) | 4 | 2.53 | 90% |
+| Variance ratio, 2 months | 0.764 | 0.981 | 4% |
+| Variance ratio, 6 months | 0.615 | 0.927 | 14% |
+
+**Sixty-nine percent of all profit comes from seven months out of sixty-six.**
+Monthly variance is more than double what the shuffled null produces.
+
+But the variance ratios are BELOW one and month-to-month autocorrelation is
+**-0.20 at lag 1**. So the returns are heavily CONCENTRATED and mildly
+MEAN-REVERTING, not momentum-clustered. Those are different properties and only
+the first is present. There is no hot-streak to ride.
+
+This reframes the system. It is not a compounding machine that occasionally
+stumbles; it is closer to an option on a handful of trending regimes, with the
+rest of the calendar roughly flat. That is structurally incompatible with a
+"consistent 10% every month" objective regardless of sizing.
+
+## Filtering losing clusters from the equity curve: it fails
+
+First attempt showed the trailing-10-trade filter lifting expectancy from
++0.1197 to +0.4069 and monthly return from 0.68% to **4.43%**. That was a
+look-ahead bug of mine: the filter sorted trades by SIGNAL time and summed the
+previous k rows, but trades hold for days, so many of those k were still OPEN at
+the decision point and their outcomes were not yet knowable. The monotone
+pattern across lookbacks (10-trade best, 100-trade weakest) is the signature of
+exactly that overlap bias.
+
+Rebuilt causally, counting only trades whose EXIT preceded the signal:
+
+| Filter | kept | expR | maxDD | %/mo |
+|---|---|---|---|---|
+| none (baseline) | 100% | +0.1197 | 54.7R | **0.68%** |
+| trailing 10-trade R > 0 | 43% | +0.1159 | 41.1R | 0.38% |
+| trailing 25-trade R > 0 | 49% | +0.0808 | 89.1R | 0.14% |
+| trailing 50-trade R > 0 | 56% | +0.0734 | 76.8R | 0.17% |
+| trailing 100-trade R > 0 | 64% | +0.0655 | 78.6R | 0.17% |
+
+**Every equity-curve filter makes it worse**, and the mechanism is visible in
+the autocorrelation: at -0.20, periods following losses are slightly BETTER than
+average, so standing aside after a drawdown removes precisely the trades that
+recover. Equity-curve trading is actively harmful on this system.
+
+## What this means
+
+The two results together are decisive for the original objective. The edge is
+concentrated in rare regimes, it is not predictable from its own history, and
+the concentration cannot be filtered. A system whose profit is 69% delivered in
+7 months out of 66 cannot be turned into a monthly income stream by better
+sizing, better exits, or better filters - those change the distribution's scale,
+not its shape.

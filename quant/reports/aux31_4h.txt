@@ -1,0 +1,3 @@
+=== 4h: 368,593 rows, 31 symbols ===
+    BASE 71 features | AUX 40 features | BOTH 111
+    unconditional expR: long -0.0453  short +0.0120

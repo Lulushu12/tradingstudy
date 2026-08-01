@@ -54,6 +54,7 @@ def _walk(entry_i, side, entry_px, stop0, tgt, orig_risk,
     n = hi.shape[0]
     m = entry_i.shape[0]
     r_out = np.full(m, np.nan)
+    ex_i = np.full(m, -1, dtype=np.int64)
     kind = np.zeros(m, dtype=np.int64)      # 1 target, -1 stop, 2 signal, 0 time
     moved = np.zeros(m, dtype=np.int64)
     part = np.zeros(m)
@@ -82,6 +83,7 @@ def _walk(entry_i, side, entry_px, stop0, tgt, orig_risk,
 
         res_px = cl[end]
         res_kind = 0
+        res_i = end
         armed = False
         half_done = False
         booked = 0.0
@@ -120,6 +122,7 @@ def _walk(entry_i, side, entry_px, stop0, tgt, orig_risk,
                 if hit_dot and j > i0:
                     res_px = cl[j]
                     res_kind = 2
+                    res_i = j
                     break
             # ---- partial: book half at +1R, then stop to breakeven
             if (mode == 6 or mode == 7) and not half_done:
@@ -144,24 +147,29 @@ def _walk(entry_i, side, entry_px, stop0, tgt, orig_risk,
                 if lo[j] <= stop:
                     res_px = stop
                     res_kind = -1
+                    res_i = j
                     break
                 if hi[j] >= t:
                     res_px = t
                     res_kind = 1
+                    res_i = j
                     break
             else:
                 if hi[j] >= stop:
                     res_px = stop
                     res_kind = -1
+                    res_i = j
                     break
                 if lo[j] <= t:
                     res_px = t
                     res_kind = 1
+                    res_i = j
                     break
         r_out[k] = res_px
+        ex_i[k] = res_i
         kind[k] = res_kind
         part[k] = booked
-    return r_out, kind, moved, part
+    return r_out, ex_i, kind, moved, part
 
 
 def run(signals, m1, div_dt, div_level, dot_dt, mode, stop_mult=2.0, rr=2.0,
@@ -200,7 +208,7 @@ def run(signals, m1, div_dt, div_level, dot_dt, mode, stop_mult=2.0, rr=2.0,
         if div_dt is not None and len(div_dt) else np.zeros(0, np.float64))
     oi = _idx(dot_dt)
 
-    exit_px, kind, moved, part = _walk(
+    exit_px, exit_idx, kind, moved, part = _walk(
         i0.astype(np.int64), side, entry, stop0, tgt, orig_risk,
         di, dl, oi, hi, lo, cl, int(max_hold_min), int(mode), float(buf_frac))
 
@@ -214,6 +222,7 @@ def run(signals, m1, div_dt, div_level, dot_dt, mode, stop_mult=2.0, rr=2.0,
     r = np.where(pk > 0, pk + 0.5 * r_rest, r_rest)
     return pd.DataFrame({
         "close_dt": s["close_dt"].values[ok],
+        "exit_dt": t[np.clip(exit_idx[ok], 0, len(t) - 1)],
         "side": side[ok], "r": r, "kind": kind[ok],
         "stop_moved": moved[ok].astype(bool),
         "partial": pk > 0,
