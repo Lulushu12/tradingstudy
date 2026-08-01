@@ -1,3 +1,7 @@
-data/
+data/raw1m/
+data/labels/
+data/sets/
+data/equity/
+data/aux/
 __pycache__/
-*.pyc
+reports/*.log
