@@ -46,7 +46,9 @@ def _walk(entry_i, side, entry_px, stop0, tgt, orig_risk,
           hi, lo, cl, max_hold, mode, buf_frac):
     """mode: 0 BASE, 1 TIGHTEN, 2 REDDOT, 3 BOTH,
              4 SEQ (divergence arms, then red dot exits),
-             5 SEQ+TIGHTEN (divergence arms and tightens, red dot exits).
+             5 SEQ+TIGHTEN (divergence arms and tightens, red dot exits),
+             6 PARTIAL (book half at +1R, stop to breakeven, rest to 2R),
+             7 PARTIAL+TIGHTEN (partial, and divergence tightens the runner).
     div_i/div_lvl: sorted 1m indices of same-direction divergence confirmations
     and the pivot price of each. dot_i: sorted indices of adverse WT crosses."""
     n = hi.shape[0]
@@ -54,6 +56,7 @@ def _walk(entry_i, side, entry_px, stop0, tgt, orig_risk,
     r_out = np.full(m, np.nan)
     kind = np.zeros(m, dtype=np.int64)      # 1 target, -1 stop, 2 signal, 0 time
     moved = np.zeros(m, dtype=np.int64)
+    part = np.zeros(m)
 
     nd = div_i.shape[0]
     ndot = dot_i.shape[0]
@@ -80,6 +83,9 @@ def _walk(entry_i, side, entry_px, stop0, tgt, orig_risk,
         res_px = cl[end]
         res_kind = 0
         armed = False
+        half_done = False
+        booked = 0.0
+        r1 = entry_px[k] + s * orig_risk[k]      # +1R, where half comes off
         for j in range(i0, end + 1):
             # ---- a divergence at or before this bar arms the sequential exit
             if mode == 4 or mode == 5:
@@ -115,6 +121,24 @@ def _walk(entry_i, side, entry_px, stop0, tgt, orig_risk,
                     res_px = cl[j]
                     res_kind = 2
                     break
+            # ---- partial: book half at +1R, then stop to breakeven
+            if (mode == 6 or mode == 7) and not half_done:
+                reached = (hi[j] >= r1) if s > 0 else (lo[j] <= r1)
+                if reached:
+                    half_done = True
+                    booked = 0.5 * 1.0            # half the position at +1R
+                    be = entry_px[k]
+                    if (s > 0 and be > stop) or (s < 0 and be < stop):
+                        stop = be
+            if (mode == 7) and half_done and moved[k] == 0:
+                while dp < nd and div_i[dp] <= j:
+                    lv = div_lvl[dp]
+                    if lv == lv:
+                        cand = lv - s * buf_frac * orig_risk[k]
+                        if (s > 0 and cand > stop) or (s < 0 and cand < stop):
+                            stop = cand
+                            moved[k] = 1
+                    dp += 1
             # ---- barriers, stop wins ties
             if s > 0:
                 if lo[j] <= stop:
@@ -136,7 +160,8 @@ def _walk(entry_i, side, entry_px, stop0, tgt, orig_risk,
                     break
         r_out[k] = res_px
         kind[k] = res_kind
-    return r_out, kind, moved
+        part[k] = booked
+    return r_out, kind, moved, part
 
 
 def run(signals, m1, div_dt, div_level, dot_dt, mode, stop_mult=2.0, rr=2.0,
@@ -175,18 +200,23 @@ def run(signals, m1, div_dt, div_level, dot_dt, mode, stop_mult=2.0, rr=2.0,
         if div_dt is not None and len(div_dt) else np.zeros(0, np.float64))
     oi = _idx(dot_dt)
 
-    exit_px, kind, moved = _walk(
+    exit_px, kind, moved, part = _walk(
         i0.astype(np.int64), side, entry, stop0, tgt, orig_risk,
         di, dl, oi, hi, lo, cl, int(max_hold_min), int(mode), float(buf_frac))
 
     ok = np.isfinite(exit_px)
     xp = exit_px[ok] * (1.0 - slip * side[ok])
     e = entry[ok]
-    r = ((xp - e) * side[ok] - (e + xp) * taker) / orig_risk[ok]
+    r_rest = ((xp - e) * side[ok] - (e + xp) * taker) / orig_risk[ok]
+    pk = part[ok]
+    # when half was booked at +1R the remaining position is half size, so the
+    # tail contributes at half weight and the booked half is already realised
+    r = np.where(pk > 0, pk + 0.5 * r_rest, r_rest)
     return pd.DataFrame({
         "close_dt": s["close_dt"].values[ok],
         "side": side[ok], "r": r, "kind": kind[ok],
         "stop_moved": moved[ok].astype(bool),
+        "partial": pk > 0,
     })
 
 

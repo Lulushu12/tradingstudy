@@ -1,0 +1,22 @@
+
+==========================================================================
+BASE 2R: n=3391, 52 trades/mo, expR +0.1448
+  growth-optimal f = 8.0% of bankroll per trade
+sizing              f  med monthly   med 24mo      p5       p95   med DD  P(DD>50%)  P(ruin)
+quarter Kelly    2.0%        13.9%      22.52    4.49     113.4      39%        15%       0%
+half Kelly       4.0%        24.6%     195.01    7.94    4826.8      66%        95%       0%
+full Kelly       8.0%        33.2%     971.25    1.72  532900.6      92%       100%       1%
+  -- same system if the true edge is the holdout-adjusted posterior (+0.024R) --
+quarter Kelly    2.0%         0.5%       1.12    0.24       5.5      65%        85%       1%
+half Kelly       4.0%        -2.8%       0.51    0.02      12.1      91%       100%      19%
+
+==========================================================================
+TIGHTEN 15m div: n=3391, 52 trades/mo, expR +0.1197
+  growth-optimal f = 11.0% of bankroll per trade
+sizing              f  med monthly   med 24mo      p5       p95   med DD  P(DD>50%)  P(ruin)
+quarter Kelly    2.8%        16.0%      35.17    5.91     200.5      40%        16%       0%
+half Kelly       5.5%        28.6%     416.17   12.27   12934.8      67%        96%       0%
+full Kelly      11.0%        39.0%    2724.16    2.80 2197118.7      93%       100%       0%
+  -- same system if the true edge is the holdout-adjusted posterior (+0.024R) --
+quarter Kelly    2.8%         1.2%       1.32    0.25       7.0      64%        85%       1%
+half Kelly       5.5%        -1.9%       0.63    0.02      16.9      91%       100%      18%

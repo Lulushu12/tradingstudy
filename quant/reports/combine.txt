@@ -1,0 +1,25 @@
+building walk-forward aux-model signals (4h, thr=0.2) ...
+  17,080 signals across 5 symbols
+
+variant         sizing            n     expR     mo R    maxDD    %/mo
+BASE            FIXED         17080  -0.0131    -5.47   1221.6  -0.03%
+BASE            CONVICTION    17080  -0.0242   -10.08   1472.7  -0.04%
+TIGHTEN         FIXED         17080   0.0256    10.68    407.2   0.16%
+TIGHTEN         CONVICTION    17080   0.0211     8.82    483.2   0.11%
+SEQ_TIGHT       FIXED         17080  -0.0020    -0.82    313.1  -0.02%
+SEQ_TIGHT       CONVICTION    17080  -0.0078    -3.27    376.2  -0.05%
+PARTIAL         FIXED         17080  -0.0044    -1.82    584.1  -0.02%
+PARTIAL         CONVICTION    17080  -0.0131    -5.47    648.1  -0.05%
+PARTIAL_TIGHT   FIXED         17080   0.0025     1.05    500.5   0.01%
+PARTIAL_TIGHT   CONVICTION    17080  -0.0042    -1.76    559.2  -0.02%
+
+conviction decile check (does the model rank trades?):
+  decile mean R: +0.00 -0.03 -0.01 -0.01 +0.04 -0.03 +0.05 -0.02 -0.05 -0.07
+  rank correlation decile -> realised R = -0.332  (NOT reliably ranked)
+
+=== best combinations ===
+  TIGHTEN         FIXED       +0.16%/mo  expR +0.0256  maxDD 407.2R
+  TIGHTEN         CONVICTION  +0.11%/mo  expR +0.0211  maxDD 483.2R
+  PARTIAL_TIGHT   FIXED       +0.01%/mo  expR +0.0025  maxDD 500.5R
+  SEQ_TIGHT       FIXED       -0.02%/mo  expR -0.0020  maxDD 313.1R
+  PARTIAL         FIXED       -0.02%/mo  expR -0.0044  maxDD 584.1R

@@ -1,0 +1,11 @@
+configurations evaluated: 64
+
+best observed: ('15min', 'TIGHTEN', np.float64(0.05)) -> 0.685%/mo
+baseline BASE cells: 0.432%, 0.432%, 0.432%, 0.432%
+
+permutation null over the SAME search (200 shuffles):
+  best-of-search under null: mean 1.582%  p50 1.523%  p95 2.214%  p99 2.626%
+
+  observed best 0.685%/mo
+  P(a search this wide produces this by chance) = 1.000
+  selection-adjusted verdict: NOT distinguishable from search luck

@@ -1066,3 +1066,112 @@ competitive. It still does not beat tightening alone, but it is within noise.
 a 5% buffer: **0.68%/month against a 0.43% baseline**, drawdown 54.7R against
 104.9R. The Part 8 bootstrap caveat stands unchanged: the drawdown halving is
 statistically real (P=0.978), the return improvement is not (P=0.761).
+
+---
+
+# Part 9 — Composition, sizing, partial exits, carry, and own capital
+
+## Own capital, no prop rules: the headline answer
+
+No 3% daily rule, no 6% floor. Sizing by growth rate on the real R distribution,
+24-month Monte Carlo, 4,000 paths, 52 trades/month.
+
+**At the studied edge (+0.12R, TIGHTEN system):**
+
+| Sizing | f/trade | median monthly | median 24mo | median DD | P(DD>50%) | P(ruin) |
+|---|---|---|---|---|---|---|
+| quarter Kelly | 2.8% | **+16.0%** | 35x | 40% | 16% | 0% |
+| half Kelly | 5.5% | **+28.6%** | 416x | 67% | 96% | 0% |
+| full Kelly | 11.0% | +39.0% | 2,724x | 93% | 100% | 0% |
+
+At quarter Kelly that is a double roughly every 4.6 months; at half Kelly, every
+2.8 months. So the "100% every 2-4 months" target IS reachable on own
+capital - **if the studied edge is the true edge.**
+
+**At the holdout-adjusted posterior (+0.024R), same system, same sizing:**
+
+| Sizing | f/trade | median monthly | median 24mo | median DD | P(ruin) |
+|---|---|---|---|---|---|
+| quarter Kelly | 2.8% | **+1.2%** | 1.32x | 64% | 1% |
+| half Kelly | 5.5% | **-1.9%** | **0.63x** | 91% | 18% |
+
+That is the entire question in two tables. The same system, sized identically,
+returns 16%/month or 1.2%/month depending on which edge estimate is true - and
+at half Kelly the posterior case LOSES money while drawing down 91%.
+
+Removing the prop constraints does not remove the uncertainty. It converts it
+from "you fail the evaluation" into "you lose your own capital".
+
+## Composition of the two best findings: failed
+
+Aux-model signal (walk-forward) combined with the 15m divergence stop:
+
+| Variant | sizing | expR | maxDD | %/mo |
+|---|---|---|---|---|
+| TIGHTEN | FIXED | +0.0256 | 407R | **+0.16%** |
+| TIGHTEN | CONVICTION | +0.0211 | 483R | +0.11% |
+| PARTIAL_TIGHT | FIXED | +0.0025 | 501R | +0.01% |
+| BASE | FIXED | -0.0131 | 1222R | -0.03% |
+
+Far below the 0.68%/mo the same exit rule achieves on `vol_spike_cont`. The
+aux-model signal at 4h with a 0.2 threshold produces 17,080 signals at negative
+expectancy - it is barely selective. The gain reported earlier was at 1h.
+
+## Conviction sizing: definitively fails
+
+Decile mean R by model confidence:
+
+```
++0.00  -0.03  -0.01  -0.01  +0.04  -0.03  +0.05  -0.02  -0.05  -0.07
+```
+
+Rank correlation between confidence decile and realised R: **-0.332**. The
+highest-conviction decile is the worst. The model cannot rank trades, so sizing
+by its confidence is actively harmful (0.16% -> 0.11%). This also explains why
+raising the entry threshold never helped much.
+
+## Partial exits: no help
+
+Booking half at +1R and moving to breakeven returns +0.0025 expR against
++0.0256 for tightening alone. Cutting winners early costs more than the variance
+reduction is worth for this R distribution.
+
+## Funding carry: real, high Sharpe, low return
+
+Long spot / short perp, gross of costs:
+
+| Symbol | Ann. gross | % positive months | Sharpe |
+|---|---|---|---|
+| BTC | **10.90%** | 86% | **2.43** |
+| ETH | 11.65% | 84% | 2.04 |
+| XRP | 13.11% | 77% | 1.78 |
+| SOL | 0.78% | 71% | 0.05 |
+| BNB | -0.55% | 24% | -0.09 |
+
+BTC and ETH are genuinely high-Sharpe. The equal-weight basket collapses to
+Sharpe 0.74 (4.75-6.98%/yr net) because SOL had a -35.5% month during a funding
+inversion and BNB funding is negative 76% of the time. Naive equal weighting is
+the wrong construction; the trade should be conditional on funding being
+positive, and concentrated in BTC/ETH.
+
+Reaching 2%/month needs 5.6x leverage on the basket, which reintroduces
+liquidation risk on the short-perp leg precisely when funding inverts. This is
+not a path to the target, but it is the only stream in the study with a
+mechanical reason to be reliably positive, and it composes with a directional
+book rather than competing with it.
+
+## Selection adjustment: the first null was wrong
+
+A block-shuffle null over the 64-configuration exit search produced a
+best-of-search of 1.58%/mo mean against an observed 0.685%, implying p = 1.000.
+That null is **mis-specified**: shuffling destroys loss clustering, real markets
+cluster losses, and the score depends on 1/maxDrawdown - so shuffled paths have
+artificially small drawdowns and inflated scores.
+
+What it does establish, and this matters: the "%/month at a 6% floor" statistic
+is dominated by drawdown-path luck. Every such figure in this study carries far
+more uncertainty than a point estimate suggests.
+
+The correctly specified null (shift the MCB event timestamps by 7-90 days,
+preserving market, trades and drawdown structure while breaking only the
+divergence-to-outcome alignment) is in `selection2.py`.
