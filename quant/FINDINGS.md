@@ -1239,3 +1239,71 @@ the concentration cannot be filtered. A system whose profit is 69% delivered in
 7 months out of 66 cannot be turned into a monthly income stream by better
 sizing, better exits, or better filters - those change the distribution's scale,
 not its shape.
+
+---
+
+# Part 11 — Can the profitable regimes be isolated in advance?
+
+Part 10 established that 69% of profit arrives in 7 of 66 months and that the
+strategy's own equity curve cannot predict which. Market STATE is a separate
+hypothesis, tested here at the trade level (thousands of observations) rather
+than the month level (seven positive examples, far too few to fit on).
+
+## The regime IS identifiable
+
+Trade-level terciles of market state measured strictly BEFORE the signal bar:
+
+| Feature | Low tercile | Mid | High | Spread |
+|---|---|---|---|---|
+| `eff180` trend efficiency | +0.037 | +0.094 | **+0.227** | **+0.189** |
+| `eff60` | +0.041 | +0.104 | +0.215 | +0.175 |
+| `oi_chg` open-interest change | -0.030 | +0.229 | +0.135 | +0.166 |
+| `vol_rank` | +0.243 | +0.075 | +0.013 | -0.229 |
+
+A six-fold spread in expectancy across efficiency terciles. And the seven big
+months confirm the mechanism descriptively: `eff180` 1.71x and `eff360` 1.79x
+higher than the other fifty-nine, with `absmom180` 1.61x. It is trending
+markets, exactly as the holdout failure predicted.
+
+## But it cannot be monetised, by gating
+
+Walk-forward, threshold fitted only on trailing data:
+
+| Filter | kept | expR | maxDD | %/mo |
+|---|---|---|---|---|
+| **none** | 100% | +0.120 | 55.3R | **0.68%** |
+| eff180 >= median | 31% | **+0.154** | **23.2R** | 0.64% |
+| oi_chg >= median | 35% | +0.146 | 42.8R | 0.37% |
+| funding_ma >= q0.3 | 50% | +0.108 | 40.2R | 0.42% |
+| eff180 <= median | 37% | -0.020 | 79.6R | -0.03% |
+
+The filter genuinely works on quality: expectancy rises 29% and drawdown falls
+58%. It costs 69% of the trade count, and that dominates. **Every gating variant
+is worse than trading always.**
+
+## Nor by sizing
+
+Trading always but weighting risk by the regime's trailing percentile, average
+weight normalised to 1:
+
+| Weighting | expR | maxDD | %/mo | vs baseline |
+|---|---|---|---|---|
+| flat (baseline) | +0.120 | 55.3R | **0.68%** | - |
+| eff180-scaled | +0.103 | 61.3R | 0.35% | -0.32pp |
+| funding-scaled | +0.091 | 49.5R | 0.39% | -0.29pp |
+| vol_rank-scaled | +0.017 | 56.3R | 0.07% | -0.61pp |
+
+Worse than gating, and worse than doing nothing.
+
+## Why identifiable does not mean exploitable
+
+Trend efficiency is backward-looking by construction: `eff180` says the last
+thirty days trended, not that the next thirty will. The negative month-to-month
+autocorrelation (-0.20, Part 10) says explicitly that they do not persist. By
+the time efficiency is measurably high, the move that produced it has largely
+happened.
+
+So the seven months are not a STATE you can sit inside and harvest. They are the
+realisation of a rare regime whose signature is only legible afterwards. That is
+the same wall in a different disguise: the information is real, arrives too late
+to act on, and thinning the trade count to chase it costs more than it returns.
