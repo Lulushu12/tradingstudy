@@ -28,7 +28,12 @@ import labels as L        # noqa: E402
 import auxfeat as A       # noqa: E402
 
 REP = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "reports")
-SYMS = ["BTCUSDT", "ETHUSDT", "SOLUSDT", "XRPUSDT", "BNBUSDT"]
+# every symbol with both 1m klines and the auxiliary series. Breadth was the
+# constraint proved binding early (5 assets at rho=0.30 gave 2.27 effective
+# independent streams) and never acted on until now.
+_AUXDIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data", "aux")
+SYMS = sorted({f.split("_")[0] for f in os.listdir(_AUXDIR)
+               if f.endswith("_metrics.parquet")}) if os.path.isdir(_AUXDIR) else []
 
 SHALLOW = dict(objective="regression", learning_rate=0.03, num_leaves=16,
                max_depth=4, min_data_in_leaf=500, feature_fraction=0.7,
