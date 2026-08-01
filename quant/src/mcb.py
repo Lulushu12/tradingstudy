@@ -20,6 +20,7 @@ divergence systems look better in hindsight than they trade.
 """
 import numpy as np
 import pandas as pd
+from numba import njit
 
 
 # --------------------------------------------------------------- oscillators
@@ -47,27 +48,33 @@ def atr_rma(df, n=14):
 
 
 # ------------------------------------------------------------------- fractals
-def fractals(series):
-    """5-bar fractal. Returns two boolean arrays flagged at the CONFIRMATION
-    bar (p+2), not the pivot bar, plus the pivot index each confirmation refers
-    to."""
-    v = np.asarray(series, float)
-    n = len(v)
-    top = np.zeros(n, bool)
-    bot = np.zeros(n, bool)
+@njit(cache=True)
+def _fractals(v):
+    n = v.shape[0]
+    top = np.zeros(n, np.bool_)
+    bot = np.zeros(n, np.bool_)
     pidx = np.full(n, -1, np.int64)
     for p in range(2, n - 2):
-        w = v[p - 2:p + 3]
-        if np.isnan(w).any():
-            continue
         c = v[p]
-        if c == w.max() and (w[:2] < c).all() and (w[3:] < c).all():
+        ok = True
+        for q in range(p - 2, p + 3):
+            if np.isnan(v[q]):
+                ok = False
+                break
+        if not ok:
+            continue
+        if (v[p-2] < c and v[p-1] < c and v[p+1] < c and v[p+2] < c):
             top[p + 2] = True
             pidx[p + 2] = p
-        if c == w.min() and (w[:2] > c).all() and (w[3:] > c).all():
+        if (v[p-2] > c and v[p-1] > c and v[p+1] > c and v[p+2] > c):
             bot[p + 2] = True
             pidx[p + 2] = p
     return top, bot, pidx
+
+
+def fractals(series):
+    """5-bar fractal, flagged at the CONFIRMATION bar (p+2), not the pivot."""
+    return _fractals(np.asarray(series, np.float64))
 
 
 # ---------------------------------------------------------------- divergences

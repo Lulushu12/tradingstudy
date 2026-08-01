@@ -44,7 +44,9 @@ REP = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "reports")
 def _walk(entry_i, side, entry_px, stop0, tgt, orig_risk,
           div_i, div_lvl, dot_i,
           hi, lo, cl, max_hold, mode, buf_frac):
-    """mode: 0 BASE, 1 TIGHTEN, 2 REDDOT, 3 BOTH.
+    """mode: 0 BASE, 1 TIGHTEN, 2 REDDOT, 3 BOTH,
+             4 SEQ (divergence arms, then red dot exits),
+             5 SEQ+TIGHTEN (divergence arms and tightens, red dot exits).
     div_i/div_lvl: sorted 1m indices of same-direction divergence confirmations
     and the pivot price of each. dot_i: sorted indices of adverse WT crosses."""
     n = hi.shape[0]
@@ -77,7 +79,21 @@ def _walk(entry_i, side, entry_px, stop0, tgt, orig_risk,
 
         res_px = cl[end]
         res_kind = 0
+        armed = False
         for j in range(i0, end + 1):
+            # ---- a divergence at or before this bar arms the sequential exit
+            if mode == 4 or mode == 5:
+                while dp < nd and div_i[dp] <= j:
+                    if not armed:
+                        armed = True
+                    if mode == 5 and moved[k] == 0:
+                        lv = div_lvl[dp]
+                        if lv == lv:
+                            cand = lv - s * buf_frac * orig_risk[k]
+                            if (s > 0 and cand > stop) or (s < 0 and cand < stop):
+                                stop = cand
+                                moved[k] = 1
+                    dp += 1
             # ---- apply any divergence that confirmed at or before this bar
             if (mode == 1 or mode == 3) and moved[k] == 0:
                 while dp < nd and div_i[dp] <= j:
@@ -90,7 +106,7 @@ def _walk(entry_i, side, entry_px, stop0, tgt, orig_risk,
                             moved[k] = 1
                     dp += 1
             # ---- adverse trigger-wave cross: exit at market on this bar close
-            if mode == 2 or mode == 3:
+            if mode == 2 or mode == 3 or ((mode == 4 or mode == 5) and armed):
                 hit_dot = False
                 while op < ndot and dot_i[op] <= j:
                     hit_dot = True

@@ -1,0 +1,53 @@
+
+=== 4h signal, 1min divergence exits (stop buffer 5% of original risk) ===
+variant       n     expR  avg win  avg loss   %tgt  %stop   %sig  %moved    mo R   maxDD    %/mo    R:R
+BASE       3391   0.1448    1.771    -0.982    35%    56%     0%      0%    7.56   104.9   0.43%   1.80
+TIGHTEN    3391   0.0156    0.778    -0.220     7%    93%     0%     98%    0.81    56.6   0.09%   3.53
+REDDOT     3391  -0.0288    0.088    -0.119     0%     1%    99%      0%   -1.50    99.1  -0.09%   0.74
+BOTH       3391  -0.0286    0.089    -0.115     0%    15%    85%     31%   -1.49    97.9  -0.09%   0.77
+SEQ        3391  -0.0181    0.277    -0.181     1%     1%    98%      0%   -0.94    82.3  -0.07%   1.53
+SEQ_TIGHT  3391  -0.0180    0.285    -0.176     1%    15%    84%     98%   -0.94    82.6  -0.07%   1.61
+
+=== 4h signal, 5min divergence exits (stop buffer 5% of original risk) ===
+variant       n     expR  avg win  avg loss   %tgt  %stop   %sig  %moved    mo R   maxDD    %/mo    R:R
+BASE       3391   0.1448    1.771    -0.982    35%    56%     0%      0%    7.56   104.9   0.43%   1.80
+TIGHTEN    3391   0.0667    1.086    -0.406    15%    85%     0%     88%    3.48    43.7   0.48%   2.67
+REDDOT     3391  -0.0254    0.168    -0.209     0%     3%    96%      0%   -1.32    95.4  -0.08%   0.81
+BOTH       3391  -0.0277    0.169    -0.204     0%    12%    87%     20%   -1.45   101.2  -0.09%   0.83
+SEQ        3391   0.0271    0.617    -0.360     7%     7%    86%      0%    1.42    53.7   0.16%   1.72
+SEQ_TIGHT  3391   0.0247    0.636    -0.352     7%    16%    77%     88%    1.29    54.7   0.14%   1.81
+
+=== 4h signal, 15min divergence exits (stop buffer 5% of original risk) ===
+variant       n     expR  avg win  avg loss   %tgt  %stop   %sig  %moved    mo R   maxDD    %/mo    R:R
+BASE       3391   0.1448    1.771    -0.982    35%    56%     0%      0%    7.56   104.9   0.43%   1.80
+TIGHTEN    3391   0.1197    1.365    -0.606    23%    77%     0%     66%    6.25    54.7   0.68%   2.25
+REDDOT     3391  -0.0158    0.263    -0.299     1%     7%    92%      0%   -0.82    84.1  -0.06%   0.88
+BOTH       3391  -0.0131    0.264    -0.288     1%    11%    88%     11%   -0.69    75.1  -0.05%   0.92
+SEQ        3391   0.0913    1.023    -0.568    17%    19%    64%      0%    4.77    45.5   0.63%   1.80
+SEQ_TIGHT  3391   0.0939    1.034    -0.555    17%    23%    60%     66%    4.90    46.4   0.63%   1.86
+
+=== 4h signal, 30min divergence exits (stop buffer 5% of original risk) ===
+variant       n     expR  avg win  avg loss   %tgt  %stop   %sig  %moved    mo R   maxDD    %/mo    R:R
+BASE       3391   0.1448    1.771    -0.982    35%    56%     0%      0%    7.56   104.9   0.43%   1.80
+TIGHTEN    3391   0.1419    1.569    -0.747    29%    70%     0%     46%    7.41    68.3   0.65%   2.10
+REDDOT     3391  -0.0061    0.362    -0.353     2%    11%    87%      0%   -0.32    75.0  -0.03%   1.02
+BOTH       3391  -0.0045    0.363    -0.344     2%    13%    85%      8%   -0.24    68.5  -0.02%   1.05
+SEQ        3391   0.1151    1.304    -0.716    24%    32%    44%      0%    6.01    62.3   0.58%   1.82
+SEQ_TIGHT  3391   0.1167    1.316    -0.705    24%    34%    42%     46%    6.09    62.5   0.58%   1.87
+
+=== 4h signal, 1h divergence exits (stop buffer 5% of original risk) ===
+variant       n     expR  avg win  avg loss   %tgt  %stop   %sig  %moved    mo R   maxDD    %/mo    R:R
+BASE       3391   0.1448    1.771    -0.982    35%    56%     0%      0%    7.56   104.9   0.43%   1.80
+TIGHTEN    3391   0.1458    1.711    -0.844    32%    65%     0%     30%    7.61    98.3   0.46%   2.03
+REDDOT     3391   0.0164    0.472    -0.384     3%    12%    85%      0%    0.86    69.4   0.07%   1.23
+BOTH       3391   0.0182    0.473    -0.375     3%    13%    84%      6%    0.95    67.6   0.08%   1.26
+SEQ        3391   0.1244    1.465    -0.841    28%    42%    29%      0%    6.49    98.5   0.40%   1.74
+SEQ_TIGHT  3391   0.1262    1.475    -0.830    28%    43%    28%     30%    6.59    96.3   0.41%   1.78
+
+=== ranked by monthly return ===
+   15min TIGHTEN   expR +0.1197  avg loss -0.606  +0.68%/mo
+   30min TIGHTEN   expR +0.1419  avg loss -0.747  +0.65%/mo
+   15min SEQ_TIGHT expR +0.0939  avg loss -0.555  +0.63%/mo
+   15min SEQ       expR +0.0913  avg loss -0.568  +0.63%/mo
+   30min SEQ_TIGHT expR +0.1167  avg loss -0.705  +0.58%/mo
+   30min SEQ       expR +0.1151  avg loss -0.716  +0.58%/mo

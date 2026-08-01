@@ -1009,3 +1009,60 @@ not enough to change the headline conclusion.
 
 `quant/src/`: `exits.py`, `run_exits.py`, `mcb.py` (extended to return
 divergence pivot levels).
+
+## Part 8b — Sequential exits and the timeframe sweep
+
+Correction to Part 8: REDDOT armed the red-dot exit from ENTRY. The intended
+design is sequential - the divergence must confirm first, and only then does a
+red dot become an exit trigger. Added as SEQ (arm on divergence, exit on red
+dot) and SEQ_TIGHT (arm, tighten the stop, exit on red dot). Fractal detection
+was numba-compiled so 1-minute timeframes are tractable.
+
+### Loss reduction is monotone in timeframe, not constant
+
+| LTF | avg loss | % stop moved |
+|---|---|---|
+| BASE | -0.982 | 0% |
+| 1h | -0.844 | 30% |
+| 30m | -0.747 | 46% |
+| 15m | -0.606 | 66% |
+| 5m | -0.406 | 88% |
+| 1m | -0.220 | 98% |
+
+Lower timeframes print more divergences, so the stop moves more often and lands
+tighter. Perfectly ordered across all five.
+
+### Best monthly return: 15m. Best R:R: 1m. They are not the same.
+
+| LTF (TIGHTEN) | R:R | expR | maxDD | %/mo |
+|---|---|---|---|---|
+| BASE | 1.80 | +0.1448 | 104.9R | 0.43% |
+| 1h | 2.03 | +0.1458 | 98.3R | 0.46% |
+| 30m | 2.10 | +0.1419 | 68.3R | 0.65% |
+| **15m** | 2.25 | +0.1197 | **54.7R** | **0.68%** |
+| 5m | 2.67 | +0.0667 | 43.7R | 0.48% |
+| 1m | **3.53** | +0.0156 | 56.6R | 0.09% |
+
+An inverted-U in return with a monotone increase in R:R. At 1m the reward/risk
+ratio nearly doubles versus baseline, and it is the worst configuration tested,
+because the win rate collapses to 7% (93% of trades stop out). Optimising for
+R:R alone would pick exactly the wrong timeframe.
+
+### The sequential fix works
+
+| 15m variant | expR | signal-exit rate | %/mo |
+|---|---|---|---|
+| REDDOT (armed from entry) | -0.0158 | 92% | -0.06% |
+| **SEQ (armed by divergence)** | **+0.0913** | 64% | **+0.63%** |
+| SEQ_TIGHT | +0.0939 | 60% | +0.63% |
+| TIGHTEN only | +0.1197 | - | +0.68% |
+
+Requiring the divergence first takes the red-dot exit from actively harmful to
+competitive. It still does not beat tightening alone, but it is within noise.
+
+### Best configuration found
+
+4h vol_spike_cont entry, 15m divergence, stop moved to the divergence pivot with
+a 5% buffer: **0.68%/month against a 0.43% baseline**, drawdown 54.7R against
+104.9R. The Part 8 bootstrap caveat stands unchanged: the drawdown halving is
+statistically real (P=0.978), the return improvement is not (P=0.761).

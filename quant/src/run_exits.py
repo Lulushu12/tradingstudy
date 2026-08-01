@@ -14,7 +14,8 @@ import mcb as MCB         # noqa: E402
 import run_mtf as RM      # noqa: E402
 
 REP = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "reports")
-MODES = {"BASE": 0, "TIGHTEN": 1, "REDDOT": 2, "BOTH": 3}
+MODES = {"BASE": 0, "TIGHTEN": 1, "REDDOT": 2, "BOTH": 3,
+         "SEQ": 4, "SEQ_TIGHT": 5}
 
 
 def ltf_events(symbol, ltf):
@@ -40,7 +41,7 @@ def ltf_events(symbol, ltf):
     return out
 
 
-def main(tf="4h", ltfs=("15min", "5min"), buf=0.05):
+def main(tf="4h", ltfs=("1min", "5min", "15min", "30min", "1h"), buf=0.05):
     rows = []
     for ltf in ltfs:
         per = {k: [] for k in MODES}
@@ -72,7 +73,7 @@ def main(tf="4h", ltfs=("15min", "5min"), buf=0.05):
               f"(stop buffer {100*buf:.0f}% of original risk) ===")
         print(f"{'variant':<9}{'n':>6}{'expR':>9}{'avg win':>9}{'avg loss':>10}"
               f"{'%tgt':>7}{'%stop':>7}{'%sig':>7}{'%moved':>8}"
-              f"{'mo R':>8}{'maxDD':>8}{'%/mo':>8}")
+              f"{'mo R':>8}{'maxDD':>8}{'%/mo':>8}{'R:R':>7}")
         for name in MODES:
             if not per[name]:
                 continue
@@ -85,11 +86,12 @@ def main(tf="4h", ltfs=("15min", "5min"), buf=0.05):
             s["ltf"] = ltf
             s["buf"] = buf
             rows.append(s)
+            s["rr"] = s['avg_win'] / abs(s['avg_loss']) if s['avg_loss'] else float('nan')
             print(f"{name:<9}{s['n']:>6}{s['expR']:>9.4f}{s['avg_win']:>9.3f}"
                   f"{s['avg_loss']:>10.3f}{100*s['pct_target']:>6.0f}%"
                   f"{100*s['pct_stop']:>6.0f}%{100*s['pct_signal_exit']:>6.0f}%"
                   f"{100*s['pct_stop_moved']:>7.0f}%{s['moR']:>8.2f}"
-                  f"{s['maxDD_R']:>8.1f}{100*s['monthly_ret']:>7.2f}%")
+                  f"{s['maxDD_R']:>8.1f}{100*s['monthly_ret']:>7.2f}%{s['rr']:>7.2f}")
     if rows:
         out = pd.DataFrame(rows)
         out.to_csv(os.path.join(REP, "exits.csv"), index=False)
