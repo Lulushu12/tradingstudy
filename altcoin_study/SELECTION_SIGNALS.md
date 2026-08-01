@@ -185,7 +185,86 @@ evidence here is weak evidence of absence, and that caveat applies to everything
 
 ---
 
-## 8. What this means
+## 8. The obvious follow-up: short the loud ones. It does not work.
+
+If loud launches held to today have a median outcome of 0.10x, the actionable trade looks
+like shorting them rather than buying quiet ones. Tested properly — entry at the day-7
+close, 2x ATR stop, 2R target, real funding, pessimistic same-bar fills, loudness ranked
+within each cohort:
+
+| bucket (week-1 volume) | n | E net R | win rate | t-stat | train | test |
+|---|---|---|---|---|---|---|
+| Q1 quietest | 152 | +0.185 | 43.4% | 1.47 | -0.030 | +0.293 |
+| Q3 | 154 | +0.089 | 40.3% | 0.71 | +0.165 | +0.050 |
+| Q4 | 154 | -0.120 | 35.7% | -0.95 | -0.208 | -0.074 |
+| **Q5 loudest** | 158 | **+0.139** | 43.0% | **1.12** | +0.288 | +0.061 |
+
+**Shorting the loudest launches is no better than shorting the quietest ones** (+0.139R vs
++0.185R). The loudness ranking, which sorts buy-and-hold outcomes so cleanly, carries no
+information in the short trade. What remains is just the generic "shorting new listings
+works a little" effect already documented in `SHITCOIN_FINDINGS.md`, at t=1.12.
+
+Monthly block bootstrap on the loud bucket: E=+0.139R, 95% CI **[-0.133, +0.413]**,
+P(E<=0)=0.161. Not established. Only ~26 trades a year.
+
+Parameter sensitivity improves monotonically with wider stops (3x ATR / 3R reaches +0.271R,
+t=2.21) — but that is the best of nine cells tried, uncorrected, and a monotone gradient
+toward the edge of the grid is a warning sign, not a result.
+
+**Why the contradiction is only apparent:** the -90% decay of a hyped launch is real but
+*slow and violent*. A stop-based short gets squeezed out long before the decay pays. The
+decay is visible in a buy-and-hold statistic and not harvestable with a stop.
+
+---
+
+## 9. The DEX arm: what I could and could not measure
+
+I stood at the launch firehose and recorded **599 new pools live at creation** across
+Solana, Base, Ethereum and BSC over 6.2 hours — winners and failures alike, which is the
+sample the ranked GeckoTerminal endpoints cannot give you. Launch-time attributes were
+captured at first sighting so any test would be strictly causal.
+
+**The signal test was not feasible, and the reason is the finding.** Of 599 launches, only
+247 traded enough to be worth requesting price history for, and of those only a handful had
+any indexed minute OHLCV at all — the retrieved paths topped out at ~31 minutes of bars.
+GeckoTerminal does not index a price series for pools that barely trade, because there is
+barely a price. I am reporting this as a failed measurement rather than dressing up an
+n=6 result.
+
+What the cohort itself shows is more useful than the signal test would have been:
+
+| | |
+|---|---|
+| median initial liquidity | **$1,327** |
+| median FDV at launch | $2,283 |
+| **median volume in the first hour** | **$3** |
+| median unique buyers in the first hour | **1** |
+
+| threshold | share of launches |
+|---|---|
+| any volume at all in hour 1 | 67.6% |
+| > $1,000 volume in hour 1 | 24.5% |
+| > $5,000 volume in hour 1 | 10.2% |
+| > $50,000 volume in hour 1 | **1.3%** |
+| initial liquidity > $100,000 | **4.5%** |
+
+Median buys per unique buyer in hour one: **1.00**. The typical launch is one wallet making
+one trade.
+
+This reframes the selection question rather than answering it:
+
+> For roughly 90% of launches **there is nothing to select.** They never acquire enough
+> liquidity to take a position in, and never generate enough trades to have a price. The
+> real universe is the ~1-10% that get any traction — and by the time traction is visible,
+> you are no longer buying a launch, you are buying after the move. Stage H measured that
+> directly: entering at a random later point instead of at listing cost 15-20% of the mean.
+
+So the DEX end is squeezed from both sides. Before traction there is nothing tradeable;
+after traction the entry edge is gone.
+
+---
+
+## 10. What this means
 
 1. **A real, replicable selection signal exists, and it is the opposite of how people pick.**
    Quiet launches beat loud ones — consistently, within every cohort, and more strongly out
@@ -197,6 +276,9 @@ evidence here is weak evidence of absence, and that caveat applies to everything
    chance the true mean is at or below breakeven — 89% after realistic costs.
 4. **The tradeable version is the weakest version.** Impose a liquidity floor you can
    actually execute against and the IC roughly halves.
+
+5. **The short version of the signal does not work either** (section 8), and on the DEX end
+   there is nothing to select from in the first place (section 9).
 
 Combined with `LOTTERY_FINDINGS.md`: the lottery is not fixable by better selection. The
 best available selection signal turns a 0.6x median into a 1.0x median. That is a real
@@ -211,8 +293,13 @@ worth more than anything the signal does on the quiet end.
 - No holdout beyond the 2024+ split, which I have now seen.
 - Signals are limited to price/volume/funding observables. On-chain launch data that would
   actually test the original hypotheses — holder concentration, LP lock status, deployer
-  wallet history, social velocity — needs paid or indexed sources not available here. The
-  DEX section below gets partway using unique-buyer counts as a concentration proxy.
+  wallet history, social velocity — needs paid or indexed sources not available here. I
+  captured unique-buyer counts as a concentration proxy on the DEX cohort but could not
+  pair them with forward returns (section 9), so those hypotheses remain untested.
+- The DEX signal test failed for data reasons, not because a signal was ruled out. Testing
+  it properly needs an archive node or a paid indexer, not a public rate-limited API.
+- The short-the-hype grid in section 8 tried nine parameter cells with no multiple-testing
+  correction; I am reading it as "not established", not as "the best cell is real".
 - Binance perp listings already reflect a prior move elsewhere, so "week 1" here is not the
   same as a DEX genesis window.
 
@@ -223,5 +310,6 @@ altcoin_study/n_selection.py    # causal signal test, OOS split, power analysis
 altcoin_study/o_signal_audit.py # collinearity, era-proxy test, body-vs-tail
 altcoin_study/p_modern.py       # regime split, within-cohort ranking, basket economics
 altcoin_study/m_snapshot.py     # live DEX launch-cohort collector
-altcoin_study/q_dex_signals.py  # same causal test on the DEX firehose
+altcoin_study/r_short_hype.py   # is shorting the loud launches tradeable?
+altcoin_study/q_dex_signals.py  # same causal test on the DEX firehose (see section 9)
 ```
