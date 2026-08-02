@@ -232,6 +232,30 @@ perps were never scanned.
 
 ## 7. Multi-asset results
 
+### 7a. Pre-registration (written before running the test)
+
+`S_bb_break_dn` was selected by scanning BTC, so its BTC numbers are contaminated.
+The eleven other perps are a clean test. Committing to the reading in advance so the
+result cannot be reinterpreted afterwards:
+
+- **Real**: at least 8 of 11 non-BTC perps show positive net expectancy at rr = 0.25
+  and at rr = 0.5, with a pooled winrate lift in the +4 to +6 point range over each
+  asset's own unconditional baseline.
+- **Noise**: 5 to 7 of 11 positive. That is what a coin flip looks like, and the rule
+  should be treated as dead regardless of how good the BTC numbers are.
+- **Ambiguous**: exactly at the boundary, or positive count high but pooled expectancy
+  near zero. Report as unresolved, do not promote.
+
+Separately, the long-side mirror `L_bb_break_up` was negative out of sample on BTC. If
+it comes back positive across the alts, the short-only asymmetry was a BTC artefact
+and the whole family needs re-examining rather than celebrating.
+
+Frequency expectation: about 10 trades per month per asset, so 100+ per month gross
+across 12 instruments before any concurrency cap. Whether that survives a cap of 4
+concurrent positions is the thing that decides section 5's verdict.
+
+### 7b. Result
+
 TO BE FILLED
 
 ## 8. Data and methods
