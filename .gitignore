@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+
+# Derived / re-fetchable artefacts of the low R:R study.
+# Regenerate with: python3 -m lowrr.fetch_binance ; python3 -m lowrr.barrier ; etc.
+study/lowrr/bn/
+study/lowrr/okx/
+study/lowrr/*.pkl
+study/lowrr/barrier_*.parquet
+study/lowrr/fetch*.log
