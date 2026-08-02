@@ -254,9 +254,222 @@ Frequency expectation: about 10 trades per month per asset, so 100+ per month gr
 across 12 instruments before any concurrency cap. Whether that survives a cap of 4
 concurrent positions is the thing that decides section 5's verdict.
 
-### 7b. Result
+### 7b. Result: the pre-registration was half met, and the reason matters
 
-TO BE FILLED
+Counts (non-BTC perps with positive net expectancy, threshold was 8 of 11):
+
+| rr | non-BTC positive | pooled expR | pooled lift | day-clustered 95% CI | P(<=0) |
+|----|------------------|-------------|-------------|----------------------|--------|
+| 0.25 | 8 / 11 | +0.008 | +3.6 pts | -0.016 to +0.030 | 24.3% |
+| 0.50 | 9 / 11 | +0.024 | +4.5 pts | -0.013 to +0.060 | 9.6% |
+| 1.00 | 9 / 11 | +0.046 | +4.8 pts | -0.016 to +0.109 | 7.4% |
+| 2.00 | 9 / 11 | +0.082 | +4.7 pts | -0.027 to +0.190 | 7.6% |
+
+The count criterion passed comfortably (well clear of the 5-to-7 noise band). The
+magnitude criterion did not: at rr 0.25 the lift is +3.6 points, below the
+pre-registered +4 to +6 band, and a quarter of bootstrap draws are at or below
+zero. By the rule written in advance, rr 0.25 is **unresolved, do not promote**
+and rr 0.5 is the closest thing to confirmed, without clearing a 95% bar.
+
+**The decisive number is the lift column.** On BTC alone the lift looked
+front-loaded (+5.6 points at 0.25:1 falling to +4.0 at 1:1), which is what made
+this the sole low R:R survivor. Across twelve instruments it is **flat**: +3.6,
++4.5, +4.8, +4.7. The front-loading was noise. And since expectancy is exactly
+`(1+rr) * lift`, a flat lift means **expectancy is strictly increasing in R:R**.
+The one rule that appeared to justify sub-1 R:R does not.
+
+The long mirror confirms the asymmetry is real rather than fitted. `L_bb_break_up`
+lift across the ladder: +0.6, +0.7, -0.2, +0.1. Exactly zero. Longing an upper-band
+break has no edge at all and simply pays the fees, while shorting a lower-band
+break has a genuine +4.5. That is consistent with the leverage effect (downside
+moves carry stronger short-horizon follow-through), so it is a mechanism and not
+just a pattern.
+
+**Cross-asset correlation is not optional bookkeeping.** The day-clustered CI is
+about 3x wider than the naive one, and the stacking work below puts the inflation
+factor at 4 to 6x. Twelve correlated perps are nowhere near twelve experiments.
+Any pooled figure in crypto quoted with a naive standard error is overstated by
+roughly a factor of five.
+
+### 7c. Frequency does multiply, and it does not rescue anything
+
+Concurrency-capped portfolio (max 4 open, 1 per symbol, 0.25% risk per trade):
+
+| rule | rr | trades/mo | R/mo | maxDD | CAGR/maxDD |
+|------|----|-----------|------|-------|------------|
+| S_bb_break_dn | 0.25 | 82.9 | +1.12 | -9.4% | 0.35 |
+| S_bb_break_dn | 0.50 | 61.5 | +1.00 | -9.8% | 0.30 |
+| S_bb_break_dn | 1.00 | 40.8 | +0.91 | -12.6% | 0.21 |
+| S_bb_break_dn | 2.00 | 25.4 | +1.20 | -20.6% | 0.17 |
+| S_volspike18_dn | 0.50 | 45.5 | +1.09 | -8.2% | 0.40 |
+| S_volspike18_dn | 1.00 | 36.2 | +1.71 | -10.1% | 0.50 |
+| S_volspike18_dn | 2.00 | 23.1 | +2.06 | -12.2% | 0.51 |
+
+Frequency reaches 83 trades a month, which is what the question asked for. But
+R/month barely moves, because the position cap binds and the per-trade edge at low
+R:R is near zero. For the Bollinger rule, low R:R does win on risk-adjusted terms
+(0.35 vs 0.17) purely because trades cycle faster through the four slots. For the
+volume-spike rule, high R:R wins on every measure. There is no general answer.
+
+### 7d. Breakout challenge outcomes
+
+Rolling starts on the real portfolio trade sequence, 0.25% risk:
+
+| config | P(pass) | P(daily bust) | P(maxDD bust) | median days | per-month | maxDD |
+|--------|---------|---------------|---------------|-------------|-----------|-------|
+| S_volspike18_dn rr 0.5 | 89.7% | 0.0% | 10.3% | 379 | +0.27% | -8.2% |
+| S_bb_break_dn rr 0.5 | 79.4% | 0.0% | 20.6% | 313 | +0.24% | -9.8% |
+| S_volspike18_dn rr 1.0 | 79.1% | 0.0% | 20.9% | 256 | +0.42% | -10.1% |
+| S_volspike18_dn rr 2.0 | 71.1% | 0.0% | 28.9% | 232 | +0.50% | -12.2% |
+
+**The 4% daily cap is never breached, by any short-side configuration, at any risk
+size tested, at either a 4% or a stricter 3% cap.** That is the one place low R:R
+wins outright and it is a genuine structural fit with Breakout's rule set. The
+binding constraint is the static -6% floor and, far more, the time to target: a
+median of 8 to 12 months.
+
+Read the pass rates honestly. They are computed from a trade series whose
+expectancy CI still contains zero. If the true edge is zero the pass rate collapses
+toward the bust rate. An 89.7% historical pass rate is not an 89.7% probability.
+
+## 8. Should overlapping signals be stacked?
+
+De-overlapping was applied for MEASUREMENT, and that is justified: overlapping
+trades on one instrument resolve unanimously **61% to 89%** of the time, and the
+naive standard error overstates the evidence by **4.2x to 6.3x** versus a
+day-clustered one. Five entries on consecutive bars are not five trades' worth of
+proof.
+
+It was never justified as a TRADING choice, and testing it (`lowrr/stacking.py`)
+shows the collapse was too conservative:
+
+- the marginal stacked entry pays. At 1:1 on `S_bb_break_dn`, depth 0 earns +0.055
+  R and depth 1 earns +0.066 R. Degradation starts at depth 3 (-0.059) and depth 4
+  (-0.090).
+- at FIXED TOTAL risk, which is the honest comparison since a 3-deep stack is one
+  3R bet with staggered entries, stacking 2-deep at 1:1 improves return per unit
+  drawdown from 0.39 to 0.51. Beyond 2-deep it stops helping.
+- at 2:1 stacking hurts (0.21 down to 0.13).
+
+Verdict: stack at most 2 deep, size the stack as one position, and only at rr <= 1.
+
+## 9. Exit management: a clean negative, and one live warning
+
+52 variants (`lowrr/exits.py`): break-even moves, ATR trailing, partial take-profits,
+time stops, on both surviving rules across 12 perps, with an extra commission and
+slippage charged for every additional fill so nothing gets a free exit.
+
+**Zero variants beat plain fixed-R by more than noise.** Trailing stops and long
+time stops had the best point estimates and agreed in sign across train and test,
+but every CI includes zero, and the two closest sit at P(<=0) of 2.5 to 3% out of
+52 draws, which is the multiple-comparisons floor rather than evidence.
+
+One result is robust in the other direction and is actionable today:
+**moving to break-even at +0.25R costs about -0.07 R per trade**, -0.072
+[-0.096, -0.050] and -0.071 [-0.098, -0.043], CI entirely negative on both rules.
+On high-winrate short signals an early break-even converts eventual winners into
+scratches. Enter-and-forget stands.
+
+## 10. Oscillator divergence stacks
+
+`lowrr/oscillators.py` + `lowrr/osc_test.py`. See the scope warning in those files:
+the port is NOT validated against TradingView, only Variant A is implemented, and
+this is not the Gate 0 audit. It cannot kill anything.
+
+**0 of 280 cells survive** train, test and a day-clustered CI. Not one, at any
+timeframe, R:R, stop rule or level filter.
+
+Two things are worth keeping anyway:
+
+- **On 4H the stacks are genuinely front-loaded.** WT+MFI margin over breakeven runs
+  +2.2, +1.9, +2.7 points at rr 0.25, 0.5, 0.75 and then turns NEGATIVE at 1:1
+  (-2.2) and 2:1 (-3.1). That is the opposite of every trend-continuation rule here,
+  and front-loaded is precisely the signal shape a sub-1 R:R target suits. The
+  intuition that low R:R fits a divergence system is structurally correct. The
+  margin simply never separates from zero, and frequency is only 4.3 trades/month
+  with primary filters.
+- **On 15m the cost model is decisive.** A 1.5 x ATR stop on 15m puts the breakeven
+  winrate at **91.1%** at 0.25:1, because the stop is tight enough that commission
+  plus slippage eats 15% of R. Every 15m cell returns -0.09 to -0.26 R with CIs
+  entirely below zero. The spec's wider ATR-band stop plus its 0.6% invalidation
+  cuts breakeven to 86.9%, which helps and is nowhere near enough.
+
+## 11. Session, cross-sectional and ensemble
+
+470 hypotheses (`lowrr/crosssec.py`). All three negative.
+
+- **Session/time of day**: one borderline cell (hour 12 UTC on the Bollinger short,
+  CI lower bound +0.000) with train-to-test decay from +0.096 to +0.015. Noise.
+- **Cross-sectional relative strength**: all 60 cells negative at every rung. Best
+  is -0.020 with CI [-0.031, -0.008], which excludes zero on the LOSING side. Beta
+  neutrality was achieved (correlation to BTC daily return between -0.055 and
+  +0.121) but there is no edge to be neutral about, and a flat-to-negative
+  market-neutral book is the worst thing to hold under a static floor: it bleeds
+  with no upside to recover through. The leg breakdown shows why it fails, and it
+  is the study's recurring finding: short leg roughly flat (+0.006 to -0.019), long
+  leg a consistent drag (-0.043 to -0.059).
+- **Ensemble scoring**: only full 9-of-9 consensus is positive in both train and
+  test, CI [-0.007, +0.145], smallest-n and most cherry-picked cell of a 9-point
+  sweep.
+
+## 12. Funding rate: the first non-OHLCV information, and it fails too
+
+175 hypotheses (`lowrr/funding.py`), 12 symbols. Causality was verified three ways:
+zero rows where the funding timestamp exceeds the bar close, hand-printed rows
+across a settlement boundary, and a deliberately broken forward-merge control
+showing the 50%-leak signature the real merge does not have.
+
+**0 of 175 cells are positive in train, positive in test, and CI-excluding-zero.**
+
+The stronger finding is the sign. **35 of 175 cells have a CI entirely BELOW zero,
+and 0 have a CI entirely above.** The textbook trade of fading crowded positioning
+via funding is not merely unprofitable at Breakout costs, it is reliably
+money-losing, up to -0.21 R per trade. And every one of the significantly negative
+cells is a LONG-side signal (`div_bull`, `flip_to_neg`, `fund_bot_pct365d`,
+`cum*_top_decile`). The cross-sectional funding book is negative at every rung
+(-0.036, CI [-0.045, -0.027]) with a BTC correlation of -0.205.
+
+## 13. The ceiling, and what it means
+
+Across roughly 1,900 hypotheses in this study, spanning price, volume, momentum,
+volatility, candle structure, higher-timeframe levels, oscillator divergences,
+session effects, cross-sectional ranking, ensembles, exit management and funding
+positioning, on 12 instruments over five years:
+
+**No condition has ever produced a winrate lift above about +6 points over its own
+barrier baseline.** The cost hurdle is +3 points. Everything real operates at one
+to two times the hurdle, which is why every result comes out thin regardless of
+which indicator generates it.
+
+That consistency does not look like "the right indicator has not been found yet".
+It looks like a ceiling on how much an OHLCV bar, and now also funding positioning,
+knows about a liquid perp on a high timeframe. The 1,901st price-derived condition
+will very likely land in the same band.
+
+Against that, the two rules still standing are the volume-spike short at 1:1
+(+0.074 R, CI [+0.005, +0.141], the only cell in the entire study whose
+day-clustered CI excludes zero) and, more weakly, the Bollinger-break short.
+
+## 14. Direct answer to the question
+
+Can we build a sub-1 R:R, high-winrate, high-timeframe, high-frequency,
+Breakout-compliant system?
+
+- **Sub-1 R:R and high winrate: trivially yes, and worth nothing.** 4H BTC hands you
+  80.4% at 0.25:1 and 66.9% at 0.5:1 with no signal at all, and all twelve perps sit
+  within a few tenths of a point of the fair line at every rung. It is arithmetic.
+- **High frequency: yes, via instruments, not via timeframe.** 83 trades a month
+  across 12 perps at 0.25:1.
+- **Breakout-compliant: yes on the daily cap, which is never breached.** The static
+  -6% floor and a median 8-to-12-month time to target are the real constraints.
+- **Positive expectancy at sub-1 R:R: not demonstrated.** The one candidate that
+  looked front-loaded on BTC turned out flat across 12 instruments, which makes
+  expectancy strictly increasing in R:R for it.
+
+The honest recommendation is to stop trying to buy winrate with R:R. It is not a
+lever, it is a change of units. The levers that showed anything here are instrument
+count (frequency), the short side only (the long side is a reliable drag
+everywhere), stacking at most 2 deep at fixed total risk, and NOT touching the exit.
 
 ## 8. Data and methods
 
@@ -274,12 +487,42 @@ TO BE FILLED
 ## 9. Reproduce
 
 ```
+python3 lowrr/fetch_binance.py 4h,15m   # 12 perps, OHLCV
+python3 lowrr/fetch_flow.py funding     # funding rate, 12 perps
+python3 lowrr/fetch_flow.py metrics     # open interest + positioning, BTC/ETH/SOL
+
 python3 -m lowrr.barrier          # unconditional barrier ladder, writes barrier_*.parquet
 python3 -m lowrr.scan             # 492-condition slice, writes scan_results.csv
 python3 -m lowrr.finalists_lowrr  # de-overlapped finalists + block bootstrap
 python3 -m lowrr.edge_scaling     # lift vs rr decomposition
-python3 -m lowrr.breakout_sim     # Breakout 1-step rolling-start challenge sim
-python3 lowrr/fetch_binance.py 4h,15m
 python3 -m lowrr.multiasset       # 12-perp portfolio
+python3 -m lowrr.pooled_test      # per-asset baselines + day-clustered CIs
+python3 -m lowrr.breakout_sim     # Breakout 1-step rolling-start challenge sim
+python3 -m lowrr.stacking         # overlapping-entry analysis
+python3 -m lowrr.exits            # exit-management overlays
+python3 -m lowrr.osc_test         # WT/MFI/RSI divergence stacks
+python3 -m lowrr.crosssec         # session, cross-sectional, ensemble
+python3 -m lowrr.funding          # funding-rate conditions
+python3 -m lowrr.openinterest     # open interest and positioning
 python3 -m lowrr.check_data       # feed agreement + path resolution bias
 ```
+
+## 10. Hypothesis budget
+
+Stated so results are read against it rather than in isolation.
+
+| source | hypotheses |
+|--------|-----------|
+| scan.py condition sweep | 492 |
+| finalists grid (9 rules x 3 stops x 7 rr) | 189 |
+| multiasset per-asset and pooled cells | ~260 |
+| pooled_test + stacking | ~50 |
+| exits.py | 52 |
+| osc_test.py | 280 |
+| crosssec.py | 470 |
+| funding.py | 175 |
+| **total** | **~1,970** |
+
+At a nominal 5% level that budget buys roughly 99 false positives for free. Exactly
+one cell in the whole study has a day-clustered CI excluding zero on the positive
+side: the volume-spike short at 1:1.
