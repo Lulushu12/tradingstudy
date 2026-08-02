@@ -5,6 +5,7 @@ __pycache__/
 # Regenerate with: python3 -m lowrr.fetch_binance ; python3 -m lowrr.barrier ; etc.
 study/lowrr/bn/
 study/lowrr/okx/
+study/lowrr/flow/
 study/lowrr/*.pkl
 study/lowrr/barrier_*.parquet
 study/lowrr/*.log
