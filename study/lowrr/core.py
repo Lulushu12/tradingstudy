@@ -127,23 +127,34 @@ def resolve_ladder(path, t_entry, entry, side, rdist, rr_grid, max_hold_sec):
     return out, ets, epx
 
 def trades_for_signals(df, sig_idx, sig_side, atr_mult, rr_grid, path,
-                       max_hold_days=50):
+                       max_hold_days=50, stop_dist=None, min_stop_frac=None):
     """Build a trade table for every (signal, rr) pair.
 
     Signal is read at bar CLOSE of df row i, entry at OPEN of row i+1, resolved on
-    the 5m path. Nothing here looks ahead.
+    the fine path. Nothing here looks ahead.
+
+    stop_dist: optional explicit per-signal stop distance in PRICE, aligned with
+        sig_idx. When given it overrides atr_mult. Needed for rule sets whose stop
+        is not a plain ATR multiple (e.g. the FROZEN_SPEC ATR-band stop).
+    min_stop_frac: optional entry invalidation. Signals whose stop distance is a
+        smaller fraction of entry than this are skipped entirely.
     """
     o = df["open"].values; t = df["time"].values; atrv = df["atr14"].values
     n = len(df)
     rr_grid = np.asarray(sorted(rr_grid), dtype=float)
     max_hold_sec = int(max_hold_days * 86400)
     rows = []
-    for i, s in zip(sig_idx, sig_side):
+    for k_sig, (i, s) in enumerate(zip(sig_idx, sig_side)):
         ei = i + 1
         if ei >= n:
             continue
-        rdist = atr_mult * atrv[i]
+        if stop_dist is not None:
+            rdist = stop_dist[k_sig]
+        else:
+            rdist = atr_mult * atrv[i]
         if not np.isfinite(rdist) or rdist <= 0:
+            continue
+        if min_stop_frac is not None and rdist / o[ei] < min_stop_frac:
             continue
         entry = o[ei]; t_entry = int(t[ei])
         sf = rdist / entry
