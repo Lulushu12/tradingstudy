@@ -8,3 +8,4 @@ study/lowrr/okx/
 study/lowrr/*.pkl
 study/lowrr/barrier_*.parquet
 study/lowrr/*.log
+study/lowrr/*_out.txt
