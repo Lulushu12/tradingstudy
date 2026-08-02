@@ -7,4 +7,4 @@ study/lowrr/bn/
 study/lowrr/okx/
 study/lowrr/*.pkl
 study/lowrr/barrier_*.parquet
-study/lowrr/fetch*.log
+study/lowrr/*.log
