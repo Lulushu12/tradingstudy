@@ -116,7 +116,9 @@ def s4_outside_bar(df: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
     s.loc[short_sig, "entry"] = -1
     s.loc[long_sig, "stop"] = l[long_sig]                  # INVENTED 3: exactly the extreme
     s.loc[short_sig, "stop"] = h[short_sig]
-    s["trail"] = np.where(s["entry"].ffill().fillna(0) >= 0, swing_lo, swing_hi)
+    # side-specific: a long trails under the last swing low, a short above the last swing high
+    s["trail_long"] = swing_lo
+    s["trail_short"] = swing_hi
     return s, {"entry_on_close": True, "tiered_exit": True}
 
 

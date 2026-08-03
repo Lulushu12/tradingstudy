@@ -1,0 +1,10 @@
+run,trades,mean_R,month_lo,month_hi,bonf_lo,bonf_hi,stress_mean_R,stress_lo,pct_symbols_positive,verdict
+s1_flat,4522,0.0651,0.0087,0.1314,-0.0033,0.1503,0.0645,0.0082,95.3,DEAD (month-block CI includes 0 after correction)
+s1_flip,8979,0.0293,0.0017,0.0619,-0.0042,0.0719,0.0288,0.0012,83.5,DEAD (month-block CI includes 0 after correction)
+s2_mid,4434,0.2584,0.0605,0.4891,0.0136,0.5667,0.2548,0.0569,77.6,survives both corrections and doubled costs
+s2_band,11774,0.0372,-0.023,0.0917,-0.0361,0.1037,0.0338,-0.0264,67.1,DEAD (month-block CI includes 0 after correction)
+s3_atr,2925,0.1043,-0.0213,0.2631,-0.0506,0.318,0.1004,-0.0251,45.9,DEAD (month-block CI includes 0 after correction)
+s3_nostop,2908,0.0131,-0.0085,0.039,-0.0134,0.0475,0.0126,-0.009,47.1,DEAD (month-block CI includes 0 after correction)
+s4,374,0.2518,0.0636,0.4384,0.0024,0.5014,0.2445,0.0563,63.0,survives both corrections and doubled costs
+s1_flat_4h,30404,0.0054,-0.0002,0.0114,-0.0014,0.0128,0.0049,-0.0007,90.7,DEAD (month-block CI includes 0 after correction)
+s1_flip_4h,60391,0.0011,-0.0016,0.004,-0.0023,0.0048,0.0006,-0.0021,60.5,DEAD (month-block CI includes 0 after correction)

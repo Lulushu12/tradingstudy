@@ -190,3 +190,87 @@ A run is dead if, on the studied span after 0.10% round-trip costs, any of:
 
 Surviving means "not yet falsified on one instrument over one span". It does not mean the
 strategy works, and the report must not imply otherwise.
+
+---
+
+# Amendment 2: basket extension
+
+Logged before any basket result existed. Written because the single-symbol run could not
+decide anything, and because S4 produced 4 signals in 5 years on one instrument.
+
+## Basket selection (availability rule, never a performance rule)
+
+Include every USDT-quoted Binance USD-M perpetual whose daily kline archive begins on or
+before 2021-01, taken from the official `data.binance.vision` archive.
+
+**Delisted symbols are kept.** Their archives persist after delisting, so excluding them
+would fill the basket with coins that happened to survive to 2026 and would inflate every
+long-biased result. No symbol is added or dropped after its results are seen.
+
+Binance's live API is geo-blocked from this environment (HTTP 451); the public archive is the
+same venue and the same data, so the basket stays consistent with the BTCUSDT files already
+in this repository.
+
+## What is run
+
+The same nine runs from the declared list, with **every parameter unchanged**. Nothing is
+retuned for the basket. The only thing that changes is the number of instruments.
+
+Each symbol is traded on its own independent 10,000 equity track. A true portfolio model
+(shared equity, concurrent positions, correlated drawdown) is **not** attempted, and no
+portfolio-level return is reported, because sizing across correlated crypto is a separate
+design question this spec does not address.
+
+## Statistics
+
+Crypto majors are strongly correlated. Pooling trades across 60 symbols does not produce 60
+times the independent evidence, and a naive trade-level bootstrap would badly overstate
+precision. Therefore:
+
+- **Primary**: a clustered bootstrap that resamples whole **symbols** with replacement. This
+  is the interval that gets believed.
+- **Secondary, reported only to show the gap**: the naive trade-level bootstrap.
+- Bonferroni correction for four strategy families stays in force.
+
+A result counts only if the symbol-clustered interval excludes zero.
+
+## Additional pre-committed reporting
+
+- Fraction of symbols with positive expectancy, per run. A real edge should show up broadly,
+  not in a handful of coins.
+- Per-year net R pooled across the basket, same regime test as before.
+- S4 signal count across the whole basket, which is the question the single symbol could not
+  answer.
+
+Holdout remains 2025-01-01 onward and stays sealed.
+
+## Amendment 3: statistical method correction, and a disclosure
+
+Logged after seeing a first basket run, which is exactly the situation where changing method
+is dangerous. Disclosed in full for that reason.
+
+That run declared eight of nine runs "surviving", including one with a mean of +0.001R over
+60,391 trades. Two things were wrong with it, neither of them a tuning decision:
+
+1. **A recording bug in the engine**, not a statistics problem. Under the tiered exit, a trade
+   that scaled out at 1R and then closed its remaining half was passed to `close_out` with
+   frac=0.5, which the function treated as another partial and never recorded. Every S4 trade
+   that reached its first target was deleted from the results; only clean stop-outs survived
+   into the sample. That is why S4 showed a mean of -1.007R with 0% of symbols positive.
+   Fixed by separating "how much size is closing" from "is the position finished".
+   The single-symbol S4 result reported earlier was wrong for the same reason.
+
+2. **Symbol clustering does not address the dependence that matters.** Crypto's dominant
+   correlation is cross-sectional at a point in time: 87 coins in one month are close to one
+   observation, not 87. Resampling symbols leaves that untouched, which is why the clustered
+   and naive intervals came out nearly identical instead of the clustered one being much
+   wider. Corrected to a **calendar-month block bootstrap**, resampling whole months with
+   replacement. That interval is now the primary one.
+
+3. **Statistical significance is not economic significance.** A mean of +0.001R resolved over
+   60,391 trades is distinguishable from zero and still worthless: it is the size of a single
+   round-trip cost. A run must now also keep a positive lower bound when costs are doubled to
+   0.10% per side. This is a robustness requirement, not a threshold chosen to produce a
+   particular answer, and it is applied identically to every run.
+
+No strategy parameter was touched. The declared run list is unchanged.

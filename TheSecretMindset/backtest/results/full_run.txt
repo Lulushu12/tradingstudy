@@ -21,7 +21,7 @@ s2_mid      BTCUSDT_1D      54                116.68        0.9795          46.3
 s2_band     BTCUSDT_1D     187                 18.64        0.1647          68.4          1.483       33.42             -5.76                      4                52.4    83.66   -122.42       288.16
 s3_atr      BTCUSDT_1D      40                253.25        2.0855          47.5          7.847      100.91            -12.61                      6                44.8   611.02    -70.45        86.46
 s3_nostop   BTCUSDT_1D      40               2972.88        0.1190          50.0          3.796     1180.49            -38.05                      6                51.6  8072.19  -2126.43      1915.86
-s4          BTCUSDT_1D       2               -104.02       -1.0109           0.0          0.000        1.32             -3.20                      2                 0.3     0.00   -104.02         4.49
+s4          BTCUSDT_1D       4                 12.67        0.1338          50.0          1.246        0.47             -4.04                      2                 2.5   128.49   -103.15         7.81
 
 ====================================================================================================
 CONTROL: buy and hold over the same studied span, same cost
@@ -54,7 +54,7 @@ KILL RULE  (expectancy <= 0, or PF < 1.0, or fewer than 30 trades = undecidable)
   s2_band      not yet falsified
   s3_atr       not yet falsified
   s3_nostop    not yet falsified
-  s4           UNDECIDABLE (only 2 trades)
+  s4           UNDECIDABLE (only 4 trades)
 
 ====================================================================================================
 BOOTSTRAP 95% CI on mean R per trade (10,000 resamples of the trade list)
@@ -67,7 +67,7 @@ BOOTSTRAP 95% CI on mean R per trade (10,000 resamples of the trade list)
   s2_band      meanR  +0.165  95% [ +0.033, +0.295] excl 0   Bonf [ -0.002, +0.327] INCL 0
   s3_atr       meanR  +2.085  95% [ -0.021, +5.347] INCL 0   Bonf [ -0.135, +6.521] INCL 0
   s3_nostop    meanR  +0.119  95% [ +0.001, +0.296] excl 0   Bonf [ -0.012, +0.354] INCL 0
-  s4           too few trades to bootstrap (2)
+  s4           too few trades to bootstrap (4)
 
 ====================================================================================================
 REGIME CHECK: net R by calendar year (an edge in one year is a regime bet)
@@ -81,7 +81,7 @@ s2_mid      -1.4   7.1  27.0   3.2   6.4  10.5
 s2_band     -0.5  16.7   3.8   1.5   8.4   0.8
 s3_atr       NaN  -1.0  52.9   2.2  -0.3  29.7
 s3_nostop    NaN  -0.1   2.9   0.5  -0.1   1.6
-s4           NaN   NaN   NaN   NaN   NaN  -2.0
+s4           NaN   NaN   0.7   1.9   NaN  -2.0
 
 ====================================================================================================
 COST SWEEP: expectancy per trade vs cost per side (%)
@@ -96,6 +96,6 @@ s2_band              19.57    18.64    17.73    16.84    15.97    14.29
 s2_mid              117.85   116.68   115.51   114.35   113.20   110.92
 s3_atr              255.05   253.25   251.45   249.67   247.89   244.37
 s3_nostop          3077.88  2972.88  2871.53  2773.71  2679.31  2500.25
-s4                 -102.94  -104.02  -105.10  -106.18  -107.26  -109.41
+s4                   13.62    12.67    11.72    10.77     9.82     7.93
 
 written to /home/user/tradingstudy/TheSecretMindset/backtest/results

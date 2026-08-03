@@ -32,7 +32,7 @@ have to be read against that line, not against zero.
 | s2_band | 187 | +0.165 | +0.033 to +0.295 | **includes 0** | 1.48 | +33.4% | -5.8% | 52.4% |
 | s3_atr | 40 | +2.085 | **includes 0** | includes 0 | 7.85 | +100.9% | -12.6% | 44.8% |
 | s3_nostop | 40 | +0.119 | +0.001 to +0.296 | **includes 0** | 3.80 | +1180.5% | -38.1% | 51.6% |
-| s4 | 2 | n/a | too few to bootstrap | | 0.00 | +1.3% | -3.2% | 0.3% |
+| s4 | 4 | +0.134 | too few to bootstrap | | 1.25 | +0.5% | -4.0% | 0.3% |
 
 Bootstrap is 10,000 resamples of the trade list. The Bonferroni column is the 98.75% interval,
 the correct threshold for having tested four independent strategy families. Reading the 95%
@@ -73,8 +73,9 @@ The speaker's own words on this one, quoted from the transcript at 09:30, are th
 crossover system "traded by itself is not reliable in the long run". The data does not
 contradict him.
 
-**S4 Daily outside bar.** Produced 4 signals in 1942 daily bars and 2 completed trades, both
-losers. Undecidable, and not because the invented parameters were too strict. The filter
+**S4 Daily outside bar.** Produced 4 signals in 1942 daily bars and 4 completed trades.
+(Corrected: this originally read "2 completed trades, both losers", which was an engine bug
+that discarded any trade scaling out at 1R. See BASKET_RESULTS.md.) Undecidable, and not because the invented parameters were too strict. The filter
 census shows 87 outside bars in total, 118 bars that pass both the trend and zone gates, and
 4 where all three coincide. This setup is meant to be run as a scan across dozens of
 instruments, which is exactly how the video presents it. One symbol cannot generate a
@@ -112,4 +113,8 @@ that flips a verdict once can flip one again in the other direction.
 3. Sensitivity to my invented parameters. If S2's result moves by 6x between two exits the
    video treats as interchangeable, the other invented values deserve the same check.
 
-None of these have been done. Nothing in this file has been validated out of sample.
+All three were subsequently done except the holdout. See **BASKET_RESULTS.md** for the
+87-symbol basket run, which is the result that supersedes this file: across the basket,
+nothing survives once outliers are capped.
+
+Nothing in this file has been validated out of sample.

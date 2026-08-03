@@ -1,0 +1,6 @@
+
+# Basket OHLCV: 57MB, reproducible exactly from the public Binance archive with
+#   cd TheSecretMindset/backtest && python3 fetch_basket.py && INTERVAL=4h python3 fetch_basket.py
+TheSecretMindset/backtest/basket/
+__pycache__/
+*.pyc

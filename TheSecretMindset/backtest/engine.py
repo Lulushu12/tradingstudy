@@ -67,6 +67,9 @@ class Engine:
         sig_stop = signals["stop"].values if "stop" in signals else np.full(n, np.nan)
         sig_targ = signals["target"].values if "target" in signals else np.full(n, np.nan)
         sig_trail = signals["trail"].values if "trail" in signals else np.full(n, np.nan)
+        # a trail must sit below a long and above a short; one shared column cannot do both
+        sig_tl = signals["trail_long"].values if "trail_long" in signals else sig_trail
+        sig_ts = signals["trail_short"].values if "trail_short" in signals else sig_trail
         # stop_dist lets a strategy express "2 x ATR from the fill" rather than from the
         # signal bar's close, so the stop is anchored to the price actually paid.
         sig_sdist = signals["stop_dist"].values if "stop_dist" in signals else np.full(n, np.nan)
@@ -79,7 +82,12 @@ class Engine:
         half_done = False
         pending: tuple[int, float, float] | None = None   # (side, stop, target)
 
-        def close_out(t: Trade, i: int, px: float, reason: str, frac: float = 1.0):
+        def close_out(t: Trade, i: int, px: float, reason: str, frac: float = 1.0,
+                      final: bool = True):
+            """`frac` is how much of the original size is being closed. `final` says whether
+            the position is finished. These are independent: a trade that already scaled out
+            half closes its last half with frac=0.5 and final=True, and must still be
+            recorded. Conflating the two silently discards every trade that scaled out."""
             nonlocal equity
             q = t.qty * frac
             gross = (px - t.entry_px) * q * t.side
@@ -87,9 +95,8 @@ class Engine:
             equity += gross - fee
             t.pnl += gross - fee
             t.cost += fee
-            if frac < 1.0:
-                t.partials.append((i, px, reason, gross - fee))
-            else:
+            t.partials.append((i, px, reason, gross - fee))
+            if final:
                 t.exit_i, t.exit_dt, t.exit_px, t.reason = i, dt[i], px, reason
                 denom = t.risk_per_unit * t.qty
                 t.r_multiple = t.pnl / denom if denom > 0 else np.nan
@@ -120,7 +127,7 @@ class Engine:
                     one_r = pos.entry_px + pos.side * pos.risk_per_unit
                     hit = h[i] >= one_r if pos.side > 0 else l[i] <= one_r
                     if hit:
-                        close_out(pos, i, one_r, "1R_partial", 0.5)
+                        close_out(pos, i, one_r, "1R_partial", 0.5, final=False)
                         half_done = True
                         stop_px = pos.entry_px          # tier 2: breakeven
                 # target is read per bar, not latched, so a strategy can express a moving
@@ -139,8 +146,8 @@ class Engine:
                 # Under tiered_exit this is S4's tier 3 and waits for the 1R partial; without
                 # it, the trail is live from the start (S2's give-back exit).
                 active = half_done if tiered_exit else True
-                if pos is not None and active and not np.isnan(sig_trail[i]):
-                    t_px = sig_trail[i]
+                t_px = (sig_tl[i] if pos is not None and pos.side > 0 else sig_ts[i])
+                if pos is not None and active and not np.isnan(t_px):
                     if pos.side > 0 and (np.isnan(stop_px) or t_px > stop_px):
                         stop_px = t_px
                     elif pos.side < 0 and (np.isnan(stop_px) or t_px < stop_px):
