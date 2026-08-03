@@ -469,7 +469,7 @@ def s9_smc(df, cfg):
 
 REGISTRY = {
     "S1 Fib ABCD 0.88":        (s1_fib_abcd, "30m", False),
-    "S2 Donchian+LWTI+vol":    (s2_donchian_lwti, "5m", True),
+    "S2 Donchian+LWTI+vol":    (s2_donchian_lwti, "5m", False),
     "S3 Raschke 3/10":         (s3_raschke_310, "1h", True),
     "S4 RSI 80/20 + VWAP":     (s4_rsi_vwap, "15m", True),
     "S5 EMA meter + SMI":      (s5_ema_meter_smi, "4h", True),
@@ -479,4 +479,6 @@ REGISTRY = {
     "S9 SMC sweep->FVG":       (s9_smc, "15m", False),
 }
 # third field: whether the video leaves the stop vague, so the three stop
-# conventions get swept. S1, S8 and S9 state their own stop explicitly.
+# conventions get swept. S1, S2, S8 and S9 state their own stop explicitly
+# (leg origin, Donchian midline, point C, and the sweep extreme respectively)
+# and ignore cfg.stop_conv, so sweeping them would emit identical rows.
