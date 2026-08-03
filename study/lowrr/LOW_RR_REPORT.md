@@ -526,3 +526,73 @@ Stated so results are read against it rather than in isolation.
 At a nominal 5% level that budget buys roughly 99 false positives for free. Exactly
 one cell in the whole study has a day-clustered CI excluding zero on the positive
 side: the volume-spike short at 1:1.
+
+## 15. Open interest: the one result that survives
+
+Added after the sections above. This is the only finding in the study that clears
+every check applied to it, and it argues against the premise of the question.
+
+**The claim.** The edge in both surviving short rules lives almost entirely in
+periods when open interest is in the top decile of its trailing 90-day range.
+Filtering on that roughly triples net expectancy per trade.
+
+Pooled over BTC, ETH and SOL, day-clustered CI on the DIFFERENCE (filtered minus
+unfiltered), which is the quantity that has to exclude zero:
+
+| rr | base expR | OI-filtered expR | delta | 95% CI on delta |
+|----|-----------|------------------|-------|-----------------|
+| 0.25 | +0.015 | +0.056 | +0.041 | -0.005 to +0.083 |
+| 0.50 | +0.013 | +0.084 | +0.071 | -0.007 to +0.141 |
+| 0.75 | +0.023 | +0.146 | +0.124 | **+0.018 to +0.231** |
+| 1.00 | +0.040 | +0.215 | +0.175 | **+0.040 to +0.308** |
+| 2.00 | +0.086 | +0.331 | +0.245 | **+0.018 to +0.476** |
+
+**Why it is not the usual false positive.**
+
+- *Independently replicated.* `lowrr/oi_verify.py` reimplements the merge, the
+  rolling percentiles and the conditions from scratch rather than reusing the
+  original script, and reproduces the effect.
+- *Out of sample on instruments.* The conditions were searched on BTC. ETH and SOL
+  were not searched. 69 of 81 BTC-positive cells stay positive on ETH (median
+  expR +0.086 to +0.082, essentially unchanged) and 50 of 71 on SOL. The
+  cross-instrument correlation of cell expectancy is +0.79 for ETH and +0.74 for
+  SOL. Every previous candidate in this study flattened when instruments were
+  added. This one holds its shape.
+- *It separates rather than selects.* The complement matters more than the filter:
+  when OI is NOT elevated, the base rules earn a median +0.006 R and are negative
+  at 0.75:1 and 1:1. Essentially all of the edge in the Bollinger-break and
+  volume-spike shorts is conditional on elevated open interest.
+- *Not a volatility proxy.* Correlation of the OI percentile with the ATR
+  percentile is -0.275, -0.157 and +0.024 across the three instruments, with only
+  6 to 16% overlap between the two top deciles. A selectivity-matched ATR filter,
+  keeping the same share of bars, beats the base rule in only 2 of 15 cells
+  (median -0.056) while the OI filter wins 15 of 15 (median +0.130). The OI edge
+  survives inside both volatility halves: +0.153 in high vol (15/15 positive) and
+  +0.060 in low vol (12/15).
+
+**Mechanism, which is at least coherent.** Shorting a breakdown or a volume spike
+pays when there is a crowded long position to liquidate, and does not pay when
+there is not. That is a liquidation-cascade trade, and open interest is the direct
+measure of how much fuel is present. It is not a price pattern, which is why it
+was invisible to roughly 1,900 OHLCV-derived hypotheses.
+
+**What it does NOT support.** The delta rises monotonically with R:R (+0.041,
++0.071, +0.124, +0.175, +0.245) and the CI only excludes zero at 0.75:1 and above.
+This is a drift edge that needs distance, exactly like the volume-spike family.
+The single genuine discovery in this study points at 1:1 or 2:1, not below 1.
+
+**Honest limits.**
+
+- Three instruments, not twelve. The rest of the study used twelve, and twelve is
+  what has been killing false positives.
+- The CHOICE of this filter came from searching 360 cells on BTC, so filter
+  selection is contaminated even though the instrument replication is not.
+- Pooled filtered sample is 289 to 612 trades depending on rung.
+- ETH and SOL metrics only start 2021-12; BTC starts 2021-01.
+- Live feasibility is untested. This needs a real-time open-interest feed, Binance
+  OI is not Breakout's book, and the 5-minute metrics series has a publication lag
+  that this backtest does not model. Treat as a research finding, not a system.
+
+**Next step, not taken here.** Fetch the metrics series for the other nine perps
+and re-run. That is the same twelve-instrument bar every other candidate had to
+clear, and until it is cleared this stays provisional.
