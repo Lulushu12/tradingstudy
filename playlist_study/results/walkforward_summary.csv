@@ -1,0 +1,7 @@
+label,n,win_rate,net_avg_pct,profit_factor,net_total_pct,max_dd_pct,t_stat
+S1 Fib ABCD 0.88 (walk-forward OOS),346,18.2,0.0185,1.066,5.2,-16.4,0.39
+"S1 Fib ABCD 0.88 (all data, stated)",513,17.9,0.0434,1.128,20.6,-18.1,0.83
+S5 EMA meter + SMI (walk-forward OOS),134,39.6,0.253,1.111,7.7,-31.8,0.46
+"S5 EMA meter + SMI (all data, nbar)",164,38.4,0.6244,1.193,48.6,-46.1,0.89
+S6 Impulse MACD (walk-forward OOS),427,29.5,0.1408,1.105,21.1,-48.2,0.64
+"S6 Impulse MACD (all data, nbar)",593,30.7,0.1513,1.091,8.0,-62.9,0.67

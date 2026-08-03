@@ -1,0 +1,4 @@
+strategy,median_dd,p95_dd,worst_dd,boot_mean_lo95,boot_mean_hi95,p_edge_positive
+S1 Fib ABCD 0.88,-13.7,-20.2,-27.2,-0.0691,0.1106,0.651
+S5 EMA meter + SMI,-50.1,-65.8,-78.7,-0.8339,1.3432,0.673
+S6 Impulse MACD,-56.1,-72.7,-85.1,-0.264,0.5742,0.728

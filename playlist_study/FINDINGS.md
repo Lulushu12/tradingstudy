@@ -154,3 +154,128 @@ Sources: `src/data.py` loading and gap handling, `src/indicators.py` including
 the rebuilt indicators, `src/conventions.py` for the house rulings on the
 ambiguities, `src/strategies.py` for the nine systems with every assumption
 marked, `src/backtest.py` for the engine.
+
+---
+
+# Costed walk-forward on the three survivors
+
+Run with `PYTHONPATH=playlist_study/src python3 playlist_study/src/walkforward.py`.
+Costs: 8bps commission (0.04% per side taker) plus 2bps slippage, 10bps round
+trip on every trade. S1's limit entries are charged at taker rates too, which is
+the conservative direction since they would in practice earn the maker rebate.
+
+## What was actually walked forward
+
+These strategies have no parameters fitted to this data; their lengths and
+thresholds come from the videos. Exactly one thing was fitted: the stop
+convention, chosen for S5 and S6 by looking at results. So each fold selects the
+stop convention on an 18 month in-sample window and applies that choice to the
+next 6 month out-of-sample window, never seeing the future when it chooses.
+S1 states its own stop, so its folds are a pure consistency check.
+
+## Verdict: none of the three has a demonstrable edge
+
+| Strategy | OOS n | Win% | Net avg % | PF | Net total % | Max DD | t-stat | 95% CI on mean | P(edge>0) |
+|---|---|---|---|---|---|---|---|---|---|
+| S1 Fib ABCD | 346 | 18.2 | +0.019 | 1.07 | +5.2 | -16.4% | 0.39 | -0.069 to +0.111 | 0.65 |
+| S5 EMA + SMI | 134 | 39.6 | +0.253 | 1.11 | +7.7 | -31.8% | 0.46 | -0.834 to +1.343 | 0.67 |
+| S6 Impulse MACD | 427 | 29.5 | +0.141 | 1.11 | +21.1 | -48.2% | 0.64 | -0.264 to +0.574 | 0.73 |
+
+All three are positive out of sample and none of them significantly so. Every
+t-statistic is under 0.7 against the 2.0 that would signal a real effect, and
+every bootstrap confidence interval on the mean trade straddles zero. The
+probability that each edge is above zero, from a 5,000 sample bootstrap, is 65 to
+73%. That is barely better than a coin flip and is what "no evidence of an edge"
+looks like when stated numerically rather than as a verdict.
+
+## Walk-forward removed most of the apparent edge
+
+| Strategy | All data, best stop | Walk-forward OOS | Haircut |
+|---|---|---|---|
+| S1 Fib ABCD | +0.043% | +0.019% | -57% |
+| S5 EMA + SMI | +0.624% | +0.253% | -59% |
+| S6 Impulse MACD | +0.151% | +0.141% | -7% |
+
+S5 loses 59% of its apparent edge once the stop convention has to be chosen
+without hindsight, which is precisely the selection bias the walk-forward was
+built to expose.
+
+The convention the folds chose was itself unstable. S5 picked nbar, nbar, nbar,
+atr, nbar, swing, nbar, atr across its eight folds; S6 picked nbar, swing, nbar,
+atr, nbar, swing, swing, swing. If one reading of "the recent low" were genuinely
+better, the in-sample window would keep landing on it. The flip-flopping says the
+choice is noise.
+
+## The pooled positives rest on two or three good windows
+
+Out-of-sample net total per fold:
+
+| Fold OOS window | S1 | S5 | S6 |
+|---|---|---|---|
+| 2022 H2 | +1.04 | -13.10 | +40.99 |
+| 2023 H1 | -2.68 | -3.21 | +27.31 |
+| 2023 H2 | -5.32 | +14.01 | -2.72 |
+| 2024 H1 | -6.09 | +34.72 | -10.97 |
+| 2024 H2 | +6.64 | +6.12 | +39.28 |
+| 2025 H1 | +17.99 | -2.75 | -22.22 |
+| 2025 H2 | -0.83 | -8.26 | -2.40 |
+| 2026 H1 | -4.35 | +6.39 | -9.15 |
+
+S1 is positive in 3 of 8 windows and its entire pooled result is one window,
+2025 H1. S6 is positive in 3 of 8 and its result is 2022 H2 plus 2024 H2. S5 is
+4 of 8, carried by 2024 H1. Remove the single best window from any of them and
+all three go negative. None is a strategy that works; each is a strategy that had
+a good six months.
+
+## Cost tolerance
+
+Net average % per trade against round trip cost, walk-forward OOS:
+
+| Cost bps | S1 | S5 | S6 |
+|---|---|---|---|
+| 0 | +0.119 | +0.353 | +0.241 |
+| 8 | +0.039 | +0.273 | +0.161 |
+| **10 (actual)** | **+0.019** | **+0.253** | **+0.141** |
+| 12 | -0.002 | +0.233 | +0.121 |
+| 20 | -0.082 | +0.153 | +0.041 |
+| 25 | -0.132 | +0.103 | -0.009 |
+
+S1 crosses zero at 12bps. Real costs are 10bps, so it has 2bps of headroom, which
+is inside the error on the slippage estimate. Any worse fill quality, any funding
+cost on a perp held for hours, and it is underwater. S5 and S6 tolerate more
+because they trade less often and hold longer, but a wide cost tolerance on an
+edge that is not statistically distinguishable from zero is tolerance of nothing.
+
+## Drawdown
+
+2,000 reshuffles of the realised out-of-sample trade order:
+
+| Strategy | Median DD | 95th percentile DD | Worst |
+|---|---|---|---|
+| S1 Fib ABCD | -13.7% | -20.2% | -27.2% |
+| S5 EMA + SMI | -50.1% | -65.8% | -78.7% |
+| S6 Impulse MACD | -56.1% | -72.7% | -85.1% |
+
+The realised drawdown was a draw from this distribution, not a property of the
+strategy. S6's actual -48% was on the lucky side of its own median. A trader
+running S5 or S6 at 1x should expect roughly a 50% drawdown as the typical case
+and should plan for 70%. Combined with an edge indistinguishable from zero, that
+is a risk of ruin with no compensation.
+
+S1 is the exception on this axis: a -14% median drawdown, because its stop is 12%
+of the leg while its target is 88% of it. Its problem is not risk, it is that
+after costs there is almost nothing left.
+
+## Conclusion
+
+The frictionless pass identified three candidates. A costed walk-forward
+eliminates all three. Nothing in this playlist has demonstrated an edge on
+BTCUSDT over 2021 to 2026 that survives real trading costs and honest
+out-of-sample testing.
+
+That is the expected outcome and not a surprising one. It does not prove the
+strategies cannot work anywhere, on another instrument, at another timeframe, or
+in the hands of a discretionary trader applying judgment the rules do not
+capture. It does mean that as mechanical rules on this market, they are not
+supported by the evidence, and the confident claims attached to them in the
+videos are not.
