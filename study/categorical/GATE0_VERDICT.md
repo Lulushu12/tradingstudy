@@ -1,5 +1,19 @@
 # Gate 0 verdict
 
+> # RETRACTED IN PART - SEE CORRECTION.md
+>
+> **The fade-template results in this document are void.** The measurement counted untakeable
+> entries (bar t+1 opened already past the take-profit) as automatic full-size wins. In the
+> headline 4H set that was 404 of 902 signals, 44.8%. Corrected, the 4H fade goes from
+> **+0.0991 R net to +0.0017 R**, and the 15m fade goes from +0.0165 to **-0.1478 R**. The
+> section 3 cost-by-timeframe table and every fade conclusion drawn from it are wrong.
+>
+> Unaffected: sections 1, 2, 4, 5 and 6 below, which use symmetric barriers around the entry
+> price where this defect cannot occur. They found no effect, and that finding stands.
+>
+> Phase 1 was never contaminated and its verdict is DEAD (PHASE1_RESULTS.md, 5 of 6 kill
+> thresholds failed, negative expectancy even at zero cost).
+
 > **UPDATE after the per-year split (GATE0_STABILITY.md).** Two corrections to this
 > document. First, the **1h row in section 3 is void**: that parquet has a 520-day hole
 > (2022-12-31 to 2024-06-04) swallowing all of 2023, found while running the split.

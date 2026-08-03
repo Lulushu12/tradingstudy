@@ -85,6 +85,23 @@ def barrier_race(df, up_b, dn_b, horizon):
     return res
 
 
+def takeable(entry, target, stop):
+    """MANDATORY guard for any asymmetric barrier test. See CORRECTION.md.
+
+    A signal is only a trade if, at the entry price, the target is still on the
+    profitable side and the stop is still on the losing side. When bar t+1 opens
+    past the take-profit the position cannot be entered, yet a naive barrier race
+    records "target touched on bar 1" as a full-size win.
+
+    Omitting this check contaminated 44.8% of the Gate 0 fade sample and produced
+    a +0.0991 R result that was really +0.0017 R. Every asymmetric test in this
+    folder must apply it and must report how many signals it removes.
+    """
+    long_side = target > stop
+    return np.where(long_side, (target > entry) & (stop < entry),
+                    (target < entry) & (stop > entry))
+
+
 def build_samples(df, n_win, k_atr, horizon, classifier="ER"):
     """One row per signal bar: classifier value, recent-move sign, race outcome.
 

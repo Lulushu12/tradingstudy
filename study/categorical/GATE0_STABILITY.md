@@ -1,3 +1,19 @@
+# RETRACTED - SEE CORRECTION.md
+
+> **Every fade-template number in this file is void.** The underlying measurement counted
+> untakeable entries as automatic full-size wins: 404 of the 902 headline 4H signals (44.8%)
+> had bar t+1 opening already past the take-profit. Corrected, the 4H fade is +0.0017 R net,
+> not +0.0991 R, and the "net positive in 6 of 6 years" conclusion is an artifact of a
+> contamination that ran at a roughly constant share of the sample each year.
+>
+> The three robustness checks below (overlap, both-hit, pessimistic fill) all passed because
+> none of them asked whether the trades were takeable. They tested whether outcomes were
+> measured fairly on a trade population that should never have existed.
+>
+> The direction/breakout numbers here were produced by the same defective code path and must be
+> regenerated before they are relied on. Per AUDIT_COMMITMENTS_CATEGORICAL.md section 6 they are
+> NOT a substitute candidate for the failed fade system.
+
 # Gate 0 stability: per-year split of the trade-shaped tests
 
 Decile edges fixed on the pooled sample, then held constant across years. Costs at 0.08% round trip, no slippage. CIs are moving-block bootstrap on gross expectancy.
