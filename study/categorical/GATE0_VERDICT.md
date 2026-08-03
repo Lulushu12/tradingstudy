@@ -1,5 +1,14 @@
 # Gate 0 verdict
 
+> **UPDATE after the per-year split (GATE0_STABILITY.md).** Two corrections to this
+> document. First, the **1h row in section 3 is void**: that parquet has a 520-day hole
+> (2022-12-31 to 2024-06-04) swallowing all of 2023, found while running the split.
+> 15m and 4H have complete coverage and their rows stand. Second, the section 4 concern
+> that the surviving edge might be a 2021 artifact is **resolved and dismissed**: the 4H
+> fade template is net positive in 6 of 6 years, worst year +0.0760 R. The result did not
+> die. It also survives pessimistic fills, both-hit reassignment, and an overlap check.
+> 15m does not survive pessimistic fills. See GATE0_STABILITY.md.
+
 Pre-committed pass condition (SYSTEMIZATION.md s4, written before any result existed):
 
 > monotone separation of continuation probability across the classifier spectrum, not merely one
