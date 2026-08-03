@@ -141,6 +141,8 @@ def write_readme(wb, f):
                               "The clean example of how the rest of this study should have been run."),
             ("Hypothesis H2", "The inverse of H1, pre-registered separately against a stricter bar and "
                               "also falsified - but its gross column is the informative part."),
+            ("Hypothesis H3", "The only hypothesis that did not fail. Pre-registered against a fresh "
+                              "bull-market window. Positive everywhere, significant nowhere."),
             ("Stability", "Same statistics computed on each half of the sample independently."),
             ("Equity Curves", "Cumulative R for all six books."),
             ("Trade Stats", "One compact row per trade across all three symbols - the Summary tab's data source."),
@@ -1050,6 +1052,137 @@ def write_h2(wb, f):
     r += 1
     ws.write(r, 1, "Source: backtest/hypothesis_h2.py, criteria in backtest/PREREGISTRATION_H2.md, "
                    "committed in a separate earlier commit containing no H2 results.", f["note"])
+
+
+def write_h3(wb, f):
+    """The one hypothesis that did not fail - and still did not pass."""
+    ws = wb.add_worksheet("Hypothesis H3")
+    _title(ws, f, "H3 - wick continuation with a cost-derived stop (SUGGESTIVE)",
+           "Tested on a bull-market window no part of this study had touched. Positive everywhere, "
+           "significant nowhere.")
+    ws.set_column(0, 0, 3)
+    ws.set_column(1, 1, 34)
+    ws.set_column(2, 12, 12)
+
+    d = json.load(open(os.path.join(DATA, "hypothesis_h3.json")))
+
+    r = 3
+    for label, body in [
+        ("What changed from H2",
+         "One substantive parameter. H2 kept its stop just beyond the opposite extreme of a bar that "
+         "closed near it - 1.1-1.3% of price - so friction ate 12-14% of one R and turned a gross "
+         "+0.141 into a net +0.019. H3 replaces that with a stop sized so friction cannot dominate. "
+         "The time stop moved 48 to 96 bars as a coupled consequence, since a 2R target on a stop "
+         "2.1x wider needs proportionally longer to resolve."),
+        ("The stop was derived, not fitted",
+         "0.155% round-trip friction, a target of at most 6% of one R, gives a required stop of 2.58% "
+         "of price; divided by a 1.018% median hourly ATR that is 2.54 ATR. Registered at 2.5 - what "
+         "the arithmetic yields, not rounded up. Only the already-burned MAIN and PRIOR windows were "
+         "consulted for the ATR figure; no property of the test data entered the derivation."),
+        ("It worked as designed",
+         "Friction on the primary window came out at 6.7% of one R against the 6% the stop was sized "
+         "for. The mechanism that killed H2 was correctly identified and correctly fixed."),
+        ("The window",
+         "2023-03-02 to 2024-04-22, ending exactly where PRIOR begins, untouched by any prior design "
+         "decision. It is also the first sustained BULL market in this study - ETH +98%, LINK +119%, "
+         "SOL +602% - where both other windows were net down. One exchange-wide missing bar on "
+         "2023-03-24 was handled by a pre-registered 24-bar exclusion guard."),
+    ]:
+        ws.write(r, 1, label, f["label"])
+        ws.write(r, 2, body, f["wrap"])
+        ws.set_row(r, 12.5 * (len(body) // 95 + 2))
+        r += 1
+    r += 1
+
+    cols = ["Dataset / book", "n", "Win %", "Breakeven %", "Stop dist %", "Cost as % of 1R",
+            "Gross R", "Avg R", "Total R", "Profit factor", "CI low", "CI high", "P(>0)"]
+    ws.write(r, 1, "Results", f["h1"])
+    for i in range(len(cols)):
+        ws.write(r, i + 2, "", f["h1"])
+    r += 1
+    for i, c in enumerate(cols):
+        ws.write(r, i + 1, c, f["hdr"])
+    ws.set_row(r, 30)
+    r += 1
+    for lab, win, key in [
+        ("EARLY - market (PRIMARY)", "1h_early", "MARKET"),
+        ("EARLY - limit", "1h_early", "LIMIT"),
+        ("EARLY - ETH", "1h_early", "market_ETHUSDT"),
+        ("EARLY - LINK", "1h_early", "market_LINKUSDT"),
+        ("EARLY - SOL", "1h_early", "market_SOLUSDT"),
+        ("PRIOR - market (context)", "1h_prior", "MARKET"),
+        ("MAIN - market (context)", "1h", "MARKET"),
+    ]:
+        s = d[win].get(key)
+        if not s:
+            continue
+        ws.write(r, 1, lab, f["label"])
+        ws.write_number(r, 2, s["n"], f["int"])
+        ws.write_number(r, 3, s["win"] / 100.0, f["pct1"])
+        ws.write_number(r, 4, s["be"] / 100.0, f["pct1"])
+        ws.write_number(r, 5, s["stop_pct"] / 100.0, f["pct2"])
+        ws.write_number(r, 6, s["cost"] / 100.0, f["pct1"])
+        ws.write_number(r, 7, s["gross_R"], f["good"] if s["gross_R"] > 0 else f["bad"])
+        ws.write_number(r, 8, s["avg"], f["good"] if s["avg"] > 0 else f["bad"])
+        ws.write_number(r, 9, s["tot"], f["num1"])
+        ws.write_number(r, 10, s["pf"], f["num3"])
+        ws.write_number(r, 11, s["lo"], f["num3"])
+        ws.write_number(r, 12, s["hi"], f["num3"])
+        ws.write_number(r, 13, s["p_pos"] / 100.0, f["pct1"])
+        r += 1
+    r += 2
+
+    ws.write(r, 1, "Sign consistency - descriptive only, not a test", f["h1"])
+    for i in range(4):
+        ws.write(r, i + 2, "", f["h1"])
+    r += 1
+    for i, c in enumerate(["Window", "ETH", "LINK", "SOL"]):
+        ws.write(r, i + 1, c, f["hdr"])
+    r += 1
+    for win, lab in [("1h_early", "EARLY (primary)"), ("1h_prior", "PRIOR"), ("1h", "MAIN")]:
+        ws.write(r, 1, lab, f["label"])
+        for i, s in enumerate(["ETHUSDT", "LINKUSDT", "SOLUSDT"]):
+            v = d[win][f"market_{s}"]["avg"]
+            ws.write_number(r, 2 + i, v, f["good"] if v > 0 else f["bad"])
+        r += 1
+    ws.write(r, 1, "8 of 9 cells positive. This is NOT evidence of significance - PRIOR and MAIN were "
+                   "used to select the continuation direction in the first place, so they cannot serve "
+                   "as independent confirmation of it. Only EARLY is a clean test.", f["note"])
+    r += 3
+
+    p = d["1h_early"]["MARKET"]
+    ws.write(r, 1, "Verdict: SUGGESTIVE", f["key"])
+    ws.write(r, 2, "", f["key"])
+    r += 1
+    for line in [
+        f"On the fresh window H3 returns {p['avg']:+.3f} R over {p['n']} trades, win rate "
+        f"{p['win']:.1f}% against a {p['be']:.1f}% breakeven, profit factor {p['pf']:.2f}. Positive on "
+        f"all three symbols individually, which was the pre-registered guard. But the 95% CI is "
+        f"[{p['lo']:+.3f}, {p['hi']:+.3f}] and P(>0) is only {p['p_pos']:.1f}%, so it clears the "
+        f"SUGGESTIVE bar and not the SUPPORTED one.",
+        "This is the only hypothesis in the study that did not fail. It is also the only one whose "
+        "core mechanism survived contact with fresh data: the bar shape does carry continuation "
+        "information, and sizing the stop from the cost model rather than from bar structure does "
+        "recover it. Friction fell to 6.7% of one R against the 6% it was designed for.",
+        "It is still not a system. A 1.8-point win-rate cushion over breakeven and a 70% confidence "
+        "level is not something to trade size on. The correct next step is forward testing on data "
+        "that does not exist yet, not another backtest.",
+        "How much would resolve it: at the observed effect size, a 95% interval would need about "
+        "3.6x less noise, which means roughly 6,000 trades against the 467 available - about 13x the "
+        "data, or some 15 years of hourly bars across three symbols. That is the real constraint here, "
+        "and no amount of cleverness on this sample substitutes for it. Widening to more assets would "
+        "get there faster than waiting.",
+        "Standing commitment honoured: H3 was the last variant of this bar shape to be tested. No H4 "
+        "was run, and none will be. The idea is now either forward-tested or dropped.",
+    ]:
+        ws.write(r, 2, "- " + line, f["wrap"])
+        ws.set_row(r, 12.5 * (len(line) // 100 + 1))
+        r += 1
+
+    r += 1
+    ws.write(r, 1, "Source: backtest/hypothesis_h3.py, criteria in backtest/PREREGISTRATION_H3.md, "
+                   "committed with the dataset in a separate earlier commit containing no results.",
+             f["note"])
 
 
 def write_v3(wb, f):

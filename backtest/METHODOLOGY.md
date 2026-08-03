@@ -343,6 +343,42 @@ pre-registration and would be a **third** look at the same 393 bars. At that poi
 multiple-comparison problem isn't something a Bonferroni factor patches over. That line needs
 different data: other assets, or an earlier window neither hypothesis has touched.
 
+## Hypothesis H3 — the one that didn't fail
+
+See `PREREGISTRATION_H3.md`, committed with the dataset before the test. H3 keeps H2's
+continuation direction and replaces its structural stop with one **derived from the cost
+model** (0.155% friction ÷ 6% of R ÷ 1.018% median ATR = 2.54 → registered at **2.5 ATR**),
+using only already-burned windows. Time stop 48 → 96 bars as a coupled consequence.
+
+Primary test: the **EARLY** window — fresh, and the study's first sustained bull market.
+
+| Dataset | n | Win % | BE % | Stop | Cost/1R | Gross R | Avg R | PF | 95% CI | P(>0) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| **EARLY (primary)** | 467 | 39.8 | 38.0 | 2.96% | **6.7%** | +0.117 | **+0.050** | 1.08 | [−0.128, +0.231] | 70.0% |
+| PRIOR (context) | 393 | 41.0 | 36.9 | 3.79% | 4.7% | +0.159 | +0.112 | 1.19 | [−0.088, +0.311] | 86.2% |
+| MAIN (context) | 362 | 38.1 | 37.4 | 3.12% | 5.9% | +0.079 | +0.020 | 1.03 | [−0.160, +0.186] | 57.8% |
+
+**Verdict: SUGGESTIVE.** Positive on all three symbols individually (the pre-registered
+guard), positive on all three windows — but the 95% CI includes zero.
+
+**The fix worked as designed.** Friction came out at 6.7% of one R against the 6% the stop
+was sized for, down from H2's 12–14%. The mechanism that killed H2 was correctly identified
+and correctly repaired — the first time in this study that a diagnosis led to a working fix.
+
+8 of 9 symbol×window cells are positive. That is **descriptive, not a test**: PRIOR and MAIN
+were used to select the continuation direction, so they can't independently confirm it. Only
+EARLY is clean, and it says 70%.
+
+### What would actually resolve it
+
+At the observed effect size, a 95% interval would need ~3.6× less noise — roughly **6,000
+trades against the 467 available**, about 13× the data, or ~15 years of hourly bars across
+three symbols. That's the binding constraint, and no amount of cleverness on this sample
+substitutes for it. Widening to more assets gets there faster than waiting.
+
+**Standing commitment honoured:** H3 was the last variant of this bar shape. No H4 was run,
+and none will be. The idea is now either forward-tested or dropped.
+
 ## What I'd actually do with this
 
 - **Stop trading the always-on mandate.** It's a fee-payment machine over no edge. If you
