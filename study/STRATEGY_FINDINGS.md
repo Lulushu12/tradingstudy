@@ -89,9 +89,66 @@ Net: the level-rejection shorts and double-tops confirm the same underlying edge
 strategy, and the only signals that *touch* 60%/1:1 do so at unusably low frequency. None
 change the headline verdict.
 
+## Follow-up: is the edge already priced in? (decay.py)
+
+Objection raised: if this worked for years on public price data, it should already be
+arbitraged away, and we should instead hunt systems that exploit the crowd trading the
+old one. That is a testable claim, not a philosophical one. A crowded-out edge decays.
+
+Test: no refitting. Take the finalists exactly as frozen above, split realised net_R by
+year and by first/second half, and regress net_R on time. A real decay shows a
+significantly negative slope.
+
+| strategy | slope (R per year) | 95% CI | p | second half minus first |
+|---|---|---|---|---|
+| volspike 2:1 | -0.055 | -0.140 .. +0.030 | 0.21 | -0.13 R (p=0.31) |
+| volspike 1:1 | -0.045 | -0.093 .. +0.003 | 0.06 | -0.11 R (p=0.13) |
+| trig 2:1 | -0.013 | -0.081 .. +0.055 | 0.71 | -0.07 R (p=0.52) |
+| trig 1:1 | -0.022 | -0.057 .. +0.014 | 0.23 | -0.05 R (p=0.43) |
+
+Per-year expectancy, volspike 2:1: 2021 +0.28, 2022 +0.42, 2023 +0.36, 2024 +0.35,
+2025 +0.14, 2026 +0.12. Expectancy stays positive every year but the last two years are
+roughly a third of the 2022-2024 level.
+
+Reading this honestly:
+- All four slopes are negative. None is significant at 5%. The consistent sign across
+  variants is weak evidence for decay, not proof, and the variants share trades so they
+  are not four independent tests.
+- The test has poor power. Over this span it can only detect a slope beyond roughly
+  ±0.12 R/yr (volspike 2:1). A slow real decay would be invisible here.
+- If the volspike 2:1 point estimate were real, expectancy would cross zero about 8.3
+  years after 2021, i.e. around 2029. At 1:1 it is about 5.7 years, i.e. around 2027.
+  These are extrapolations from a non-significant slope and should not be planned on.
+
+Confound, and it is the main one. Per-year market character on 4H:
+
+| year | trend efficiency | annualised vol | year return |
+|---|---|---|---|
+| 2021 | 0.187 | 81% | +36% |
+| 2022 | 0.203 | 57% | -64% |
+| 2023 | 0.219 | 38% | +156% |
+| 2024 | 0.216 | 49% | +121% |
+| 2025 | 0.181 | 41% | -6% |
+| 2026 | 0.194 | 42% | -27% |
+
+2025 and 2026 are the two lowest trend-efficiency years in the sample. A
+trend-continuation strategy is supposed to earn less when price travels less
+efficiently. Spearman rho between yearly efficiency and yearly expectancy is +0.66 on
+n=6, which is directional and nowhere near significant. So the recent softness is
+equally consistent with "2025-26 chopped" and with "the edge is being competed away",
+and 5.5 years of one asset cannot separate the two. Anyone claiming otherwise is
+reading noise.
+
+On the proposed alternative (trade against the crowd running the old system): it is not
+testable with anything in this repo. Crowding is a positioning variable. OHLCV cannot
+see it. Doing it properly needs funding rates, open interest, and liquidation data,
+pre-registered the same way as the current spec. Note also that the price-only proxy
+for this idea, liquidity-sweep reclaim, was already scanned and rejected above.
+
 ## Reproduce
 
 `study/` — `dataload.py` (clean parquet), `indicators.py` (causal indicators),
 `engine.py` (fee/R backtest), `research.py`/`batch_scan.py` (edge scan),
 `fourh_deep.py` (per-year stability), `finalists.py` (equity/DD), `intrabar.py`
-(15m-path validation). Run via `./run.sh <script>`.
+(15m-path validation), `decay.py` (alpha-decay / priced-in test).
+Run via `./run.sh <script>`.
