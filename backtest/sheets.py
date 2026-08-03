@@ -135,6 +135,8 @@ def write_readme(wb, f):
             ("System v2", "Two candidate changes and their in-sample results. One was later falsified."),
             ("Out of Sample", "The decisive tab. Every rule re-tested on the strictly disjoint 10,000 "
                               "hours before the main window. Read this before acting on anything."),
+            ("System v3", "The live configuration: RANGE_FADE deleted, resting-limit entries on "
+                          "pullbacks and fades. The strongest - and still not significant - result here."),
             ("Stability", "Same statistics computed on each half of the sample independently."),
             ("Equity Curves", "Cumulative R for all six books."),
             ("Trade Stats", "One compact row per trade across all three symbols - the Summary tab's data source."),
@@ -795,6 +797,190 @@ def write_targets(wb, f, symbols):
 
     r += 1
     ws.write(r, 1, "Source: backtest/compare_targets.py. Percentages stored as fractions.", f["note"])
+
+
+def write_v3(wb, f):
+    """RANGE_FADE deleted for good, plus resting-limit entries where they fit."""
+    ws = wb.add_worksheet("System v3")
+    _title(ws, f, "System v3 - RANGE_FADE deleted, limit entries where the setup justifies waiting",
+           "The closest thing to a real finding in this study, and it still is not significant.")
+    ws.set_column(0, 0, 3)
+    ws.set_column(1, 1, 36)
+    ws.set_column(2, 11, 13)
+
+    d = json.load(open(os.path.join(DATA, "system_v3.json")))
+    books, grid, paired = d["books"], d["grid"], d["paired"]
+
+    r = 3
+    for label, body in [
+        ("RANGE_FADE: deleted",
+         "Removed from the classifier outright, not filtered downstream. Those bars now fall through to "
+         "DEFAULT, which never scores high enough to reach the selective book. This is the one change "
+         "that replicated out of sample, and it replicated because it is arithmetic: its breakeven win "
+         "rate exceeded its achieved win rate in every dataset tested."),
+        ("Limit entries: the reasoning",
+         "A pullback or a fade is a bet that price comes BACK to you, so paying the close is paying up "
+         "for something the thesis says will be cheaper shortly. A breakout is the opposite bet - price "
+         "leaves and does not return - so a limit below the close systematically misses exactly the "
+         "trades the setup exists to catch. TREND_PULLBACK, EXHAUSTION and DEFAULT therefore rest a "
+         "limit 0.25 ATR better than the close, good for 6 bars; BREAKOUT still crosses the spread."),
+        ("Why it matters twice",
+         "Friction has been the dominant term in every part of this study. A resting order is a maker "
+         "order: no slippage and roughly half the fee. Exits are now costed by how they actually happen "
+         "too - a target is a resting limit, a stop or a time exit is a market order. Cost falls from "
+         "6.6% of one R to 4.9% on the out-of-sample window."),
+        ("Parameters chosen in advance",
+         "0.25 ATR offset and 6-bar expiry were fixed BEFORE any limit-entry result was looked at, as "
+         "the natural middle of a plausible range - not by picking the best cell of the grid below. "
+         "After the previous round of this study was caught recycling its out-of-sample set, that "
+         "discipline is the whole point."),
+        ("Fill modelling",
+         "The order rests from the next bar and can never fill on the signal bar. A buy fills only if "
+         "the bar's low reaches the limit, and fills AT the limit even when the bar opened below it - "
+         "the improvement is not credited. If the fill bar also touches the stop, the trade is assumed "
+         "filled and then stopped inside that bar. Unfilled by expiry means no trade at all."),
+    ]:
+        ws.write(r, 1, label, f["label"])
+        ws.write(r, 2, body, f["wrap"])
+        ws.set_row(r, 12.5 * (len(body) // 95 + 2))
+        r += 1
+    r += 1
+
+    cols = ["Configuration", "n", "Fill %", "Win %", "Breakeven %", "Cost as % of 1R",
+            "Avg R", "Total R", "Profit factor", "CI low", "CI high", "P(>0)"]
+
+    for suffix, label in [("1h_prior", "PRIOR window (out of sample - the honest test)"),
+                          ("1h", "MAIN window (in-sample)")]:
+        ws.write(r, 1, label, f["h1"])
+        for i in range(len(cols)):
+            ws.write(r, i + 2, "", f["h1"])
+        r += 1
+        for i, c in enumerate(cols):
+            ws.write(r, i + 1, c, f["hdr"])
+        ws.set_row(r, 30)
+        r += 1
+        for tag, s in books[suffix].items():
+            if not s:
+                continue
+            ws.write(r, 1, tag, f["label"])
+            ws.write_number(r, 2, s["n"], f["int"])
+            ws.write_number(r, 3, s["fill_rate"] / 100.0, f["pct1"])
+            ws.write_number(r, 4, s["win"] / 100.0, f["pct1"])
+            ws.write_number(r, 5, s["be"] / 100.0, f["pct1"])
+            ws.write_number(r, 6, s["cost"] / 100.0, f["pct1"])
+            ws.write_number(r, 7, s["avg"], f["good"] if s["avg"] > 0 else f["bad"])
+            ws.write_number(r, 8, s["tot"], f["num1"])
+            ws.write_number(r, 9, s["pf"], f["num3"])
+            ws.write_number(r, 10, s["lo"], f["num3"])
+            ws.write_number(r, 11, s["hi"], f["num3"])
+            ws.write_number(r, 12, s["p_pos"] / 100.0, f["pct1"])
+            r += 1
+        r += 1
+
+    ws.write(r, 1, "Paired test - same signals, both entry methods", f["h1"])
+    for i in range(9):
+        ws.write(r, i + 2, "", f["h1"])
+    r += 1
+    ws.write(r, 2, "Comparing two independent averages wastes most of the information here. Running both "
+                   "entry methods over the IDENTICAL signal list and measuring the per-signal difference "
+                   "is far more powerful. Unfilled limit orders score zero, so the cost of missing a "
+                   "trade is charged against the limit method rather than hidden.", f["wrap"])
+    ws.set_row(r, 42)
+    r += 1
+    for i, c in enumerate(["Window / design", "Signals", "Unfilled", "Market avg R",
+                           "Limit avg R", "Gain", "CI low", "CI high", "P(gain > 0)"]):
+        ws.write(r, i + 1, c, f["hdr"])
+    ws.set_row(r, 30)
+    r += 1
+    for key, lab in [("1h_prior|pullbacks", "PRIOR - limit on pullbacks only"),
+                     ("1h_prior|all", "PRIOR - limit on all setups"),
+                     ("1h|pullbacks", "MAIN - limit on pullbacks only"),
+                     ("1h|all", "MAIN - limit on all setups")]:
+        p = paired[key]
+        ws.write(r, 1, lab, f["label"])
+        ws.write_number(r, 2, p["signals"], f["int"])
+        ws.write_number(r, 3, p["unfilled"], f["int"])
+        ws.write_number(r, 4, p["market_avg"], f["num3"])
+        ws.write_number(r, 5, p["limit_avg"], f["num3"])
+        ws.write_number(r, 6, p["mean"], f["good"] if p["mean"] > 0 else f["bad"])
+        ws.write_number(r, 7, p["lo"], f["num3"])
+        ws.write_number(r, 8, p["hi"], f["num3"])
+        ws.write_number(r, 9, p["p_pos"] / 100.0, f["pct1"])
+        r += 1
+    r += 1
+
+    cb = paired["combined"]
+    ws.write(r, 1, "Both windows combined - 20,000 hours, "
+                   f"{cb['signals']:,} signals", f["h1"])
+    for i in range(9):
+        ws.write(r, i + 2, "", f["h1"])
+    r += 1
+    for i, c in enumerate(["Question", "Estimate", "CI low", "CI high", "P(>0)", "Verdict"]):
+        ws.write(r, i + 1, c, f["hdr"])
+    ws.set_row(r, 30)
+    r += 1
+    for q, k in [("Does limit entry beat market entry?", "gain"),
+                 ("Is the limit book profitable in absolute terms?", "level")]:
+        v = cb[k]
+        ws.write(r, 1, q, f["label"])
+        ws.write_number(r, 2, v["mean"], f["good"] if v["mean"] > 0 else f["bad"])
+        ws.write_number(r, 3, v["lo"], f["num3"])
+        ws.write_number(r, 4, v["hi"], f["num3"])
+        ws.write_number(r, 5, v["p_pos"] / 100.0, f["pct1"])
+        ws.write(r, 6, "significant" if v["lo"] > 0 else "NOT significant", f["ctr"])
+        r += 1
+    r += 1
+
+    ws.write(r, 1, "Parameter grid - context only, not the basis of any claim", f["h1"])
+    for i in range(6):
+        ws.write(r, i + 2, "", f["h1"])
+    r += 1
+    ws.write(r, 1, "Offset (ATR)", f["hdr"])
+    for i, (suffix, lab) in enumerate([("1h_prior", "PRIOR"), ("1h", "MAIN")]):
+        for j, e in enumerate((3, 6, 12)):
+            ws.write(r, 2 + i * 3 + j, f"{lab} exp={e}", f["hdr"])
+    ws.set_row(r, 30)
+    r += 1
+    for off in (0.15, 0.25, 0.40, 0.60):
+        ws.write_number(r, 1, off, f["num2"])
+        for i, suffix in enumerate(("1h_prior", "1h")):
+            for j, e in enumerate((3, 6, 12)):
+                s = grid[suffix].get(f"{off}|{e}")
+                if s:
+                    ws.write_number(r, 2 + i * 3 + j, s["avg"],
+                                    f["good"] if s["avg"] > 0 else f["bad"])
+        r += 1
+    ws.write(r, 1, "Every cell is positive on both windows, so the improvement does not depend on the "
+                   "parameter choice - which is more reassuring than any single best cell would be.",
+             f["note"])
+    r += 2
+
+    ws.write(r, 1, "The verdict", f["key"])
+    ws.write(r, 2, "", f["key"])
+    r += 1
+    for line in [
+        "Deleting RANGE_FADE was not enough on its own. With market entries the out-of-sample book is "
+        "still -0.013 R. That change removes a broken component; it does not create an edge.",
+        "Limit entries do more. On the out-of-sample window they flip the book from -0.013 R to +0.010 R, "
+        "and on the main window from +0.051 R to +0.101 R. The direction is the same on both windows and "
+        "in all 12 cells of the parameter grid.",
+        "Combined over 20,000 hours and 4,421 signals, limit entry beats market entry by +0.030 R per "
+        "signal with P(gain > 0) = 93.8%. That is the strongest result anywhere in this study - and it "
+        "still misses the 95% bar. It is also the only result with a mechanical explanation rather than "
+        "a statistical one: maker fees instead of taker, no slippage, and a better fill price.",
+        "Restricting limits to pullbacks and fades - the a-priori design choice - beat applying them "
+        "everywhere on the out-of-sample window (+0.022 against +0.016), even though limit-everything "
+        "looked better in-sample. The reasoning held up where the fitting did not.",
+        "But the book itself is still not profitable with confidence: +0.048 R combined, CI "
+        "[-0.092, +0.192], P(>0) = 74.7%. Better execution has lifted this system to roughly breakeven. "
+        "It has not found an edge, because there was not one in the entry logic to begin with.",
+    ]:
+        ws.write(r, 2, "- " + line, f["wrap"])
+        ws.set_row(r, 12.5 * (len(line) // 100 + 1))
+        r += 1
+    r += 1
+    ws.write(r, 1, "Source: backtest/system_v3.py and backtest/limit_entry.py. Bootstraps resample "
+                   "one-week blocks of entry bars; the combined test uses 8,000 resamples.", f["note"])
 
 
 def write_oos(wb, f):

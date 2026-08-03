@@ -39,6 +39,13 @@ MIN_STOP_ATR = 0.6
 MIN_STOP_PCT = 0.0015
 SELECTIVE_THRESHOLD = 6.0
 
+# RANGE_FADE is DELETED. It is the only finding in this study that replicated
+# out of sample, and it replicated because it is arithmetic rather than an
+# observed outcome: its breakeven win rate exceeds its achieved win rate in
+# every dataset tested (by 4.1, 5.4 and 13.3 points). A 1.3R target cannot pay
+# for the losses at any hit rate the setup reaches.
+ENABLE_RANGE_FADE = False
+
 # ---------------------------------------------------------------------------
 # System v2 - AND THE OUT-OF-SAMPLE RESULT THAT FALSIFIED HALF OF IT.
 #
@@ -182,11 +189,17 @@ def classify(i, f, close, prev_donch_hi, prev_donch_lo):
     if adx_v < 30 and stretch <= -3.2 and rsi_v <= 22:
         return "EXHAUSTION", 1
 
-    # 4. Range edge.
-    if adx_v < 20 and stretch >= 1.6 and rsi_v >= 66 and dpos >= 0.82:
-        return "RANGE_FADE", -1
-    if adx_v < 20 and stretch <= -1.6 and rsi_v <= 34 and dpos <= 0.18:
-        return "RANGE_FADE", 1
+    # 4. Range edge. DELETED - see ENABLE_RANGE_FADE.
+    #
+    # Kept behind a flag rather than ripped out so the falsified configuration
+    # stays reproducible. With the flag off these bars fall through to DEFAULT,
+    # which never scores high enough to enter the selective book, so the effect
+    # is the same as never taking them.
+    if ENABLE_RANGE_FADE:
+        if adx_v < 20 and stretch >= 1.6 and rsi_v >= 66 and dpos >= 0.82:
+            return "RANGE_FADE", -1
+        if adx_v < 20 and stretch <= -1.6 and rsi_v <= 34 and dpos <= 0.18:
+            return "RANGE_FADE", 1
 
     # 5. No clean setup: weighted composite, with a mild fade tilt.
     score = 0.0

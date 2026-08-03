@@ -223,6 +223,56 @@ interval, because overlapping trades carry far less information than their count
 deletion replicated; the conviction cap did not, and v2b — which looked strongest here — is
 the worst performer outside this window.
 
+## System v3 — the live configuration
+
+**`RANGE_FADE` is deleted** from the classifier outright (`ENABLE_RANGE_FADE = False`), not
+filtered downstream. It is the one change that replicated out of sample. The trade logs in
+the workbook are regenerated with the flag forced back **on**, because those logs are the
+evidence for the deletion and erasing them would erase the case for it.
+
+Deleting it was not enough. With market entries the out-of-sample book is still −0.013 R.
+
+**Limit entries** are the second change. A pullback or a fade is a bet that price comes
+*back* to you, so paying the close is paying up for something the thesis says will be
+cheaper shortly. A breakout is the opposite bet. So `TREND_PULLBACK`, `EXHAUSTION` and
+`DEFAULT` rest a limit 0.25 ATR better than the close for 6 bars; `BREAKOUT` still crosses
+the spread. Parameters were fixed *before* looking at any limit result.
+
+It matters twice: a resting order is a maker order — no slippage, roughly half the fee — and
+exits are now costed by how they actually happen. Cost falls from 6.6% of one R to 4.9%.
+
+| Configuration | PRIOR (out-of-sample) | MAIN |
+|---|---|---|
+| v3 market, conv ≥ 6 | −0.013 | +0.051 |
+| **v3 LIMIT, conv ≥ 6** | **+0.010** | **+0.101** |
+| v3 LIMIT, conv 6–8 | −0.037 | +0.222 |
+
+Fill rate is ~89%. Note the 6–8 band is *worse* out of sample — the conviction cap stays
+falsified.
+
+### The paired test
+
+Comparing two independent averages wastes the information. Running both entry methods over
+the **identical** signal list, with unfilled limits scoring zero:
+
+| | Estimate | 95% CI | P(>0) |
+|---|---|---|---|
+| Does limit beat market? | **+0.030 R** | [−0.008, +0.065] | **93.8%** |
+| Is the limit book profitable? | +0.048 R | [−0.092, +0.192] | 74.7% |
+
+Over 20,000 hours and 4,421 signals. The improvement is the strongest result in this study
+and *still* misses 95% — but it is the only one with a **mechanical** explanation rather
+than a statistical one: maker fees instead of taker, no slippage, better fill price. Every
+one of the 12 parameter-grid cells is positive on both windows, so it doesn't depend on the
+tuning.
+
+Restricting limits to pullbacks — the a-priori design choice — beat limit-everything out of
+sample (+0.022 vs +0.016) even though limit-everything looked better in-sample. The
+reasoning held where the fitting didn't.
+
+**Better execution lifted this system to roughly breakeven. It did not find an edge, because
+there wasn't one in the entry logic to begin with.**
+
 ## What I'd actually do with this
 
 - **Stop trading the always-on mandate.** It's a fee-payment machine over no edge. If you

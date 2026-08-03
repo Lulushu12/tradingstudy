@@ -186,6 +186,13 @@ def stats(trades):
 
 
 def main():
+    # The trade logs in this workbook are the RECORD of the original study, and
+    # that study is what established RANGE_FADE should be deleted. Regenerating
+    # them with the setup already removed would erase the evidence for its own
+    # removal, so the flag is turned back on for log generation only. The live
+    # configuration - System v3 - has it off.
+    strategy.ENABLE_RANGE_FADE = True
+
     summary = {}
     for symbol in SYMBOLS:
         t0 = time.time()
