@@ -1,0 +1,104 @@
+{
+  "ETHUSDT": {
+    "as_traded": {
+      "stop_scale": 1.0,
+      "target_r": 2.5,
+      "STOP": {
+        "share_pct": 64.8,
+        "avg_net_pct": -2.116
+      },
+      "TARGET": {
+        "share_pct": 32.3,
+        "avg_net_pct": 4.828
+      },
+      "TIME": {
+        "share_pct": 2.9,
+        "avg_net_pct": 1.172
+      }
+    },
+    "sweep_optimum": {
+      "stop_scale": 2.0,
+      "target_r": 4.0,
+      "STOP": {
+        "share_pct": 53.0,
+        "avg_net_pct": -3.686
+      },
+      "TARGET": {
+        "share_pct": 6.7,
+        "avg_net_pct": 12.655
+      },
+      "TIME": {
+        "share_pct": 40.3,
+        "avg_net_pct": 4.341
+      }
+    }
+  },
+  "LINKUSDT": {
+    "as_traded": {
+      "stop_scale": 1.0,
+      "target_r": 2.5,
+      "STOP": {
+        "share_pct": 67.0,
+        "avg_net_pct": -2.451
+      },
+      "TARGET": {
+        "share_pct": 30.5,
+        "avg_net_pct": 5.826
+      },
+      "TIME": {
+        "share_pct": 2.5,
+        "avg_net_pct": 1.272
+      }
+    },
+    "sweep_optimum": {
+      "stop_scale": 2.0,
+      "target_r": 4.0,
+      "STOP": {
+        "share_pct": 50.6,
+        "avg_net_pct": -4.313
+      },
+      "TARGET": {
+        "share_pct": 5.3,
+        "avg_net_pct": 18.573
+      },
+      "TIME": {
+        "share_pct": 44.1,
+        "avg_net_pct": 5.145
+      }
+    }
+  },
+  "SOLUSDT": {
+    "as_traded": {
+      "stop_scale": 1.0,
+      "target_r": 2.5,
+      "STOP": {
+        "share_pct": 66.3,
+        "avg_net_pct": -2.409
+      },
+      "TARGET": {
+        "share_pct": 29.7,
+        "avg_net_pct": 5.376
+      },
+      "TIME": {
+        "share_pct": 4.0,
+        "avg_net_pct": 2.069
+      }
+    },
+    "sweep_optimum": {
+      "stop_scale": 2.0,
+      "target_r": 4.0,
+      "STOP": {
+        "share_pct": 47.3,
+        "avg_net_pct": -4.31
+      },
+      "TARGET": {
+        "share_pct": 8.5,
+        "avg_net_pct": 15.64
+      },
+      "TIME": {
+        "share_pct": 44.2,
+        "avg_net_pct": 3.494
+      }
+    }
+  }
+}

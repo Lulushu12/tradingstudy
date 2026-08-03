@@ -1,0 +1,279 @@
+{
+  "ETHUSDT": {
+    "fixed_r": {
+      "all": {
+        "n": 9487,
+        "win_pct": 40.2,
+        "avg_R": -0.071,
+        "total_R": -673.2,
+        "PF": 0.887,
+        "avg_net_pct": -0.1228,
+        "target_hit_pct": 36.8
+      },
+      "sel": {
+        "n": 753,
+        "win_pct": 34.1,
+        "avg_R": 0.0843,
+        "total_R": 63.5,
+        "PF": 1.118,
+        "avg_net_pct": 0.2434,
+        "target_hit_pct": 31.1
+      },
+      "planned_rr": {
+        "distinct_values": 4,
+        "min": 1.3,
+        "median": 1.5,
+        "max": 3.0
+      },
+      "target_basis": {
+        "fixed R": 9487
+      }
+    },
+    "structure": {
+      "all": {
+        "n": 9486,
+        "win_pct": 40.4,
+        "avg_R": -0.0768,
+        "total_R": -728.7,
+        "PF": 0.877,
+        "avg_net_pct": -0.1437,
+        "target_hit_pct": 36.5
+      },
+      "sel": {
+        "n": 753,
+        "win_pct": 40.5,
+        "avg_R": 0.0475,
+        "total_R": 35.7,
+        "PF": 1.074,
+        "avg_net_pct": 0.0862,
+        "target_hit_pct": 38.1
+      },
+      "planned_rr": {
+        "distinct_values": 278,
+        "min": 1.2,
+        "median": 1.5,
+        "max": 5.69
+      },
+      "target_basis": {
+        "structure level": 6984,
+        "fixed-R fallback": 2502
+      }
+    },
+    "structure_extend": {
+      "all": {
+        "n": 9486,
+        "win_pct": 39.0,
+        "avg_R": -0.0695,
+        "total_R": -658.9,
+        "PF": 0.892,
+        "avg_net_pct": -0.1256,
+        "target_hit_pct": 34.7
+      },
+      "sel": {
+        "n": 753,
+        "win_pct": 34.1,
+        "avg_R": 0.0888,
+        "total_R": 66.9,
+        "PF": 1.124,
+        "avg_net_pct": 0.248,
+        "target_hit_pct": 30.9
+      },
+      "planned_rr": {
+        "distinct_values": 263,
+        "min": 1.3,
+        "median": 1.5,
+        "max": 5.69
+      },
+      "target_basis": {
+        "fixed R": 6860,
+        "structure level": 2626
+      }
+    }
+  },
+  "LINKUSDT": {
+    "fixed_r": {
+      "all": {
+        "n": 9488,
+        "win_pct": 39.3,
+        "avg_R": -0.0941,
+        "total_R": -892.4,
+        "PF": 0.85,
+        "avg_net_pct": -0.2377,
+        "target_hit_pct": 34.3
+      },
+      "sel": {
+        "n": 755,
+        "win_pct": 33.1,
+        "avg_R": 0.042,
+        "total_R": 31.7,
+        "PF": 1.059,
+        "avg_net_pct": 0.2144,
+        "target_hit_pct": 30.3
+      },
+      "planned_rr": {
+        "distinct_values": 4,
+        "min": 1.3,
+        "median": 1.5,
+        "max": 3.0
+      },
+      "target_basis": {
+        "fixed R": 9488
+      }
+    },
+    "structure": {
+      "all": {
+        "n": 9488,
+        "win_pct": 39.0,
+        "avg_R": -0.1238,
+        "total_R": -1174.4,
+        "PF": 0.804,
+        "avg_net_pct": -0.3026,
+        "target_hit_pct": 33.5
+      },
+      "sel": {
+        "n": 755,
+        "win_pct": 38.1,
+        "avg_R": -0.0354,
+        "total_R": -26.7,
+        "PF": 0.947,
+        "avg_net_pct": 0.0674,
+        "target_hit_pct": 36.0
+      },
+      "planned_rr": {
+        "distinct_values": 267,
+        "min": 1.2,
+        "median": 1.5,
+        "max": 6.0
+      },
+      "target_basis": {
+        "structure level": 6770,
+        "fixed-R fallback": 2668,
+        "6R cap": 50
+      }
+    },
+    "structure_extend": {
+      "all": {
+        "n": 9488,
+        "win_pct": 37.7,
+        "avg_R": -0.1154,
+        "total_R": -1095.2,
+        "PF": 0.821,
+        "avg_net_pct": -0.2856,
+        "target_hit_pct": 31.7
+      },
+      "sel": {
+        "n": 755,
+        "win_pct": 32.8,
+        "avg_R": 0.0473,
+        "total_R": 35.7,
+        "PF": 1.066,
+        "avg_net_pct": 0.2246,
+        "target_hit_pct": 30.1
+      },
+      "planned_rr": {
+        "distinct_values": 252,
+        "min": 1.3,
+        "median": 1.5,
+        "max": 6.0
+      },
+      "target_basis": {
+        "fixed R": 6921,
+        "structure level": 2517,
+        "6R cap": 50
+      }
+    }
+  },
+  "SOLUSDT": {
+    "fixed_r": {
+      "all": {
+        "n": 9486,
+        "win_pct": 41.4,
+        "avg_R": -0.0375,
+        "total_R": -355.8,
+        "PF": 0.939,
+        "avg_net_pct": -0.0731,
+        "target_hit_pct": 37.9
+      },
+      "sel": {
+        "n": 721,
+        "win_pct": 32.2,
+        "avg_R": -0.007,
+        "total_R": -5.0,
+        "PF": 0.99,
+        "avg_net_pct": -0.0148,
+        "target_hit_pct": 28.0
+      },
+      "planned_rr": {
+        "distinct_values": 4,
+        "min": 1.3,
+        "median": 1.5,
+        "max": 3.0
+      },
+      "target_basis": {
+        "fixed R": 9486
+      }
+    },
+    "structure": {
+      "all": {
+        "n": 9486,
+        "win_pct": 41.2,
+        "avg_R": -0.0617,
+        "total_R": -585.2,
+        "PF": 0.9,
+        "avg_net_pct": -0.126,
+        "target_hit_pct": 37.2
+      },
+      "sel": {
+        "n": 721,
+        "win_pct": 39.0,
+        "avg_R": -0.0334,
+        "total_R": -24.1,
+        "PF": 0.949,
+        "avg_net_pct": -0.0905,
+        "target_hit_pct": 35.1
+      },
+      "planned_rr": {
+        "distinct_values": 300,
+        "min": 1.2,
+        "median": 1.5,
+        "max": 6.0
+      },
+      "target_basis": {
+        "structure level": 6821,
+        "fixed-R fallback": 2638,
+        "6R cap": 27
+      }
+    },
+    "structure_extend": {
+      "all": {
+        "n": 9486,
+        "win_pct": 39.7,
+        "avg_R": -0.0553,
+        "total_R": -524.9,
+        "PF": 0.912,
+        "avg_net_pct": -0.1089,
+        "target_hit_pct": 35.3
+      },
+      "sel": {
+        "n": 721,
+        "win_pct": 31.9,
+        "avg_R": -0.0044,
+        "total_R": -3.2,
+        "PF": 0.994,
+        "avg_net_pct": -0.0135,
+        "target_hit_pct": 27.7
+      },
+      "planned_rr": {
+        "distinct_values": 285,
+        "min": 1.3,
+        "median": 1.5,
+        "max": 6.0
+      },
+      "target_basis": {
+        "fixed R": 6868,
+        "structure level": 2591,
+        "6R cap": 27
+      }
+    }
+  }
+}

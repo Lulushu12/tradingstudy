@@ -1,0 +1,4 @@
+# Generated trade logs (~24 MB). Fully reproducible via run_backtest.py, and
+# every row is already present in the delivered workbook.
+data/*_trades.csv
+__pycache__/
