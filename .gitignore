@@ -1,2 +1,3 @@
 __pycache__/
 *.py[cod]
+study/data/alt_*.parquet

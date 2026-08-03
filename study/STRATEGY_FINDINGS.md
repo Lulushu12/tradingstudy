@@ -145,10 +145,52 @@ see it. Doing it properly needs funding rates, open interest, and liquidation da
 pre-registered the same way as the current spec. Note also that the price-only proxy
 for this idea, liquidity-sweep reclaim, was already scanned and rejected above.
 
+## Follow-up: cross-asset replication (fetch_alt.py, crossasset.py)
+
+The BTC-only decay test has poor power and another BTC year adds almost nothing. A far
+stronger test is the same rule, zero refitting, on assets never looked at while building
+it. Data: OKX 4H perps, 2021-01 onward (Binance and Bybit are geo-blocked from this
+environment). Rule taken verbatim from `finalists.make_signals("volspike")`.
+
+**rr=2:1, single position, 0.08% round trip:**
+
+| asset | n | WR | expR | 95% CI | decay slope |
+|---|---|---|---|---|---|
+| BTC | 549 | 44.3% | +0.290 | +0.166 .. +0.415 | -0.055/yr |
+| ETH | 525 | 43.6% | +0.280 | +0.152 .. +0.407 | +0.013/yr |
+| SOL | 506 | 39.7% | +0.172 | +0.044 .. +0.300 | -0.044/yr |
+| LINK | 454 | 38.8% | +0.143 | +0.008 .. +0.277 | -0.027/yr |
+| XRP | 541 | 38.6% | +0.135 | +0.012 .. +0.258 | -0.024/yr |
+| DOGE | 525 | 38.1% | +0.122 | -0.002 .. +0.247 | +0.012/yr |
+| ADA | 476 | 35.7% | +0.053 | -0.076 .. +0.182 | -0.001/yr |
+| LTC | 483 | 35.6% | +0.044 | -0.084 .. +0.173 | -0.043/yr |
+| BNB | 366 | 35.0% | +0.011 | -0.136 .. +0.158 | -0.020/yr |
+
+9/9 positive point estimates, 5/9 with CI excluding zero. Pooled ex-BTC: n=3876,
+expR +0.126, p<0.0001 naive. These assets are not independent: mean pairwise correlation
+of monthly strategy returns is 0.29, so 9 assets behave like about 2.7 independent ones,
+giving a correlation-adjusted **p of about 0.003**. At 1:1 the same picture holds weaker:
+8/9 positive, pooled ex-BTC +0.052, adjusted p about 0.033.
+
+What this changes:
+
+1. **The edge is not a BTC curve-fit.** It replicates on eight assets and a different
+   exchange with nothing re-tuned. That is the strongest evidence in this repo.
+2. **"Already priced in" gets weaker, not stronger.** Decay slopes flip sign across
+   assets (6 negative, 2 positive, 1 flat). There is no consistent cross-sectional decay.
+   If a crowd were competing this away it should show up worst on BTC, the most
+   systematically traded name. BTC is instead the *best* performer.
+3. **The headline +0.21R is probably optimistic.** BTC sits at the top of the
+   cross-sectional distribution and the median alt is about +0.13R, roughly half. Some of
+   the BTC number is luck in the one sample that was studied. Plan on the lower figure.
+4. Alts have thinner books, so real slippage on the smaller names is worse than the
+   0.08% modelled. The alt numbers are upper bounds on what is tradeable there.
+
 ## Reproduce
 
 `study/` — `dataload.py` (clean parquet), `indicators.py` (causal indicators),
 `engine.py` (fee/R backtest), `research.py`/`batch_scan.py` (edge scan),
 `fourh_deep.py` (per-year stability), `finalists.py` (equity/DD), `intrabar.py`
-(15m-path validation), `decay.py` (alpha-decay / priced-in test).
+(15m-path validation), `decay.py` (alpha-decay / priced-in test),
+`fetch_alt.py` + `crossasset.py` (cross-asset replication).
 Run via `./run.sh <script>`.
