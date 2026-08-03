@@ -1,0 +1,101 @@
+====================================================================================================
+FROZEN_SPEC_TSM.md  |  studied span only, holdout >= 2025-01-01 is not loaded
+====================================================================================================
+BTCUSDT_1D       1942 bars  2019-09-08 -> 2024-12-31
+BTCUSDT_4h       8766 bars  2021-01-01 -> 2024-12-31
+
+look-ahead self-test
+  BTCUSDT_1D     PASS
+  BTCUSDT_4h     PASS
+
+====================================================================================================
+RESULTS  (0.05% per side, 0.10% round trip, 1% equity risk where a stop exists)
+====================================================================================================
+                series  trades  expectancy_per_trade  expectancy_R  win_rate_pct  profit_factor  return_pct  max_drawdown_pct  longest_losing_streak  time_in_market_pct  avg_win  avg_loss  total_costs
+run                                                                                                                                                                                                     
+s1_flat     BTCUSDT_1D      64               1258.57        0.0461          40.6          1.895      791.58            -51.36                      7                47.0  6557.89  -2367.28      2821.05
+s1_flip     BTCUSDT_1D     129                143.71        0.0170          36.4          1.161      171.46            -58.86                      8                91.6  2838.90  -1401.10      2844.94
+s1_flat_4h  BTCUSDT_4h     343                 -1.82        0.0010          34.7          0.982      -16.78            -74.08                     17                46.3   287.15   -155.34      2114.30
+s1_flip_4h  BTCUSDT_4h     686                -11.07       -0.0013          33.5          0.791      -85.41            -90.95                     12                92.4   125.07    -79.74      1895.79
+s2_mid      BTCUSDT_1D      54                116.68        0.9795          46.3          3.327       62.57            -12.25                      5                65.4   360.32    -93.35        91.21
+s2_band     BTCUSDT_1D     187                 18.64        0.1647          68.4          1.483       33.42             -5.76                      4                52.4    83.66   -122.42       288.16
+s3_atr      BTCUSDT_1D      40                253.25        2.0855          47.5          7.847      100.91            -12.61                      6                44.8   611.02    -70.45        86.46
+s3_nostop   BTCUSDT_1D      40               2972.88        0.1190          50.0          3.796     1180.49            -38.05                      6                51.6  8072.19  -2126.43      1915.86
+s4          BTCUSDT_1D       2               -104.02       -1.0109           0.0          0.000        1.32             -3.20                      2                 0.3     0.00   -104.02         4.49
+
+====================================================================================================
+CONTROL: buy and hold over the same studied span, same cost
+====================================================================================================
+  BTCUSDT_1D     return     799.33%   max drawdown   -76.67%
+  BTCUSDT_4h     return     218.94%   max drawdown   -77.08%
+  Note: only the risk-sized runs (s2, s3_atr, s4) are scale-comparable to each
+  other. s1 and s3_nostop take full unlevered notional, so their returns are the
+  ones that must be read against buy and hold.
+
+====================================================================================================
+S4 FILTER CENSUS: where the signals go
+====================================================================================================
+  bars                                 1942
+  outside_bars                         87
+  ema_aligned                          1893
+  trend_gate_pass (INVENTED slope)     1049
+  zone_touch (INVENTED zone test)      588
+  trend AND zone                       118
+  trend AND zone AND outside           4
+
+====================================================================================================
+KILL RULE  (expectancy <= 0, or PF < 1.0, or fewer than 30 trades = undecidable)
+====================================================================================================
+  s1_flat      not yet falsified
+  s1_flip      not yet falsified
+  s1_flat_4h   DEAD
+  s1_flip_4h   DEAD
+  s2_mid       not yet falsified
+  s2_band      not yet falsified
+  s3_atr       not yet falsified
+  s3_nostop    not yet falsified
+  s4           UNDECIDABLE (only 2 trades)
+
+====================================================================================================
+BOOTSTRAP 95% CI on mean R per trade (10,000 resamples of the trade list)
+====================================================================================================
+  s1_flat      meanR  +0.046  95% [ +0.009, +0.087] excl 0   Bonf [ -0.001, +0.099] INCL 0
+  s1_flip      meanR  +0.017  95% [ -0.007, +0.042] INCL 0   Bonf [ -0.013, +0.049] INCL 0
+  s1_flat_4h   meanR  +0.001  95% [ -0.004, +0.006] INCL 0   Bonf [ -0.005, +0.007] INCL 0
+  s1_flip_4h   meanR  -0.001  95% [ -0.005, +0.002] INCL 0   Bonf [ -0.006, +0.003] INCL 0
+  s2_mid       meanR  +0.980  95% [ +0.142, +2.175] excl 0   Bonf [ +0.014, +2.550] excl 0
+  s2_band      meanR  +0.165  95% [ +0.033, +0.295] excl 0   Bonf [ -0.002, +0.327] INCL 0
+  s3_atr       meanR  +2.085  95% [ -0.021, +5.347] INCL 0   Bonf [ -0.135, +6.521] INCL 0
+  s3_nostop    meanR  +0.119  95% [ +0.001, +0.296] excl 0   Bonf [ -0.012, +0.354] INCL 0
+  s4           too few trades to bootstrap (2)
+
+====================================================================================================
+REGIME CHECK: net R by calendar year (an edge in one year is a regime bet)
+====================================================================================================
+            2019  2020  2021  2022  2023  2024
+s1_flat     -0.1   1.3   1.0  -0.4   0.7   0.6
+s1_flip     -0.2   1.1   0.7   0.0   0.3   0.2
+s1_flat_4h   NaN   NaN  -0.3  -0.6   0.7   0.4
+s1_flip_4h   NaN   NaN  -0.9  -0.3   0.4  -0.1
+s2_mid      -1.4   7.1  27.0   3.2   6.4  10.5
+s2_band     -0.5  16.7   3.8   1.5   8.4   0.8
+s3_atr       NaN  -1.0  52.9   2.2  -0.3  29.7
+s3_nostop    NaN  -0.1   2.9   0.5  -0.1   1.6
+s4           NaN   NaN   NaN   NaN   NaN  -2.0
+
+====================================================================================================
+COST SWEEP: expectancy per trade vs cost per side (%)
+====================================================================================================
+cost_per_side_pct     0.00     0.05     0.10     0.15     0.20     0.30
+run                                                                    
+s1_flat            1327.75  1258.57  1193.30  1131.71  1073.60   967.01
+s1_flat_4h            5.03    -1.82    -6.68   -10.10   -12.50   -15.30
+s1_flip             162.15   143.71   127.33   112.76    99.81    78.01
+s1_flip_4h          -10.34   -11.07   -11.27   -11.23   -11.07   -10.67
+s2_band              19.57    18.64    17.73    16.84    15.97    14.29
+s2_mid              117.85   116.68   115.51   114.35   113.20   110.92
+s3_atr              255.05   253.25   251.45   249.67   247.89   244.37
+s3_nostop          3077.88  2972.88  2871.53  2773.71  2679.31  2500.25
+s4                 -102.94  -104.02  -105.10  -106.18  -107.26  -109.41
+
+written to /home/user/tradingstudy/TheSecretMindset/backtest/results
