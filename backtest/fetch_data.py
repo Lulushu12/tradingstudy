@@ -25,7 +25,7 @@ PAGE = 1000
 # Interval is selectable so the same 10,000-bar study can be re-run on a
 # different timeframe: python3 fetch_data.py 15m
 INTERVAL = sys.argv[1] if len(sys.argv) > 1 else "1h"
-STEP_MS = {"15m": 900_000, "1h": 3_600_000, "4h": 14_400_000}[INTERVAL]
+STEP_MS = {"15m": 900_000, "1h": 3_600_000, "4h": 14_400_000, "1d": 86_400_000}[INTERVAL]
 HOUR_MS = STEP_MS  # retained name; means "one bar" throughout this module
 
 # Optional second argument: an ISO timestamp to end BEFORE, so an earlier and

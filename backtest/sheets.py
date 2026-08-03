@@ -145,6 +145,8 @@ def write_readme(wb, f):
                               "against a fresh bull-market window."),
             ("H3 Multi-Asset", "The replication on 25 untouched assets and 10,486 trades that settled "
                                "it. Read this before acting on the H3 tab."),
+            ("Exposure Caps", "Portfolio and per-symbol concurrency limits across 15m/1h/4h/daily. The "
+                              "most transferable result here: a positive-R book that still ruins you."),
             ("Stability", "Same statistics computed on each half of the sample independently."),
             ("Equity Curves", "Cumulative R for all six books."),
             ("Trade Stats", "One compact row per trade across all three symbols - the Summary tab's data source."),
@@ -1054,6 +1056,119 @@ def write_h2(wb, f):
     r += 1
     ws.write(r, 1, "Source: backtest/hypothesis_h2.py, criteria in backtest/PREREGISTRATION_H2.md, "
                    "committed in a separate earlier commit containing no H2 results.", f["note"])
+
+
+def write_caps(wb, f):
+    """Exposure caps across four timeframes - the risk finding."""
+    ws = wb.add_worksheet("Exposure Caps")
+    _title(ws, f, "Exposure caps - and the one-per-symbol limit that was never tested",
+           "A book can post a positive total R and still take the account to zero. This one does.")
+    ws.set_column(0, 0, 3)
+    ws.set_column(1, 1, 22)
+    ws.set_column(2, 12, 12)
+
+    d = json.load(open(os.path.join(DATA, "portfolio.json")))
+
+    r = 3
+    for label, body in [
+        ("Why this was run",
+         "The streak analysis found the always-on book holds 17 positions on average and up to 57 at "
+         "once, so a nominal 1% risk per trade was really over half the account live simultaneously. "
+         "R-based accounting hides this completely: R totals add up as if trades were sequential."),
+        ("What changed",
+         "Sizing here is genuinely fixed-fractional - 1% of equity AT ENTRY, with equity updating as "
+         "trades close - so drawdown is measured in real account terms rather than in R. Caps are "
+         "applied chronologically; ties inside a bar break toward higher conviction, both decidable at "
+         "that instant with no lookahead."),
+        ("Timeframes",
+         "15m, 1h, 4h and daily. 4h and daily had never been tested at any point in this study. Their "
+         "spans are also much longer - 4.3 and 7.6 years against 1.1 for hourly - so they cover the "
+         "2022 bear, the 2023 recovery, the 2024 bull and the 2025-26 decline."),
+    ]:
+        ws.write(r, 1, label, f["label"])
+        ws.write(r, 2, body, f["wrap"])
+        ws.set_row(r, 12.5 * (len(body) // 95 + 2))
+        r += 1
+    r += 1
+
+    cols = ["Regime", "Trades", "% of signals", "Win %", "Avg R", "Total R", "PF",
+            "Max DD (R)", "Max open", "Equity multiple", "CAGR", "Max DD %"]
+    for tf in ["15m", "1h", "4h", "1d"]:
+        if tf not in d:
+            continue
+        ws.write(r, 1, tf.upper(), f["h1"])
+        for i in range(len(cols)):
+            ws.write(r, i + 2, "", f["h1"])
+        r += 1
+        for i, c in enumerate(cols):
+            ws.write(r, i + 1, c, f["hdr"])
+        ws.set_row(r, 30)
+        r += 1
+        for regime, s in d[tf].items():
+            ws.write(r, 1, regime, f["label"])
+            ws.write_number(r, 2, s["n"], f["int"])
+            ws.write_number(r, 3, s["taken_pct"] / 100.0, f["pct1"])
+            ws.write_number(r, 4, s["win"] / 100.0, f["pct1"])
+            ws.write_number(r, 5, s["avg"], f["good"] if s["avg"] > 0 else f["bad"])
+            ws.write_number(r, 6, s["tot"], f["num1"])
+            ws.write_number(r, 7, s["pf"], f["num3"])
+            ws.write_number(r, 8, s["mdd_r"], f["num1"])
+            ws.write_number(r, 9, s["max_conc"], f["int"])
+            ws.write_number(r, 10, s["equity"],
+                            f["good"] if s["equity"] > 1 else f["bad"])
+            ws.write_number(r, 11, s["cagr"], f["pct1"])
+            ws.write_number(r, 12, s["max_dd"], f["pct1"])
+            r += 1
+        r += 1
+
+    ws.write(r, 1, "The risk finding - robust, and independent of any edge", f["key"])
+    ws.write(r, 2, "", f["key"])
+    r += 1
+    for line in [
+        "On hourly the unlimited book posts a POSITIVE total of +97.5 R and still ends at 0.10x equity "
+        "with a 94.9% drawdown. On 15m it is outright ruin: 0.00x, -100% CAGR, 99.9% drawdown. Total R "
+        "and account survival are not the same measurement, and this book separates them violently.",
+        "The mechanism is concurrency, not edge. With 38-41 positions open at 1% risk each, roughly 40% "
+        "of the account is exposed at once, and those positions are highly correlated because they are "
+        "the same move sampled repeatedly. One adverse cluster removes a third of the account; "
+        "fixed-fractional sizing then means it never recovers.",
+        "Capping fixes it decisively. On 4h, one-per-symbol takes 20% of the signals and turns a 94.8% "
+        "drawdown into 21.2%, with equity going from 0.16x to 1.47x. A portfolio cap of 3 gives 2.07x "
+        "at 26.4% drawdown. The cap is not a refinement - it is the difference between a system and a "
+        "liquidation.",
+        "This part does not depend on the signal having an edge. It is arithmetic about correlated "
+        "concurrent exposure, and it would apply to any stacking book. It is the most transferable "
+        "result in this workbook.",
+    ]:
+        ws.write(r, 2, "- " + line, f["wrap"])
+        ws.set_row(r, 12.5 * (len(line) // 100 + 1))
+        r += 1
+    r += 1
+
+    ws.write(r, 1, "The 4h result - NOT a finding yet", f["key"])
+    ws.write(r, 2, "", f["key"])
+    r += 1
+    for line in [
+        "4h with caps is the strongest per-trade result anywhere in this study: +0.109 to +0.149 R, "
+        "profit factor 1.16-1.23, over 4.3 years spanning four distinct regimes. Daily with a "
+        "one-per-symbol cap is also positive at +0.113 R and PF 1.16, over 7.6 years.",
+        "It should not be believed yet, and this workbook has earned the right to say why. This is a "
+        "FIRST look at two timeframes never previously touched, examined through five concurrency "
+        "regimes at once - twenty cells. Every earlier first look in this study that appeared this "
+        "good later failed: v2b at +0.269 R went to -0.178 out of sample, and H3 at +0.050 R went to "
+        "+0.007 across 25 assets.",
+        "The correct treatment is the one that has worked here: pre-register a single 4h configuration "
+        "with its criteria fixed, then test it once on assets and windows it was not selected on. "
+        "Until that is done, the 4h numbers are a hypothesis, not a result.",
+    ]:
+        ws.write(r, 2, "- " + line, f["wrap"])
+        ws.set_row(r, 12.5 * (len(line) // 100 + 1))
+        r += 1
+
+    r += 1
+    ws.write(r, 1, "Source: backtest/portfolio.py. RANGE_FADE is disabled, so these books differ "
+                   "slightly from the v1 selective book elsewhere in this workbook. Percentages "
+                   "stored as fractions.", f["note"])
 
 
 def write_h3m(wb, f):
