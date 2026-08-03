@@ -1,0 +1,7 @@
+# Crazy Fibonacci Retracement Trick
+video_id: z3L9Jfg3acs
+duration_s: 61
+captions: manual
+url: https://www.youtube.com/watch?v=z3L9Jfg3acs
+
+This one tool can predict exactly where price is going to reverse and it's pretty damn good. First, grab your Fibonacci tool. Go to the settings. Change the values to 0, 0.706, 0.618, 1, and 0.79. This will give you three main levels that look like this. These levels are what's called the golden zone or where price has the highest probability to reverse. but we're going to add a little bit more to it to make our edge even greater. First, find an uptrend. Mark from the low of the uptrend to the high of the uptrend. Once this is done, we now have our golden zone where price is most likely to reverse. But we can make this trade even better. What I like to do is pair this with a fair value gap. So, here we have a bullish fair value gap, but not only that, it's paired exactly within our golden zone. Wait for price to come to our golden zone. and within the fair value gap. Enter. Set her take profit at the highs. Set her stop loss below the golden zone.

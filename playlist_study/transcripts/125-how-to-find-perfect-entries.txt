@@ -1,0 +1,7 @@
+# How To Find PERFECT Entries
+video_id: tS9o8aQjADY
+duration_s: 45
+captions: manual
+url: https://www.youtube.com/watch?v=tS9o8aQjADY
+
+The most important part of a chart is the lowest tick of the highest bar, the highest tick of the lowest bar. Let's try it. First, we're going to go to the 1 hour time frame. Here we have a nice trend. We're going to mark the highest tick on the lowest bar and the lowest tick on the highest bar. This will create great areas of supply and gray areas of demand. If price hits our area of supply first, we're going to look for shorts. If price hits our area of demand first, we're going to look for long. If we look at our example, price hit our area of demand first, so we'll look for longs. Before we enter, we want to see if price will respect our area of demand first, which it does. Wait for price to come back down to the start of the move. Enter here. Set your stop loss below the area of demand. Set your take-profit at the high. Mr. Gan said so beautifully.

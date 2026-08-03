@@ -1,0 +1,7 @@
+# Why Your Demand Zones Keep Failing
+video_id: 97sX5yWUv7Y
+duration_s: 40
+captions: manual
+url: https://www.youtube.com/watch?v=97sX5yWUv7Y
+
+Has this ever happened to you? You pick an area of demand, but price sadly just runs through it. Give me 17 seconds to show you how to fix this. The area of demand needs to form after taking liquidity. If price doesn't grab liquidity before creating the area of demand, well, it's probably going to fail. But when price grabs liquidity first, then creates the area of demand, that's literally the institutions showing you they're entering. The liquidity sweep shows you that they're trying to manipulate for a real move. And the area of demand shows you where they are entering. Wait for price to come back down. Enter at the area of demand. Stop loss below the liquidity. Take profit at the highs.

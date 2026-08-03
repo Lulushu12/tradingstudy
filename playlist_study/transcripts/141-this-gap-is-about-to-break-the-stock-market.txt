@@ -1,0 +1,7 @@
+# This Gap Is About To Break The Stock Market
+video_id: VEttQauWcQw
+duration_s: 68
+captions: manual
+url: https://www.youtube.com/watch?v=VEttQauWcQw
+
+The black line is the S&amp;P 500. The blue line is job opening. If you look closely, they both seem to be very correlated. When the blue line goes up, the black line goes up. When the blue line goes down, the black line goes down. In other words, they move with each other. So, throughout history, analysts could use job openings as a metric for predicting the stock market. But then, all of a sudden, it broke. So, now something very interesting is happening. Job openings are going down, but yet the stock market is going up. Hmm, interesting. But you know what's even more interesting? The start of this break can be represented by this black dotted line. This black dotted line is on November 30th, 2022. But what happened on November 30th, 2022? Well, if we go to Google and ask what happened on November 30th, 2022, ChatGPT was released. What a good release. Which brings us to the scary question. As AI takes more and more jobs, which will happen, what happens to the stock market? Can we continue using job openings as a metric to predict the market? Or is this the start of something much scarier?

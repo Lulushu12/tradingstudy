@@ -1,0 +1,7 @@
+# How To Choose The Right Fair Value Gap
+video_id: S32tFpz1zns
+duration_s: 83
+captions: manual
+url: https://www.youtube.com/watch?v=S32tFpz1zns
+
+Here we have four different fair value gaps. But the question is, how do we know which one is the strongest? We have gap one, two, three, and four. The main thing you need to focus on is how price reacts to the gap. Here price comes down to the first gap and instantly breaks right through it and closes below it. So now we can instantly remove it from our selection. Next price comes down to fair value gap number two. But this time it closed within the gap, which is good. But I like to have a rule. If it closes below the 50% mark of the gap, I ignore it. So we remove that from our selection as well. Next price comes down to fair value gap number three. And when it does this, it does something extremely interesting. It closes at the 50% mark. But not only that, it prints a rejection candle directly after, where price breaks the previous candle, but yet still holds the position, all while staying above the 50% mark. And here's a secret trick. This setup is on the one-hour time frame, which means if we were on the daily time four of these fair value gaps would just be one big fair value gap. And what's interesting, price rejected right at the 50% mark on that daily fair value gap, which is another very powerful sign. Now we have a lot of confluence that this gap will hold. It can assume the third gap is likely the one we want to follow. And look what happens, price perfectly moves up from here.

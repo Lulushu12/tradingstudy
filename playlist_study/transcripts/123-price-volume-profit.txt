@@ -1,0 +1,7 @@
+# Price + Volume = Profit
+video_id: UMzoeyKjGd4
+duration_s: 70
+captions: manual
+url: https://www.youtube.com/watch?v=UMzoeyKjGd4
+
+The big players can easily manipulate price, but they can't manipulate volume that easily. Volume feed is very useful. It's not going to get you 100% trades. You can actually tell from price and volume relationships whether somebody's playing with you or not. Let's try it. Go to the indicators tab. Search volume. Click this one by trading view. Go to the settings of the volume indicator and check volume moving average. Make it white and make the MA length 20. Here price was spiking up but then had a catastrophic drop and price plummeted. But something very interesting is happening here. If we take a close look at the volume, it stayed exactly the same during this drop when in reality bearish volume should be rising during this like this. In this instance, volume stayed the exact same at the average volume. So we can expect this to be a liquidity grab and look for an entry. Here we have the point of liquidity. Right below that is a beautiful fair value gap. That's where we enter. Price reaches our fair value gap. We enter. Set our takeprofit at the high. Set our stop loss below the gap. And it indeed was a liquidity grab. Looking at price and volume together is an edge in my humble opinion.

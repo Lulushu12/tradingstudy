@@ -1,0 +1,7 @@
+# How To Predict Reversals
+video_id: M1_nhHx2fOA
+duration_s: 61
+captions: manual
+url: https://www.youtube.com/watch?v=M1_nhHx2fOA
+
+Here is how to predict exactly when a&nbsp; reversal is about to happen on any chart First you need to find the area where&nbsp; 70% of the market is entering trades. &nbsp; To do this, go on tradingview. Grab the fixed volume profile. &nbsp; Mark from the low to the high of a move. Next go to your settings of the volume&nbsp;&nbsp; profile. Make sure vah and val are enabled. In between these two white lines in the&nbsp;&nbsp; value area, and is where 70% of&nbsp; the market is entering trades. Which if 70% of the market is entering in&nbsp; this area, we can use it to our advantage. If price pushes outside the value area low, but&nbsp; then suddenly rejects with a larger lower wick. &nbsp; You then trade for a reversal to the upside. With your take profit targeted&nbsp; to the opposing level. But say instead of rejecting, price does this,&nbsp; where it shoots through the value area fast. &nbsp; Leaving behind a bearish fair value gap. Just wait for price to wick back inside the gap. Then trade to the downside as these will&nbsp; be some of the most explosive moves.

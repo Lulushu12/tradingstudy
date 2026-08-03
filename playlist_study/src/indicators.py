@@ -401,3 +401,143 @@ def regular_divergence(price_high, price_low, osc, left=2, right=2, max_lookback
     scan(pl, price_low, lambda x, y: x < y, lambda x, y: x > y, bull)
     scan(ph, price_high, lambda x, y: x > y, lambda x, y: x < y, bear)
     return pd.Series(bull, index=osc.index), pd.Series(bear, index=osc.index)
+
+
+# ---------------------------------------------------------------- reconstructions
+# Indicators the videos name but do not define. Each is rebuilt from its
+# published formula. Where a video's wording leaves a choice open, the choice is
+# stated in the docstring rather than buried in the code, because a
+# reconstruction that quietly picks one reading is indistinguishable from a
+# faithful port in the results table.
+
+def smma(s, n):
+    """Wilder/SMMA as used by LazyBear's Impulse MACD."""
+    return s.ewm(alpha=1.0 / n, adjust=False, min_periods=n).mean()
+
+
+def zlema(s, n):
+    e1 = ema(s, n)
+    e2 = ema(e1, n)
+    return e1 + (e1 - e2)
+
+
+def impulse_macd(df, length=34, signal=9):
+    """LazyBear's Impulse MACD (video 034).
+
+    md is zero whenever the zero-lag mean sits inside the smoothed high/low
+    band, which is the "skip consolidation" behaviour the video describes.
+    Returns (md, signal_line, histogram).
+    """
+    hi = smma(df["high"], length)
+    lo = smma(df["low"], length)
+    mi = zlema((df["high"] + df["low"] + df["close"]) / 3, length)
+    md = np.where(mi > hi, mi - hi, np.where(mi < lo, mi - lo, 0.0))
+    md = pd.Series(md, index=df.index)
+    sb = sma(md, signal)
+    return md, sb, md - sb
+
+
+def lwti(df, period=25, smooth=20):
+    """Larry Williams Trade Index (videos 053/054).
+
+    out = (close - close[period]) / ATR(period) * 50 + 50, smoothed by an SMA.
+
+    The videos say only "LWTI is green". The published indicator colours green
+    when the raw line is above its own smoothed line, so that is the reading
+    used here. The alternative reading, green above the 50 midline, is exposed
+    as `above_mid` so the runner can test both.
+    """
+    diff = df["close"] - df["close"].shift(period)
+    rng = atr(df["high"], df["low"], df["close"], period)
+    out = diff / rng.replace(0, np.nan) * 50 + 50
+    sig = sma(out, smooth)
+    return pd.DataFrame(
+        {"lwti": out, "signal": sig, "green": out > sig, "above_mid": out > 50},
+        index=df.index,
+    )
+
+
+def smi(df, k=10, d=3, ema_len=3):
+    """Stochastic Momentum Index (video 087). Returns (smi_line, signal)."""
+    hh = df["high"].rolling(k, min_periods=k).max()
+    ll = df["low"].rolling(k, min_periods=k).min()
+    rel = df["close"] - (hh + ll) / 2
+    diff = hh - ll
+    num = ema(ema(rel, d), d)
+    den = ema(ema(diff / 2, d), d)
+    line = 100 * num / den.replace(0, np.nan)
+    return line, ema(line, ema_len)
+
+
+def mcginley(s, n):
+    """McGinley Dynamic, the baseline type named in video 064's SSL Hybrid."""
+    v = s.to_numpy(float)
+    out = np.full(len(v), np.nan)
+    seed = sma(s, n).to_numpy(float)
+    for i in range(len(v)):
+        if np.isnan(seed[i]):
+            continue
+        if np.isnan(out[i - 1]) if i else True:
+            out[i] = seed[i]
+        else:
+            prev = out[i - 1]
+            ratio = v[i] / prev if prev else 1.0
+            out[i] = prev + (v[i] - prev) / max(n * (ratio ** 4), 1e-9)
+    return pd.Series(out, index=s.index)
+
+
+def ssl_hybrid(df, length=200, baseline="mcginley"):
+    """SSL Hybrid baseline channel (video 064).
+
+    Colour is blue when close is above the baseline of highs, red when below the
+    baseline of lows. Only the baseline half of the indicator is rebuilt; the
+    video's entry also needs the proprietary "Next Pivot" projection, which is
+    why 064 stays untestable as a whole.
+    """
+    f = mcginley if baseline == "mcginley" else (lambda s, n: ema(s, n))
+    hi = f(df["high"], length)
+    lo = f(df["low"], length)
+    up = df["close"] > hi
+    dn = df["close"] < lo
+    return pd.DataFrame({"hi": hi, "lo": lo, "blue": up, "red": dn}, index=df.index)
+
+
+def ut_bot(df, key=2.0, period=1):
+    """UT Bot ATR trailing stop (video 063).
+
+    Standard published logic: an ATR band that ratchets in the direction of the
+    trend and flips when close crosses it. Returns a frame with the stop level
+    and the flip signals.
+    """
+    a = key * atr(df["high"], df["low"], df["close"], period)
+    c = df["close"].to_numpy(float)
+    av = a.to_numpy(float)
+    stop = np.full(len(c), np.nan)
+    for i in range(1, len(c)):
+        if np.isnan(av[i]):
+            continue
+        prev = stop[i - 1]
+        if np.isnan(prev):
+            stop[i] = c[i] - av[i]
+            continue
+        if c[i] > prev and c[i - 1] > prev:
+            stop[i] = max(prev, c[i] - av[i])
+        elif c[i] < prev and c[i - 1] < prev:
+            stop[i] = min(prev, c[i] + av[i])
+        else:
+            stop[i] = c[i] - av[i] if c[i] > prev else c[i] + av[i]
+    st = pd.Series(stop, index=df.index)
+    above = df["close"] > st
+    return pd.DataFrame(
+        {"stop": st, "buy": above & ~above.shift(1).fillna(False),
+         "sell": ~above & above.shift(1).fillna(False)},
+        index=df.index,
+    )
+
+
+def smoothed_heikin_ashi(df, pre=10, post=10):
+    """Smoothed Heikin Ashi (video 061): EMA the OHLC, build HA, EMA again."""
+    pre_df = pd.DataFrame({c: ema(df[c], pre) for c in ["open", "high", "low", "close"]})
+    ha = heikin_ashi(pre_df.dropna())
+    out = pd.DataFrame({c: ema(ha[c], post) for c in ha.columns})
+    return out.reindex(df.index)

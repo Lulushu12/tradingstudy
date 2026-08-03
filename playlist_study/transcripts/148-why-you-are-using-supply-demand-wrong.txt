@@ -1,0 +1,7 @@
+# Why You Are Using Supply & Demand WRONG
+video_id: I4JK_NH3ZQs
+duration_s: 53
+captions: manual
+url: https://www.youtube.com/watch?v=I4JK_NH3ZQs
+
+Stop scrolling if you trade demand zone. Because you're probably making this one entry mistake that is destroying your win rate. There are only two ways to enter into a demand zone. And one of them, in my opinion, is way better. Entry version one is the risk entry. You set your demand zone and literally place a buy limit right at the demand zone. With this entry, you'll catch more trades, but sometimes price will hit this zone and just break right through it. Therefore, hitting your stop loss. That's exactly why I prefer the second option. Entry version two is the confirmation entry. You have the same demand zone on a higher time frame, but this time, once price hits our demand zone, we move to a smaller time frame, get confirmation of a trend shift, wait for price to come down to a second demand zone on a smaller time frame. This will result in cleaner entries, better risk rewards, and often higher win rate.
