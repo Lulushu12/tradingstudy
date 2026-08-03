@@ -260,6 +260,55 @@ def fib_levels(swing_low, swing_high, ratios=(0.236, 0.382, 0.5, 0.618, 0.705, 0
     return {r: swing_high - rng * r for r in ratios}
 
 
+def zigzag(df, left=3, right=3, min_pct=0.0):
+    """Alternating confirmed swing legs, the closest mechanical stand-in for
+    the "find a large trend" instruction that price action videos open with.
+
+    Returns a list of dicts, each an impulse leg:
+        start_i / end_i   integer bar positions of the leg's two extremes
+        confirm_i         bar position where the leg became KNOWN (end_i + right)
+        direction         +1 for a low->high leg, -1 for a high->low leg
+        start_px / end_px the two extreme prices
+        size_pct          leg size as a percent of the starting price
+
+    A leg is only usable from confirm_i onward. Any strategy that anchors a
+    Fibonacci to a leg must not act before that bar, otherwise it is drawing the
+    tool with knowledge of where the swing ended.
+    """
+    ph, pl = pivots(df["high"], df["low"], left, right)
+    events = []
+    for i, v in enumerate(ph.to_numpy()):
+        if not np.isnan(v):
+            events.append((i, i - right, v, 1))
+    for i, v in enumerate(pl.to_numpy()):
+        if not np.isnan(v):
+            events.append((i, i - right, v, -1))
+    events.sort(key=lambda e: (e[1], e[0]))
+
+    # collapse consecutive same-type pivots, keeping the more extreme one
+    chain = []
+    for conf_i, ext_i, px, kind in events:
+        if chain and chain[-1][3] == kind:
+            better = px > chain[-1][2] if kind == 1 else px < chain[-1][2]
+            if better:
+                chain[-1] = (conf_i, ext_i, px, kind)
+            continue
+        chain.append((conf_i, ext_i, px, kind))
+
+    legs = []
+    for (c0, i0, p0, k0), (c1, i1, p1, k1) in zip(chain, chain[1:]):
+        direction = 1 if k1 == 1 else -1
+        size = abs(p1 - p0) / p0 * 100
+        if size < min_pct:
+            continue
+        legs.append({
+            "start_i": i0, "end_i": i1, "confirm_i": c1,
+            "direction": direction, "start_px": p0, "end_px": p1,
+            "size_pct": size,
+        })
+    return legs
+
+
 # ---------------------------------------------------------------- candlesticks
 
 def candle_stats(df):

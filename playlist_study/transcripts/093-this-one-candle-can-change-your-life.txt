@@ -1,0 +1,7 @@
+# This One Candle Can Change Your Life
+video_id: fGZId6WmCns
+duration_s: 386
+captions: manual
+url: https://www.youtube.com/watch?v=fGZId6WmCns
+
+This one candle can completely change your life. &nbsp; This is how you do it. If you are overall bullish,&nbsp;&nbsp; you want to buy below the market open. If you are overall bearish, you want to&nbsp;&nbsp; sell above the market open. Here s what I mean. &nbsp; Go to the daily time frame. In this example,&nbsp;&nbsp; we are overall bullish with this candle. Go to the candle and mark the&nbsp;&nbsp; open and close of the candle. Next, go to a smaller timeframe. This green line marks the daily candle s open.&nbsp; This red line marks the daily candle s close. Since we have overall bullish price&nbsp; movement, we will only enter if price&nbsp;&nbsp; goes beneath this green line. We want some type of sell side&nbsp;&nbsp; liquidity that goes beneath the market open. Check. Next, we want price to show some&nbsp; sort of respect, by making a break&nbsp;&nbsp; of structure. Like this. Check. Usually when doing this,&nbsp;&nbsp; price will create a fair value gap. Check. Wait for price to retrace back to this fvg. &nbsp; Enter here. Set your take profit at the market close. &nbsp; Set your stop loss below the recent low. And just like that you got a winning trade.

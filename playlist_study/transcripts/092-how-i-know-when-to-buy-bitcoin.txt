@@ -1,0 +1,7 @@
+# How I Know When To Buy Bitcoin
+video_id: 8tXCHCohRKU
+duration_s: 58
+captions: manual
+url: https://www.youtube.com/watch?v=8tXCHCohRKU
+
+This is how to use real time data to&nbsp; find the perfect points to buy bitcoin. &nbsp; First, go to a site called chainexposed . Go to the left and click unrealized profit/loss &nbsp; Then click this one called supply in profit/loss This is a real time data driven site for crypto. If you look closely, while I move my cursor&nbsp; through out the chart some numbers will pop up. The price of bitcoin, the percentage of supply in&nbsp; profit, and the percentage of supply at a loss. If you know absolutely anything about trading,&nbsp; that little hamster wheel in your head should be&nbsp;&nbsp; spinning right about now. Let me explain. As you can see as price is going up, more&nbsp; and more people are trading for a profit. As price goes down, more&nbsp; people are trading for a loss. &nbsp; My rule for trading crypto is simple. You should look to buy when this&nbsp; percentage is less than 50%. You should look to sell when this&nbsp; number is getting close to 100%. This wont happen very often, but when it does&nbsp; you can make some insane profits from it. I made a yt video on my full strategy behind this&nbsp; data. Check it out if you want to learn more.

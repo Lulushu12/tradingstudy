@@ -1,0 +1,7 @@
+# My Favorite FREE Indicator
+video_id: GAqYrxV3bmY
+duration_s: 33
+captions: manual
+url: https://www.youtube.com/watch?v=GAqYrxV3bmY
+
+Here s my absolute favorite&nbsp; free indicator on TradingView. First go to the indicators&nbsp; tab and type in trendlines&nbsp;&nbsp; and click this very first one right here. Go to the settings of the indicator and change&nbsp;&nbsp; both of these values to 90. This is very important. Once you ve done that, the indicator&nbsp; will now AUTOMATICALLY add the strongest&nbsp;&nbsp; trendlines available to your chart for you. So you don t even need to&nbsp; draw the trendlines manually. And to be honest, it does a&nbsp; damn good job of doing so.

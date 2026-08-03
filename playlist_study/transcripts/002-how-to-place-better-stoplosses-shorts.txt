@@ -1,0 +1,7 @@
+# How To Place BETTER Stoplosses #shorts
+video_id: ofprxffWsWA
+duration_s: 60
+captions: manual
+url: https://www.youtube.com/watch?v=ofprxffWsWA
+
+How to place better stop losses. Has this ever&nbsp; happened to you? You see the price coming to a&nbsp;&nbsp; key support from where it bounced off earlier.&nbsp; You have the idea to buy at this level as you&nbsp;&nbsp; expect the price to bounce. Turns out, you were&nbsp; right, buttttt right before the price went up,&nbsp;&nbsp; your stop loss got hit, making this a&nbsp; losing trade rather than a winning one. Many traders place their stoploss right below&nbsp; the support level. While this is the right idea,&nbsp;&nbsp; its likely to get stopped out a lot. To fix&nbsp; this, go to recent history of the chart, and see&nbsp;&nbsp; other key levels around this area. This will&nbsp; give you a range, rather than a single level. Set your stop loss right below this range,&nbsp; and you won t get stopped out as much. If you don t want to guess how low to put&nbsp; your stop loss. Use the ATR indicator. It&nbsp;&nbsp; s the average true range, and will take the&nbsp; average price movement from the past candles. Just take this number it gives you and&nbsp; subtract it from the support level. &nbsp; This is where you should place your stop loss.

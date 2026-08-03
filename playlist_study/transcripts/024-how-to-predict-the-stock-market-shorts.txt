@@ -1,0 +1,7 @@
+# How To Predict The Stock Market #shorts
+video_id: moXcXNdpnu0
+duration_s: 59
+captions: manual
+url: https://www.youtube.com/watch?v=moXcXNdpnu0
+
+Here's how I use previous chart history to predict where the stock market will move next. First, you need to go to stockcharts.com. Click charts and tools, then type in whatever ticker symbol you're interested in in the seasonality tool. For this example, we'll do Apple. It will then pull up a graph. Move this bar to however many years you want to look back. For this example, we'll do 10 previous years of Apple's chart history. The top numbers are the percentage of time the month is positive. These bottom numbers are the average gain or loss for that specific month on average. So, in the past 10 years, July has been positive 90% of the time for Apple with an average of a 7.8% gain. In September, you can see Apple on average does bad, only being positive 20% of the time and an average loss of 2.8%. These are called seasonalities. There's certainly no guarantee that past performance will equal future performance, but you can use this to look for above average tendencies to complement other trading signals with your technical analysis.

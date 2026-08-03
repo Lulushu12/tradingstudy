@@ -1,0 +1,7 @@
+# I Found an AMAZING Trading Strategy
+video_id: V8IDy1YZhwI
+duration_s: 54
+captions: manual
+url: https://www.youtube.com/watch?v=V8IDy1YZhwI
+
+This one candle can predict exactly where price is going to go next, and most traders have no idea what it looks like. First, you need to wait till exactly 9:30 a.m. or whenever the market opens for you. Next, go to the 1 hour time frame. Once the market opens, it should leave a new 1 hour candle. Mark the low and the high of this candle. Next, you want to see a liquidity grab in either direction. In this example, it was towards the downside. We want this break to only wick out just like it did here. The body of the candle should close inside this range. Once that happens, we now know the price will want to take out liquidity again. And where better to do that than the candle's high. Next, go to a smaller time frame. Find a place to enter. Here we have a bullish fair value gap. Wait for price to come to this gap. Set your takeprofit at the high of the 1 hour candle and set your stop loss below the fair value gap. We have a perfect setup and price does exactly what we predicted and goes up.

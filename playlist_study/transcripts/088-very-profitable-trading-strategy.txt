@@ -1,0 +1,7 @@
+# Very Profitable Trading Strategy
+video_id: sA5TBzGsr4k
+duration_s: 60
+captions: manual
+url: https://www.youtube.com/watch?v=sA5TBzGsr4k
+
+This one candle can completely change your life. This is how you do it. If you are overall bullish, you&nbsp; want to buy below the market open. If you are overall bearish, you&nbsp; want to sell above the market open. &nbsp; Here s what I mean. Go to the daily time frame. In this example, we are overall&nbsp; bullish with this candle. Go to the candle and mark the&nbsp; open and close of the candle. &nbsp; Next, go to a smaller timeframe. This green line marks the daily candle s open.&nbsp;&nbsp; This red line marks the daily candle s close. Since we have overall bullish price movement,&nbsp;&nbsp; we will only enter if price&nbsp; goes beneath this green line. We want some type of sell side liquidity&nbsp; that goes beneath the market open. &nbsp; Check. Next, we want price to show some sort of respect,&nbsp;&nbsp; by making a break of structure. Like this. Check. Usually when doing this,&nbsp;&nbsp; price will create a fair value gap. Check. Wait for price to retrace back to this fvg. &nbsp; Enter here. Set your take profit at the market close. &nbsp; Set your stop loss below the recent low. And just like that you got a winning trade.

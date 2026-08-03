@@ -1,0 +1,7 @@
+# INSANELY Profitable Strategy
+video_id: JOC2XBorumo
+duration_s: 38
+captions: manual
+url: https://www.youtube.com/watch?v=JOC2XBorumo
+
+Here s an INSANELY profitable trading strategy First, go to tradingview.&nbsp; Ill leave a link in my bio. &nbsp; Set your timeframe to 30 minutes. Then turn on heiken ashi candles. Next go the indicators tab and add&nbsp; an indicator called UT bot alerts Go to the settings and change the key&nbsp; value to 2 and the atr period to 1. Next add another indicator&nbsp; called regression candles. Uncheck both of these boxes and&nbsp; change the signal smoothing to 10. &nbsp; The strategy is simple. If you get a buy signal from&nbsp;&nbsp; the indicator you are going to enter the trade. Set your stop loss right below the black line.

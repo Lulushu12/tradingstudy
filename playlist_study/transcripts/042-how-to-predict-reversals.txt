@@ -1,0 +1,7 @@
+# How To Predict Reversals
+video_id: 2A2CqCmDbl0
+duration_s: 60
+captions: manual
+url: https://www.youtube.com/watch?v=2A2CqCmDbl0
+
+here's how to predict exactly when a reversal is about to happen on any chart first you're looking for what are called bullish rejection blocks a bullish rejection block is simply a swing low that is formed with a long Wick like this you then want to see a strong move upwards after this candle has been formed what we're gonna do is Mark an area from the low of this candle wick to the body of that low candle like this this area is where you want to start looking for buy opportunities Price ever enters this area you enter set your stop loss right below this area and set your take profit at the high of the previous move you can do the same exact thing with shorts look for a bearish rejection block by finding a swing high that is formed with a long Wick like this you then want to see a strong downwards move after the candle has been formed mark this area from the Wicks High to the body of the candle this is our bearish rejection block wait for price to re-enter this area enter here set your stop loss right above the area and set your take profit to a recent low

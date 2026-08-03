@@ -1,0 +1,7 @@
+# How To Avoid False Breakouts
+video_id: H0g48pKfUsQ
+duration_s: 56
+captions: manual
+url: https://www.youtube.com/watch?v=H0g48pKfUsQ
+
+99% of new traders made this one very common mistake. You have a resistance line from a previous high. Price end s up breaking this line. Most breakout traders will enter this trade as SOON as this line gets broken in real time. A lot of times this will be a false breakout though, because it s a liquidity grab. Meaning, this is the area where big institutions will start entering shorts. Which means, if you entered a long on this breakout. It would have been a losing trade and you would of lost money. If you want to drastically raise the chance of you NOT entering a false breakout, here s how you do it. Instead of entering a long right when price breaks this resistance, you need to wait for the candle to close. The body of the closed candle needs to close above the resistance. If it s just the wick of the candle above, like this, it does not count. Once a candle closes with the body completely above the resistance, you can then enter your long trade.

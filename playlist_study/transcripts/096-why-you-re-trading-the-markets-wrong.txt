@@ -1,0 +1,7 @@
+# Why You're Trading The Markets Wrong
+video_id: VRL_8RpiJ6U
+duration_s: 60
+captions: manual
+url: https://www.youtube.com/watch?v=VRL_8RpiJ6U
+
+Has this ever happened to you? You get your liquidity sweep. &nbsp; You get your break of structure. Then you get your fair value gap. &nbsp; The perfect trade You set your stop loss below this liquidity break&nbsp;&nbsp; and set your take profit at the recent high. You enter the trade ecstatic and are ready for&nbsp;&nbsp; an easy winning trade. But then this happens. &nbsp; What happened? Why was this a losing trade? You see, this trader did have the right idea but&nbsp;&nbsp; there s something very wrong with this trade. After this liquidity sweep, price does a break&nbsp;&nbsp; of structure, just like it should.&nbsp; But theres still something wrong. When doing this break, it doesn t close above&nbsp; this high with speed and distance. It just wicks&nbsp;&nbsp; above it and comes back down. So what should it look like? &nbsp; What we are looking for is something like this. Where, when breaking this break of structure,&nbsp;&nbsp; price breaks through it strong and hard. But&nbsp; the key thing we are looking for is that it that&nbsp;&nbsp; the body of the candle closes ABOVE&nbsp; the break of structure like this. Now that we have a break of structure with&nbsp; speed and distance and closes above the break. &nbsp; We can enter at the fair value gap like normal. And now we have a winning trade.

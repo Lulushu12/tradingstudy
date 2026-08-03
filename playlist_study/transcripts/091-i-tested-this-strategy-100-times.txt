@@ -1,0 +1,7 @@
+# I Tested This Strategy 100 Times
+video_id: ud3rlnV17BA
+duration_s: 46
+captions: manual
+url: https://www.youtube.com/watch?v=ud3rlnV17BA
+
+I tested this strategy 100 times&nbsp; and it had a 78% win rate. The strategy has 3 easy&nbsp; steps. Here s how to do it. Step 1. Select the 15 minute time&nbsp; frame. Next, Look for a liquidity&nbsp;&nbsp; grab that closed with only a wick. It&nbsp; shouldn t close with the body like this. Step 2. Go to the 1 minute time frame. We want&nbsp; to spot a market structure shift. This will be&nbsp;&nbsp; the last swing high before the liquidity grab. The&nbsp; body of the candle has to close above this line. Step 3. Find a Fair value gap. Wait for&nbsp; price to come to this fvg, Enter here.&nbsp;&nbsp; Place your stoploss at the 3rd candle that&nbsp; formed the fvg. Place your take profit at&nbsp;&nbsp; the swing high on the 15 minute time frame. Just like that, you got a winning trade.

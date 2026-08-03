@@ -1,0 +1,7 @@
+# Crazy Fibonacci Retracement Trick
+video_id: 5Oji1Bcw1-I
+duration_s: 59
+captions: manual
+url: https://www.youtube.com/watch?v=5Oji1Bcw1-I
+
+This Fibonnaci Retracement trick has&nbsp; completely changed the way I trade. &nbsp; First go to the settings of the fibonnaci tool. Enable these levels. 0, 0.706, 0.618,&nbsp;&nbsp; 1, and 0.79. This will give you&nbsp;&nbsp; 3 main levels in this area like this. This area is called the golden zone Or where price has the highest&nbsp; probability to reverse. But that s not all, we have&nbsp; an extra little trick. First, grab your fibonnaci retracement tool and&nbsp; mark from the swing low, from the swing high. This gives us the golden zone where&nbsp; price is most likely to reverse,&nbsp;&nbsp; but we want to pair an extra bit&nbsp; of confluence with this strategy. What I tested that works great is&nbsp; paring it with fair value gaps. So you can see here. There s nice bullish&nbsp; fair value gap right here. And it just so&nbsp;&nbsp; happens to be in the golden zone.&nbsp; Which means, there s even a higher&nbsp;&nbsp; probability of price bouncing at this zone. Set your stop loss right below the gold zone,&nbsp;&nbsp; and set your take profit at a recent high. Looks what happens, an easy winning trade.

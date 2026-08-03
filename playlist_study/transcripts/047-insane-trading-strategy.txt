@@ -1,0 +1,7 @@
+# INSANE Trading Strategy
+video_id: o2gfjmxhptc
+duration_s: 53
+captions: manual
+url: https://www.youtube.com/watch?v=o2gfjmxhptc
+
+here's an absolutely insane trading strategy for the first step we are looking for what's called a liquidity graph a liquidity grab is simply when price breaks a support or resistance and does a fake out and heads in the opposite direction we want a liquidity to grab because it adds fuel to the reversal we are looking for the entry is pretty simple you are going to mark your entry point at the candle that made the liquidity graph for example here we have a nice little support price breaks the support with this candle right here our entry would be at the candle that made the liquidity grab so your long entry would be at this point right here because this candle made this liquidity grab once price hits our entry point we enter Setter stop loss right below the liquidity grab and set our take profit at a recent high and just like that we have an insane win if you'd like more trading tips join my Discord

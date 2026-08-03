@@ -1,0 +1,7 @@
+# I Created An Indicator To Copy Hedge Funds #shorts
+video_id: FvKTFClqRgk
+duration_s: 59
+captions: manual
+url: https://www.youtube.com/watch?v=FvKTFClqRgk
+
+This is how you identify orderblocks to see where&nbsp; big money institutions are buying and selling. &nbsp; First you need an orderblock indicator. You can go to tradinglab.ai to download mine.&nbsp;&nbsp; I ll leave a link in my bio. The strategy is simple. Make sure you are the one hour time, as&nbsp; that is what works best for this strategy. If you want to do long trades, wait&nbsp; for a green order block to appear. The green order block represent where&nbsp;&nbsp; big institutions are likely&nbsp; going to be long posistions Once price comes down to this order block,&nbsp; you have to see some type of slowing down. This can be represented by a big&nbsp; wick on the bottom of the candle. If you see a large lower wick, the next thing you&nbsp; need is a green confirmation candle like this. You want to ignore order blocks if price&nbsp; breaks through it very strongly like this.&nbsp;&nbsp; Only enter once you see confirmation&nbsp; and price respecting the order block. You also want to ignore small&nbsp; order blocks like these. Wait for the green confirmation candle to&nbsp; close. Enter once it does, set your stop loss&nbsp;&nbsp; right below the order block and set your take&nbsp; profit at a recent swing high. Easy profit.

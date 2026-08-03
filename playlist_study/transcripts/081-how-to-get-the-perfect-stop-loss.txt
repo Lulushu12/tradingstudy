@@ -1,0 +1,7 @@
+# How To Get The Perfect Stop loss
+video_id: npfiV52dXoc
+duration_s: 60
+captions: manual
+url: https://www.youtube.com/watch?v=npfiV52dXoc
+
+Follow this one rule and it will save you&nbsp; from price hitting your stop loss as much. Every single candle has a open,&nbsp; a close, a high, and a low. The rule is you only want to take long&nbsp; trades below the opening price of a candle. And you only want to take short trades&nbsp; above the opening price of a candle. An easy way to do this is by going to your&nbsp; chart and going to the daily timeframe. Here we see we have a green&nbsp; candle on the daily timeframe. We mark the open of this candle,&nbsp; by putting a line right here. We then go to a smaller time frame,&nbsp;&nbsp; like the one hour. As you can see we have our line&nbsp;&nbsp; representing the opening price right here. We only look for indications to enter a&nbsp;&nbsp; trade if price is below this line. These indications can be whatever&nbsp; strategy your currently trade with. Fair value gaps, orderblocks,&nbsp; indicators, whatever. Here we have a fair value gap on the one hour&nbsp; timeframe here. It also coincides with our rule&nbsp;&nbsp; of being below the open of the daily candle. Price respects our fair value gap and targets&nbsp;&nbsp; higher liquidity. Giving us a winning trade. Follow this rule, and it will give you way&nbsp;&nbsp; better entries for risk management and&nbsp; your stop loss will be hit way less.

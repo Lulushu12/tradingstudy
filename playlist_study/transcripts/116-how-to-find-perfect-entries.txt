@@ -1,0 +1,7 @@
+# How To Find Perfect Entries
+video_id: JF9PYQVc--U
+duration_s: 60
+captions: manual
+url: https://www.youtube.com/watch?v=JF9PYQVc--U
+
+If you ever see this happen on your chart, you should enter immediately because of how well it works. We will be using two tactics for our entry. Liquidity and fair value gaps. Liquidity is what price targets and fair value gaps is where you enter. For example, most traders would think this is a breakup structure to the downside. But being the professional traders we are, we see this as a draw on liquidity. But something interesting is happening while doing so. While making this draw on liquidity, price created a fair value gap. Not only that, but it's a bearish fair value gap. But what if I told you I never enter a short on a bearish fair value gap. What we're going to do is mark the bearish fair value gap. But instead of entering a short when price hits this fair value gap, we will wait for price to close above this fair value gap like this. This is called an inversion fair value gap and it's an extremely bullish signal. Once the candle closes above the gap, enter your position, set your stop loss and take profit at the points of liquidity. Watch the tray play out.

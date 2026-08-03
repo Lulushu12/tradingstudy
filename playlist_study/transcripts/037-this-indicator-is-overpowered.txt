@@ -1,0 +1,7 @@
+# This Indicator Is OverPowered
+video_id: 1UB7gjWkk3g
+duration_s: 60
+captions: manual
+url: https://www.youtube.com/watch?v=1UB7gjWkk3g
+
+I created one of the most overpowered indicators on the plane the breakout probability tool yeah it's awesome here's how you use it first go to tradinglab.ai to get the indicator next we have our chart and as you can see we have a nice little resistance right here the price then comes all the way up to it now instead of just guessing whether the price is gonna bounce off or break through this resistance we're gonna use the breakout probability tool to see which has a higher chance of happening it breaking out or it rejecting so we go to the settings of the indicator and enable the tool on our chart now that the tool is on our chart you can see the next candle has a higher probability of going up than down which means the next candle has a higher probability of breaking this resistance than rejecting so in return we can predict early that a breakout is about to happen so we enter a trade before this even occurs look what happens a breakout occurs and we make amazing profit [Music]

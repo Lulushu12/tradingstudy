@@ -1,0 +1,7 @@
+# Why You Are Using The RSI WRONG
+video_id: EbQi5Os38ao
+duration_s: 56
+captions: manual
+url: https://www.youtube.com/watch?v=EbQi5Os38ao
+
+Stop trading with the RSI indicator like this Most traders use the rsi indicator to see if a&nbsp;&nbsp; market is overbought or oversold. If the price is above the 70 line,&nbsp;&nbsp; its overbought. If the price is below the 30 line, its oversold. &nbsp; Here s the problem. Sure, this works every now and then. But Im sure almost all of you have traded&nbsp; like this and you have quickly figured&nbsp;&nbsp; out this doesn t work all the time. In a strong downtrend for instance,&nbsp;&nbsp; the rsi will tell you its oversold. But then&nbsp; the price will continue to keep on dropping. Instead of using the rsi indicator this&nbsp; way you should be using it like this. &nbsp; The RSI will make what s called divergences. Which is when price is moving one way and&nbsp;&nbsp; the indicator is moving another. We can use these to often pinpoint&nbsp;&nbsp; when the market will reverse. So if the market is moving downwards,&nbsp;&nbsp; and the rsi is making higher highs.&nbsp; This is a bullish divergence. Which can signal, the market is about&nbsp; to reverse upwards. Which it does.
