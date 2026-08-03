@@ -1,0 +1,4 @@
+label,tf,stop,variant,n,win_rate,avg_pct,avg_R,profit_factor,total_return_pct,max_dd_pct,max_losing_streak,trades_per_year,breakeven_bps,survives_costs
+S6 Impulse MACD,4h,nbar,-,593,31.366,0.251,0.184,1.157,95.436,-58.05,13,109.06,25.1,True
+S6 Impulse MACD,4h,swing,-,594,30.135,0.23,0.149,1.15,78.767,-57.913,13,109.244,23.0,True
+S6 Impulse MACD,4h,atr,-,602,28.904,0.212,0.229,1.14,67.818,-56.684,16,110.715,21.2,True

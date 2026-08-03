@@ -167,3 +167,43 @@ if __name__ == "__main__":
                 )
             except Exception as e:
                 print(f"{sym} {tf}: FAILED {type(e).__name__}: {e}")
+
+
+RESAMPLE_RULES = {"30m": "30min", "1h": "1h", "2h": "2h", "4h": "4h", "1d": "1D"}
+
+
+def resample(df, tf):
+    """Aggregate a finer series to a coarser timeframe.
+
+    The 15m export is complete over 2021-2026 while the 1h export has a large
+    hole, so deriving 30m and 1h from 15m gives better coverage than loading
+    them directly. Bars built from an incomplete set of sub-bars are dropped
+    rather than half formed.
+    """
+    rule = RESAMPLE_RULES[tf]
+    agg = {"open": "first", "high": "max", "low": "min", "close": "last", "volume": "sum"}
+    out = df.resample(rule, label="left", closed="left").agg(agg)
+    counts = df["close"].resample(rule, label="left", closed="left").count()
+    expected = counts.max()
+    return out[counts == expected].dropna(subset=["open", "high", "low", "close"])
+
+
+# Timeframes always built from the 15m series rather than loaded directly.
+# The 1h export covers only 64.8% of its own span, while 15m is complete over a
+# longer one, so the derived 1h series is strictly better data.
+DERIVE_FROM_15M = {"30m", "1h", "2h"}
+
+
+def load_tf(symbol, tf, verbose=True):
+    """Load a timeframe directly if exported, else derive it from 15m."""
+    try:
+        if tf in DERIVE_FROM_15M:
+            raise KeyError(tf)
+        return load(symbol, tf, verbose=verbose)
+    except KeyError:
+        base = load(symbol, "15m", verbose=False)
+        out = resample(base, tf)
+        if verbose:
+            print(f"{symbol} {tf}: {len(out)} bars (resampled from 15m)  "
+                  f"{out.index[0].date()} -> {out.index[-1].date()}")
+        return out
