@@ -273,6 +273,39 @@ reasoning held where the fitting didn't.
 **Better execution lifted this system to roughly breakeven. It did not find an edge, because
 there wasn't one in the entry logic to begin with.**
 
+## Hypothesis H1 — pre-registered, then falsified
+
+See `PREREGISTRATION.md`, committed to git in a separate earlier commit containing no
+results.
+
+**The idea:** every setup tested up to this point came from one trend/regime classifier
+whose *gross* edge was ~zero. A new hypothesis had to come from a different source. Leveraged
+perps produce **forced liquidations** — margin engines emitting market orders regardless of
+price into thin books. That spike is arithmetic, not informed repricing, so it should
+partially revert. Concretely: fade an hourly bar whose wick is ≥1.0 ATR, is ≥50% of the
+bar's range, closes back in the recovering half, on volume ≥1σ.
+
+**Result — NOT SUPPORTED.**
+
+| Dataset | n | Win % | BE % | Gross R | Avg R | 95% CI |
+|---|---|---|---|---|---|---|
+| **PRIOR (primary)** | 393 | 35.4 | 38.6 | −0.024 | **−0.089** | [−0.284, +0.097] |
+| MAIN | 362 | 30.9 | 39.8 | −0.160 | **−0.238** | [−0.366, −0.113] |
+| 15m | 387 | 34.4 | 41.5 | +0.008 | **−0.202** | [−0.391, −0.014] |
+
+A real negative result, not an underpowered one — 393 trades clears the pre-registered floor
+of 100 comfortably. Worse than merely unsupported: on **both** replication datasets the CI
+excludes zero **on the losing side**. Per-symbol signs are inconsistent on the primary window
+(ETH −0.063, LINK +0.037, SOL −0.232), so it fails the weaker SUGGESTIVE criterion too.
+
+**The mechanism was wrong, not the execution.** Gross R — before any fee — is −0.024 on PRIOR
+and −0.160 on MAIN. Fading an absorbed wick is simply the wrong side of the trade.
+
+That invites testing the **inverse**. It was not run and is not reported, because the
+pre-registration forbids presenting a flipped variant as though it were the registered one.
+It also isn't inferable from these numbers: reversing direction changes which bars hit the
+stop before the target, and the geometry isn't symmetric. It needs its own pre-registration.
+
 ## What I'd actually do with this
 
 - **Stop trading the always-on mandate.** It's a fee-payment machine over no edge. If you

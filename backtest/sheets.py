@@ -137,6 +137,8 @@ def write_readme(wb, f):
                               "hours before the main window. Read this before acting on anything."),
             ("System v3", "The live configuration: RANGE_FADE deleted, resting-limit entries on "
                           "pullbacks and fades. The strongest - and still not significant - result here."),
+            ("Hypothesis H1", "A new entry idea, pre-registered to git before testing, then falsified. "
+                              "The clean example of how the rest of this study should have been run."),
             ("Stability", "Same statistics computed on each half of the sample independently."),
             ("Equity Curves", "Cumulative R for all six books."),
             ("Trade Stats", "One compact row per trade across all three symbols - the Summary tab's data source."),
@@ -797,6 +799,126 @@ def write_targets(wb, f, symbols):
 
     r += 1
     ws.write(r, 1, "Source: backtest/compare_targets.py. Percentages stored as fractions.", f["note"])
+
+
+def write_h1(wb, f):
+    """The pre-registered entry hypothesis, and its failure."""
+    ws = wb.add_worksheet("Hypothesis H1")
+    _title(ws, f, "H1 - liquidation-wick reversion (pre-registered, then falsified)",
+           "The hypothesis and its success criteria were committed to git BEFORE the test was run.")
+    ws.set_column(0, 0, 3)
+    ws.set_column(1, 1, 34)
+    ws.set_column(2, 12, 12)
+
+    d = json.load(open(os.path.join(DATA, "hypothesis_h1.json")))
+
+    r = 3
+    for label, body in [
+        ("Why a new hypothesis",
+         "Everything else in this workbook shares one origin: a trend/regime classifier on EMAs, ADX and "
+         "RSI. Its GROSS average R, before any cost, was within 0.04R of zero across 28,461 trades and "
+         "negative out of sample. That is not a cost or exit problem - trend continuation on hourly "
+         "closes in these assets is a coin flip, and every refinement since was reducing the cost of "
+         "trading one. A new hypothesis had to come from a different source of edge."),
+        ("The reasoning",
+         "If a signal is a coin flip, the counterparty is usually as informed as you are. So look for "
+         "trades where the counterparty is not choosing to trade at all. Leveraged perpetuals produce "
+         "forced liquidations: when price moves against crowded leverage, liquidation engines emit "
+         "market orders regardless of price into whatever depth exists. That spike is margin arithmetic, "
+         "not informed repricing, so once the forced flow is exhausted there is no reason for price to "
+         "stay there."),
+        ("The rule",
+         "An hourly bar whose wick is at least 1.0 ATR, makes up at least half the bar's range, closes "
+         "back in the recovering half of that range, on volume at least 1 sigma above normal. Fade the "
+         "wick. No trend, ADX or EMA condition - adding one would smuggle the old hypothesis back in. "
+         "Stop beyond the wick extreme plus 0.25 ATR, target 2.0R, 48-bar time stop."),
+        ("Pre-registered criteria",
+         "SUPPORTED required mean R > 0 with the 95% bootstrap CI excluding zero on the PRIOR window - "
+         "the only dataset no design decision in this study was ever fitted to. SUGGESTIVE required a "
+         "positive mean with consistent signs across all three symbols and both replication datasets. "
+         "Anything else counts as NOT SUPPORTED. A pooled n under 100 would have been reported as "
+         "underpowered rather than as a result."),
+    ]:
+        ws.write(r, 1, label, f["label"])
+        ws.write(r, 2, body, f["wrap"])
+        ws.set_row(r, 12.5 * (len(body) // 95 + 2))
+        r += 1
+    r += 1
+
+    cols = ["Dataset / book", "n", "Win %", "Breakeven %", "Cost as % of 1R",
+            "Gross R", "Avg R", "Total R", "Profit factor", "CI low", "CI high", "P(>0)"]
+    ws.write(r, 1, "Results", f["h1"])
+    for i in range(len(cols)):
+        ws.write(r, i + 2, "", f["h1"])
+    r += 1
+    for i, c in enumerate(cols):
+        ws.write(r, i + 1, c, f["hdr"])
+    ws.set_row(r, 30)
+    r += 1
+
+    rows = [
+        ("PRIOR - market entry (PRIMARY)", "1h_prior", "MARKET"),
+        ("PRIOR - limit entry", "1h_prior", "LIMIT"),
+        ("PRIOR - ETH", "1h_prior", "market_ETHUSDT"),
+        ("PRIOR - LINK", "1h_prior", "market_LINKUSDT"),
+        ("PRIOR - SOL", "1h_prior", "market_SOLUSDT"),
+        ("MAIN - market entry", "1h", "MARKET"),
+        ("MAIN - limit entry", "1h", "LIMIT"),
+        ("15m - market entry", "15m", "MARKET"),
+        ("15m - limit entry", "15m", "LIMIT"),
+    ]
+    for lab, win, key in rows:
+        s = d[win].get(key)
+        if not s:
+            continue
+        ws.write(r, 1, lab, f["label"])
+        ws.write_number(r, 2, s["n"], f["int"])
+        ws.write_number(r, 3, s["win"] / 100.0, f["pct1"])
+        ws.write_number(r, 4, s["be"] / 100.0, f["pct1"])
+        ws.write_number(r, 5, s["cost"] / 100.0, f["pct1"])
+        ws.write_number(r, 6, s["gross_R"], f["good"] if s["gross_R"] > 0 else f["bad"])
+        ws.write_number(r, 7, s["avg"], f["good"] if s["avg"] > 0 else f["bad"])
+        ws.write_number(r, 8, s["tot"], f["num1"])
+        ws.write_number(r, 9, s["pf"], f["num3"])
+        ws.write_number(r, 10, s["lo"], f["num3"])
+        ws.write_number(r, 11, s["hi"], f["num3"])
+        ws.write_number(r, 12, s["p_pos"] / 100.0, f["pct1"])
+        r += 1
+    r += 2
+
+    ws.write(r, 1, "Verdict: NOT SUPPORTED", f["key"])
+    ws.write(r, 2, "", f["key"])
+    r += 1
+    p = d["1h_prior"]["MARKET"]
+    for line in [
+        f"On the primary out-of-sample window H1 returns {p['avg']:+.3f} R over {p['n']} trades, 95% CI "
+        f"[{p['lo']:+.3f}, {p['hi']:+.3f}]. The interval includes zero and the point estimate is "
+        f"negative. Win rate {p['win']:.1f}% against a {p['be']:.1f}% breakeven.",
+        "This is a real negative result, not an underpowered one. 393 trades clears the pre-registered "
+        "floor of 100 comfortably, so the hypothesis got a fair test and failed it.",
+        "It is worse than merely unsupported. On both replication datasets H1 is SIGNIFICANTLY negative "
+        "- MAIN at -0.238 R with CI [-0.366, -0.113], and 15m at -0.202 R with CI [-0.391, -0.014]. "
+        "Both intervals exclude zero on the losing side.",
+        "Per-symbol signs are inconsistent on the primary window (ETH -0.063, LINK +0.037, SOL -0.232), "
+        "so it fails the weaker SUGGESTIVE criterion too.",
+        "The mechanism was wrong. Gross R - before any fee - is -0.024 on PRIOR and -0.160 on MAIN, so "
+        "this is not costs eating a thin edge. Fading an absorbed wick is simply the wrong side of the "
+        "trade. A large wick that closes back inside its range apparently carries information rather "
+        "than being noise to fade.",
+        "That last observation obviously invites testing the INVERSE. It is not reported here, and it "
+        "was not run, because the pre-registration explicitly forbids reporting a flipped variant as "
+        "though it were the registered one. The inverse is also not inferable from these numbers: "
+        "reversing direction changes which bars hit the stop before the target, and the stop/target "
+        "geometry is not symmetric. It would need its own pre-registration and its own test.",
+    ]:
+        ws.write(r, 2, "- " + line, f["wrap"])
+        ws.set_row(r, 12.5 * (len(line) // 100 + 1))
+        r += 1
+
+    r += 1
+    ws.write(r, 1, "Source: backtest/hypothesis_h1.py, criteria in backtest/PREREGISTRATION.md. The "
+                   "pre-registration was committed in a separate, earlier commit containing no results.",
+             f["note"])
 
 
 def write_v3(wb, f):
