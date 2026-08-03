@@ -379,6 +379,42 @@ substitutes for it. Widening to more assets gets there faster than waiting.
 **Standing commitment honoured:** H3 was the last variant of this bar shape. No H4 was run,
 and none will be. The idea is now either forward-tested or dropped.
 
+## H3-Multi — the replication that settled it
+
+25 assets never touched by this study, all three windows, **10,486 trades**. Zero parameters
+changed (all imported from `hypothesis_h3.py`). Bootstrap resamples calendar-week blocks
+across the whole universe — 172 independent blocks, not 10,486 independent trades.
+
+**Verdict: NOT SUPPORTED.**
+
+| | Value |
+|---|---|
+| Pooled mean | **+0.0070 R** |
+| 95% cross-sectional CI | **[−0.0546, +0.0681]** |
+| P(>0) | 57.9% |
+| Profit factor | 1.011 |
+| Assets positive | **12 / 25 (48%)** — binomial p vs coin flip = 1.00 |
+
+| Window | n | Mean R | P(>0) |
+|---|---|---|---|
+| EARLY | 4,052 | **−0.060** | 10.0% |
+| PRIOR | 3,329 | +0.089 | 93.5% |
+| MAIN | 3,105 | +0.006 | 54.1% |
+
+**The most damning number is EARLY.** That was H3's clean primary test, +0.050 R on ETH/LINK/
+SOL. Same rule, same window, 25 other assets: **−0.060 R over 4,052 trades.** The sign flips.
+
+**Stated precisely, because overclaiming would be its own error:** this does *not* formally
+exclude a +0.050 R effect. Cross-sectional SE is 0.0313, so the smallest separable effect is
++0.061 R and the CI upper bound (+0.068) sits above +0.050. What it *does* show is a point
+estimate 86% smaller, per-asset signs indistinguishable from random, and a sign reversal in
+the window that motivated the hypothesis. A null result, not a refutation of one number — and
+decisive enough that no reasonable person would trade it.
+
+The naive per-trade bootstrap would have said [−0.020, +0.034], P(>0) = 69.6%. Tighter, more
+encouraging, and wrong. Registering the cross-sectional bootstrap in advance is what stopped
+that becoming the headline.
+
 ## What I'd actually do with this
 
 - **Stop trading the always-on mandate.** It's a fee-payment machine over no edge. If you

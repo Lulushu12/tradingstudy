@@ -141,8 +141,10 @@ def write_readme(wb, f):
                               "The clean example of how the rest of this study should have been run."),
             ("Hypothesis H2", "The inverse of H1, pre-registered separately against a stricter bar and "
                               "also falsified - but its gross column is the informative part."),
-            ("Hypothesis H3", "The only hypothesis that did not fail. Pre-registered against a fresh "
-                              "bull-market window. Positive everywhere, significant nowhere."),
+            ("Hypothesis H3", "The only hypothesis that did not fail on three assets. Pre-registered "
+                              "against a fresh bull-market window."),
+            ("H3 Multi-Asset", "The replication on 25 untouched assets and 10,486 trades that settled "
+                               "it. Read this before acting on the H3 tab."),
             ("Stability", "Same statistics computed on each half of the sample independently."),
             ("Equity Curves", "Cumulative R for all six books."),
             ("Trade Stats", "One compact row per trade across all three symbols - the Summary tab's data source."),
@@ -1052,6 +1054,125 @@ def write_h2(wb, f):
     r += 1
     ws.write(r, 1, "Source: backtest/hypothesis_h2.py, criteria in backtest/PREREGISTRATION_H2.md, "
                    "committed in a separate earlier commit containing no H2 results.", f["note"])
+
+
+def write_h3m(wb, f):
+    """The multi-asset replication that settled it."""
+    ws = wb.add_worksheet("H3 Multi-Asset")
+    _title(ws, f, "H3-Multi - 25 untouched assets, 10,486 trades (NOT SUPPORTED)",
+           "The sample-size fix H3 itself called for. The effect did not survive it.")
+    ws.set_column(0, 0, 3)
+    ws.set_column(1, 1, 30)
+    ws.set_column(2, 9, 14)
+
+    d = json.load(open(os.path.join(DATA, "hypothesis_h3_multi.json")))
+    p = d["pooled"]
+
+    r = 3
+    for label, body in [
+        ("What this was",
+         "A replication, not a variant. Every H3 parameter was imported rather than redefined, so a "
+         "diff proves no rule changed. Only the sample grew - from 3 assets to 25 that no part of this "
+         "study had ever touched, across all three windows, because for those assets all three are "
+         "equally virgin. H3's own conclusion named this as the binding constraint."),
+        ("The statistics that mattered",
+         "Crypto majors move together, so 25 assets do not carry 25x the independent information. The "
+         "bootstrap resamples calendar-week blocks spanning the whole universe, giving 172 independent "
+         "blocks rather than 10,486 independent trades. That choice was registered in advance "
+         "specifically because it is the one that makes the test harder."),
+    ]:
+        ws.write(r, 1, label, f["label"])
+        ws.write(r, 2, body, f["wrap"])
+        ws.set_row(r, 12.5 * (len(body) // 95 + 2))
+        r += 1
+    r += 1
+
+    ws.write(r, 1, "Pooled result", f["h1"])
+    for i in range(7):
+        ws.write(r, i + 2, "", f["h1"])
+    r += 1
+    for lab, val, fmt in [
+        ("Trades", p["n"], "int"), ("Independent week-blocks", p["n_weeks"], "int"),
+        ("Win rate", p["win"] / 100.0, "pct1"), ("Breakeven win rate", p["be"] / 100.0, "pct1"),
+        ("Profit factor", p["pf"], "num3"), ("Cost as % of 1R", p["cost"] / 100.0, "pct1"),
+        ("Mean R per trade", p["avg"], "num3"), ("95% CI low", p["lo"], "num3"),
+        ("95% CI high", p["hi"], "num3"), ("P(mean R > 0)", p["p_pos"] / 100.0, "pct1"),
+    ]:
+        ws.write(r, 1, lab, f["label"])
+        ws.write_number(r, 2, val, f[fmt])
+        r += 1
+    ws.write(r, 1, "Naive per-trade CI (NOT the criterion)", f["label"])
+    ws.write(r, 2, d["naive"]["lo"], f["num3"])
+    ws.write(r, 3, d["naive"]["hi"], f["num3"])
+    ws.write(r, 4, "would have looked tighter; still includes zero", f["note"])
+    r += 2
+
+    ws.write(r, 1, "By window", f["h1"])
+    for i in range(6):
+        ws.write(r, i + 2, "", f["h1"])
+    r += 1
+    for i, c in enumerate(["Window", "n", "Win %", "Breakeven %", "Mean R", "PF", "P(>0)"]):
+        ws.write(r, i + 1, c, f["hdr"])
+    r += 1
+    for lab, w in d["per_window"].items():
+        ws.write(r, 1, lab, f["label"])
+        ws.write_number(r, 2, w["n"], f["int"])
+        ws.write_number(r, 3, w["win"] / 100.0, f["pct1"])
+        ws.write_number(r, 4, w["be"] / 100.0, f["pct1"])
+        ws.write_number(r, 5, w["avg"], f["good"] if w["avg"] > 0 else f["bad"])
+        ws.write_number(r, 6, w["pf"], f["num3"])
+        ws.write_number(r, 7, w["p_pos"] / 100.0, f["pct1"])
+        r += 1
+    r += 2
+
+    ws.write(r, 1, "Per asset, all windows pooled", f["h1"])
+    for i in range(5):
+        ws.write(r, i + 2, "", f["h1"])
+    r += 1
+    for i, c in enumerate(["Asset", "n", "Win %", "Breakeven %", "Mean R", "PF"]):
+        ws.write(r, i + 1, c, f["hdr"])
+    r += 1
+    for sym in sorted(d["per_asset"], key=lambda k: -d["per_asset"][k]["avg"]):
+        a = d["per_asset"][sym]
+        ws.write(r, 1, sym[:-4], f["label"])
+        ws.write_number(r, 2, a["n"], f["int"])
+        ws.write_number(r, 3, a["win"] / 100.0, f["pct1"])
+        ws.write_number(r, 4, a["be"] / 100.0, f["pct1"])
+        ws.write_number(r, 5, a["avg"], f["good"] if a["avg"] > 0 else f["bad"])
+        ws.write_number(r, 6, a["pf"], f["num3"])
+        r += 1
+    r += 1
+
+    ws.write(r, 1, "Verdict: NOT SUPPORTED", f["key"])
+    ws.write(r, 2, "", f["key"])
+    r += 1
+    for line in [
+        f"Pooled mean {p['avg']:+.4f} R over {p['n']:,} trades, 95% CI [{p['lo']:+.4f}, "
+        f"{p['hi']:+.4f}], P(>0) = {p['p_pos']:.1f}%. Profit factor 1.011. The point estimate collapsed "
+        f"86% from the +0.050 R measured on three assets.",
+        f"{d['assets_positive']} of {d['assets_total']} assets positive - 48%. A binomial test against a "
+        f"50% coin flip returns p = 1.00. The sign of an asset's result is indistinguishable from random.",
+        "The single most damning number is the EARLY window. That was H3's clean primary test, where it "
+        "returned +0.050 R on ETH, LINK and SOL. On the same window with 25 other assets it returns "
+        "-0.060 R over 4,052 trades. Same rule, same period, more assets - and the sign flips.",
+        "Stated precisely, because overclaiming here would be its own error: this test does NOT formally "
+        "exclude a +0.050 R effect. The cross-sectional SE is 0.0313, so the smallest effect separable "
+        "from zero is +0.061 R, and the CI upper bound of +0.068 sits above +0.050. What the test does "
+        "show is a point estimate near zero, random per-asset signs, and a sign reversal in the very "
+        "window that motivated the hypothesis. That is a null result, not a refutation of a specific "
+        "number - and it is decisive enough that no reasonable person would trade it.",
+        "The naive per-trade bootstrap would have reported [-0.020, +0.034] and P(>0) = 69.6%. Tighter, "
+        "more encouraging, and wrong - it treats 10,486 correlated trades as independent. Registering "
+        "the cross-sectional bootstrap in advance is what stopped that number becoming the headline.",
+    ]:
+        ws.write(r, 2, "- " + line, f["wrap"])
+        ws.set_row(r, 12.5 * (len(line) // 100 + 1))
+        r += 1
+
+    r += 1
+    ws.write(r, 1, "Source: backtest/hypothesis_h3_multi.py, criteria in "
+                   "backtest/PREREGISTRATION_H3M.md, committed before the test with no results.",
+             f["note"])
 
 
 def write_h3(wb, f):
