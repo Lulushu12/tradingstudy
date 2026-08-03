@@ -15,13 +15,18 @@ BASE = "https://data-api.binance.vision/api/v3/klines"
 HERE = os.path.dirname(os.path.abspath(__file__))
 DATA = os.path.join(HERE, "data")
 BARS = 10_000
+INTERVAL = os.environ.get("UNIV_TF", "1h")
 PAGE = 1000
-HOUR = 3_600_000
+HOUR = {"15m":900_000,"1h":3_600_000,"4h":14_400_000,"1d":86_400_000}[os.environ.get("UNIV_TF","1h")]
 
 # (tag, exclusive end instant) - each window ends where the next begins.
 WINDOWS = [("", None),
            ("_prior", "2025-06-12T22:00:00Z"),
            ("_early", "2024-04-22T06:00:00Z")]
+# The prior/early boundaries are hourly-window artefacts. On any other timeframe
+# 10,000 bars already spans years, so only the single trailing window is fetched.
+if INTERVAL != "1h":
+    WINDOWS = WINDOWS[:1]
 
 
 def get(url, attempts=5):
@@ -45,7 +50,7 @@ def fetch(symbol, iso):
     cursor = end_open(iso) + HOUR - 1
     got = {}
     while len(got) < BARS:
-        rows = get(f"{BASE}?symbol={symbol}&interval=1h&limit={PAGE}&endTime={cursor}")
+        rows = get(f"{BASE}?symbol={symbol}&interval={INTERVAL}&limit={PAGE}&endTime={cursor}")
         if not rows:
             break
         for r in rows:
@@ -59,7 +64,7 @@ def main():
     universe = json.load(open(os.path.join(DATA, "_universe.json")))
     for n, sym in enumerate(universe, 1):
         for tag, iso in WINDOWS:
-            path = os.path.join(DATA, f"{sym}_1h{tag}.csv")
+            path = os.path.join(DATA, f"{sym}_{INTERVAL}{tag}.csv")
             if os.path.exists(path):
                 continue
             rows = fetch(sym, iso)
