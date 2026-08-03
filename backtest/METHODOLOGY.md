@@ -306,6 +306,43 @@ pre-registration forbids presenting a flipped variant as though it were the regi
 It also isn't inferable from these numbers: reversing direction changes which bars hit the
 stop before the target, and the geometry isn't symmetric. It needs its own pre-registration.
 
+## Hypothesis H2 — the inverse, also falsified
+
+See `PREREGISTRATION_H2.md`, committed before the test. H2 trades the **identical** bars
+(the identification function is imported from H1, not reimplemented) and inverts only the
+direction, moving the stop to the opposite extreme of the signal bar. Because it was chosen
+*because* H1 failed, on the same window, it had to clear a **97.5%** interval, not 95%.
+
+| Dataset | n | Win % | BE % | Stop dist | Cost as % of 1R | Gross R | Avg R | 97.5% CI |
+|---|---|---|---|---|---|---|---|---|
+| **PRIOR (primary)** | 393 | 38.2 | 37.5 | 1.26% | 12.1% | **+0.141** | **+0.019** | [−0.175, +0.213] |
+| MAIN | 363 | 35.8 | 38.5 | 1.11% | 14.2% | +0.062 | −0.080 | [−0.292, +0.127] |
+| 15m | 387 | 26.9 | 46.8 | 0.37% | **42.0%** | −0.198 | −0.618 | [−0.840, −0.380] |
+
+**NOT SUPPORTED** — indistinguishable from zero on the primary window, inconsistent across
+symbols, and negative on both replications.
+
+### But the gross column is the finding
+
+The inversion **flipped the gross signal**. On identical bars, H1's gross R was −0.024 (PRIOR)
+and −0.160 (MAIN); H2's is **+0.141** and **+0.062**. The information in this bar shape really
+does run in the continuation direction — H1 was on the wrong side, exactly as H2's mechanism
+predicted.
+
+It's still not tradeable, and the reason is **geometry, not direction**. H2's structural stop
+sits just beyond the opposite extreme of a bar that closed near it, giving stops of 1.1–1.3%
+on hourly and 0.37% on 15m. Friction then eats 12–14% of one R on hourly and 42% on 15m. A
+gross +0.141 R becomes a net +0.019 R.
+
+**Joint conclusion:** this bar shape carries a small amount of real directional information,
+worth less than the cost of the stop its own structure dictates. Not tradeable either way in
+these assets.
+
+The obvious next move — keep the direction, widen the stop — is forbidden by the
+pre-registration and would be a **third** look at the same 393 bars. At that point the
+multiple-comparison problem isn't something a Bonferroni factor patches over. That line needs
+different data: other assets, or an earlier window neither hypothesis has touched.
+
 ## What I'd actually do with this
 
 - **Stop trading the always-on mandate.** It's a fee-payment machine over no edge. If you

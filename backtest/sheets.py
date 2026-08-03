@@ -139,6 +139,8 @@ def write_readme(wb, f):
                           "pullbacks and fades. The strongest - and still not significant - result here."),
             ("Hypothesis H1", "A new entry idea, pre-registered to git before testing, then falsified. "
                               "The clean example of how the rest of this study should have been run."),
+            ("Hypothesis H2", "The inverse of H1, pre-registered separately against a stricter bar and "
+                              "also falsified - but its gross column is the informative part."),
             ("Stability", "Same statistics computed on each half of the sample independently."),
             ("Equity Curves", "Cumulative R for all six books."),
             ("Trade Stats", "One compact row per trade across all three symbols - the Summary tab's data source."),
@@ -919,6 +921,135 @@ def write_h1(wb, f):
     ws.write(r, 1, "Source: backtest/hypothesis_h1.py, criteria in backtest/PREREGISTRATION.md. The "
                    "pre-registration was committed in a separate, earlier commit containing no results.",
              f["note"])
+
+
+def write_h2(wb, f):
+    """The inverse hypothesis, pre-registered separately and also falsified."""
+    ws = wb.add_worksheet("Hypothesis H2")
+    _title(ws, f, "H2 - the inverse of H1 (pre-registered, then falsified)",
+           "Same bars, opposite direction. Judged against a 97.5% interval, not 95%.")
+    ws.set_column(0, 0, 3)
+    ws.set_column(1, 1, 34)
+    ws.set_column(2, 12, 12)
+
+    h1 = json.load(open(os.path.join(DATA, "hypothesis_h1.json")))
+    d = json.load(open(os.path.join(DATA, "hypothesis_h2.json")))
+
+    r = 3
+    for label, body in [
+        ("Why the stricter bar",
+         "H2 was chosen BECAUSE H1 failed, on the same primary window, using the same bars, and its "
+         "mechanism was articulated after seeing that failure. That is data-dependent hypothesis "
+         "selection and a second look at the same data. It therefore had to clear a 97.5% confidence "
+         "interval rather than 95% - a Bonferroni adjustment fixed in advance, not chosen afterwards."),
+        ("The competing mechanism",
+         "H1 assumed a violent wick was forced flow being absorbed, and that the absorption held. H2's "
+         "reading is that the wick REVEALS where size sits - real supply below, leveraged longs cleared "
+         "out - and that the same-bar recovery is thin short-covering rather than accumulation. Under "
+         "that reading the wick is a liquidity marker rather than a floor, and the level gets revisited."),
+        ("What changed, precisely",
+         "The bar identification function is imported unchanged from H1, so both hypotheses provably "
+         "fire on an identical signal list - 393 trades on the primary window in both cases. Only the "
+         "direction inverts, and the stop moves to the opposite extreme of the signal bar, since H2 is "
+         "wrong if price breaks the other side. That makes H2's stop much tighter, because the signal "
+         "bar closes near that extreme."),
+    ]:
+        ws.write(r, 1, label, f["label"])
+        ws.write(r, 2, body, f["wrap"])
+        ws.set_row(r, 12.5 * (len(body) // 95 + 2))
+        r += 1
+    r += 1
+
+    cols = ["Dataset / book", "n", "Win %", "Breakeven %", "Stop dist %", "Cost as % of 1R",
+            "Gross R", "Avg R", "97.5% CI low", "97.5% CI high", "P(>0)"]
+    ws.write(r, 1, "H2 results", f["h1"])
+    for i in range(len(cols)):
+        ws.write(r, i + 2, "", f["h1"])
+    r += 1
+    for i, c in enumerate(cols):
+        ws.write(r, i + 1, c, f["hdr"])
+    ws.set_row(r, 30)
+    r += 1
+    for lab, win, key in [
+        ("PRIOR - market (PRIMARY)", "1h_prior", "MARKET"),
+        ("PRIOR - limit", "1h_prior", "LIMIT"),
+        ("PRIOR - ETH", "1h_prior", "market_ETHUSDT"),
+        ("PRIOR - LINK", "1h_prior", "market_LINKUSDT"),
+        ("PRIOR - SOL", "1h_prior", "market_SOLUSDT"),
+        ("MAIN - market", "1h", "MARKET"),
+        ("15m - market", "15m", "MARKET"),
+    ]:
+        s = d[win].get(key)
+        if not s:
+            continue
+        ws.write(r, 1, lab, f["label"])
+        ws.write_number(r, 2, s["n"], f["int"])
+        ws.write_number(r, 3, s["win"] / 100.0, f["pct1"])
+        ws.write_number(r, 4, s["be"] / 100.0, f["pct1"])
+        ws.write_number(r, 5, s["stop_atr"] / 100.0, f["pct2"])
+        ws.write_number(r, 6, s["cost"] / 100.0, f["pct1"])
+        ws.write_number(r, 7, s["gross_R"], f["good"] if s["gross_R"] > 0 else f["bad"])
+        ws.write_number(r, 8, s["avg"], f["good"] if s["avg"] > 0 else f["bad"])
+        ws.write_number(r, 9, s["lo975"], f["num3"])
+        ws.write_number(r, 10, s["hi975"], f["num3"])
+        ws.write_number(r, 11, s["p_pos"] / 100.0, f["pct1"])
+        r += 1
+    r += 2
+
+    ws.write(r, 1, "H1 vs H2 - the same bars, both directions", f["h1"])
+    for i in range(6):
+        ws.write(r, i + 2, "", f["h1"])
+    r += 1
+    for i, c in enumerate(["Dataset", "n", "H1 gross R", "H2 gross R", "H1 net R", "H2 net R",
+                           "H2 cost as % of 1R"]):
+        ws.write(r, i + 1, c, f["hdr"])
+    ws.set_row(r, 30)
+    r += 1
+    for win, lab in [("1h_prior", "PRIOR (primary)"), ("1h", "MAIN"), ("15m", "15m")]:
+        a, b = h1[win]["MARKET"], d[win]["MARKET"]
+        ws.write(r, 1, lab, f["label"])
+        ws.write_number(r, 2, b["n"], f["int"])
+        ws.write_number(r, 3, a["gross_R"], f["good"] if a["gross_R"] > 0 else f["bad"])
+        ws.write_number(r, 4, b["gross_R"], f["good"] if b["gross_R"] > 0 else f["bad"])
+        ws.write_number(r, 5, a["avg"], f["good"] if a["avg"] > 0 else f["bad"])
+        ws.write_number(r, 6, b["avg"], f["good"] if b["avg"] > 0 else f["bad"])
+        ws.write_number(r, 7, b["cost"] / 100.0, f["pct1"])
+        r += 1
+    r += 2
+
+    p = d["1h_prior"]["MARKET"]
+    ws.write(r, 1, "Verdict: NOT SUPPORTED - but read the gross column", f["key"])
+    ws.write(r, 2, "", f["key"])
+    r += 1
+    for line in [
+        f"On the primary window H2 returns {p['avg']:+.3f} R over {p['n']} trades, 97.5% CI "
+        f"[{p['lo975']:+.3f}, {p['hi975']:+.3f}], P(>0) = {p['p_pos']:.1f}%. That is indistinguishable "
+        f"from zero. Per-symbol signs are inconsistent (ETH -0.049, LINK -0.094, SOL +0.200) and it does "
+        f"not replicate: MAIN is -0.080 and 15m is -0.618.",
+        "But the inversion DID flip the gross signal. H1's gross R was -0.024 on PRIOR and -0.160 on "
+        "MAIN; H2's is +0.141 and +0.062 on the same bars. So the information in this bar shape really "
+        "does run in the continuation direction, exactly as H2's mechanism predicted. H1 was on the "
+        "wrong side.",
+        "It is still not tradeable, and the reason is geometry rather than direction. H2's structural "
+        "stop sits just beyond the opposite extreme of a bar that closed near it, giving stop distances "
+        "of 1.1-1.3% on hourly and 0.37% on 15m. Friction then consumes 12-14% of one R on hourly and "
+        "42% on 15m. A gross +0.141 R becomes a net +0.019 R; on 15m a gross -0.198 becomes -0.618.",
+        "So the honest joint conclusion across H1 and H2: this bar shape carries a small amount of real "
+        "directional information, and that information is worth less than the cost of the stop its own "
+        "structure dictates. It is not tradeable in either direction in these three assets.",
+        "The obvious next move - keep the direction, widen the stop - is explicitly forbidden by the "
+        "pre-registration, and it would be a THIRD look at the same 393 bars. At that point the "
+        "multiple-comparison problem is no longer something a Bonferroni factor patches over. If this "
+        "line is worth pursuing it needs different data: other assets, or an earlier window neither "
+        "hypothesis has touched.",
+    ]:
+        ws.write(r, 2, "- " + line, f["wrap"])
+        ws.set_row(r, 12.5 * (len(line) // 100 + 1))
+        r += 1
+
+    r += 1
+    ws.write(r, 1, "Source: backtest/hypothesis_h2.py, criteria in backtest/PREREGISTRATION_H2.md, "
+                   "committed in a separate earlier commit containing no H2 results.", f["note"])
 
 
 def write_v3(wb, f):
