@@ -228,7 +228,7 @@ def main():
 
     from sheets import (write_readme, write_summary, write_findings,
                         write_breakdown, write_sweep, write_stability, write_equity,
-                        write_targets, verify_summary, write_v2)
+                        write_targets, verify_summary, write_v2, write_oos)
 
     n_checks = verify_summary(SYMBOLS, all_rows, sel_rows, analysis)
     print(f"verified {n_checks} Summary values against analyze.py - all agree")
@@ -243,6 +243,7 @@ def main():
     write_sweep(wb, f, SYMBOLS, sweep)
     write_targets(wb, f, SYMBOLS)
     write_v2(wb, f, SYMBOLS)
+    write_oos(wb, f)
     write_stability(wb, f, SYMBOLS, robust)
     write_equity(wb, f, SYMBOLS, all_rows, sel_rows)
     write_stats_sheet(wb, f, combined)

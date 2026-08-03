@@ -40,21 +40,33 @@ MIN_STOP_PCT = 0.0015
 SELECTIVE_THRESHOLD = 6.0
 
 # ---------------------------------------------------------------------------
-# System v2: the two changes the study actually supports.
+# System v2 - AND THE OUT-OF-SAMPLE RESULT THAT FALSIFIED HALF OF IT.
 #
-# 1. Conviction is capped at 8.0, not just floored at 6.0. The 8-10 bucket was
-#    negative on all three symbols (-0.124 R pooled, PF 0.84) while 6-8 was
-#    positive on all three. The score is not monotonic with outcome, so the
-#    most confident-looking setups get dropped rather than sized up.
+# v2 made two changes, both derived from the main window (2025-06 to 2026-08):
 #
-# 2. RANGE_FADE is removed entirely. Both directions have a breakeven win rate
-#    ABOVE their achieved win rate (48.6% vs 43.8% long, 49.5% vs 45.8% short):
-#    a 1.3R target cannot pay for the losses at any hit rate those setups
-#    reach. They lose by construction, not by variance - the only combinations
-#    in the study of which that is true.
+# 1. Cap conviction at 8.0. The 8-10 bucket was negative on all three symbols
+#    in the main window (-0.124 R, PF 0.84) while 6-8 was positive on all three.
 #
-# Both are negative findings - things to stop doing. Nothing here adds a
-# positive edge, and the v2 book still does not clear the bootstrap bar.
+# 2. Delete RANGE_FADE. Both directions have a breakeven win rate ABOVE their
+#    achieved win rate, so a 1.3R target cannot pay for the losses at any hit
+#    rate those setups reach.
+#
+# Re-tested on the strictly disjoint 10,000 hours BEFORE the main window
+# (2024-04-22 to 2025-06-12), which no part of the derivation ever saw:
+#
+#   change 1 DOES NOT REPLICATE. The 8-10 bucket is +0.015 R out of sample
+#   against -0.124 in sample. It was a within-window artifact. Capping
+#   conviction at 8 is not supported and the cap is retained here only so the
+#   falsified configuration stays reproducible.
+#
+#   change 2 REPLICATES. RANGE_FADE is negative in all three datasets
+#   (-0.092, -0.126, -0.303) and, more importantly, its breakeven win rate
+#   exceeds its achieved win rate in all three (gaps -4.1, -5.4, -13.3 points).
+#   That is a structural property, not an outcome - which is why it travelled.
+#
+# The v2 and v2b books themselves are NEGATIVE out of sample (-0.045 and
+# -0.178 against +0.196 and +0.269 in sample), and the more heavily tuned v2b
+# fails worst. Use qualifies_v3 for the one change that survived.
 # ---------------------------------------------------------------------------
 V2_CONVICTION_MIN = 6.0
 V2_CONVICTION_MAX = 8.0
@@ -66,9 +78,20 @@ V2_TARGET_R = 4.0
 
 
 def qualifies_v2(setup, conviction):
-    """Does this signal belong in the v2 book?"""
+    """The v2 book as originally defined. Negative out of sample - see above."""
     return (setup not in V2_EXCLUDED_SETUPS
             and V2_CONVICTION_MIN <= conviction < V2_CONVICTION_MAX)
+
+
+def qualifies_v3(setup, conviction):
+    """The only change that replicated: drop RANGE_FADE, keep the conviction floor.
+
+    This does not make the system profitable out of sample (-0.019 R against
+    v1's -0.022). It removes a component that is structurally incapable of
+    paying for itself, which is a different and much weaker claim than
+    "this is an edge".
+    """
+    return conviction >= SELECTIVE_THRESHOLD and setup not in V2_EXCLUDED_SETUPS
 
 # Structure-aware targeting: look for the wall before the target, not just an
 # R multiple of the stop.

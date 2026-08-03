@@ -132,8 +132,9 @@ def write_readme(wb, f):
             ("Stop-Target Sweep", "Sensitivity of the selective book to stop width and target distance."),
             ("Target Method", "Fixed-R targets vs targets aimed at real swing structure, head-to-head on "
                               "identical entries and stops."),
-            ("System v2", "The two changes the evidence supports - cap conviction at 8, delete RANGE_FADE - "
-                          "with the significance test for each."),
+            ("System v2", "Two candidate changes and their in-sample results. One was later falsified."),
+            ("Out of Sample", "The decisive tab. Every rule re-tested on the strictly disjoint 10,000 "
+                              "hours before the main window. Read this before acting on anything."),
             ("Stability", "Same statistics computed on each half of the sample independently."),
             ("Equity Curves", "Cumulative R for all six books."),
             ("Trade Stats", "One compact row per trade across all three symbols - the Summary tab's data source."),
@@ -796,11 +797,128 @@ def write_targets(wb, f, symbols):
     ws.write(r, 1, "Source: backtest/compare_targets.py. Percentages stored as fractions.", f["note"])
 
 
+def write_oos(wb, f):
+    """Cross-dataset replication - the test that decides whether any of this travels."""
+    ws = wb.add_worksheet("Out of Sample")
+    _title(ws, f, "Out of sample - does any of this survive outside the window it came from?",
+           "One rule out of everything in this study replicates. It is not an edge.")
+    ws.set_column(0, 0, 3)
+    ws.set_column(1, 1, 34)
+    ws.set_column(2, 10, 13)
+
+    rep = json.load(open(os.path.join(DATA, "replication.json")))
+    DS = [("1h", "MAIN 1h"), ("1h_prior", "PRIOR 1h (out of sample)"), ("15m", "15m")]
+
+    r = 3
+    ws.write(r, 1, "The three datasets", f["label"])
+    ws.write(r, 2, "MAIN 1h is 2025-06-12 to 2026-08-03 - the window every rule in this workbook was "
+                   "derived from. PRIOR 1h is the 10,000 hours immediately before it, 2024-04-22 to "
+                   "2025-06-12, strictly disjoint and never seen during any part of the derivation: this "
+                   "is the honest test. 15m is 2026-04-21 to 2026-08-03, a different timeframe that "
+                   "overlaps the tail of the main window, so it is a robustness check rather than an "
+                   "independent sample.", f["wrap"])
+    ws.set_row(r, 70)
+    r += 2
+
+    def table(title, keys, src, note=None):
+        nonlocal r
+        ws.write(r, 1, title, f["h1"])
+        for i in range(9):
+            ws.write(r, i + 2, "", f["h1"])
+        r += 1
+        ws.write(r, 1, "Configuration", f["hdr"])
+        for i, (_, label) in enumerate(DS):
+            ws.write(r, 2 + i * 3, f"{label} - n", f["hdr"])
+            ws.write(r, 3 + i * 3, f"{label} - avg R", f["hdr"])
+            ws.write(r, 4 + i * 3, f"{label} - P(>0)", f["hdr"])
+        ws.set_row(r, 40)
+        r += 1
+        for k in keys:
+            ws.write(r, 1, k, f["label"])
+            for i, (suffix, _) in enumerate(DS):
+                d = src[k].get(suffix)
+                if not d:
+                    continue
+                ws.write_number(r, 2 + i * 3, d["n"], f["int"])
+                ws.write_number(r, 3 + i * 3, d["avg"], f["good"] if d["avg"] > 0 else f["bad"])
+                ws.write_number(r, 4 + i * 3, d["p_pos"] / 100.0, f["pct1"])
+            r += 1
+        if note:
+            ws.write(r, 1, note, f["note"])
+            r += 1
+        r += 1
+
+    table("Do the books replicate?", list(rep["books"].keys()), rep["books"],
+          note="Every configuration is positive in MAIN and negative in PRIOR. The ordering is the "
+               "damning part: the more heavily a book was tuned on the main window, the worse it does "
+               "out of sample. v2b, the best in-sample book at +0.269 R, is the worst out of sample "
+               "at -0.178 R. That is the signature of overfitting, measured rather than suspected.")
+
+    table("Do the cuts replicate?", list(rep["cuts"].keys()), rep["cuts"],
+          note="These are the trades v2 removes. A cut is only justified if the removed trades are "
+               "negative everywhere, not just in the window that motivated the cut.")
+
+    ws.write(r, 1, "RANGE_FADE: the structural test", f["h1"])
+    for i in range(9):
+        ws.write(r, i + 2, "", f["h1"])
+    r += 1
+    for i, c in enumerate(["Dataset", "n", "Win rate", "Breakeven needed", "Gap", "Verdict"]):
+        ws.write(r, i + 1, c, f["hdr"])
+    ws.set_row(r, 30)
+    r += 1
+    for suffix, label in DS:
+        d = rep["cuts"]["CUT RANGE_FADE (all >=6)"].get(suffix)
+        if not d:
+            continue
+        gap = d["win"] - d["be"]
+        ws.write(r, 1, label, f["label"])
+        ws.write_number(r, 2, d["n"], f["int"])
+        ws.write_number(r, 3, d["win"] / 100.0, f["pct1"])
+        ws.write_number(r, 4, d["be"] / 100.0, f["pct1"])
+        ws.write_number(r, 5, gap / 100.0, f["bad"] if gap < 0 else f["good"])
+        ws.write(r, 6, "cannot pay for itself" if gap < 0 else "viable", f["ctr"])
+        r += 1
+    r += 1
+
+    ws.write(r, 1, "What actually survived", f["key"])
+    ws.write(r, 2, "", f["key"])
+    r += 1
+    for line in [
+        "Nothing in this study is profitable out of sample. v1 selective goes +0.040 to -0.022, the 6-8 "
+        "band +0.177 to -0.049, v2 +0.196 to -0.045, and v2b +0.269 to -0.178. The edge found in the "
+        "main window was a property of that window.",
+        "Capping conviction at 8 does NOT replicate. The 8-10 bucket is +0.015 R out of sample against "
+        "-0.124 in sample. It was a within-window artifact, and it was one of the two changes this "
+        "workbook previously described as supported. It is not.",
+        "Deleting RANGE_FADE DOES replicate - negative in all three datasets, and significantly so on "
+        "15m. More convincing than the outcome is the mechanism: its breakeven win rate exceeds its "
+        "achieved win rate in every dataset, by 4.1, 5.4 and 13.3 points. A 1.3R target cannot pay for "
+        "the losses at any hit rate that setup reaches. That is arithmetic, not a backtest result, "
+        "which is exactly why it travelled when nothing else did.",
+        "The practical conclusion is narrower than any earlier version of this workbook claimed. This "
+        "system has no demonstrated edge on ETH, LINK or SOL on hourly or 15m candles across 20,000 "
+        "hours of data. One component is provably broken and should be deleted. Everything else that "
+        "looked promising was the sample talking.",
+        "The one methodological lesson worth carrying forward: every improvement made across this study "
+        "raised the in-sample point estimate without narrowing the confidence interval, and the "
+        "bootstrap said so at each step. The out-of-sample test then confirmed exactly what the "
+        "bootstrap had been warning about. The warning was correct and could have been acted on before "
+        "the extra data arrived.",
+    ]:
+        ws.write(r, 2, "- " + line, f["wrap"])
+        ws.set_row(r, 12.5 * (len(line) // 100 + 1))
+        r += 1
+
+    r += 1
+    ws.write(r, 1, "Source: backtest/replication.py. Intervals are block bootstraps over one-week blocks "
+                   "of entry bars, 4,000 resamples. Percentages stored as fractions.", f["note"])
+
+
 def write_v2(wb, f, symbols):
     """System v2: the two subtractive changes the evidence actually supports."""
     ws = wb.add_worksheet("System v2")
-    _title(ws, f, "System v2 - what the study supports doing differently",
-           "Both changes are things to STOP doing. Nothing here adds a new edge.")
+    _title(ws, f, "System v2 - and why half of it did not survive",
+           "Read the Out of Sample tab alongside this one. One of these two changes was later falsified.")
     ws.set_column(0, 0, 3)
     ws.set_column(1, 1, 40)
     ws.set_column(2, 10, 13)
@@ -809,16 +927,28 @@ def write_v2(wb, f, symbols):
     m = json.load(open(os.path.join(DATA, "system_v2_15m.json")))
 
     r = 3
+    ws.write(r, 1, "STATUS", f["key"])
+    ws.write(r, 2, "Everything on this tab was derived from the main window. It has since been re-tested "
+                   "on the strictly disjoint 10,000 hours before it. Change 1 (the conviction cap) DID "
+                   "NOT replicate and is not supported. Change 2 (deleting RANGE_FADE) did. The v2 and "
+                   "v2b books are both negative out of sample. The numbers below are left intact so the "
+                   "falsified claim stays visible rather than being quietly edited away - see the Out of "
+                   "Sample tab for the test that overturned it.", f["wrap"])
+    ws.set_row(r, 70)
+    r += 2
     for label, body in [
-        ("Change 1: cap conviction at 8",
+        ("Change 1: cap conviction at 8  [FALSIFIED]",
          "The 6-8 bucket was positive on all three symbols; the 8-10 bucket was negative on all three "
-         "(-0.124 R pooled, profit factor 0.84). The conviction score is not monotonic with outcome, so "
-         "the most confident-looking signals are dropped rather than sized up."),
-        ("Change 2: delete RANGE_FADE",
+         "(-0.124 R pooled, profit factor 0.84), suggesting the score was not monotonic with outcome. "
+         "Out of sample the 8-10 bucket is +0.015 R. The pattern was a within-window artifact and this "
+         "change should not be adopted."),
+        ("Change 2: delete RANGE_FADE  [REPLICATED]",
          "Both directions have a breakeven win rate ABOVE their achieved win rate - 48.6% needed against "
          "43.8% achieved (long), 49.5% against 45.8% (short). A 1.3R target cannot pay for the losses at "
          "any hit rate those setups reach. They lose by construction, not by variance. No other "
-         "combination in the study has that property."),
+         "combination in the study has that property - and it is the only finding in this workbook "
+         "that survived out-of-sample testing, precisely because it is arithmetic rather than an "
+         "observed outcome."),
         ("Optional: v2b geometry",
          "Stop x1.6 with a 4R target - the average-R optimum from the sweep. Kept separate from the two "
          "cuts because it is a tuning choice fitted on this sample, whereas the cuts are structural."),
@@ -882,24 +1012,22 @@ def write_v2(wb, f, symbols):
     cut += [(f"15m     dropped: {k}", v) for k, v in m["cut"].items()]
     block("What was cut, and whether cutting it was justified", cut)
 
-    ws.write(r, 1, "The verdict", f["key"])
+    ws.write(r, 1, "The verdict, after out-of-sample testing", f["key"])
     ws.write(r, 2, "", f["key"])
     r += 1
     for line in [
-        "v2b is better than the shipped book on every dimension measured: +0.269 R against +0.177, profit "
-        "factor 1.47 against 1.26, a 8.9-point win-rate cushion over breakeven against 5.4, positive on all "
-        "three symbols, and positive in BOTH sample halves (+0.142 and +0.379) where the v1 band was much "
-        "weaker in the first.",
-        "It still does not clear the significance bar. The 95% interval is [-0.118, +0.732] and P(avg R > 0) "
-        "is 89.5%. Every improvement in this study has raised the point estimate without narrowing the "
-        "interval, because 1,137 overlapping trades carry far less information than the count suggests.",
-        "The strongest result in the whole study is the asymmetry between those two facts. On 15m data - a "
-        "different timeframe, mostly different bars - the two things that were CUT are significantly "
-        "negative: conviction 8-10 at [-0.439, -0.035] and RANGE_FADE at [-0.609, -0.068], both intervals "
-        "excluding zero. The thing that was KEPT is not significantly positive anywhere.",
-        "That is the practical lesson. This study can tell you what to stop doing with real confidence. It "
-        "cannot yet tell you what to start doing. Cutting the 8-10 bucket and deleting RANGE_FADE are "
-        "supported; treating v2b's +0.269 R as an expected return is not.",
+        "In the main window v2b looked like a clear improvement: +0.269 R against +0.177, profit factor "
+        "1.47 against 1.26, positive on all three symbols and in both sample halves. It never cleared "
+        "the significance bar - P(avg R > 0) was 89.5% and the interval always straddled zero.",
+        "On the disjoint prior window it is -0.178 R, the WORST of every configuration tested. The "
+        "ranking inverts exactly in order of how much each book was tuned: v1 selective -0.022, the "
+        "6-8 band -0.049, v2 -0.045, v2b -0.178.",
+        "So of the two changes on this tab, one replicated and one did not. Deleting RANGE_FADE is "
+        "supported in all three datasets and for a structural reason. Capping conviction at 8 is not "
+        "supported and should be discarded.",
+        "Neither makes the system profitable. Dropping RANGE_FADE alone moves the out-of-sample result "
+        "from -0.022 R to -0.019 R: it removes a component that cannot pay for itself, which is a much "
+        "weaker claim than finding an edge.",
     ]:
         ws.write(r, 2, "- " + line, f["wrap"])
         ws.set_row(r, 12.5 * (len(line) // 100 + 1))

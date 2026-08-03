@@ -128,9 +128,63 @@ stays, on evidence rather than preference.
    it in profit.
 8. **Aiming at structure makes you right more often and richer less often** (see above).
 
-## System v2 — the changes the evidence supports
+## Out of sample — the test that decides everything
 
-Both are **subtractive**. Nothing here adds a new edge.
+The system was re-run on the **strictly disjoint** 10,000 hours *before* the main window
+(2024-04-22 → 2025-06-12), which no part of the derivation ever saw.
+
+| Configuration | MAIN 1h (in-sample) | **PRIOR 1h (out-of-sample)** | 15m |
+|---|---|---|---|
+| v1 selective (≥6) | +0.040 | **−0.022** | −0.208 |
+| drop RANGE_FADE only | +0.045 | **−0.019** | −0.204 |
+| v1 6–8 band | +0.177 | **−0.049** | −0.194 |
+| v2 (6–8 + no RANGE_FADE) | +0.196 | **−0.045** | −0.185 |
+| v2b (+ ×1.6 / 4R) | +0.269 | **−0.178** | −0.069 |
+
+**Nothing is profitable out of sample**, and the ordering is the damning part: the more
+heavily a book was tuned on the main window, the *worse* it does outside it. v2b — the best
+in-sample book — is the worst out of sample. That is overfitting, measured rather than
+suspected.
+
+### Which cuts replicate
+
+| Removed trades | MAIN | **PRIOR** | 15m |
+|---|---|---|---|
+| conviction 8–10 | −0.124 | **+0.015** | −0.225 |
+| RANGE_FADE | −0.092 | **−0.126** | −0.303 |
+
+**Capping conviction at 8 does not replicate.** +0.015 R out of sample against −0.124 in
+sample: a within-window artifact. This workbook previously described it as supported. It is
+not, and the System v2 tab now says so rather than quietly dropping the claim.
+
+**Deleting `RANGE_FADE` does replicate** — negative in all three datasets. More convincing
+than the outcome is the mechanism:
+
+| Dataset | n | Win rate | Breakeven needed | Gap |
+|---|---|---|---|---|
+| MAIN 1h | 80 | 45.0% | 49.1% | **−4.1** |
+| PRIOR 1h | 69 | 42.0% | 47.5% | **−5.4** |
+| 15m | 86 | 40.7% | 54.0% | **−13.3** |
+
+Its breakeven win rate exceeds its achieved win rate in every dataset. That's arithmetic,
+not a backtest result — which is precisely why it travelled when nothing else did.
+
+### What this means
+
+This system has **no demonstrated edge** on ETH, LINK or SOL, on hourly or 15m candles,
+across 20,000 hours of data. One component is provably incapable of paying for itself and
+should be deleted. Everything else that looked promising was the sample talking.
+
+The methodological lesson: every improvement made across this study raised the in-sample
+point estimate **without narrowing the confidence interval**, and the bootstrap flagged it
+each time. The out-of-sample test then confirmed exactly what the bootstrap had been
+warning about. The warning was actionable before the extra data arrived.
+
+## System v2 — as originally derived (half of it since falsified)
+
+Both are **subtractive**. Nothing here adds a new edge. Read the out-of-sample section
+above first: change 1 did not replicate, and the v2/v2b books are negative outside their
+derivation window. This section is kept intact so the falsified claim stays visible.
 
 1. **Cap conviction at 8**, don't just floor it at 6. The 6–8 bucket is positive on all
    three symbols; 8–10 is negative on all three (−0.124 R, PF 0.84).
@@ -165,9 +219,9 @@ Both intervals exclude zero. The thing that was **kept** is not significantly po
 anywhere. Every improvement in this study raised the point estimate without narrowing the
 interval, because overlapping trades carry far less information than their count suggests.
 
-**This study can tell you what to stop doing with real confidence. It cannot yet tell you
-what to start doing.** Cutting the 8–10 bucket and deleting `RANGE_FADE` are supported.
-Treating v2b's +0.269 R as an expected return is not.
+**Superseded by the out-of-sample test above.** Of these two changes, only the `RANGE_FADE`
+deletion replicated; the conviction cap did not, and v2b — which looked strongest here — is
+the worst performer outside this window.
 
 ## What I'd actually do with this
 
@@ -199,6 +253,9 @@ python3 compare_targets.py   # targeting methods -> data/target_comparison.json
 python3 bootstrap_combos.py  # per-combo significance
 python3 system_v2.py 1h      # System v2 -> data/system_v2_1h.json
 python3 system_v2.py 15m     # same rules on 15m candles
+python3 fetch_data.py 1h 2025-06-12T22:00:00Z prior   # disjoint earlier window
+python3 system_v2.py 1h_prior                          # out-of-sample run
+python3 replication.py       # cross-dataset matrix -> data/replication.json
 python3 build_workbook.py    # -> ETH_LINK_SOL_hourly_trading_study.xlsx
 ```
 
@@ -207,7 +264,8 @@ Deterministic given the same data files.
 ## Workbook tabs
 
 **Study file:** `Read Me` · `Summary` (live formulas) · `Findings` · `Setup Breakdown` ·
-`Stop-Target Sweep` · `Target Method` · `System v2` · `Stability` · `Equity Curves` · `Trade Stats`
+`Stop-Target Sweep` · `Target Method` · `System v2` · `Out of Sample` · `Stability` ·
+`Equity Curves` · `Trade Stats`
 
 **Logs file:** `<SYM> All Trades` (9,499 rows each) · `<SYM> Selective` (~720–760 rows each)
 

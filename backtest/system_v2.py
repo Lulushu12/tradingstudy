@@ -131,7 +131,7 @@ V2 = strategy.qualifies_v2
 
 def main():
     suffix = sys.argv[1] if len(sys.argv) > 1 else "1h"
-    block = 168 if suffix == "1h" else 672
+    block = 168 if suffix.startswith("1h") else 672
     out = {}
 
     configs = [

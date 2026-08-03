@@ -8,6 +8,7 @@ Writes one CSV per symbol into backtest/data/ and reports any gaps in the
 hourly series so downstream code never silently assumes continuity.
 """
 
+import calendar
 import csv
 import json
 import os
@@ -27,6 +28,13 @@ INTERVAL = sys.argv[1] if len(sys.argv) > 1 else "1h"
 STEP_MS = {"15m": 900_000, "1h": 3_600_000, "4h": 14_400_000}[INTERVAL]
 HOUR_MS = STEP_MS  # retained name; means "one bar" throughout this module
 
+# Optional second argument: an ISO timestamp to end BEFORE, so an earlier and
+# strictly disjoint window can be pulled for out-of-sample testing.
+#     python3 fetch_data.py 1h 2025-06-12T22:00:00Z prior
+# fetches the 10,000 bars immediately preceding the main study window.
+END_BEFORE_ISO = sys.argv[2] if len(sys.argv) > 2 else None
+TAG = "_" + sys.argv[3] if len(sys.argv) > 3 else ""
+
 OUT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data")
 
 
@@ -45,7 +53,16 @@ def get(url, attempts=5):
 
 
 def last_closed_hour_ms():
-    """Open time of the most recent *fully closed* hourly candle."""
+    """Open time of the last bar to include.
+
+    Normally the most recent fully closed candle. If END_BEFORE_ISO is set, the
+    last bar that closes at or before that instant instead - giving a window
+    that ends exactly where the named one begins, with no overlap.
+    """
+    if END_BEFORE_ISO:
+        t = time.strptime(END_BEFORE_ISO, "%Y-%m-%dT%H:%M:%SZ")
+        boundary = int(calendar.timegm(t) * 1000)
+        return boundary - HOUR_MS
     now_ms = int(time.time() * 1000)
     current_open = (now_ms // HOUR_MS) * HOUR_MS
     return current_open - HOUR_MS
@@ -89,7 +106,7 @@ def check_gaps(rows):
 
 
 def write_csv(symbol, rows):
-    path = os.path.join(OUT_DIR, f"{symbol}_{INTERVAL}.csv")
+    path = os.path.join(OUT_DIR, f"{symbol}_{INTERVAL}{TAG}.csv")
     with open(path, "w", newline="") as fh:
         w = csv.writer(fh)
         w.writerow(
