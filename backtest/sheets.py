@@ -450,8 +450,8 @@ def write_findings(ws, f, analysis, robust):
          f"wider is better."),
 
         ("7. The real exit is the clock, not the target",
-         f"The sweep optimum sits at roughly 2x the stop width I traded with a 3-4R target - but look at "
-         f"where the money actually comes from. At that setting only "
+         f"The sweep optimum sits at a moderately wider stop (x1.3 to x1.6) with a far target - but look at "
+         f"where the money actually comes from. At a wide-stop setting only "
          f"{mix['ETHUSDT']['sweep_optimum'].get('TARGET', {}).get('share_pct', 0):.0f}-"
          f"{mix['SOLUSDT']['sweep_optimum'].get('TARGET', {}).get('share_pct', 0):.0f}% of trades ever reach "
          f"the target, while "
@@ -496,8 +496,10 @@ def write_findings(ws, f, analysis, robust):
         "The other 92% were noise that the mandate forced me to pay for.",
         "Distrust your best-looking setups. The 8-10 conviction bucket underperformed the 6-8 bucket on "
         "every symbol. Size flat across qualifying setups rather than scaling with confidence.",
-        "Fix the exit before the entry. Exit design moved results far more than any entry refinement in "
-        "this study - the sweep spans -0.11% to +1.07% per trade on identical entry signals.",
+        "Fix the exit before the entry. Exit design moved results more than any entry refinement in this "
+        "study: on identical entry signals the sweep spans -0.07R to +0.21R per trade. Widening the stop "
+        "from the shipped geometry lifts the 6-8 band from +0.177R to +0.257R - worth having, but note "
+        "that it still does not clear the bootstrap significance bar.",
         "Re-run this over a rising market before believing any directional conclusion. Every symbol here "
         "fell 30-52%, and that fact contaminates every direction-dependent number in the workbook.",
     ]:
@@ -570,7 +572,8 @@ def write_breakdown(wb, f, symbols, analysis):
 def write_sweep(wb, f, symbols, sweep):
     ws = wb.add_worksheet("Stop-Target Sweep")
     _title(ws, f, "Stop Width x Target Sensitivity",
-           "Selective book only. Scored in average NET % per trade, because R is not comparable across stop widths.")
+           "Selective book only. Scored in average R per trade - the correct metric when a fixed dollar "
+           "amount is risked on every trade.")
     ws.set_column(0, 0, 3)
     ws.set_column(1, 1, 24)
     ws.set_column(2, 12, 12)
@@ -585,10 +588,20 @@ def write_sweep(wb, f, symbols, sweep):
                    "traded in the logs. The optimum is interior - it turns over rather than running to the "
                    "edge - which is what makes it worth reporting.", f["wrap"])
     ws.set_row(r, 42)
+    r += 1
+    ws.write(r, 1, "Which metric", f["label"])
+    ws.write(r, 2, "Average R, because this study risks a fixed $1,000 per trade: position size shrinks as "
+                   "the stop widens, so P&L = R x risk and average R is proportional to expected profit. "
+                   "Average net % per trade - the score used in an earlier version of this tab - is correct "
+                   "only under constant-NOTIONAL sizing, where a wider stop does not shrink the position. "
+                   "The distinction matters: net % favoured stop x2.0-3.0, average R favours x1.3-1.6 with a "
+                   "far target, and net % made the gain from widening look several times larger than it is.",
+             f["wrap"])
+    ws.set_row(r, 56)
     r += 2
 
     for sym, short in symbols:
-        ws.write(r, 1, f"{short}: average net % per trade", f["h1"])
+        ws.write(r, 1, f"{short}: average R per trade", f["h1"])
         for i in range(len(targets) + 1):
             ws.write(r, i + 2, "", f["h1"])
         r += 1
@@ -598,21 +611,21 @@ def write_sweep(wb, f, symbols, sweep):
         ws.set_row(r, 28)
         r += 1
 
-        best = max(sweep[sym].values(), key=lambda d: d["avg_net_pct"])["avg_net_pct"]
+        best = max(sweep[sym].values(), key=lambda d: d["avg_R"])["avg_R"]
         for sc in scales:
             ws.write_number(r, 1, sc, f["num2"])
             for i, t in enumerate(targets):
                 d = sweep[sym][f"{sc}|{t}"]
-                v = d["avg_net_pct"] / 100.0
-                fmt = f["good"] if d["avg_net_pct"] == best else (f["bad"] if v < 0 else f["num3"])
+                v = d["avg_R"]
+                fmt = f["good"] if v == best else (f["bad"] if v < 0 else f["num3"])
                 ws.write_number(r, i + 2, v, fmt)
             r += 1
-        ws.write(r, 1, f"Best: {best:+.3f}% per trade (highlighted). Win rate rises with stop width on every "
-                       f"symbol, from ~30% at the tightest to ~45% at the widest.", f["note"])
+        ws.write(r, 1, f"Best: {best:+.3f} R per trade (highlighted). Win rate rises with stop width on "
+                       f"every symbol, from ~30% at the tightest to ~45% at the widest.", f["note"])
         r += 3
 
-    ws.write(r, 1, "Number formatting note: cells are stored as fractions and displayed as percentages. "
-                   "Source: backtest/sweep.py, 56 configurations per symbol over the same signals.", f["note"])
+    ws.write(r, 1, "Source: backtest/sweep.py, 56 configurations per symbol over the same entry signals. "
+                   "Each cell also records average net % and profit factor in data/sweep.json.", f["note"])
     r += 2
     ws.write(r, 1, "The trap", f["key"])
     ws.write(r, 2, "", f["key"])
@@ -621,6 +634,18 @@ def write_sweep(wb, f, symbols, sweep):
                    "0.85 rows. That directly contradicts what the MAE statistics appear to suggest "
                    "(see Findings, item 6), and the sweep is the evidence that settles it.", f["wrap"])
     ws.set_row(r, 42)
+    r += 2
+    ws.write(r, 1, "A second trap, which caught me", f["key"])
+    ws.write(r, 2, "", f["key"])
+    r += 1
+    ws.write(r, 2, "An earlier version of this tab scored the grid in average net % per trade and concluded "
+                   "the optimum was a stop around x2.0-2.5. That was wrong for this study's sizing. Net % is "
+                   "the return on notional; with a fixed dollar risked per trade, widening the stop shrinks "
+                   "the position, so net % credits a wide stop for a move you would have been too small to "
+                   "fully capture. Re-scored in average R the optimum moves in to x1.3-x1.6 and the benefit "
+                   "of widening shrinks from apparently several-fold to about +0.08R. Same data, same "
+                   "trades, different unit - and a materially different recommendation.", f["wrap"])
+    ws.set_row(r, 70)
 
 
 def write_stability(wb, f, symbols, robust):

@@ -1,8 +1,15 @@
 """Stop-width x target sensitivity on the selective book.
 
-R-multiples are not comparable across stop widths (changing the stop changes
-what one R means), so the sweep is scored in average NET % return per trade -
-a unit that stays honest when the geometry moves.
+Scored in average R per trade. This study risks a fixed dollar amount per
+trade, so position size shrinks as the stop widens and P&L = R x risk_$ -
+which makes average R directly proportional to expected profit.
+
+An earlier version scored this grid in average NET % per trade. That is the
+correct metric only under constant-NOTIONAL sizing, where the position size is
+the same regardless of stop distance and a wider stop simply means holding
+through a bigger move. Under constant risk it overstates the value of widening
+a stop, and it moved the apparent optimum: net % favoured stop x2.0-3.0, while
+average R favours x1.3-1.6 with a far target. Both are recorded per cell.
 """
 
 import csv
@@ -66,6 +73,13 @@ def run(symbol, stop_scale, target_r, selective_only=True, cache={}):
     return {
         "n": len(nets),
         "win_pct": round(100 * len(wins) / len(rs), 1),
+        # avg_R is the primary metric: this study risks a fixed $ per trade, so
+        # P&L = R x risk and average R is proportional to expected profit.
+        # avg_net_pct is retained for reference - it is the correct score only
+        # under constant-NOTIONAL sizing, where widening a stop does not shrink
+        # the position. The two disagree, and scoring on net % overstates the
+        # value of widening a stop when risk is held constant.
+        "avg_R": round(float(rs.mean()), 4),
         "avg_net_pct": round(float(nets.mean()) * 100, 4),
         "total_net_pct": round(float(nets.sum()) * 100, 1),
         "PF": round(float(wins.sum() / gl), 3) if gl > 0 else None,
@@ -81,7 +95,7 @@ def main():
     grid, mix = {}, {}
     for symbol in SYMBOLS:
         print("\n" + "=" * 100)
-        print(f"{symbol}  selective book: avg NET % per trade (win rate in brackets)")
+        print(f"{symbol}  selective book: avg R per trade (win rate in brackets)")
         print("=" * 100)
         print(f"{'stop x':<9}" + "".join(f"{'R=' + str(t):>13}" for t in TARGET_R))
         grid[symbol] = {}
@@ -91,11 +105,11 @@ def main():
             for t in TARGET_R:
                 r = run(symbol, s, t)
                 grid[symbol][f"{s}|{t}"] = r
-                if r["avg_net_pct"] > best[1]:
-                    best = (f"stop x{s}, {t}R", r["avg_net_pct"])
-                cells.append(f"{r['avg_net_pct']:+.3f} ({r['win_pct']:.0f}%)")
+                if r["avg_R"] > best[1]:
+                    best = (f"stop x{s}, {t}R", r["avg_R"])
+                cells.append(f"{r['avg_R']:+.3f} ({r['win_pct']:.0f}%)")
             print(f"{s:<9}" + "".join(f"{c:>13}" for c in cells))
-        print(f"  best: {best[0]} at {best[1]:+.3f}% per trade")
+        print(f"  best by avg R: {best[0]} at {best[1]:+.3f} R per trade")
 
         mix[symbol] = {}
         for s, t, tag in EXIT_MIX_CONFIGS:
