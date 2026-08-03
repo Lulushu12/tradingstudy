@@ -14,11 +14,18 @@ import os
 import time
 import urllib.request
 
+import sys
+
 BASE = "https://data-api.binance.vision/api/v3/klines"
 SYMBOLS = ["ETHUSDT", "LINKUSDT", "SOLUSDT"]
 BARS = 10_000
 PAGE = 1000
-HOUR_MS = 3_600_000
+
+# Interval is selectable so the same 10,000-bar study can be re-run on a
+# different timeframe: python3 fetch_data.py 15m
+INTERVAL = sys.argv[1] if len(sys.argv) > 1 else "1h"
+STEP_MS = {"15m": 900_000, "1h": 3_600_000, "4h": 14_400_000}[INTERVAL]
+HOUR_MS = STEP_MS  # retained name; means "one bar" throughout this module
 
 OUT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data")
 
@@ -53,7 +60,7 @@ def fetch_symbol(symbol):
     collected = {}
 
     while len(collected) < BARS:
-        url = f"{BASE}?symbol={symbol}&interval=1h&limit={PAGE}&endTime={cursor}"
+        url = f"{BASE}?symbol={symbol}&interval={INTERVAL}&limit={PAGE}&endTime={cursor}"
         rows = get(url)
         if not rows:
             print(f"    {symbol}: exchange returned no further history")
@@ -82,7 +89,7 @@ def check_gaps(rows):
 
 
 def write_csv(symbol, rows):
-    path = os.path.join(OUT_DIR, f"{symbol}_1h.csv")
+    path = os.path.join(OUT_DIR, f"{symbol}_{INTERVAL}.csv")
     with open(path, "w", newline="") as fh:
         w = csv.writer(fh)
         w.writerow(

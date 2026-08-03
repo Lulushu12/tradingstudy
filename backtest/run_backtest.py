@@ -24,9 +24,15 @@ SYMBOLS = ["ETHUSDT", "LINKUSDT", "SOLUSDT"]
 # Bars needed before indicators are trustworthy (EMA200 + ADX + vol regime seed).
 WARMUP = 500
 
+# Timeframe of the source candles. All strategy parameters are expressed in
+# BARS, not wall-clock, so switching this re-runs the identical system on a
+# different timeframe - EMA200 becomes 200 fifteen-minute bars rather than 200
+# hourly ones, and a 48-bar time stop becomes 12 hours rather than 48.
+SUFFIX = "1h"
+
 
 def load(symbol):
-    path = os.path.join(DATA, f"{symbol}_1h.csv")
+    path = os.path.join(DATA, f"{symbol}_{SUFFIX}.csv")
     ts, o, h, l, c, v = [], [], [], [], [], []
     with open(path) as fh:
         for row in csv.DictReader(fh):
@@ -184,7 +190,8 @@ def main():
     for symbol in SYMBOLS:
         t0 = time.time()
         trades = run_symbol(symbol)
-        path = os.path.join(DATA, f"{symbol}_trades.csv")
+        path = os.path.join(DATA, "%s_trades.csv" % symbol if SUFFIX == "1h"
+                            else "%s_%s_trades.csv" % (symbol, SUFFIX))
         with open(path, "w", newline="") as fh:
             w = csv.DictWriter(fh, fieldnames=FIELDS)
             w.writeheader()
