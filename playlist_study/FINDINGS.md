@@ -279,3 +279,133 @@ in the hands of a discretionary trader applying judgment the rules do not
 capture. It does mean that as mechanical rules on this market, they are not
 supported by the evidence, and the confident claims attached to them in the
 videos are not.
+
+---
+
+# Can the systems cover for each other?
+
+Run with `PYTHONPATH=playlist_study/src python3 playlist_study/src/combine.py`.
+All figures net of 10bps round trip, walk-forward out-of-sample trades only,
+48 monthly observations.
+
+Two different claims, tested separately. Passive diversification cannot create
+edge, because a portfolio's mean is the weighted mean of its parts, but it can
+cut variance and so measure a small edge more precisely. Active rotation is the
+stronger claim: that recent performance predicts future performance.
+
+## Yes, they are genuinely complementary
+
+Mean net % per trade by market regime, regimes labelled causally from trailing
+daily data:
+
+| Regime | S1 Fib ABCD | S5 EMA + SMI | S6 Impulse MACD |
+|---|---|---|---|
+| Trending | +0.071 | **+0.949** | **-0.484** |
+| Chop | -0.016 | -0.161 | **+0.558** |
+| Low vol | +0.013 | +0.545 | +0.336 |
+| High vol | +0.051 | -1.755 | -0.763 |
+| Bull | -0.043 | +0.385 | +0.019 |
+| Bear | +0.108 | +0.017 | +0.317 |
+
+S5 and S6 are close to mirror images on the trend axis. S5 earns +0.949 per
+trade in trending markets and loses in chop; S6 earns +0.558 in chop and loses
+0.484 in trends. That is not a coincidence of this sample, it is what the two
+systems are: S5 is a stacked-EMA trend follower and S6 is an oscillator crossover
+that fades extensions. Their monthly return correlation is +0.070, effectively
+independent, and S1 against S5 is -0.165.
+
+This is the clearest real structure found anywhere in this study.
+
+## Combining them helps, exactly as much as theory says and no more
+
+| Portfolio | Mean %/mo | t-stat | Sharpe | Max DD |
+|---|---|---|---|---|
+| S1 alone | 0.133 | 0.40 | 0.20 | -16.5% |
+| S5 alone | 0.706 | 0.54 | 0.27 | -25.6% |
+| S6 alone | 1.253 | 0.69 | 0.34 | -52.4% |
+| **Equal weight, all three** | 0.697 | **0.89** | **0.44** | **-25.2%** |
+| Vol parity, all three | 0.626 | 0.91 | 0.46 | -22.8% |
+
+Diversification does real work here. Sharpe rises from 0.34 for the best single
+system to 0.44 combined, the t-statistic from 0.69 to 0.89, and the drawdown
+halves from -52% to -25%. Three near-independent streams, so the noise falls by
+roughly the square root of three. That is the textbook result and it shows up
+cleanly.
+
+It is still not enough. A t-statistic of 0.89 is not evidence of an edge; the
+threshold is about 2.0. Combining three systems whose individual edges cannot be
+distinguished from zero produces a portfolio whose edge cannot be distinguished
+from zero, measured more precisely. The variance fell, the mean did not rise,
+because the mean of a combination is just the average of the means.
+
+At the observed effect size, reaching t = 2.0 would take about 242 months of
+data, roughly 20 years. That is the real obstacle: not that the combination is
+bad, but that if an edge this small exists, this data set cannot prove it.
+
+## Rotating to whatever is working fails
+
+Allocate each month to the system with the best trailing record:
+
+| Rule | Total % | Inside the no-skill band? |
+|---|---|---|
+| Best of last 1 month | -13.6 | yes |
+| Best of last 2 months | +42.3 | yes |
+| Best of last 3 months | -34.4 | yes |
+| Best of last 6 months | +35.2 | yes |
+| Best of last 12 months | +20.6 | yes |
+| **Random pick, median of 2000 paths** | **+33.2** | reference |
+| Random pick, 5th to 95th percentile | -43 to +118 | reference |
+
+Every rotation rule lands inside the range a coin flip produces. None of them is
+doing anything. The 2,000 path benchmark matters: a single random path in this
+data returned +135% with a t-statistic of 2.01 purely by luck, which is exactly
+the sort of number that gets published as a strategy.
+
+Worse, trailing performance points the wrong way. The cross-sectional
+correlation between last month's returns and next month's, across the three
+systems, averages **-0.236** (t = -2.38, n = 47). Whichever system did best last
+month tends to do worst next month. Rotating toward the winner is not merely
+useless, it is backwards, which follows directly from S5 and S6 being trend and
+counter-trend: by the time one has had a good run, the regime that produced it is
+usually ending.
+
+## Switching on the regime instead of on P&L
+
+If S5 owns trends and S6 owns chop, the obvious rule is to switch on the regime
+directly. The regime complementarity was found in this data, so the hindsight row
+is a ceiling rather than a result; the walk-forward row uses only months already
+past.
+
+| Rule | Mean %/mo | t-stat | Sharpe | Max DD |
+|---|---|---|---|---|
+| Trend axis, hindsight | 2.583 | 1.73 | 0.87 | -31.6% |
+| Trend axis, walk-forward | 1.394 | 0.72 | 0.42 | -46.4% |
+| Volatility axis, walk-forward | -0.227 | -0.10 | -0.06 | -74.8% |
+| Direction axis, walk-forward | -1.756 | -0.89 | -0.51 | -95.6% |
+| Equal weight reference | 0.697 | 0.89 | 0.44 | -25.2% |
+
+The trend axis is the only one that survives being made tradable, and it is the
+one with an economic reason to work. But even then it does not beat simply
+holding all three: Sharpe 0.42 against 0.44, with nearly double the drawdown,
+because switching concentrates into one system at a time and throws away the
+diversification that was doing the real work. Switching on volatility or on
+market direction is actively destructive, the direction rule losing 95% at one
+point.
+
+The hindsight row is worth noting for a different reason. At t = 1.73 and Sharpe
+0.87 it is the best looking number in this entire study, and it is unattainable:
+it requires knowing in advance which system suits each regime. The gap between it
+and the walk-forward row, 2.583 against 1.394, is the cost of not knowing.
+
+## Answer
+
+Yes, there is a real situation where one covers for another, and it is the trend
+versus chop axis between S5 and S6. It is economically sensible, it shows up
+clearly in the regime table, and holding both is genuinely better than holding
+either: half the drawdown and a third more Sharpe.
+
+But it does not rescue them. Diversification improves the risk-adjusted profile
+of a portfolio whose expected return still cannot be shown to differ from zero,
+and every attempt to time the rotation either matches a coin flip or does worse
+than one. The combination is the best version of these systems that the evidence
+supports, and the evidence still does not support trading it.

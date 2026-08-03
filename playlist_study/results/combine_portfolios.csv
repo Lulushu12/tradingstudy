@@ -1,0 +1,6 @@
+portfolio,months,mean_pct_mo,t_stat,sharpe,max_dd_pct,total_pct
+S1 Fib ABCD 0.88,48,0.133,0.4,0.2,-16.5,6.4
+S5 EMA meter + SMI,36,0.706,0.54,0.27,-25.6,33.9
+S6 Impulse MACD,48,1.253,0.69,0.34,-52.4,60.1
+EQUAL WEIGHT (all 3),48,0.697,0.89,0.44,-25.2,33.5
+VOL PARITY (all 3),48,0.626,0.91,0.46,-22.8,30.0

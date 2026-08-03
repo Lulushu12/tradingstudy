@@ -1,0 +1,8 @@
+rule,months,mean_pct_mo,t_stat,sharpe,max_dd_pct,total_pct
+trend: hindsight best per regime,48,2.583,1.73,0.87,-31.6,124.0
+trend: walk-forward best per regime,36,1.394,0.72,0.42,-46.4,50.2
+vol: hindsight best per regime,48,1.355,0.76,0.38,-51.7,65.0
+vol: walk-forward best per regime,36,-0.227,-0.1,-0.06,-74.8,-8.2
+dir: hindsight best per regime,48,1.433,0.89,0.44,-38.2,68.8
+dir: walk-forward best per regime,36,-1.756,-0.89,-0.51,-95.6,-63.2
+EQUAL WEIGHT reference,48,0.697,0.89,0.44,-25.2,33.5
