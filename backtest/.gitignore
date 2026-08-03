@@ -9,6 +9,8 @@ data/*_1h.csv
 data/*_1h_prior.csv
 data/*_1h_early.csv
 data/*_15m.csv
+data/*_4h.csv
+data/*_1d.csv
 !data/ETHUSDT_*
 !data/LINKUSDT_*
 !data/SOLUSDT_*
@@ -18,3 +20,8 @@ data/*_15m.csv
 # the negations above so it still applies to the three tracked symbols - git
 # takes the last matching pattern, so ordering here is load-bearing.
 data/*_trades.csv
+
+# Binance USD-M perpetual archive: perp klines, funding and open interest for
+# ~28 symbols back to 2021. Hundreds of MB and fully reproducible via
+# fetch_derivs.py and fetch_oi.py from data/_universe.json.
+data/deriv/
