@@ -128,6 +128,47 @@ stays, on evidence rather than preference.
    it in profit.
 8. **Aiming at structure makes you right more often and richer less often** (see above).
 
+## System v2 — the changes the evidence supports
+
+Both are **subtractive**. Nothing here adds a new edge.
+
+1. **Cap conviction at 8**, don't just floor it at 6. The 6–8 bucket is positive on all
+   three symbols; 8–10 is negative on all three (−0.124 R, PF 0.84).
+2. **Delete `RANGE_FADE`.** Both directions need a higher win rate than they achieve
+   (48.6% needed vs 43.8% got, long; 49.5% vs 45.8%, short). A 1.3R target cannot pay for
+   the losses at any hit rate those setups reach. No other combination has this property.
+
+Optional **v2b** geometry: stop ×1.6, 4R target — the sweep's average-R optimum. Kept
+separate because it's a tuning choice fitted on this sample; the cuts are structural.
+
+| Book (hourly, pooled) | n | Win % | BE % | Avg R | PF | 95% CI | P(>0) |
+|---|---|---|---|---|---|---|---|
+| v1 selective (≥6) | 2,229 | 33.2 | 32.0 | +0.040 | 1.06 | [−0.191, +0.285] | 62.8% |
+| v1 6–8 band | 1,217 | 38.0 | 32.6 | +0.177 | 1.26 | [−0.113, +0.491] | 85.7% |
+| v2 (no RANGE_FADE) | 1,137 | 37.5 | 31.7 | +0.196 | 1.29 | [−0.124, +0.524] | 87.8% |
+| **v2b (+ ×1.6 / 4R)** | 1,137 | 41.7 | 32.8 | **+0.269** | 1.47 | [−0.118, +0.732] | 89.5% |
+
+v2b is better on every dimension measured — and positive in **both** sample halves (+0.142
+and +0.379) and on all three symbols. It still does not clear the significance bar.
+
+### The asymmetry that matters most
+
+On 15m data — a different timeframe, mostly different bars — the two things that were **cut**
+are *significantly negative*:
+
+| Dropped | Avg R | 95% CI | P(>0) |
+|---|---|---|---|
+| conviction 8–10 | −0.225 | **[−0.439, −0.035]** | 0.8% |
+| RANGE_FADE in 6–8 | −0.303 | **[−0.609, −0.068]** | 0.4% |
+
+Both intervals exclude zero. The thing that was **kept** is not significantly positive
+anywhere. Every improvement in this study raised the point estimate without narrowing the
+interval, because overlapping trades carry far less information than their count suggests.
+
+**This study can tell you what to stop doing with real confidence. It cannot yet tell you
+what to start doing.** Cutting the 8–10 bucket and deleting `RANGE_FADE` are supported.
+Treating v2b's +0.269 R as an expected return is not.
+
 ## What I'd actually do with this
 
 - **Stop trading the always-on mandate.** It's a fee-payment machine over no edge. If you
@@ -155,6 +196,9 @@ python3 analyze.py           # breakdowns -> data/analysis.json
 python3 robustness.py        # time-split + MAE -> data/robustness.json
 python3 sweep.py             # 56-config sensitivity -> data/sweep.json
 python3 compare_targets.py   # targeting methods -> data/target_comparison.json
+python3 bootstrap_combos.py  # per-combo significance
+python3 system_v2.py 1h      # System v2 -> data/system_v2_1h.json
+python3 system_v2.py 15m     # same rules on 15m candles
 python3 build_workbook.py    # -> ETH_LINK_SOL_hourly_trading_study.xlsx
 ```
 
@@ -163,7 +207,7 @@ Deterministic given the same data files.
 ## Workbook tabs
 
 **Study file:** `Read Me` · `Summary` (live formulas) · `Findings` · `Setup Breakdown` ·
-`Stop-Target Sweep` · `Target Method` · `Stability` · `Equity Curves` · `Trade Stats`
+`Stop-Target Sweep` · `Target Method` · `System v2` · `Stability` · `Equity Curves` · `Trade Stats`
 
 **Logs file:** `<SYM> All Trades` (9,499 rows each) · `<SYM> Selective` (~720–760 rows each)
 

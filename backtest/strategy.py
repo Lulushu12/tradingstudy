@@ -39,6 +39,37 @@ MIN_STOP_ATR = 0.6
 MIN_STOP_PCT = 0.0015
 SELECTIVE_THRESHOLD = 6.0
 
+# ---------------------------------------------------------------------------
+# System v2: the two changes the study actually supports.
+#
+# 1. Conviction is capped at 8.0, not just floored at 6.0. The 8-10 bucket was
+#    negative on all three symbols (-0.124 R pooled, PF 0.84) while 6-8 was
+#    positive on all three. The score is not monotonic with outcome, so the
+#    most confident-looking setups get dropped rather than sized up.
+#
+# 2. RANGE_FADE is removed entirely. Both directions have a breakeven win rate
+#    ABOVE their achieved win rate (48.6% vs 43.8% long, 49.5% vs 45.8% short):
+#    a 1.3R target cannot pay for the losses at any hit rate those setups
+#    reach. They lose by construction, not by variance - the only combinations
+#    in the study of which that is true.
+#
+# Both are negative findings - things to stop doing. Nothing here adds a
+# positive edge, and the v2 book still does not clear the bootstrap bar.
+# ---------------------------------------------------------------------------
+V2_CONVICTION_MIN = 6.0
+V2_CONVICTION_MAX = 8.0
+V2_EXCLUDED_SETUPS = frozenset({"RANGE_FADE"})
+
+# Geometry: the sweep's average-R optimum, moderately wider than shipped.
+V2_STOP_SCALE = 1.6
+V2_TARGET_R = 4.0
+
+
+def qualifies_v2(setup, conviction):
+    """Does this signal belong in the v2 book?"""
+    return (setup not in V2_EXCLUDED_SETUPS
+            and V2_CONVICTION_MIN <= conviction < V2_CONVICTION_MAX)
+
 # Structure-aware targeting: look for the wall before the target, not just an
 # R multiple of the stop.
 STRUCT_LOOKBACK = 240      # bars of history searched for opposing levels

@@ -132,6 +132,8 @@ def write_readme(wb, f):
             ("Stop-Target Sweep", "Sensitivity of the selective book to stop width and target distance."),
             ("Target Method", "Fixed-R targets vs targets aimed at real swing structure, head-to-head on "
                               "identical entries and stops."),
+            ("System v2", "The two changes the evidence supports - cap conviction at 8, delete RANGE_FADE - "
+                          "with the significance test for each."),
             ("Stability", "Same statistics computed on each half of the sample independently."),
             ("Equity Curves", "Cumulative R for all six books."),
             ("Trade Stats", "One compact row per trade across all three symbols - the Summary tab's data source."),
@@ -792,6 +794,121 @@ def write_targets(wb, f, symbols):
 
     r += 1
     ws.write(r, 1, "Source: backtest/compare_targets.py. Percentages stored as fractions.", f["note"])
+
+
+def write_v2(wb, f, symbols):
+    """System v2: the two subtractive changes the evidence actually supports."""
+    ws = wb.add_worksheet("System v2")
+    _title(ws, f, "System v2 - what the study supports doing differently",
+           "Both changes are things to STOP doing. Nothing here adds a new edge.")
+    ws.set_column(0, 0, 3)
+    ws.set_column(1, 1, 40)
+    ws.set_column(2, 10, 13)
+
+    h = json.load(open(os.path.join(DATA, "system_v2_1h.json")))
+    m = json.load(open(os.path.join(DATA, "system_v2_15m.json")))
+
+    r = 3
+    for label, body in [
+        ("Change 1: cap conviction at 8",
+         "The 6-8 bucket was positive on all three symbols; the 8-10 bucket was negative on all three "
+         "(-0.124 R pooled, profit factor 0.84). The conviction score is not monotonic with outcome, so "
+         "the most confident-looking signals are dropped rather than sized up."),
+        ("Change 2: delete RANGE_FADE",
+         "Both directions have a breakeven win rate ABOVE their achieved win rate - 48.6% needed against "
+         "43.8% achieved (long), 49.5% against 45.8% (short). A 1.3R target cannot pay for the losses at "
+         "any hit rate those setups reach. They lose by construction, not by variance. No other "
+         "combination in the study has that property."),
+        ("Optional: v2b geometry",
+         "Stop x1.6 with a 4R target - the average-R optimum from the sweep. Kept separate from the two "
+         "cuts because it is a tuning choice fitted on this sample, whereas the cuts are structural."),
+    ]:
+        ws.write(r, 1, label, f["label"])
+        ws.write(r, 2, body, f["wrap"])
+        ws.set_row(r, 12.5 * (len(body) // 100 + 2))
+        r += 1
+    r += 1
+
+    cols = ["Book", "n", "Win %", "Breakeven %", "Cost as % of 1R", "Avg R", "Total R",
+            "Profit factor", "95% CI low", "95% CI high", "P(avg R > 0)"]
+
+    def block(title, rows_src):
+        nonlocal r
+        ws.write(r, 1, title, f["h1"])
+        for i in range(len(cols)):
+            ws.write(r, i + 2, "", f["h1"])
+        r += 1
+        for i, c in enumerate(cols):
+            ws.write(r, i + 1, c, f["hdr"])
+        ws.set_row(r, 30)
+        r += 1
+        for name, d in rows_src:
+            if not d:
+                continue
+            ws.write(r, 1, name, f["label"])
+            ws.write_number(r, 2, d["n"], f["int"])
+            ws.write_number(r, 3, d["win"] / 100.0, f["pct1"])
+            ws.write_number(r, 4, d["be"] / 100.0, f["pct1"])
+            ws.write_number(r, 5, d["cost"] / 100.0, f["pct1"])
+            ws.write_number(r, 6, d["avg"], f["good"] if d["avg"] > 0 else f["bad"])
+            ws.write_number(r, 7, d["tot"], f["num1"])
+            ws.write_number(r, 8, d["pf"], f["num3"])
+            ws.write_number(r, 9, d["lo"], f["num3"])
+            ws.write_number(r, 10, d["hi"], f["num3"])
+            ws.write_number(r, 11, d["p_pos"] / 100.0, f["pct1"])
+            r += 1
+        r += 1
+
+    block("Hourly, pooled across ETH + LINK + SOL", list(h["pooled"].items()))
+    block("15m, pooled (same rules, unchanged parameters)", list(m["pooled"].items()))
+
+    per = []
+    for sym, short in symbols:
+        for label in ("v1  6-8 band (all setups)", "v2  6-8, no RANGE_FADE, shipped geom",
+                      "v2b 6-8, no RANGE_FADE, x1.6 / 4R"):
+            d = h["per_symbol"][sym].get(label)
+            if d:
+                per.append((f"{short} - {label}", d))
+    block("Hourly, per symbol", per)
+
+    ts = []
+    for label, halves in h["time_split"].items():
+        for half in ("H1", "H2"):
+            if halves.get(half):
+                ts.append((f"{label} - {half}", halves[half]))
+    block("Hourly, time split - does it hold in both halves?", ts)
+
+    cut = [(f"HOURLY  dropped: {k}", v) for k, v in h["cut"].items()]
+    cut += [(f"15m     dropped: {k}", v) for k, v in m["cut"].items()]
+    block("What was cut, and whether cutting it was justified", cut)
+
+    ws.write(r, 1, "The verdict", f["key"])
+    ws.write(r, 2, "", f["key"])
+    r += 1
+    for line in [
+        "v2b is better than the shipped book on every dimension measured: +0.269 R against +0.177, profit "
+        "factor 1.47 against 1.26, a 8.9-point win-rate cushion over breakeven against 5.4, positive on all "
+        "three symbols, and positive in BOTH sample halves (+0.142 and +0.379) where the v1 band was much "
+        "weaker in the first.",
+        "It still does not clear the significance bar. The 95% interval is [-0.118, +0.732] and P(avg R > 0) "
+        "is 89.5%. Every improvement in this study has raised the point estimate without narrowing the "
+        "interval, because 1,137 overlapping trades carry far less information than the count suggests.",
+        "The strongest result in the whole study is the asymmetry between those two facts. On 15m data - a "
+        "different timeframe, mostly different bars - the two things that were CUT are significantly "
+        "negative: conviction 8-10 at [-0.439, -0.035] and RANGE_FADE at [-0.609, -0.068], both intervals "
+        "excluding zero. The thing that was KEPT is not significantly positive anywhere.",
+        "That is the practical lesson. This study can tell you what to stop doing with real confidence. It "
+        "cannot yet tell you what to start doing. Cutting the 8-10 bucket and deleting RANGE_FADE are "
+        "supported; treating v2b's +0.269 R as an expected return is not.",
+    ]:
+        ws.write(r, 2, "- " + line, f["wrap"])
+        ws.set_row(r, 12.5 * (len(line) // 100 + 1))
+        r += 1
+
+    r += 1
+    ws.write(r, 1, "Source: backtest/system_v2.py. Confidence intervals are block bootstraps resampling "
+                   "one-week blocks of entry bars, 4,000 resamples. Percentages stored as fractions.",
+             f["note"])
 
 
 def write_equity(wb, f, symbols, all_rows, sel_rows):
