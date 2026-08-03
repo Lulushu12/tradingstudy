@@ -1,4 +1,20 @@
-# Generated trade logs (~24 MB). Fully reproducible via run_backtest.py, and
-# every row is already present in the delivered workbook.
-data/*_trades.csv
 __pycache__/
+data/_candidates.json
+
+# Multi-asset OHLCV for the H3-Multi universe: 25 symbols x 3 windows, ~350 MB
+# and fully reproducible from data/_universe.json via fetch_universe.py. The
+# three symbols the study was built on stay tracked, since every result in the
+# workbook depends on those exact files.
+data/*_1h.csv
+data/*_1h_prior.csv
+data/*_1h_early.csv
+data/*_15m.csv
+!data/ETHUSDT_*
+!data/LINKUSDT_*
+!data/SOLUSDT_*
+
+# Generated trade logs (~24 MB). Fully reproducible via run_backtest.py, and
+# every row is already present in the delivered workbook. This rule comes AFTER
+# the negations above so it still applies to the three tracked symbols - git
+# takes the last matching pattern, so ordering here is load-bearing.
+data/*_trades.csv
