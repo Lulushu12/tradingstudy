@@ -64,6 +64,7 @@ class Signals:
     target: pd.Series = None
     exit_long: pd.Series = None     # optional discretionary/indicator exit
     exit_short: pd.Series = None
+    limit: pd.Series = None         # resting limit price, see run()
     meta: dict = field(default_factory=dict)
 
 
@@ -87,6 +88,7 @@ def run(df, sig, max_bars=None, allow_pyramiding=False, cost_bps=0.0,
     tgt = _arr(sig.target, len(df), np.nan, float)
     xl = _arr(sig.exit_long, len(df), False)
     xs = _arr(sig.exit_short, len(df), False)
+    lim = _arr(sig.limit, len(df), np.nan, float)
 
     trades = []
     pos = 0
@@ -122,18 +124,40 @@ def run(df, sig, max_bars=None, allow_pyramiding=False, cost_bps=0.0,
                                     stop, target, reason, i - entry_i))
                 pos = 0
 
-        # ---- look for a new signal on bar i, fill at bar i+1 open
+        # ---- look for a new signal on bar i
         if pos == 0 or allow_pyramiding:
             side = 1 if lng[i] else (-1 if sht[i] else 0)
             if side:
-                fill = o[i + 1]
+                lp = lim[i]
+                if np.isnan(lp):
+                    # market order: fill at the NEXT bar's open
+                    fill, fill_i = o[i + 1], i + 1
+                else:
+                    # resting limit order: the strategy placed this level before
+                    # the bar traded, so a bar whose range covers it fills AT it.
+                    # Modelling these as market-on-next-open would test a
+                    # different strategy, one that chases after the touch.
+                    if not (l[i] <= lp <= h[i]):
+                        continue
+                    fill, fill_i = lp, i
+
                 s = stp[i]
                 if np.isnan(s) and stop_pct:
                     s = fill * (1 - side * stop_pct / 100)
                 t = tgt[i]
                 if np.isnan(t) and target_r and not np.isnan(s):
                     t = fill + side * abs(fill - s) * target_r
-                pos, entry, stop, target, entry_i = side, fill, s, t, i + 1
+                pos, entry, stop, target, entry_i = side, fill, s, t, fill_i
+
+                # A limit fill happens mid bar, so that same bar may also reach
+                # the stop. Intrabar order is unknowable, so assume the worst
+                # and close it here rather than granting a free bar.
+                if fill_i == i and not np.isnan(s):
+                    hit = (l[i] <= s) if side == 1 else (h[i] >= s)
+                    if hit:
+                        trades.append(Trade(side, idx[i], entry, idx[i], s,
+                                            s, t, "stop", 0))
+                        pos = 0
 
     if pos != 0:
         trades.append(Trade(pos, idx[entry_i], entry, idx[-1], c[-1],

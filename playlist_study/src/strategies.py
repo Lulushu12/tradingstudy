@@ -54,6 +54,7 @@ def s1_fib_abcd(df, cfg):
     never exceeding its far edge. Exceeding the far edge kills the setup.
     """
     long_s, short_s, stop_s, tgt_s = cv.empty_signals(df)
+    lim_s = pd.Series(np.nan, index=df.index)
     lo = df["low"].to_numpy(float)
     hi = df["high"].to_numpy(float)
 
@@ -98,8 +99,9 @@ def s1_fib_abcd(df, cfg):
                     short_s.iloc[i] = leg["dir"] != 1
                     stop_s.iloc[i] = lvl(1.0)
                     tgt_s.iloc[i] = lvl(0.0)
+                    lim_s.iloc[i] = lvl(0.88)   # the entry is a resting limit
                     break
-    return bt.Signals(long_s, short_s, stop_s, tgt_s)
+    return bt.Signals(long_s, short_s, stop_s, tgt_s, limit=lim_s)
 
 
 # ------------------------------------------------- S2: Donchian + LWTI + volume
@@ -360,6 +362,7 @@ def s9_smc(df, cfg):
     """
     sw = set(cfg.variant.split("+")) if cfg.variant else set()
     long_s, short_s, stop_s, tgt_s = cv.empty_signals(df)
+    lim_s = pd.Series(np.nan, index=df.index)
 
     ph, pl = ta.pivots(df["high"], df["low"], cv.PIVOT_LEFT, cv.PIVOT_RIGHT)
     ph_f, pl_f = ph.ffill(), pl.ffill()
@@ -442,21 +445,24 @@ def s9_smc(df, cfg):
                 continue
 
             stop = swept_px
+            # entry is a limit resting at the gap edge, so price is measured
+            # from that level rather than from the touching bar's close
             if "liq" in sw:
                 opp = phv[hit] if side == 1 else plv[hit]
                 tgt = opp if not np.isnan(opp) else np.nan
-                if not np.isnan(tgt) and ((side == 1 and tgt <= cl[hit]) or
-                                          (side == -1 and tgt >= cl[hit])):
-                    tgt = cl[hit] + side * abs(cl[hit] - stop) * cfg.target_r
+                if not np.isnan(tgt) and ((side == 1 and tgt <= entry_ref) or
+                                          (side == -1 and tgt >= entry_ref)):
+                    tgt = entry_ref + side * abs(entry_ref - stop) * cfg.target_r
             else:
-                tgt = cl[hit] + side * abs(cl[hit] - stop) * cfg.target_r
+                tgt = entry_ref + side * abs(entry_ref - stop) * cfg.target_r
 
             (long_s if side == 1 else short_s).iloc[hit] = True
             stop_s.iloc[hit] = stop
             tgt_s.iloc[hit] = tgt
+            lim_s.iloc[hit] = entry_ref
             i = hit + 1
 
-    return bt.Signals(long_s, short_s, stop_s, tgt_s)
+    return bt.Signals(long_s, short_s, stop_s, tgt_s, limit=lim_s)
 
 
 # ------------------------------------------------------------------- registry

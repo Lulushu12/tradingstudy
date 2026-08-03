@@ -29,10 +29,12 @@ TAKER_BPS = 8.0     # Binance USD-M perp, 0.04% per side round trip
 
 def run_one(name, fn, tf, cfg, symbol="BTCUSDT", min_bars=500):
     df = dat.load_tf(symbol, tf, verbose=False)
-    segs = dat.contiguous_segments(df, "15m" if tf in dat.DERIVE_FROM_15M else tf,
-                                   min_bars=min_bars)
+    # The step must match the frame's own timeframe. Passing the source
+    # timeframe for a resampled frame makes every bar look like a gap, which
+    # silently disables the gap guard instead of failing.
+    segs = dat.contiguous_segments(df, tf, min_bars=min_bars)
     if not segs:
-        segs = [df]
+        raise RuntimeError(f"{name}: no contiguous segment of >={min_bars} bars at {tf}")
     trades = []
     for seg in segs:
         if len(seg) < min_bars:
