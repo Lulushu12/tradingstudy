@@ -89,9 +89,50 @@ Net: the level-rejection shorts and double-tops confirm the same underlying edge
 strategy, and the only signals that *touch* 60%/1:1 do so at unusably low frequency. None
 change the headline verdict.
 
+## Follow-up: divergence restricted to the swing-extreme candle (sfp_divergence.py)
+
+Hypothesis tested: the baseline RSI divergence fires at pivot *confirmation* — 3 bars
+after the swing extreme — so part of the reversal is already spent by entry. Restrict
+the divergence to be valid only when the **signal candle IS the extreme candle** (it
+sweeps the prior pivot high/low with weaker RSI and closes back through it = swing
+failure pattern, "offset 0") **or is the candle right after** the extreme ("offset 1").
+Reference swing = last confirmed fractal pivot (causal, same left/right=3 machinery).
+
+**The hypothesis is confirmed on 4H.** Catching the divergence at the extreme instead
+of 3 bars late improves winrate across the board (4H, atr_mult=1.2, train/test):
+
+- Bearish @1:1: baseline 51.5%/51.6% (≈breakeven 51.9%) → SFP-timed 57.1%/53.0% (n=310/83).
+- Bullish @1:1: baseline 52.7%/43.5% (fails OOS) → SFP-timed 53.7%/56.3% (n=229/103).
+- Offset 0 and offset 1 perform about equally; the union is fine. On the bull side the
+  candle-after variant is slightly more reliable than the extreme candle itself.
+
+**Standout: SFP-timed bearish divergence WITH the trend (short, close<EMA200 on 4H)** —
+i.e. a failed sweep of a prior swing high inside a downtrend (a lower-high rejection):
+
+- @1:1 (1.5×ATR stop, sim): 64.1% train / 64.0% test (breakeven 51.5%), expR ~+0.24 both.
+- @2:1: 45.7%/56.0% (breakeven 34.3%), expR +0.33 train / +0.64 test.
+- Survives dedup to first-signal-per-swing (63%/71% @1:1, expR +0.31/+0.67 @2:1).
+- BUT: n=117 raw (~1.8/month), n=63 deduped (~1/month). Small sample (test SE ~9%),
+  same caveat as the level-rejection shorts in the confluence pass — the true rate
+  could be mid-50s. It is the only divergence variant in the whole study that clears
+  60% @1:1 out-of-sample.
+
+The classic *counter-trend* use (shorting bearish divergence in an uptrend, longing
+bullish divergence in a downtrend) is negative even with SFP timing — the edge is the
+trend-continuation rejection, consistent with everything else in this study.
+
+On 1h the fee drag still kills it (SFP bear+dn: 64.3% train but 53.9% test vs 54.6%
+breakeven @1:1) — no robust 1h edge, matching the earlier passes.
+
+Net: the timing restriction genuinely rescues divergence from "rejected" to "modest
+real edge" on 4H, and the with-trend short variant is the best @1:1 signal found so
+far — but at ~1-2 trades/month it complements, rather than replaces, the volume-spike
+strategy (which delivers ~8/month at expR +0.21).
+
 ## Reproduce
 
 `study/` — `dataload.py` (clean parquet), `indicators.py` (causal indicators),
 `engine.py` (fee/R backtest), `research.py`/`batch_scan.py` (edge scan),
 `fourh_deep.py` (per-year stability), `finalists.py` (equity/DD), `intrabar.py`
-(15m-path validation). Run via `./run.sh <script>`.
+(15m-path validation), `sfp_divergence.py` (swing-failure-timed divergence).
+Run via `./run.sh <script>`.
