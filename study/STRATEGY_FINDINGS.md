@@ -235,6 +235,59 @@ strategy as "real". The star + partial-TP exit is now validated by: train/test
 split, dedup, exit-scheme robustness, and year-by-year walk-forward. Remaining
 weaknesses: single asset, single venue fee model, and ~1-2 trades/month.
 
+### Five-part validation & extension sweep (xrp_validation / sfp_intrabar / portfolio / maker_entry / unify)
+
+**1) Cross-asset (XRP): the edge does NOT transfer.** Identical star rules on
+XRPUSDT.P 4H (resampled from the 15m exports, fees identical, feeR tiny at 0.02):
+train expectancy negative on every exit (-0.11 to -0.26R), 3-4/7 positive years,
+and the strong 2025-26 test numbers mirror BTC's — regime, not signal. The
+unified sweep family (below) also fails on XRP (both sides negative, 2/7 and 2/6
+positive years). Conclusion: this is a BTC-specific edge (or at least not a
+universal one) — deploy only where validated.
+
+**2) True 15m-path resolution: PASSED.** Every star trade replayed on the 15m
+path (fixed 1R/2R/3R and the partial+trail with causally-ratcheted 4H trail):
+results match the 4H nearest-open sims to the third decimal (trail +0.355/+0.976
+train/test, identical WR). With a 1.5*ATR stop, same-bar collisions are too rare
+to matter. The exit numbers are not an intrabar artifact.
+
+**3) Portfolio (volspike 2R + star short trail + bull mirror trail).** Monthly
+net-R correlations: volspike-star 0.20, volspike-bull 0.19, star-bull -0.03 —
+genuine diversification (only 14% of months have volspike and star both
+negative, despite 56% of star entries opening during a live volspike trade).
+Combined book: 1057 trades, expR +0.264, positive EVERY year 2021-2026.
+Sizing (concurrent, all signals): 1% risk -> CAGR +63%, maxDD -21.6%; 0.5% ->
++28.5%, -11.3%; single-position 0.5% -> +14.3%, -8.2%. To respect the 6% DD cap:
+~0.25-0.3% risk concurrent, giving roughly 1.1-1.3%/month — the diversification
+roughly doubles the return available at the same DD budget vs volspike alone.
+
+**4) Maker entries: marginal on 4H, interesting on 1h.** Limit at the signal
+close fills ~100% (next bar opens there) and saves only ~0.01R on 4H — fees were
+already negligible there. A 0.2R-retracement limit fills 56%, improves per-trade
+train expectancy (+0.50R @2R) but skips the best immediate-dump winners; total R
+favors taking every signal at market. On 1h the retracement limit @2R is the
+first both-halves-positive 1h cell with real sample (+0.35/+0.09, n=51/99) — but
+the trail exit on the same entries disagrees (-0.12 test), so: candidate bin.
+
+**5) Unification: the sweep is the edge; divergence is a booster.** Decomposing
+"failed sweep of the last confirmed 4H swing high, downtrend" into with-div
+(=star) and without-div parts:
+
+| variant (short) | n | 2R tr/te | trail tr/te |
+|---|---|---|---|
+| SWEEP (all)   | 485 | +0.28/+0.31 | +0.18/+0.47 |
+| STAR (w/ div) | 117 | +0.33/+0.64 | +0.36/+0.98 |
+| NODIV         | 368 | +0.26/+0.23 | +0.12/+0.36 |
+
+The no-divergence rejections are positive in both halves on every exit — the
+base edge is the failed sweep itself. RSI divergence adds a real increment
+(~+0.1-0.3R when present) but is not load-bearing. The long mirror behaves the
+same (SWEEP long n=468, trail +0.26/+0.25). Walk-forward: SWEEP short 6/6
+positive years, SWEEP long 5/6 (2022 flat). Both sides together: ~950 trades,
+**~14.5/month** — the frequency problem of the star is solved by trading the
+whole family and treating divergence as a sizing/quality tier rather than a
+requirement. (XRP caveat from part 1 applies: BTC-only.)
+
 ### Multi-TF filters on the lower-TF entries (mtf_stack.py)
 
 The lower-TF samples are large (star shorts: 1h=236, 30m=709, 15m=1395), so we
@@ -335,5 +388,7 @@ not yet a tradeable edge.
 `fourh_deep.py` (per-year stability), `finalists.py` (equity/DD), `intrabar.py`
 (15m-path validation), `sfp_divergence.py` (swing-failure-timed divergence),
 `sfp_exits.py` (exit engineering on the SFP entries), `mtf_stack.py` (multi-TF
-filters on lower-TF entries), `osc4h_filter.py` (oscillator-state filters), `sfp_walkforward.py` (per-year walk-forward).
+filters on lower-TF entries), `osc4h_filter.py` (oscillator-state filters), `sfp_walkforward.py` (per-year walk-forward), `xrp_validation.py` (cross-asset),
+`sfp_intrabar.py` (15m-path resolution), `portfolio.py` (combined book),
+`maker_entry.py` (maker-fee entries), `unify.py` (sweep-family decomposition).
 Run via `./run.sh <script>`.
