@@ -164,10 +164,60 @@ smaller than the fee hurdle. The signal's home is 4H (and the ordering matches t
 study's standing result: no lower-TF edge survives costs). 1m was skipped — only ~3
 months of data, and 5m already settles the direction of travel.
 
+### Exit engineering on the SFP entries (sfp_exits.py)
+
+Tested on the same entries: higher fixed targets (2R-6R), the earlier hybrid
+(half@2R + half on a 3-ATR chandelier trail), and the partial-TP family — 50% off
+at +1R with stop to entry, then either (a) 50% of the remainder at every further R
+multiple, (b) 50% of the remainder at each significant level (confirmed pivots known
+at entry), or (c) the whole remainder riding the 3-ATR trail. Stops ratchet behind
+each filled rung. 4H star entries (SFP bear + downtrend, n=92 train / 25 test):
+
+| Exit                        | train expR | test expR | WR tr/te | median R | shape |
+|-----------------------------|-----------|-----------|----------|----------|-------|
+| fixed 2R                    | +0.33 | +0.64 | 46%/56%  | -1.0 | baseline |
+| **fixed 3R**                | +0.49 | +0.88 | 38%/48%  | -1.0 | best pure target |
+| fixed 4R                    | +0.43 | +0.36 | 29%/28%  | -1.0 | decaying |
+| fixed 5R / 6R               | +0.6/+0.8 | +0.16/+0.36 | ~20% te | -1.0 | tail overfit |
+| hybrid half@2R + 3ATR trail | +0.40 | +1.36 | 44%/56%  | -0.3 | biggest tail |
+| **half@1R->BE + 3ATR trail**| +0.36 | +0.98 | **64%/64%** | **+0.47** | high WR + runners |
+| ladder R-multiples          | +0.28 | +0.43 | 64%/64%  | +0.47 | smooth, capped |
+| ladder pivot levels         | +0.26 | +0.32 | 64%/64%  | +0.71 | smooth, capped |
+
+Findings:
+
+- **The 1R partial + breakeven move is the valuable half of the idea.** It lifts
+  winrate from ~46% to 64% (71% on deduped entries) and turns the median trade
+  positive — the SFP entry almost always gets >=1R of follow-through, and the BE
+  stop converts many would-be -1R losers into scratches.
+- **Halving at every subsequent rung is the costly half.** Geometric scale-out caps
+  a full winner near 2R (sum k/2^k = 2), so both ladders give back expectancy
+  (+0.28/+0.43 vs +0.49/+0.88 for plain 3R). Pivot-level rungs sit even closer than
+  R-multiples and cap harder. Smoothest equity of everything tested, but the
+  weakest per-trade edge of the positive schemes.
+- **Best combination: take 50% at 1R, stop to entry, and trail the ENTIRE remainder
+  (3-ATR chandelier) instead of laddering it out.** Keeps the 64% WR and the +0.5R
+  median AND keeps the +5R to +7R runners: +0.36R train / +0.98R test (deduped:
+  +0.35/+1.43). Per-trade edge on par with fixed 3R, with a far friendlier
+  distribution (most trades small wins instead of 60% -1R losers).
+- **Fixed 3R is the best simple target** (+0.49/+0.88). Beyond 3R the train edge
+  keeps "improving" while test collapses — the extra R is in-sample tail fitting.
+  The long side (SFP bull + uptrend) peaks at 3-4R too (+0.61/+0.66, +0.66/+1.09).
+- **No exit scheme rescues the lower timeframes.** 1h: every scheme positive in
+  train, negative in test (half@1R: +0.20/-0.12). 30m: train and test never agree
+  on a positive sign (best: +0.015/+0.19 fixed 2R). 15m: all schemes negative in
+  both halves. The exit changes the shape of the distribution, not the sign of the
+  edge minus fees.
+
+Caveat as before: the star test set is 25 trades (14 deduped) — the trail/test
+expectancies above carry ~0.2-0.4R standard errors and the hybrid's +1.36 is
+driven by a handful of +6R runners. The robust statements are the WR jump from the
+1R/BE step (consistent train==test) and the 3R-over-2R improvement (both halves).
+
 ## Reproduce
 
 `study/` — `dataload.py` (clean parquet), `indicators.py` (causal indicators),
 `engine.py` (fee/R backtest), `research.py`/`batch_scan.py` (edge scan),
 `fourh_deep.py` (per-year stability), `finalists.py` (equity/DD), `intrabar.py`
-(15m-path validation), `sfp_divergence.py` (swing-failure-timed divergence).
-Run via `./run.sh <script>`.
+(15m-path validation), `sfp_divergence.py` (swing-failure-timed divergence),
+`sfp_exits.py` (exit engineering on the SFP entries). Run via `./run.sh <script>`.
