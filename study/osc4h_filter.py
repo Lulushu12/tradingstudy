@@ -71,6 +71,8 @@ def run_tf(tf, close4, F4):
     Lz = np.zeros(n, bool)
     for vname, mask in variants.items():
         print(f"  -- {vname}  (n={int(mask.sum())})")
+        if not mask.any():
+            continue
         for rr in [1.0, 2.0]:
             report(f"fixed {rr:.0f}R", run_fixed(df, Lz, mask, rr=rr),
                    breakeven_wr(rr, sfmean))
