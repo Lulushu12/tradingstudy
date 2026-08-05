@@ -46,6 +46,30 @@ def wavetrend(df, n1=10, n2=21):
     wt2 = sma(wt1, 4)
     return wt1, wt2
 
+def mfi(df, n=14):
+    """Money Flow Index (volume-weighted RSI analogue), 0-100."""
+    tp = (df["high"]+df["low"]+df["close"])/3
+    mf = tp*df["volume"]
+    d = tp.diff()
+    pos = mf.where(d > 0, 0.0).rolling(n).sum()
+    neg = mf.where(d < 0, 0.0).rolling(n).sum()
+    return 100 - 100/(1 + pos/neg.replace(0, np.nan))
+
+def adx(df, n=14):
+    """Wilder ADX with +DI/-DI. Returns (adx, di_plus, di_minus)."""
+    h, l, c = df["high"], df["low"], df["close"]
+    up = h.diff()
+    dn = -l.diff()
+    dm_p = up.where((up > dn) & (up > 0), 0.0)
+    dm_m = dn.where((dn > up) & (dn > 0), 0.0)
+    pc = c.shift(1)
+    tr = pd.concat([(h-l), (h-pc).abs(), (l-pc).abs()], axis=1).max(axis=1)
+    atr_ = tr.ewm(alpha=1/n, adjust=False).mean()
+    di_p = 100*dm_p.ewm(alpha=1/n, adjust=False).mean()/atr_
+    di_m = 100*dm_m.ewm(alpha=1/n, adjust=False).mean()/atr_
+    dx = 100*(di_p-di_m).abs()/(di_p+di_m).replace(0, np.nan)
+    return dx.ewm(alpha=1/n, adjust=False).mean(), di_p, di_m
+
 def rolling_vwap(df, n=20):
     tp = (df["high"]+df["low"]+df["close"])/3
     pv = (tp*df["volume"]).rolling(n).sum()
@@ -145,7 +169,9 @@ def enrich(df):
     bmid, bup, blo = bollinger(df["close"])
     df["bb_mid"], df["bb_up"], df["bb_lo"] = bmid, bup, blo
     df["wt1"], df["wt2"] = wavetrend(df)
+    df["adx14"], df["di_p"], df["di_m"] = adx(df, 14)
     if df["volume"].notna().any():
+        df["mfi14"] = mfi(df, 14)
         df["vwap_d"] = anchored_daily_vwap(df)
         df["vol_ma20"] = sma(df["volume"], 20)
         df["vol_ratio"] = df["volume"]/df["vol_ma20"]
