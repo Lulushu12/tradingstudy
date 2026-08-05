@@ -214,6 +214,27 @@ expectancies above carry ~0.2-0.4R standard errors and the hybrid's +1.36 is
 driven by a handful of +6R runners. The robust statements are the WR jump from the
 1R/BE step (consistent train==test) and the 3R-over-2R improvement (both halves).
 
+### Year-by-year walk-forward of the 4H star (sfp_walkforward.py)
+
+Fixed rules, zero fitting, evaluated per calendar year 2021-2026 (2026 = half year):
+
+- **half@1R->BE + 3-ATR trail: positive in ALL SIX years**, raw (+0.49R avg, worst
+  year 2024 at +0.20) and deduped (+0.59R avg, worst year +0.04). WR by year stays
+  in the 56-78% band, never below the 51.5% 1:1 breakeven.
+- **Fixed 1R: also 6/6 positive years** (+0.24R avg) — the winrate floor of the
+  signal is real, not a train/test artifact.
+- **Fixed 2R and 3R: 5/6** — both lose only 2024 (-0.28R / -0.53R), the chop year.
+  Full-distance targets die in chop; the 1R-partial + breakeven schemes survived
+  2024 because most trades banked the partial before the reversal.
+- **The bull mirror (SFP bull + uptrend, trail exit) is also 6/6 positive**
+  (+0.50R avg, n=82) — weaker per the train/test split but consistent per year.
+  Both sides together = ~200 trades, ~3/month.
+
+This is the same per-year consistency profile that qualified the volume-spike
+strategy as "real". The star + partial-TP exit is now validated by: train/test
+split, dedup, exit-scheme robustness, and year-by-year walk-forward. Remaining
+weaknesses: single asset, single venue fee model, and ~1-2 trades/month.
+
 ### Multi-TF filters on the lower-TF entries (mtf_stack.py)
 
 The lower-TF samples are large (star shorts: 1h=236, 30m=709, 15m=1395), so we
@@ -314,5 +335,5 @@ not yet a tradeable edge.
 `fourh_deep.py` (per-year stability), `finalists.py` (equity/DD), `intrabar.py`
 (15m-path validation), `sfp_divergence.py` (swing-failure-timed divergence),
 `sfp_exits.py` (exit engineering on the SFP entries), `mtf_stack.py` (multi-TF
-filters on lower-TF entries), `osc4h_filter.py` (4H oscillator-state filters).
+filters on lower-TF entries), `osc4h_filter.py` (oscillator-state filters), `sfp_walkforward.py` (per-year walk-forward).
 Run via `./run.sh <script>`.
