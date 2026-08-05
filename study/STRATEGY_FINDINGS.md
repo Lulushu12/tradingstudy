@@ -214,10 +214,40 @@ expectancies above carry ~0.2-0.4R standard errors and the hybrid's +1.36 is
 driven by a handful of +6R runners. The robust statements are the WR jump from the
 1R/BE step (consistent train==test) and the 3R-over-2R improvement (both halves).
 
+### Multi-TF filters on the lower-TF entries (mtf_stack.py)
+
+The lower-TF samples are large (star shorts: 1h=236, 30m=709, 15m=1395), so we
+tried buying back edge with harder filters: 4H bias (trend on the last closed 4H
+bar; active 4H SFP divergence within 6 closed 4H bars) and a divergence stack from
+the timeframe below (15m->1h, 15m->30m, 5m->15m), all merged as-of by bar close.
+Exits: fixed 1R, fixed 2R, half@1R->BE+trail. Result: **no rescue.**
+
+- **The 4H trend gate HURTS.** Everywhere, replacing or adding the 4H trend to the
+  local trend made both halves worse (1h star&4H-dn: -0.12R test @1R vs -0.05
+  unfiltered). The local-TF EMA200 was already the informative conditioning; the
+  4H bias adds correlation, not information.
+- **The 4H-divergence gate shrinks samples to anecdotes.** 4H divergences are rare,
+  so requiring one leaves n=12/19/46 trades on 1h/30m/15m — the shiny cells in
+  those rows (e.g. 80% WR on 10 test trades) are unusable noise, and on 15m the
+  same gate is strongly negative.
+- **The lower-TF divergence stack fails out-of-sample.** On 1h it is the classic
+  overfit signature: train improves (+0.51R @2R), test worsens (-0.26R). On 15m it
+  changes nothing. The single both-halves-positive cell in the whole grid is
+  30m star + 15m stack @2R (+0.07 train / +0.11 test, n=300/126) — but its test
+  edge is within one standard error of zero, the other two exits on the same
+  entries don't confirm it, and its per-trade edge is a quarter of the 4H star's.
+- **Full stack (everything at once): n=2 (1h), 10 (30m), 23 (15m)** — and the 15m
+  version goes 60% WR train -> 0% test. Maximum confluence = maximum overfit.
+
+Verdict: confluence layers repeat the Section-A lesson from the confluence pass —
+each added filter shrinks the sample faster than it adds edge. The lower-TF SFP
+entries stay dead; the 4H signal stays the tradeable one.
+
 ## Reproduce
 
 `study/` — `dataload.py` (clean parquet), `indicators.py` (causal indicators),
 `engine.py` (fee/R backtest), `research.py`/`batch_scan.py` (edge scan),
 `fourh_deep.py` (per-year stability), `finalists.py` (equity/DD), `intrabar.py`
 (15m-path validation), `sfp_divergence.py` (swing-failure-timed divergence),
-`sfp_exits.py` (exit engineering on the SFP entries). Run via `./run.sh <script>`.
+`sfp_exits.py` (exit engineering on the SFP entries), `mtf_stack.py` (multi-TF
+filters on lower-TF entries). Run via `./run.sh <script>`.
