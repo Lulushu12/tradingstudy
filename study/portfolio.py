@@ -19,6 +19,9 @@ from finalists import build_trades, sim_equity, fmt
 from sfp_divergence import sfp_divergence
 from sfp_exits import run_half1R_trail
 
+import sys
+USE_SWEEP = "star" not in sys.argv[1:]   # default: unified sweep family streams
+
 def norm(tr, name):
     t = tr.copy()
     t["outcome"] = np.where(t["net_R"] > 0, "target", "stop")
@@ -32,19 +35,28 @@ def monthly_R(t):
 def main():
     df = ind.enrich(pd.read_parquet("data/4H.parquet"))
     n = len(df)
-    m = sfp_divergence(df)
-    dn = (df["close"] < df["ema200"]).values
-    star = (m["bear0"] | m["bear1"]) & dn
-    bull = (m["bull0"] | m["bull1"]) & ~dn
     Lz = np.zeros(n, bool)
+    if USE_SWEEP:
+        from unify import sweep_masks
+        M = sweep_masks(df)
+        dn = (df["close"] < df["ema200"]).values
+        short_m = (M["swp_bear0"] | M["swp_bear1"]) & dn
+        long_m = (M["swp_bull0"] | M["swp_bull1"]) & ~dn
+        b_name, c_name = "sweepShort", "sweepLong"
+    else:
+        m = sfp_divergence(df)
+        dn = (df["close"] < df["ema200"]).values
+        short_m = (m["bear0"] | m["bear1"]) & dn
+        long_m = (m["bull0"] | m["bull1"]) & ~dn
+        b_name, c_name = "starShort", "bullMirror"
 
     A = norm(build_trades(df, "volspike", 2.0), "volspike2R")
-    B = norm(run_half1R_trail(df, Lz, star, k=3.0), "starShort")
-    C = norm(run_half1R_trail(df, bull, Lz, k=3.0), "bullMirror")
+    B = norm(run_half1R_trail(df, Lz, short_m, k=3.0), b_name)
+    C = norm(run_half1R_trail(df, long_m, Lz, k=3.0), c_name)
     combo = pd.concat([A, B, C]).sort_values("entry_time").reset_index(drop=True)
 
     print("===== per-stream (concurrent, 1% risk) =====")
-    for t, name in [(A, "A volspike 2R"), (B, "B star short"), (C, "C bull mirror")]:
+    for t, name in [(A, "A volspike 2R"), (B, f"B {b_name}"), (C, f"C {c_name}")]:
         _, met = sim_equity(t, mode="concurrent")
         print(f"  {name:15}", fmt(met))
 
@@ -55,6 +67,8 @@ def main():
     both_neg = ((M["A"] < 0) & (M["B"] < 0)).mean()
     print(f"  months A and B both negative: {both_neg:.0%}   "
           f"(A neg: {(M['A']<0).mean():.0%}, B neg: {(M['B']<0).mean():.0%})")
+    all_neg = ((M["A"] < 0) & (M["B"] < 0) & (M["C"] < 0)).mean()
+    print(f"  months all three negative: {all_neg:.0%}")
 
     # overlap: star trades opened while a volspike trade is running
     a_iv = list(zip(A["entry_time"], A["exit_time"]))

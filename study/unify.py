@@ -82,6 +82,10 @@ def main(asset="btc"):
         from xrp_validation import load_xrp_4h
         df = ind.enrich(load_xrp_4h())
         print("===== XRP =====")
+    elif asset == "eth":
+        from eth_validation import load_eth_4h
+        df = ind.enrich(load_eth_4h())
+        print("===== ETH =====")
     else:
         df = ind.enrich(pd.read_parquet("data/4H.parquet"))
     n = len(df)

@@ -288,6 +288,32 @@ positive years, SWEEP long 5/6 (2022 flat). Both sides together: ~950 trades,
 whole family and treating divergence as a sizing/quality tier rather than a
 requirement. (XRP caveat from part 1 applies: BTC-only.)
 
+### Sweep-family portfolio + ETH validation (portfolio.py / eth_validation.py)
+
+**ETH (ETHUSDT.P 4H, 2021-01..2026-07, Binance archive data): weakly positive —
+between BTC and XRP.** Sweep short trail: +0.02R train / +0.18R test, 5/6 positive
+years (only 2024 negative, the same chop year that dented BTC); sweep long:
++0.08/+0.11, 4/6 years. Roughly a third of BTC's per-trade edge, same direction.
+The divergence booster does NOT help on ETH (star short trail -0.01/-0.09).
+Asset ladder: BTC strong, ETH weak-positive, XRP negative — consistent with a
+liquidity/structure-dependent microstructure edge, not pure curve-fit (a fit
+artifact would not order itself by asset liquidity). Deployment stays BTC-only;
+ETH is a no at current fees.
+
+**Portfolio with the unified sweep streams (BTC: volspike 2R + sweep short trail +
+sweep long trail).** Correlations: A-B 0.27, A-C 0.29, B-C -0.18; only 11% of
+months have all three streams negative. Combined: 1811 trades (~28/month),
+expR +0.238, positive every year (sumR +58 to +98 per year). Sizing:
+
+- concurrent 0.5% risk: CAGR +47%, maxDD -19.2%, mo_mean +3.4%;
+- concurrent ~0.15% risk fits the 6% DD cap -> roughly 1.0-1.1%/month;
+- single-position 0.5%: CAGR +9.4%, maxDD -7.7% (the conservative floor —
+  concurrent assumes every overlapping signal can be sized independently).
+
+Same headline as ever: the 6% DD cap prices returns at ~1%/month regardless of
+how the edge is packaged; the sweep streams raise trade count and smoothness,
+not the DD-capped return ceiling.
+
 ### Multi-TF filters on the lower-TF entries (mtf_stack.py)
 
 The lower-TF samples are large (star shorts: 1h=236, 30m=709, 15m=1395), so we
@@ -390,5 +416,6 @@ not yet a tradeable edge.
 `sfp_exits.py` (exit engineering on the SFP entries), `mtf_stack.py` (multi-TF
 filters on lower-TF entries), `osc4h_filter.py` (oscillator-state filters), `sfp_walkforward.py` (per-year walk-forward), `xrp_validation.py` (cross-asset),
 `sfp_intrabar.py` (15m-path resolution), `portfolio.py` (combined book),
-`maker_entry.py` (maker-fee entries), `unify.py` (sweep-family decomposition).
+`maker_entry.py` (maker-fee entries), `unify.py` (sweep-family decomposition),
+`eth_validation.py` (ETH data + validation).
 Run via `./run.sh <script>`.
