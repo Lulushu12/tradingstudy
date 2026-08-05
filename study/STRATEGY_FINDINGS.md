@@ -129,6 +129,41 @@ real edge" on 4H, and the with-trend short variant is the best @1:1 signal found
 far — but at ~1-2 trades/month it complements, rather than replaces, the volume-spike
 strategy (which delivers ~8/month at expR +0.21).
 
+### Lower timeframes: 1h / 30m / 15m / 5m — the SFP timing does NOT survive below 4H
+
+Same variants, trade-sim evaluated (1.5×ATR stop, rr=1 and rr=2, entry next bar open;
+30m synthesized by resampling the 15m data since there is no native 30m export).
+The fee arithmetic is the whole story — as the timeframe drops, the ATR stop shrinks
+as a fraction of price and the 0.08% round-trip fee eats a growing share of every R:
+
+| TF  | stop ~% of price | fee in R | breakeven WR @1:1 | @2:1 |
+|-----|-----------------|----------|-------------------|------|
+| 4H  | ~2.3%           | ~0.04R   | 51.5%             | 34.3% |
+| 1h  | ~1.10%          | ~0.07R   | 53.6%             | 35.8% |
+| 30m | ~0.89%          | ~0.09R   | 54.5%             | 36.3% |
+| 15m | ~0.62%          | ~0.13R   | 56.5%             | 37.6% |
+| 5m  | ~0.32%          | ~0.25R   | 62.6%             | 41.7% |
+
+- **1h — fails out-of-sample.** The 4H star (SFP bear + downtrend) looks great in
+  train (69.0% @1:1, expR +0.30) and dies in test (52.0% vs 53.6% breakeven, -0.05R;
+  @2:1 +0.20 train → -0.06 test). The only both-positive cell is baseline
+  bull-div + uptrend (n=29/43 — too small to mean anything).
+- **30m — breakeven at best.** SFP bear + downtrend @2:1: +0.015R train / +0.186R
+  test; baseline bear + downtrend: +0.119/+0.004. Train and test never agree on
+  anything being solidly positive; @1:1 everything is negative.
+- **15m — uniformly negative.** Every variant, both sides, both rr, train and test
+  (expR -0.05 to -0.35). Widening the stop to 3×ATR to dilute fees does not help.
+- **5m — hopeless.** Fees are 0.25R per trade; every variant loses -0.32 to -0.48R
+  @2:1. With 3×ATR stops still -0.11 to -0.32R. The with-trend SFP short remains the
+  *least bad* variant on every TF (the pattern is real), but the edge is ~5-8 WR
+  points over unconditional and the fee hurdle grows faster than that as TF drops.
+
+Conclusion: the swing-failure timing is a genuine ~4-6pp winrate improvement over
+late-confirmed divergence at every timeframe, but below 4H that improvement is
+smaller than the fee hurdle. The signal's home is 4H (and the ordering matches the
+study's standing result: no lower-TF edge survives costs). 1m was skipped — only ~3
+months of data, and 5m already settles the direction of travel.
+
 ## Reproduce
 
 `study/` — `dataload.py` (clean parquet), `indicators.py` (causal indicators),

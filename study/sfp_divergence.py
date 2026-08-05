@@ -118,18 +118,35 @@ def scan(tf, rr, atr_mult=1.2, min_n=25):
         print(f"  {name:34} {side:4} {wtr.mean():7.1%} {len(wtr):5d} "
               f"{wte.mean():7.1%} {len(wte):5d}{flag}")
 
-def trade_sim(tf="4H", rr=2.0):
-    df = ind.enrich(pd.read_parquet(f"data/{tf}.parquet"))
+def make_30m():
+    """Synthesize a 30m frame by resampling the 15m data (no native 30m export)."""
+    import os
+    if os.path.exists("data/30m.parquet"):
+        return
+    df = pd.read_parquet("data/15m.parquet").set_index("dt")
+    r = df.resample("30min").agg(open=("open", "first"), high=("high", "max"),
+                                 low=("low", "min"), close=("close", "last"),
+                                 volume=("volume", "sum")).dropna(subset=["open"])
+    r = r.reset_index()
+    r["time"] = ((r["dt"] - pd.Timestamp(0, tz="UTC")) // pd.Timedelta(seconds=1)).astype("int64")
+    r.to_parquet("data/30m.parquet")
+    print(f"built data/30m.parquet: {len(r)} bars {r['dt'].iloc[0]} -> {r['dt'].iloc[-1]}")
+
+def trade_sim(tf="4H", rr=2.0, atr_mult=1.5, df=None):
+    if df is None:
+        df = ind.enrich(pd.read_parquet(f"data/{tf}.parquet"))
     n = len(df)
-    sfmean = (1.5*df["atr14"]/df["open"].shift(-1)).mean()
+    sfmean = (atr_mult*df["atr14"]/df["open"].shift(-1)).mean()
     p_be = breakeven_wr(rr, sfmean)
     cut = pd.Timestamp("2024-12-31", tz="UTC").timestamp()
-    print(f"\n===== B) trade sim {tf}  run_fixed 1.5*ATR stop rr={rr} "
-          f"(breakeven WR~{p_be:.1%}) =====")
+    yrs = (df["time"].iloc[-1]-df["time"].iloc[0])/86400/365.25
+    print(f"\n===== B) trade sim {tf}  run_fixed {atr_mult}*ATR stop rr={rr} "
+          f"(stop~{sfmean:.3%} of price, feeR~{0.0008/sfmean:.2f}, "
+          f"breakeven WR~{p_be:.1%}) =====")
     for name, (side, mask) in variants(df).items():
         L = mask if side == "L" else np.zeros(n, bool)
         S = mask if side == "S" else np.zeros(n, bool)
-        t = run_fixed(df, L, S, rr=rr)
+        t = run_fixed(df, L, S, rr=rr, atr_mult=atr_mult)
         out = []
         for lab, sub in [("TR", t[t.entry_time < cut]), ("TE", t[t.entry_time >= cut])]:
             if not len(sub):
@@ -140,11 +157,28 @@ def trade_sim(tf="4H", rr=2.0):
         ok = (len(t[t.entry_time < cut]) and len(t[t.entry_time >= cut])
               and t[t.entry_time < cut]["net_R"].mean() > 0
               and t[t.entry_time >= cut]["net_R"].mean() > 0)
-        print(f"  {name:34} | " + " | ".join(out) + ("   <<<" if ok else ""))
+        freq = len(t)/(yrs*12)
+        print(f"  {name:34} | " + " | ".join(out) +
+              f" | {freq:5.1f}/mo" + ("   <<<" if ok else ""))
 
 if __name__ == "__main__":
-    for tf in ["4H", "1h"]:
-        for rr in [1.0, 2.0]:
-            scan(tf, rr)
-    trade_sim("4H", rr=2.0)
-    trade_sim("4H", rr=1.0)
+    import sys
+    tfs = sys.argv[1:]
+    if not tfs:                       # original 4H/1h study
+        for tf in ["4H", "1h"]:
+            for rr in [1.0, 2.0]:
+                scan(tf, rr)
+        trade_sim("4H", rr=2.0)
+        trade_sim("4H", rr=1.0)
+    else:
+        # lower-TF pass: trade sim only (the per-bar scan is O(n*max_bars) pure
+        # python -- impractical at 190k-530k bars; run_fixed walks signals only)
+        for tf in tfs:
+            if tf == "30m":
+                make_30m()
+            df = ind.enrich(pd.read_parquet(f"data/{tf}.parquet"))
+            for rr in [2.0, 1.0]:
+                trade_sim(tf, rr=rr, df=df)
+            if tf in ("15m", "5m"):   # wider-stop fee-mitigation check
+                for rr in [2.0, 1.0]:
+                    trade_sim(tf, rr=rr, atr_mult=3.0, df=df)
