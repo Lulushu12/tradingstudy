@@ -279,6 +279,34 @@ Verdict unchanged: 4H context (trend, structure, or momentum state) modulates th
 lower-TF edge but cannot overcome the fee hurdle. The exclusion findings (skip 4H
 chop states) would matter if a lower-TF edge existed to protect — none does.
 
+### 1D oscillator states on the 4H star + filters combined with the exit schemes
+
+Two follow-ups (same osc4h_filter.py grid, src=1D; exits now fixed 2R, fixed 3R,
+and half@1R->BE+trail so the partial-TP risk rules are applied INSIDE the filter
+tests):
+
+**1D states do not improve the 4H star — they only shred its sample.** The star
+has 117 trades; requiring 1D WT bear state keeps just 29 of them (the 4H signal
+usually fires while the 1D oscillators haven't turned yet — consistent with it
+catching lower-high rejections in *developing* downtrends). No 1D filter beats the
+unfiltered star's train expectancy (+0.50R @3R, +0.36 trail); the cells that shine
+in test (1D MFI<40: +2.2R @3R; 1D ADX>=25: +1.3R @3R) do so on 10-12 test trades.
+1D WT fresh cross is actively bad (test 0% WR), and the 1D chop states are NOT
+worse (ADX<20 trail: +1.10/+0.96) — the chop logic inverts yet again. Conclusion:
+trade the 4H star unfiltered; 1D gating discards most of the real signals to
+chase context the entry already prices in.
+
+**Filters + higher R / partial exits on the lower TFs: still no rescue.** With a
+3R target the 1h/15m filter grids stay negative out-of-sample (1h WT-fresh: +1.07R
+train -> -0.08 test; 15m all cells negative), and several "chop" cells flip mildly
+positive — more sign-instability. The one consistent cell remains **30m star + 4H
+WT fresh bearish cross**: @2R +0.17/+0.36, @3R +0.35/+0.23, trail-positive in
+test, n=63/32, ~1.5 trades/month. It is now positive in both halves across two
+targets (not independent evidence — same trades), still small, still within
+multiple-testing expectations across the ~300 cells scanned in this family.
+Status: the single lower-TF candidate worth re-testing as new data accumulates;
+not yet a tradeable edge.
+
 ## Reproduce
 
 `study/` — `dataload.py` (clean parquet), `indicators.py` (causal indicators),
