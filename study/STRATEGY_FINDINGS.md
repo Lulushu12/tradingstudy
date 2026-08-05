@@ -243,6 +243,42 @@ Verdict: confluence layers repeat the Section-A lesson from the confluence pass 
 each added filter shrinks the sample faster than it adds edge. The lower-TF SFP
 entries stay dead; the 4H signal stays the tradeable one.
 
+### 4H oscillator-state filters (osc4h_filter.py)
+
+Follow-up idea: gate the lower-TF SFP shorts by 4H momentum STATE instead of the
+(failed) 4H EMA200 — WaveTrend cross recency (fresh = leg young; many bars back =
+leg exhausting; wt1/wt2 gap closing = reversal imminent), MFI regime (low = money
+leaving, 40-60 = chop), and ADX (>=25 trending / <20 chop, with DI direction).
+Added causal `mfi()` and Wilder `adx()` to indicators.py. 13 filters x 3 exits
+(fixed 1R, 2R, half@1R->BE+trail) x 1h/30m/15m star entries, ~117 cells.
+
+- **The chop-exclusion logic is directionally right.** On 15m the two "chop"
+  states are among the worst cells in the whole grid (4H MFI 40-60: -0.19/-0.44R
+  train/test; 4H ADX<20: -0.34/-0.46R @1R) — clearly worse than the unfiltered
+  reference. The oscillators do carry real information about when the setup is
+  WORSE.
+- **But the good states still don't clear fees.** On 1h, every filter that looks
+  brilliant in train (WT bear @2R: +0.99R; WT fresh: +1.07R; ADX>=25&DI-: +0.37R)
+  lands at -0.03 to +0.05R in test — the filters compress toward zero, not above
+  it. On 15m nothing reaches positive in both halves.
+- **Filters are inconsistent across TFs — the signature of noise.** 4H ADX<20 is
+  strongly negative on 15m but the best trail-cell on 30m (+0.15/+0.38); MFI<40 is
+  test-positive/train-negative on 30m while MFI<30 is the exact opposite. A real
+  regime variable should not flip sign between adjacent timeframes and thresholds.
+- **The one defensible cell:** 30m star + 4H WT fresh bearish cross (<=3 closed
+  bars) @2R: +0.17R train / +0.36R test, n=63/32, ~1.5 trades/month. Consistent
+  with the "young 4H down-leg" story. BUT: with 32 test trades the SE is ~0.23R,
+  and across ~117 cells (plus ~60 in the mtf pass) several such cells are expected
+  by chance. Filed as a candidate to re-test on future data, not a tradeable
+  result.
+- The full oscillator stack (fresh WT + MFI<40 + ADX>=25 simultaneously) almost
+  never happens: n=0 on 1h, 2 on 30m, 23 on 15m. Demanding all oscillators agree
+  at once selects a state that barely exists.
+
+Verdict unchanged: 4H context (trend, structure, or momentum state) modulates the
+lower-TF edge but cannot overcome the fee hurdle. The exclusion findings (skip 4H
+chop states) would matter if a lower-TF edge existed to protect — none does.
+
 ## Reproduce
 
 `study/` — `dataload.py` (clean parquet), `indicators.py` (causal indicators),
@@ -250,4 +286,5 @@ entries stay dead; the 4H signal stays the tradeable one.
 `fourh_deep.py` (per-year stability), `finalists.py` (equity/DD), `intrabar.py`
 (15m-path validation), `sfp_divergence.py` (swing-failure-timed divergence),
 `sfp_exits.py` (exit engineering on the SFP entries), `mtf_stack.py` (multi-TF
-filters on lower-TF entries). Run via `./run.sh <script>`.
+filters on lower-TF entries), `osc4h_filter.py` (4H oscillator-state filters).
+Run via `./run.sh <script>`.
