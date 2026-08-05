@@ -24,11 +24,11 @@ from trend_runner import run_fixed
 from sfp_exits import run_half1R_trail
 from mtf_stack import SEC, asof_flag, load, report
 
-def fours_features():
-    """Boolean 4H-state arrays + the 4H close-time axis."""
-    df4, _ = load("4H")
+def osc_features(src="4H"):
+    """Boolean oscillator-state arrays + the close-time axis for a source TF."""
+    df4, _ = load(src)
     n4 = len(df4)
-    close4 = df4["time"].values + SEC["4H"]
+    close4 = df4["time"].values + SEC[src]
     wt1 = df4["wt1"].values; wt2 = df4["wt2"].values
     bear = wt1 < wt2
     cross_dn = bear & ~np.roll(bear, 1); cross_dn[0] = False
@@ -57,29 +57,36 @@ def fours_features():
     }
     return close4, F4
 
-def run_tf(tf, close4, F4):
+def run_tf(tf, close4, F4, src="4H", rrs=(1.0, 2.0)):
     df, m = load(tf)
     n = len(df)
     close_t = df["time"].values + SEC[tf]
     star = (m["bear0"] | m["bear1"]) & (df["close"] < df["ema200"]).values
     sfmean = (1.5*df["atr14"]/df["open"].shift(-1)).mean()
-    print(f"\n################ TF={tf}  feeR~{FEE_RT/sfmean:.2f}  "
+    print(f"\n################ TF={tf}  src={src}  feeR~{FEE_RT/sfmean:.2f}  "
           f"(star={int(star.sum())}) ################")
-    variants = {"star [ref, no 4H filter]": star}
+    variants = {f"star [ref, no {src} filter]": star}
     for fname, flag4 in F4.items():
-        variants[f"star & 4H {fname}"] = star & asof_flag(close4, flag4, close_t)
+        variants[f"star & {src} {fname}"] = star & asof_flag(close4, flag4, close_t)
     Lz = np.zeros(n, bool)
     for vname, mask in variants.items():
         print(f"  -- {vname}  (n={int(mask.sum())})")
         if not mask.any():
             continue
-        for rr in [1.0, 2.0]:
+        for rr in rrs:
             report(f"fixed {rr:.0f}R", run_fixed(df, Lz, mask, rr=rr),
                    breakeven_wr(rr, sfmean))
         report("half@1R->BE + 3ATRtrail", run_half1R_trail(df, Lz, mask, k=3.0))
 
 if __name__ == "__main__":
     import sys
-    close4, F4 = fours_features()
-    for tf in (sys.argv[1:] or ["1h", "30m", "15m"]):
-        run_tf(tf, close4, F4)
+    args = sys.argv[1:]
+    src = "4H"
+    rrs = (1.0, 2.0)
+    if args and args[0].startswith("src="):
+        src = args[0][4:]; args = args[1:]
+    if args and args[0].startswith("rr="):
+        rrs = tuple(float(x) for x in args[0][3:].split(",")); args = args[1:]
+    close4, F4 = osc_features(src)
+    for tf in (args or ["1h", "30m", "15m"]):
+        run_tf(tf, close4, F4, src=src, rrs=rrs)

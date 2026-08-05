@@ -23,7 +23,7 @@ from trend_runner import run_fixed
 from sfp_divergence import sfp_divergence, make_30m
 from sfp_exits import run_half1R_trail
 
-SEC = {"4H": 14400, "1h": 3600, "30m": 1800, "15m": 900, "5m": 300}
+SEC = {"1D": 86400, "4H": 14400, "1h": 3600, "30m": 1800, "15m": 900, "5m": 300}
 STACK_SRC = {"1h": ("15m", 8), "30m": ("15m", 4), "15m": ("5m", 6)}  # (src, K bars)
 HTF_DIV_K = 6                     # 4H divergence considered active for 6 closed bars
 
