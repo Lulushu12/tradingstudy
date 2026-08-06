@@ -1,47 +1,47 @@
 
 ===== A @ 1:1  n=721 winrate=0.515 avg_netR=-0.052 =====
             feature  n_win  n_loss  mean_win  mean_loss  med_win  med_loss  mw_p  cliffs_d
+      x_hd_mfi_wave    371     350     0.863     -1.276    1.625    -3.838 0.058     0.082
+      x_hd_wt2_wave    371     350     1.332     -5.558   -5.682   -15.259 0.061     0.081
          x_trig_mfi    371     350    14.682     16.079   13.226    15.030 0.118    -0.067
     x_wt_anchor_osc    371     350    72.026     73.572   72.690    74.159 0.178    -0.058
     x_mfi_pivot_osc    371     350    17.187     18.444   15.267    16.429 0.192    -0.056
+           x_hd_wt2    371     350     0.540     -3.211    1.254    -8.537 0.250     0.050
+   hd_trend_aligned    371     350     0.453      0.494    0.000     0.000 0.266    -0.041
       x_h4_mfi_wave    371     350    -2.173     -3.319   -2.039    -4.720 0.282     0.046
            x_h1_wt2    371     350    47.407     48.366   49.674    52.300 0.303    -0.044
     x_mfi_div_delta    371     350     4.512      4.116    3.184     2.738 0.325     0.042
-           x_h4_mfi    371     350     3.734      3.072    4.691     2.994 0.421     0.035
-   x_mfi_anchor_osc    371     350    21.699     22.560   20.273    20.927 0.422    -0.035
-     x_wt_pivot_osc    371     350    56.558     57.436   56.344    57.449 0.435    -0.034
-h1_wt2_wave_aligned    371     350     0.275      0.251    0.000     0.000 0.474     0.024
-      x_h4_wt2_wave    371     350    -9.607    -12.140  -16.386   -24.994 0.476     0.031
-         x_trig_wt2    371     350    43.140     43.997   44.995    45.460 0.646    -0.020
-logit time-CV AUC=0.483 folds=[0.45, 0.511, 0.458, 0.513] (base wr 0.515, n=721)
+           x_hd_mfi    371     350     1.067     -0.031    2.654    -0.662 0.331     0.042
+hd_wt2_wave_aligned    371     350     0.523      0.489    1.000     0.000 0.357     0.034
+logit time-CV AUC=0.493 folds=[0.457, 0.549, 0.435, 0.53] (base wr 0.515, n=721)
 top coefficients (standardized):
-x_trig_wt1            +0.366
-x_trig_wt2            -0.277
-x_trig_mfi            -0.141
-h1_wt2_wave_age       +0.111
-x_mfi_div_price       -0.109
-x_h1_mfi              -0.105
-x_h4_mfi_wave         +0.104
-x_h4_wt2_wave         +0.103
-h1_wt2_wave_aligned   +0.099
-h4_wt2_wave_age       +0.090
+x_hd_mfi              -0.443
+x_hd_mfi_wave         +0.400
+x_trig_wt1            +0.333
+x_trig_wt2            -0.251
+x_h4_wt2_wave         +0.180
+x_hd_wt2_wave         +0.171
+x_trig_mfi            -0.137
+hd_mfi_wave_aligned   -0.135
+x_mfi_div_price       -0.125
+h1_wt2_wave_age       +0.120
 tree rules:
 |--- x_wt_anchor_osc <= 88.0
-|   |--- x_wt_anchor_osc <= 80.5
-|   |   |--- x_h1_wt2 <= 70.6
+|   |--- x_hd_mfi_wave <= 0.3
+|   |   |--- x_mfi_pivot_osc <= 26.5
 |   |   |   |--- class: 1.0
-|   |   |--- x_h1_wt2 >  70.6
+|   |   |--- x_mfi_pivot_osc >  26.5
 |   |   |   |--- class: 0.0
-|   |--- x_wt_anchor_osc >  80.5
-|   |   |--- x_h4_mfi <= 17.2
+|   |--- x_hd_mfi_wave >  0.3
+|   |   |--- x_h4_mfi <= -6.7
+|   |   |   |--- class: 0.0
+|   |   |--- x_h4_mfi >  -6.7
 |   |   |   |--- class: 1.0
-|   |   |--- x_h4_mfi >  17.2
-|   |   |   |--- class: 0.0
 |--- x_wt_anchor_osc >  88.0
 |   |--- x_h1_wt2_wave <= 54.6
-|   |   |--- x_mfi_anchor_osc <= 24.7
+|   |   |--- x_hd_wt2_wave <= -12.9
 |   |   |   |--- class: 0.0
-|   |   |--- x_mfi_anchor_osc >  24.7
+|   |   |--- x_hd_wt2_wave >  -12.9
 |   |   |   |--- class: 0.0
 |   |--- x_h1_wt2_wave >  54.6
 |   |   |--- class: 0.0
@@ -50,29 +50,29 @@ tree rules:
 ===== A @ 2:1  n=721 winrate=0.359 avg_netR=-0.004 =====
             feature  n_win  n_loss  mean_win  mean_loss  med_win  med_loss  mw_p  cliffs_d
     x_mfi_div_price    259     462     0.703      0.817    0.467     0.546 0.160    -0.063
+hd_mfi_wave_aligned    259     462     0.417      0.465    0.000     0.000 0.210    -0.048
+      x_hd_mfi_wave    259     462     0.686     -0.658    1.625    -2.504 0.230     0.054
     x_mfi_div_delta    259     462     4.495      4.221    3.382     2.788 0.271     0.049
     h4_wt2_wave_age    259     462     6.772      6.340    6.000     5.000 0.275     0.049
 h1_wt2_wave_aligned    259     462     0.286      0.251    0.000     0.000 0.312     0.035
     x_wt_anchor_osc    259     462    72.289     73.050   72.727    73.889 0.342    -0.043
+      x_hd_wt2_wave    259     462     0.236     -3.274    2.024   -13.908 0.359     0.041
       x_h1_wt2_wave    259     462    18.484     15.455   25.500    21.307 0.385     0.039
      x_wt_pivot_osc    259     462    56.475     57.269   55.664    57.326 0.396    -0.038
            gap_bars    259     462     4.394      4.156    3.000     3.000 0.409     0.037
      x_wt_div_price    259     462     0.751      0.768    0.472     0.488 0.537    -0.028
-     mfi_anchor_age    259     462    17.645     19.879   14.000    14.000 0.542    -0.027
-     x_wt_div_delta    259     462    15.813     15.780   13.175    12.541 0.547     0.027
-            atr_pct    259     462     0.005      0.005    0.005     0.005 0.583    -0.025
-logit time-CV AUC=0.471 folds=[0.505, 0.459, 0.453, 0.467] (base wr 0.359, n=721)
+logit time-CV AUC=0.476 folds=[0.498, 0.524, 0.422, 0.46] (base wr 0.359, n=721)
 top coefficients (standardized):
-mfi_anchor_age        -0.188
-x_trig_wt1            +0.187
-x_h1_wt2              +0.134
-x_mfi_div_price       -0.130
-h4_wt2_wave_age       +0.118
-h1_wt2_wave_aligned   +0.105
-x_wt_div_price        +0.099
-x_mfi_pivot_osc       -0.095
-x_mfi_div_delta       +0.083
-x_trig_wt2            -0.080
+x_hd_mfi_wave         +0.390
+x_hd_mfi              -0.368
+hd_mfi_wave_aligned   -0.253
+mfi_anchor_age        -0.186
+x_trig_wt1            +0.165
+x_hd_wt2              +0.154
+h4_trend_aligned      +0.143
+x_mfi_div_price       -0.125
+h4_wt2_wave_age       +0.119
+x_h1_wt2              +0.117
 tree rules:
 |--- x_wt_div_delta <= 7.3
 |   |--- x_h1_wt2 <= 52.9
@@ -81,9 +81,9 @@ tree rules:
 |   |   |--- x_h1_wt2_wave >  -34.9
 |   |   |   |--- class: 0.0
 |   |--- x_h1_wt2 >  52.9
-|   |   |--- x_wt_div_price <= 0.8
+|   |   |--- x_hd_mfi <= -5.5
 |   |   |   |--- class: 0.0
-|   |   |--- x_wt_div_price >  0.8
+|   |   |--- x_hd_mfi >  -5.5
 |   |   |   |--- class: 0.0
 |--- x_wt_div_delta >  7.3
 |   |--- x_wt_div_delta <= 22.7
@@ -112,18 +112,18 @@ x_wt_anchor_osc    267     244    71.279     73.528   72.295    74.488 0.099    
 h1_wt2_wave_age    267     244     6.708      6.020    5.000     5.000 0.174     0.069
   x_h1_wt2_wave    267     244     7.457     13.327   12.845    17.073 0.201    -0.065
        x_h4_wt2    267     244    15.802     19.407   16.622    26.045 0.206    -0.065
-logit time-CV AUC=0.526 folds=[0.525, 0.467, 0.572, 0.542] (base wr 0.523, n=511)
+logit time-CV AUC=0.514 folds=[0.508, 0.476, 0.55, 0.522] (base wr 0.523, n=511)
 top coefficients (standardized):
-x_trig_wt2        -0.480
-x_h1_mfi_wave     +0.422
-x_h4_mfi_wave     +0.352
-x_h1_mfi          -0.327
-x_trig_wt1        +0.284
-x_h4_mfi          -0.254
-x_mfi_div_delta   +0.215
-h1_wt2_wave_age   +0.201
-x_wt_pivot_osc    +0.157
-atr_pct           -0.156
+x_trig_wt2            -0.505
+x_h4_mfi_wave         +0.437
+x_h1_mfi_wave         +0.387
+x_h1_mfi              -0.354
+x_trig_wt1            +0.299
+hd_mfi_wave_aligned   -0.232
+h1_wt2_wave_age       +0.219
+x_mfi_div_delta       +0.206
+x_wt_pivot_osc        +0.172
+x_hd_mfi_wave         +0.166
 tree rules:
 |--- x_h1_mfi <= 13.8
 |   |--- gap_bars <= 2.5
@@ -137,44 +137,41 @@ tree rules:
 |   |   |--- x_mfi_div_delta >  2.8
 |   |   |   |--- class: 1.0
 |--- x_h1_mfi >  13.8
-|   |--- x_h1_mfi_wave <= 15.1
-|   |   |--- x_h4_wt2 <= 47.1
+|   |--- x_hd_wt2_wave <= 53.5
+|   |   |--- hd_mfi_wave_aligned <= 0.5
 |   |   |   |--- class: 0.0
-|   |   |--- x_h4_wt2 >  47.1
+|   |   |--- hd_mfi_wave_aligned >  0.5
 |   |   |   |--- class: 0.0
-|   |--- x_h1_mfi_wave >  15.1
-|   |   |--- x_h4_mfi <= 17.7
-|   |   |   |--- class: 1.0
-|   |   |--- x_h4_mfi >  17.7
-|   |   |   |--- class: 0.0
+|   |--- x_hd_wt2_wave >  53.5
+|   |   |--- class: 1.0
 
 
 ===== B @ 2:1  n=511 winrate=0.335 avg_netR=-0.079 =====
             feature  n_win  n_loss  mean_win  mean_loss  med_win  med_loss  mw_p  cliffs_d
+hd_mfi_wave_aligned    171     340     0.398      0.488    0.000     0.000 0.053    -0.091
     h1_wt2_wave_age    171     340     6.713      6.212    6.000     5.000 0.115     0.085
     x_mfi_div_price     72     151     0.886      1.002    0.520     0.766 0.129    -0.126
       x_h4_mfi_wave    171     340     0.358     -2.271    0.790    -3.638 0.178     0.073
+      x_hd_wt2_wave    171     340     2.910     -2.840   -2.581   -13.717 0.207     0.068
 h4_wt2_wave_aligned    171     340     0.292      0.241    0.000     0.000 0.213     0.051
            x_h1_wt2    171     340    46.086     48.332   48.241    52.447 0.238    -0.064
          x_trig_wt2    171     340    50.063     51.021   52.694    53.354 0.246    -0.063
            gap_bars    171     340     2.930      3.215    2.000     3.000 0.256    -0.061
     x_mfi_div_delta    171     340     5.669      5.080    3.961     3.578 0.276     0.059
+           x_hd_wt2    171     340     5.578      1.440   10.109     3.104 0.305     0.056
      mfi_anchor_age    171     340    15.731     16.779   12.000    12.000 0.342    -0.051
-         x_trig_wt1    171     340    46.700     47.701   49.309    50.657 0.372    -0.048
-    x_mfi_pivot_osc    171     340    15.577     16.877   15.700    16.327 0.382    -0.047
-         x_trig_mfi    171     340    14.980     16.182   14.642    16.068 0.398    -0.046
-logit time-CV AUC=0.488 folds=[0.507, 0.477, 0.494, 0.473] (base wr 0.335, n=511)
+logit time-CV AUC=0.457 folds=[0.463, 0.434, 0.42, 0.511] (base wr 0.335, n=511)
 top coefficients (standardized):
-x_h1_mfi_wave         +0.337
-x_h4_mfi_wave         +0.272
-x_h1_mfi              -0.266
-mfi_anchor_age        -0.181
-x_mfi_div_delta       +0.168
-h1_wt2_wave_age       +0.161
-x_h4_mfi              -0.152
-h4_wt2_wave_aligned   +0.142
-x_mfi_pivot_osc       -0.142
-x_h4_wt2_wave         -0.133
+x_h1_mfi_wave         +0.306
+x_h4_mfi_wave         +0.302
+x_h1_mfi              -0.284
+hd_mfi_wave_aligned   -0.276
+x_hd_mfi_wave         +0.195
+h1_wt2_wave_age       +0.187
+mfi_anchor_age        -0.180
+x_mfi_pivot_osc       -0.175
+x_mfi_div_delta       +0.164
+x_trig_mfi            +0.161
 tree rules:
 |--- x_trig_wt2 <= 58.6
 |   |--- x_trig_wt1 <= 53.6
@@ -197,35 +194,35 @@ tree rules:
 ===== WTdiv @ 1:1  n=2123 winrate=0.513 avg_netR=-0.054 =====
             feature  n_win  n_loss  mean_win  mean_loss  med_win  med_loss  mw_p  cliffs_d
       x_h4_mfi_wave   1090    1033    -1.339     -3.142   -0.976    -3.949 0.015     0.061
+           x_hd_wt2   1090    1033     0.541     -3.951   -0.017    -8.767 0.021     0.058
+hd_mfi_wave_aligned   1090    1033     0.465      0.512    0.000     1.000 0.031    -0.047
          x_trig_mfi   1090    1033    13.865     15.092   13.788    15.074 0.044    -0.050
     x_wt_anchor_osc   1090    1033    70.128     71.447   70.937    72.149 0.069    -0.046
            x_h4_mfi   1090    1033     2.247      0.945    2.312    -0.038 0.079     0.044
       x_h4_wt2_wave   1090    1033    -4.259     -8.217   -5.997   -15.020 0.085     0.043
+   hd_trend_aligned   1090    1033     0.478      0.513    0.000     1.000 0.106    -0.035
+      x_hd_wt2_wave   1090    1033     1.945     -1.396    5.682    -6.566 0.126     0.038
       x_h1_mfi_wave   1089    1033     0.778     -0.340    1.675     0.599 0.175     0.034
            x_h4_wt2   1090    1033     9.483      6.975   14.678    10.657 0.184     0.033
             atr_pct   1090    1033     0.005      0.005    0.005     0.005 0.224    -0.031
-h1_wt2_wave_aligned   1090    1033     0.228      0.207    0.000     0.000 0.236     0.021
-         x_trig_wt1   1090    1033    34.026     35.136   35.733    37.114 0.325    -0.025
-     x_wt_div_price   1090    1033     0.673      0.743    0.415     0.431 0.369    -0.023
-           x_h1_wt2   1090    1033    40.180     40.529   44.989    46.278 0.407    -0.021
-logit time-CV AUC=0.518 folds=[0.509, 0.53, 0.495, 0.54] (base wr 0.513, n=2122)
+logit time-CV AUC=0.523 folds=[0.495, 0.545, 0.502, 0.552] (base wr 0.513, n=2122)
 top coefficients (standardized):
-x_trig_mfi            -0.188
-x_h1_wt2              +0.165
-x_h4_mfi_wave         +0.144
-h1_wt2_wave_aligned   +0.139
-x_h1_mfi_wave         +0.099
-x_wt_div_price        -0.097
-x_wt_div_delta        -0.097
-x_h4_wt2_wave         +0.089
-h4_wt2_wave_aligned   -0.089
-x_h1_wt2_wave         -0.084
+x_hd_mfi              -0.255
+h4_trend_aligned      +0.196
+x_trig_mfi            -0.183
+x_h1_wt2              +0.182
+x_hd_mfi_wave         +0.176
+x_hd_wt2_wave         +0.155
+h1_wt2_wave_aligned   +0.144
+hd_mfi_wave_aligned   -0.137
+x_h4_mfi_wave         +0.132
+x_hd_wt2              +0.128
 tree rules:
 |--- x_h4_mfi_wave <= 7.1
 |   |--- x_wt_anchor_osc <= 88.0
-|   |   |--- x_h1_mfi <= 28.1
+|   |   |--- x_hd_wt2_wave <= 61.5
 |   |   |   |--- class: 0.0
-|   |   |--- x_h1_mfi >  28.1
+|   |   |--- x_hd_wt2_wave >  61.5
 |   |   |   |--- class: 1.0
 |   |--- x_wt_anchor_osc >  88.0
 |   |   |--- atr_pct <= 0.0
@@ -247,30 +244,30 @@ tree rules:
 
 ===== WTdiv @ 2:1  n=2121 winrate=0.339 avg_netR=-0.065 =====
             feature  n_win  n_loss  mean_win  mean_loss  med_win  med_loss  mw_p  cliffs_d
+hd_mfi_wave_aligned    718    1403     0.447      0.509    0.000     1.000 0.007    -0.062
+           x_hd_wt2    718    1403     1.390     -3.207    2.235    -7.894 0.019     0.062
     x_wt_anchor_osc    718    1403    69.756     71.301   70.749    71.966 0.037    -0.055
       x_h4_mfi_wave    718    1403    -1.151     -2.759   -0.005    -3.445 0.045     0.053
          x_trig_mfi    718    1403    13.615     14.898   13.301    15.023 0.055    -0.051
             atr_pct    718    1403     0.005      0.005    0.005     0.005 0.144    -0.039
+           x_hd_mfi    718    1403     0.881     -0.433    1.108    -0.754 0.148     0.038
          x_trig_wt1    718    1403    33.642     35.097   35.377    37.019 0.157    -0.037
          x_trig_wt2    718    1403    44.788     45.886   45.857    47.113 0.199    -0.034
+   hd_trend_aligned    718    1403     0.476      0.505    0.000     1.000 0.217    -0.028
            x_h4_mfi    718    1403     2.269      1.269    2.237     0.846 0.221     0.032
       x_h4_wt2_wave    718    1403    -4.376     -7.069   -6.205   -13.134 0.259     0.030
-     x_wt_div_delta    718    1403    13.687     14.728   10.905    11.370 0.350    -0.025
-           x_h4_wt2    718    1403     9.372      7.647   14.406    11.654 0.373     0.024
-h1_wt2_wave_aligned    718    1403     0.228      0.212    0.000     0.000 0.398     0.016
-      x_h1_mfi_wave    717    1403     0.601      0.022    1.940     0.807 0.403     0.022
-logit time-CV AUC=0.505 folds=[0.541, 0.501, 0.454, 0.523] (base wr 0.338, n=2120)
+logit time-CV AUC=0.507 folds=[0.504, 0.528, 0.465, 0.533] (base wr 0.338, n=2120)
 top coefficients (standardized):
-x_trig_wt2            -0.318
-x_trig_mfi            -0.192
-x_h1_wt2              +0.187
-x_h4_mfi_wave         +0.163
-x_trig_wt1            +0.142
-x_wt_div_delta        -0.139
-x_wt_pivot_osc        +0.116
-h1_wt2_wave_aligned   +0.111
-x_h4_mfi              -0.093
-atr_pct               -0.077
+x_trig_wt2            -0.384
+h4_trend_aligned      +0.210
+x_h1_wt2              +0.205
+x_hd_wt2              +0.203
+x_trig_mfi            -0.199
+hd_mfi_wave_aligned   -0.199
+x_hd_mfi_wave         +0.188
+x_trig_wt1            +0.187
+x_wt_div_delta        -0.147
+x_h4_mfi_wave         +0.141
 tree rules:
 |--- x_h1_wt2 <= 79.7
 |   |--- x_h1_wt2_wave <= 83.9
@@ -289,86 +286,95 @@ tree rules:
 
 ===== MFIdiv @ 1:1  n=1706 winrate=0.495 avg_netR=-0.094 =====
             feature  n_win  n_loss  mean_win  mean_loss  med_win  med_loss  mw_p  cliffs_d
+      x_hd_wt2_wave    845     861     2.252     -2.475   -4.683   -12.257 0.037     0.058
 h4_wt2_wave_aligned    845     861     0.256      0.300    0.000     0.000 0.042    -0.044
       x_h1_wt2_wave    845     861    23.266     19.548   36.833    28.919 0.124     0.043
             atr_pct    845     861     0.005      0.005    0.005     0.005 0.146    -0.041
       x_h4_wt2_wave    845     861    -9.728     -6.378  -19.459    -9.578 0.191    -0.037
 h1_wt2_wave_aligned    845     861     0.472      0.441    0.000     0.000 0.201     0.031
+hd_wt2_wave_aligned    845     861     0.525      0.496    1.000     0.000 0.223     0.030
+           x_hd_wt2    845     861     1.392     -0.825    3.907    -5.469 0.276     0.030
+      x_hd_mfi_wave    845     861     0.074     -0.911    0.455    -2.855 0.296     0.029
     h4_wt2_wave_age    845     861     6.282      6.103    5.000     5.000 0.414     0.023
+   hd_trend_aligned    845     861     0.478      0.497    0.000     0.000 0.433    -0.019
     h1_wt2_wave_age    845     861     6.498      6.276    5.000     5.000 0.437     0.022
-         x_trig_wt1    845     861    29.931     29.496   34.525    33.766 0.528     0.018
-    x_mfi_div_delta    845     861     4.251      4.209    2.911     2.710 0.593     0.015
-           x_h1_wt2    845     861    34.736     35.314   40.652    40.126 0.615    -0.014
-         x_trig_wt2    845     861    37.291     36.863   41.831    41.159 0.626     0.014
-    x_mfi_div_price    845     861     0.674      0.732    0.428     0.420 0.661    -0.012
-logit time-CV AUC=0.504 folds=[0.493, 0.537, 0.495, 0.49] (base wr 0.495, n=1705)
+logit time-CV AUC=0.511 folds=[0.506, 0.521, 0.501, 0.518] (base wr 0.495, n=1705)
 top coefficients (standardized):
-x_h1_wt2_wave         +0.181
-x_h1_mfi              +0.154
-h4_wt2_wave_aligned   -0.149
-x_h1_mfi_wave         -0.128
-x_trig_wt2            +0.107
-h1_wt2_wave_age       +0.105
-x_h4_wt2_wave         +0.104
-x_h4_wt2              -0.097
-x_mfi_div_price       -0.091
-x_mfi_pivot_osc       -0.086
+x_hd_mfi              -0.406
+x_hd_mfi_wave         +0.343
+x_hd_wt2              +0.322
+x_h1_mfi              +0.183
+x_h1_wt2_wave         +0.167
+hd_mfi_wave_aligned   -0.134
+h4_wt2_wave_aligned   -0.133
+x_h1_mfi_wave         -0.130
+x_h4_mfi              -0.128
+x_trig_wt2            +0.123
 tree rules:
-|--- x_trig_wt1 <= -33.1
-|   |--- class: 1.0
-|--- x_trig_wt1 >  -33.1
-|   |--- x_trig_wt2 <= -15.8
-|   |   |--- class: 0.0
-|   |--- x_trig_wt2 >  -15.8
-|   |   |--- x_mfi_div_price <= 2.3
+|--- x_hd_wt2_wave <= -60.6
+|   |--- x_hd_wt2_wave <= -73.7
+|   |   |--- mfi_anchor_age <= 9.5
+|   |   |   |--- class: 0.0
+|   |   |--- mfi_anchor_age >  9.5
 |   |   |   |--- class: 1.0
-|   |   |--- x_mfi_div_price >  2.3
+|   |--- x_hd_wt2_wave >  -73.7
+|   |   |--- x_hd_wt2 <= -2.6
+|   |   |   |--- class: 0.0
+|   |   |--- x_hd_wt2 >  -2.6
+|   |   |   |--- class: 0.0
+|--- x_hd_wt2_wave >  -60.6
+|   |--- x_hd_mfi_wave <= -23.8
+|   |   |--- x_mfi_div_delta <= 4.1
+|   |   |   |--- class: 1.0
+|   |   |--- x_mfi_div_delta >  4.1
+|   |   |   |--- class: 0.0
+|   |--- x_hd_mfi_wave >  -23.8
+|   |   |--- x_mfi_div_price <= 1.5
+|   |   |   |--- class: 1.0
+|   |   |--- x_mfi_div_price >  1.5
 |   |   |   |--- class: 0.0
 
 
 ===== MFIdiv @ 2:1  n=1706 winrate=0.324 avg_netR=-0.112 =====
-         feature  n_win  n_loss  mean_win  mean_loss  med_win  med_loss  mw_p  cliffs_d
-         atr_pct    553    1153     0.005      0.005    0.005     0.005 0.004    -0.087
- h4_wt2_wave_age    553    1153     6.490      6.049    6.000     5.000 0.035     0.063
-   x_h4_wt2_wave    553    1153   -10.558     -6.829  -19.459   -10.721 0.147    -0.043
- h1_wt2_wave_age    553    1153     6.627      6.271    5.000     5.000 0.172     0.041
-x_mfi_anchor_osc    553    1153    19.725     20.432   18.188    19.056 0.197    -0.039
- x_mfi_div_delta    553    1153     3.961      4.359    2.773     2.828 0.210    -0.037
-        x_h4_wt2    553    1153    15.732     18.246   18.338    25.391 0.289    -0.032
-   x_h1_mfi_wave    553    1152     3.718      4.875    3.818     4.708 0.305    -0.031
-        x_h4_mfi    553    1153     2.731      4.012    3.089     3.252 0.312    -0.030
-      x_trig_wt2    553    1153    37.925     36.667   42.852    41.156 0.386     0.026
-        x_h1_mfi    553    1153     9.040      9.610    9.252    10.159 0.407    -0.025
- x_mfi_div_price    553    1153     0.670      0.719    0.428     0.420 0.411    -0.025
-logit time-CV AUC=0.490 folds=[0.507, 0.489, 0.474, 0.489] (base wr 0.324, n=1705)
+            feature  n_win  n_loss  mean_win  mean_loss  med_win  med_loss  mw_p  cliffs_d
+            atr_pct    553    1153     0.005      0.005    0.005     0.005 0.004    -0.087
+    h4_wt2_wave_age    553    1153     6.490      6.049    6.000     5.000 0.035     0.063
+      x_hd_wt2_wave    553    1153     3.265     -1.764    6.396   -11.570 0.054     0.057
+      x_h4_wt2_wave    553    1153   -10.558     -6.829  -19.459   -10.721 0.147    -0.043
+    h1_wt2_wave_age    553    1153     6.627      6.271    5.000     5.000 0.172     0.041
+   x_mfi_anchor_osc    553    1153    19.725     20.432   18.188    19.056 0.197    -0.039
+    x_mfi_div_delta    553    1153     3.961      4.359    2.773     2.828 0.210    -0.037
+      x_hd_mfi_wave    553    1153     0.500     -0.866    1.418    -2.504 0.211     0.037
+hd_wt2_wave_aligned    553    1153     0.530      0.501    1.000     1.000 0.270     0.029
+           x_h4_wt2    553    1153    15.732     18.246   18.338    25.391 0.289    -0.032
+      x_h1_mfi_wave    553    1152     3.718      4.875    3.818     4.708 0.305    -0.031
+   h4_trend_aligned    553    1153     0.420      0.394    0.000     0.000 0.310     0.026
+logit time-CV AUC=0.497 folds=[0.517, 0.524, 0.462, 0.487] (base wr 0.324, n=1705)
 top coefficients (standardized):
-x_trig_wt2        +0.192
-x_h1_wt2_wave     +0.147
-atr_pct           -0.126
-h4_wt2_wave_age   +0.122
-h1_wt2_wave_age   +0.118
-x_trig_wt1        -0.117
-x_h4_wt2          -0.106
-x_h1_mfi_wave     -0.098
-x_h1_mfi          +0.097
-x_mfi_div_delta   -0.078
+x_hd_mfi              -0.358
+x_hd_mfi_wave         +0.346
+x_hd_wt2              +0.303
+x_trig_wt2            +0.199
+h4_trend_aligned      +0.180
+x_h1_wt2_wave         +0.134
+x_trig_wt1            -0.133
+atr_pct               -0.130
+x_h1_mfi              +0.129
+hd_mfi_wave_aligned   -0.126
 tree rules:
-|--- atr_pct <= 0.0
+|--- x_hd_mfi_wave <= 29.1
+|   |--- x_hd_wt2 <= -73.3
+|   |   |--- class: 1.0
+|   |--- x_hd_wt2 >  -73.3
+|   |   |--- atr_pct <= 0.0
+|   |   |   |--- class: 0.0
+|   |   |--- atr_pct >  0.0
+|   |   |   |--- class: 0.0
+|--- x_hd_mfi_wave >  29.1
 |   |--- x_mfi_div_delta <= 4.9
-|   |   |--- x_h4_mfi_wave <= -13.7
+|   |   |--- x_hd_mfi <= 25.9
+|   |   |   |--- class: 0.0
+|   |   |--- x_hd_mfi >  25.9
 |   |   |   |--- class: 1.0
-|   |   |--- x_h4_mfi_wave >  -13.7
-|   |   |   |--- class: 0.0
 |   |--- x_mfi_div_delta >  4.9
-|   |   |--- x_mfi_div_price <= 0.4
-|   |   |   |--- class: 0.0
-|   |   |--- x_mfi_div_price >  0.4
-|   |   |   |--- class: 0.0
-|--- atr_pct >  0.0
-|   |--- x_trig_mfi <= -0.2
 |   |   |--- class: 0.0
-|   |--- x_trig_mfi >  -0.2
-|   |   |--- x_h1_mfi_wave <= -21.4
-|   |   |   |--- class: 0.0
-|   |   |--- x_h1_mfi_wave >  -21.4
-|   |   |   |--- class: 0.0

@@ -28,6 +28,10 @@ def htf_context(df15, dfh, prefix):
     for col in ("wt1", "wt2", "mfi"):
         v = dfh[col].to_numpy(float)
         out[f"{prefix}_{col}"] = np.where(idx >= 0, v[np.clip(idx, 0, None)], np.nan)
+    # HTF trend regime: last closed HTF close vs its EMA200 (+1 up / -1 down)
+    ema200 = dfh["close"].ewm(span=200, adjust=False).mean().to_numpy(float)
+    trend = np.sign(dfh["close"].to_numpy(float) - ema200)
+    out[f"{prefix}_trend"] = np.where(idx >= 0, trend[np.clip(idx, 0, None)], np.nan)
 
     for osc in ("wt2", "mfi"):
         v = dfh[osc].to_numpy(float)
@@ -50,7 +54,7 @@ def htf_context(df15, dfh, prefix):
     return out
 
 
-def build_features(df15, signals, htf1h, htf4h):
+def build_features(df15, signals, *htf_ctxs):
     wt1 = df15["wt1"].to_numpy(float)
     wt2 = df15["wt2"].to_numpy(float)
     mfi = df15["mfi"].to_numpy(float)
@@ -83,18 +87,22 @@ def build_features(df15, signals, htf1h, htf4h):
             r[f"{other}_anchor_age"] = t - s.fr_ref_i
         rows.append(r)
     f = pd.DataFrame(rows)
-    f = f.join(htf1h.iloc[f["signal_i"].to_numpy()].reset_index(drop=True))
-    f = f.join(htf4h.iloc[f["signal_i"].to_numpy()].reset_index(drop=True))
+    prefixes = []
+    for ctx in htf_ctxs:
+        prefixes.append(ctx.columns[0].split("_")[0])
+        f = f.join(ctx.iloc[f["signal_i"].to_numpy()].reset_index(drop=True))
 
     d = f["direction"].to_numpy()
-    for col in ("trig_wt1", "trig_wt2", "trig_mfi",
-                "wt_pivot_osc", "wt_anchor_osc", "mfi_pivot_osc", "mfi_anchor_osc",
-                "h1_wt2", "h1_mfi", "h4_wt2", "h4_mfi",
-                "h1_wt2_wave", "h1_mfi_wave", "h4_wt2_wave", "h4_mfi_wave"):
+    cols = ["trig_wt1", "trig_wt2", "trig_mfi",
+            "wt_pivot_osc", "wt_anchor_osc", "mfi_pivot_osc", "mfi_anchor_osc"]
+    for p in prefixes:
+        cols += [f"{p}_wt2", f"{p}_mfi", f"{p}_wt2_wave", f"{p}_mfi_wave"]
+    for col in cols:
         if col in f:
             f["x_" + col] = -d * f[col].to_numpy(float)
-    # HTF wave alignment: is the last HTF wave on the trade's side?
-    for p in ("h1", "h4"):
+    for p in prefixes:
+        # last HTF wave on the trade's side? trend regime aligned with trade?
         for osc in ("wt2", "mfi"):
             f[f"{p}_{osc}_wave_aligned"] = (f[f"{p}_{osc}_wave_side"] == d).astype(float)
+        f[f"{p}_trend_aligned"] = (f[f"{p}_trend"] == d).astype(float)
     return f

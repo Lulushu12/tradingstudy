@@ -49,6 +49,7 @@ def main():
     df15 = enrich(pd.read_parquet(os.path.join(DATA, "15m.parquet")))
     df1h = enrich(pd.read_parquet(os.path.join(DATA, "1h.parquet")))
     df4h = enrich(pd.read_parquet(os.path.join(DATA, "4h.parquet")))
+    df1d = enrich(pd.read_parquet(os.path.join(DATA, "1d.parquet")))
 
     wt_events, mfi_events = all_div_events(df15)
     print(f"WT div events: {len(wt_events)}  (bull {sum(1 for e in wt_events if e.direction>0)})")
@@ -83,7 +84,8 @@ def main():
     trades = resolve_trades(df15, all_sigs).reset_index(drop=True)
     h1 = htf_context(df15, df1h, "h1")
     h4 = htf_context(df15, df4h, "h4")
-    feats = build_features(df15, all_sigs, h1, h4).reset_index(drop=True)
+    hd = htf_context(df15, df1d, "hd")
+    feats = build_features(df15, all_sigs, h1, h4, hd).reset_index(drop=True)
     assert len(trades) == len(feats) == len(all_sigs)
     assert (trades["signal_i"].to_numpy() == feats["signal_i"].to_numpy()).all()
     assert (trades["system"].to_numpy() == feats["system"].to_numpy()).all()

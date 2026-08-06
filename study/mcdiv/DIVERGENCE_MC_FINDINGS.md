@@ -65,6 +65,34 @@ not findings:
 3. The last completed 4H MFI wave being on the trade's side leans toward winning
    (recurs in A, B and WTdiv tables; never significant after correction).
 
+## Higher-timeframe follow-up: the daily chart is the one layer that matters
+
+A second pass added 1D context (daily WT2/MFI at last closed bar, last completed daily
+wave extreme) and trend-regime alignment (last closed 4H and 1D close vs their EMA200).
+Findings:
+
+1. Daily WT2 on the trade's side is the strongest HTF effect in the study. For WTdiv
+   @2:1 it survives within-table FDR (p=0.019, q=0.077) and the split is consistent in
+   ALL SIX years: trades taken while daily WT2 sits on the trade's side of zero (long
+   with daily WT2 negative, short with daily WT2 positive) win 32-44% at 2:1 vs 30-37%
+   for the rest, and their net expectancy is better every single year (+0.041 vs -0.145
+   in 2021, +0.085 vs -0.017 in 2025, +0.241 vs +0.029 in 2026; never worse). The
+   same-signed tendency appears in A and MFIdiv via the daily wave extreme (p~0.04-0.06).
+2. A confusing companion survivor: alignment with the last completed daily MFI wave is
+   REVERSED (WTdiv @2:1 winners aligned 44.7% vs losers 50.9%, p=0.007, q=0.056). Two
+   FDR survivors pointing in conceptually opposite directions is a warning that these
+   are correlated, marginal effects, not a clean regime law.
+3. Trend-regime alignment (EMA200) adds nothing robust. Counter-1D-trend looked better
+   for Variant A pooled (+0.024R vs -0.034R @2:1) but flips sign in 2023 and 2026 -
+   4/6-year consistency only, small samples. The 4H trend split is flat everywhere.
+4. 1h and 4H context (both current values and last wave) never survives correction on
+   any system; the overarching tendency that influences the 15m triggers, to the extent
+   one exists at all, lives on the daily, not on 1h/4H.
+
+Even the best daily filter does not turn any system net-positive on its own (WTdiv
+@2:1 with daily WT2 on-side: winrate 36.4%, netR ~+0.01 pooled) - it separates
+bad trades from terrible ones more than it finds winners.
+
 ## The one candidate filter worth forward-testing
 
 Combining tilts 1 and 2 on Variant B @1:1 (both thresholds fixed at pooled medians:

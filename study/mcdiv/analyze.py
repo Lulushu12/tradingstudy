@@ -29,6 +29,10 @@ FEATURES = [
     "x_h1_wt2_wave", "x_h1_mfi_wave", "x_h4_wt2_wave", "x_h4_mfi_wave",
     "h1_wt2_wave_aligned", "h4_wt2_wave_aligned",
     "h1_wt2_wave_age", "h4_wt2_wave_age",
+    # daily context and trend regimes
+    "x_hd_wt2", "x_hd_mfi", "x_hd_wt2_wave", "x_hd_mfi_wave",
+    "hd_wt2_wave_aligned", "hd_mfi_wave_aligned",
+    "h4_trend_aligned", "hd_trend_aligned",
     "atr_pct",
 ]
 HEADLINE = ["x_trig_wt2", "x_trig_mfi", "x_wt_pivot_osc", "x_wt_anchor_osc",
