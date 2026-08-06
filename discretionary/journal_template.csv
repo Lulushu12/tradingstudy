@@ -1,0 +1,1 @@
+trade_id,date_utc,symbol,setup,direction,grade,confluence,htf_trend,trigger_tf,planned_entry,planned_stop,planned_target,planned_rr,risk_pct,actual_entry,actual_exit,exit_reason,r_realized,mfe_r,mae_r,exit_policy,adherence,deviation_reason,notes,chart
