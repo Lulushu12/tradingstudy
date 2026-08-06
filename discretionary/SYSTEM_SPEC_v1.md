@@ -47,11 +47,8 @@ The prior study established three things that this system does not get to argue 
 | Leverage | 5:1 BTC and ETH, 2:1 altcoins, system enforced |
 | Consistency rules / min days | None |
 
-Sourcing caveat: breakoutprop.com returns 403 to automated fetches, so these come from
-third-party reviews current to August 2026, and those sources **disagree** on some points
-(6% vs 8% max drawdown, 3% vs 4-5% daily). The set above is the most consistently
-corroborated for 1-Step Classic. **Verify each number in your own dashboard before sizing
-a single trade.** If any differ, re-run `prop_math.py` with the real values.
+**CONFIRMED 2026-08-06 by the trader against the live dashboard: 6% max drawdown and 3%
+daily are correct.** The sizing table below stands as computed.
 
 The 2:1 altcoin leverage cap is a live constraint on the watchlist: an altcoin setup with
 a tight stop may not be sizeable to the intended risk. Check before planning the trade,
@@ -170,11 +167,21 @@ With multiple anchors open, frequency now has two levers: more symbols and more 
 Start with 6 to 8 liquid perps rather than 10, and let the journal show which lever is
 actually producing the good trades before widening either one.
 
-`BTCUSDT.P`, `ETHUSDT.P`, `SOLUSDT.P`, `XRPUSDT.P`, plus 4-6 others chosen for liquidity
-and for having clean, respected structure. Avoid anything where the 4H chart looks like
-noise; if you cannot draw levels on it, it does not belong on the list.
+The watchlist, set 2026-08-06 (change at review only):
 
-Correlation warning: BTC, ETH, SOL and most majors are one bet in a fast tape. Layer 5
+`BTCUSDT.P`, `ETHUSDT.P`, `LINKUSDT.P`, `AVAXUSDT.P`, `SOLUSDT.P`, `SUIUSDT.P`,
+`DOGEUSD.P`, `XRPUSDT.P`
+
+Eight symbols. Weekly prep still ranks each one A/B/C on structure quality, and a symbol
+with C structure sits out the week regardless of being on the list.
+
+Leverage note: only BTC and ETH get 5:1; the other six are capped at 2:1. In practice
+this never binds, and here is why: at 0.40% risk with the 0.40% minimum stop distance
+(the Layer 5 fee-drag cap), a position's notional is at most 1x equity, well inside 2:1.
+The leverage cap would only matter for stops tighter than 0.20%, which the system does
+not permit. So no setup on this list is unsizeable; the cap can be ignored in planning.
+
+Correlation warning: all eight are crypto majors and are one bet in a fast tape. Layer 5
 caps total correlated exposure. Breadth buys you *setup selection*, not independent risk.
 
 ### Cadence
@@ -565,15 +572,14 @@ decisions off a 15-trade bucket.
 | 2026-08-06 | Anchor timeframes widened to 1D/4H/1h/15m | The 15m ban over-transferred a mechanical 1:1 result to a 2:1 discretionary system. At 2:1 the breakeven bar is 36-40%, not 54-56%. Now settled by measurement per the anchor rule in Layer 7 | pre-trade |
 | 2026-08-06 | Flat 0.5% minimum stop replaced by a 0.20R fee-drag cap plus a 0.75 x ATR noise floor | The flat rule was calibrated for 4H-only anchors and would have blocked every valid 15m setup | pre-trade |
 | 2026-08-06 | ATR verification closed | Trader confirmed Breakout's ATR matches ATR14 | pre-trade |
+| 2026-08-06 | Breakout 6% max DD / 3% daily confirmed against the live dashboard | Third-party sources had disagreed; the trader's dashboard settles it. Sizing table stands | pre-trade |
+| 2026-08-06 | Watchlist set to 8 symbols: BTC, ETH, LINK, AVAX, SOL, SUI, DOGE, XRP perps | Trader's selection. 2:1 alt leverage cap verified non-binding given the 0.40% minimum stop | pre-trade |
 
 ### Open items blocking the first live trade
 
-1. **Confirm the Breakout numbers in your own dashboard.** Layer 0's table is sourced from
-   third-party reviews that disagree with each other on max drawdown (6% vs 8%) and daily
-   loss (3% vs 4-5%), because breakoutprop.com returns 403 to automated fetches. If any
-   value differs, re-run `prop_math.py` with the real ones before sizing anything.
-2. Final watchlist of 6-8 symbols, chosen on liquidity and structure quality. Check the
-   2:1 altcoin leverage cap allows the intended size on each one.
+**None. The system is live-ready as of 2026-08-06.**
 
-Closed: Breakout ATR matches ATR14 (confirmed by the trader). Fee schedule confirmed at
-0.04% per side, 0.08% round trip, which matches what the prior work assumed.
+All previously open items are closed: Breakout rules confirmed against the dashboard (6%
+static max drawdown, 3% daily), ATR matches ATR14, fees confirmed at 0.04% per side /
+0.08% round trip, watchlist set in Layer 1. The next artifact this folder expects is the
+first pre-trade row in `journal.csv`.

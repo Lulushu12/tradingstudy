@@ -83,10 +83,7 @@ python3 prop_math.py --target 10 --dd 6 --daily 3
 UTC, on equity including floating PnL), **0.04% per side / 0.08% round trip**, leverage
 5:1 on BTC/ETH and 2:1 on altcoins, no consistency rules or minimum days.
 
-Sourced from third-party reviews current to August 2026 because breakoutprop.com returns
-403 to automated fetches, and **those sources disagree** on max drawdown (6% vs 8%) and
-daily loss (3% vs 4-5%). Verify in your dashboard and re-run `prop_math.py` if anything
-differs.
+Confirmed by the trader against the live dashboard on 2026-08-06: 6% and 3% are correct.
 
 `prop_math.py` simulates reaching +10% before touching the static floor. At the study's
 measured 41.7% winrate, 0.40% risk passes 95.4% of the time in a median of 96 trades. The
@@ -96,14 +93,16 @@ risk does, which is why frequency is only worth chasing at constant setup qualit
 
 Risk per trade: **0.40% evaluation, 0.30% funded, 1.0% personal.**
 
-## Before the first live trade
+## Status
 
-1. Confirm Breakout's numbers in your own dashboard, per the caveat above.
-2. Pick the final watchlist of 6-8 symbols. Check the 2:1 altcoin leverage cap allows the
-   intended size on each.
+**Live-ready as of 2026-08-06.** All pre-trade items are closed: Breakout rules confirmed
+(6% static / 3% daily), ATR matches ATR14, fees confirmed at 0.08% round trip, and the
+watchlist is set: BTC, ETH, LINK, AVAX, SOL, SUI, DOGE, XRP perps. The 2:1 altcoin
+leverage cap never binds because the 0.40% minimum stop keeps any position's notional at
+or below 1x equity.
 
-Closed: Breakout's ATR matches ATR14. Fee schedule confirmed at 0.08% round trip, which is
-what the prior work assumed.
+Next step: Sunday prep per `PREP_ROUTINE.md`, then the first pre-trade row in
+`journal.csv`.
 
 ## Pre-committed kill rule
 
