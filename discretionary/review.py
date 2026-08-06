@@ -28,7 +28,7 @@ import statistics
 import sys
 
 PRE_TRADE_FIELDS = [
-    "symbol", "setup", "direction", "grade", "htf_trend",
+    "symbol", "setup", "direction", "grade", "htf_trend", "anchor_tf",
     "planned_entry", "planned_stop", "planned_target", "planned_rr", "risk_pct",
 ]
 POST_TRADE_FIELDS = ["r_realized", "mfe_r", "mae_r", "adherence"]
@@ -38,6 +38,10 @@ VALID_GRADE = {"A", "B", "C"}
 VALID_DIRECTION = {"long", "short"}
 VALID_ADHERENCE = {"clean", "deviated"}
 VALID_HTF = {"with", "against"}
+VALID_ANCHOR = {"1D", "4H", "1h", "15m"}
+
+ANCHOR_MIN_N = 40   # per the pre-committed anchor rule in Layer 7
+FEE_DRAG_CAP = 0.20  # R, per Layer 5
 
 DISCRETIONARY = {"S1", "S2", "S3"}
 CONTROL = {"S4"}
@@ -88,7 +92,8 @@ def load(path):
         for field, allowed in (("setup", VALID_SETUP), ("grade", VALID_GRADE),
                                ("direction", VALID_DIRECTION),
                                ("adherence", VALID_ADHERENCE),
-                               ("htf_trend", VALID_HTF)):
+                               ("htf_trend", VALID_HTF),
+                               ("anchor_tf", VALID_ANCHOR)):
             if row.get(field) and row[field] not in allowed:
                 problems.append("trade %s: invalid %s=%r" % (ident, field, row[field]))
 
@@ -305,6 +310,43 @@ def report(trades, problems, fee_pct, path_label):
     for k, s in bucket(trades, "setup").items():
         w(line("setup %s" % k, s) + "\n")
 
+    w("\n-- QUESTION 4: WHICH ANCHOR TIMEFRAMES PAY? " + "-" * 34 + "\n")
+    w("  Each anchor is judged against its OWN breakeven bar, since a tighter stop pays\n"
+      "  more in fees. breakeven WR at 2:1 = (1 + fee_drag) / 3.\n\n")
+    by_anchor = {}
+    for t in trades:
+        by_anchor.setdefault(t.get("anchor_tf") or "?", []).append(t)
+    order = [a for a in ("1D", "4H", "1h", "15m") if a in by_anchor]
+    order += [a for a in sorted(by_anchor) if a not in order]
+    for anchor in order:
+        group = by_anchor[anchor]
+        s = stats([t.r for t in group])
+        stop_pcts = [t["_stop_pct"] for t in group if t["_stop_pct"]]
+        median_stop = statistics.median(stop_pcts) if stop_pcts else None
+        w("  " + line("anchor %s" % anchor, s, width=20) + "\n")
+        if median_stop:
+            drag = fee_pct / median_stop
+            breakeven = (1.0 + drag) / 3.0 * 100.0
+            actual_wr = s["wr"]
+            margin = actual_wr - breakeven
+            w("      median stop %.2f%%  fee drag %.3fR  breakeven WR @2:1 %.1f%%  "
+              "actual %.1f%%  margin %+.1f pts\n"
+              % (median_stop, drag, breakeven, actual_wr, margin))
+            over = [t for t in group
+                    if t["_stop_pct"] and fee_pct / t["_stop_pct"] > FEE_DRAG_CAP]
+            if over:
+                w("      %d trade(s) exceeded the %.2fR fee-drag cap (stop tighter than "
+                  "%.2f%%)\n" % (len(over), FEE_DRAG_CAP, fee_pct / FEE_DRAG_CAP))
+        if s["n"] < ANCHOR_MIN_N:
+            w("      not yet measured: %d of %d trades needed before the anchor rule "
+              "applies\n" % (s["n"], ANCHOR_MIN_N))
+        elif s["mean"] <= 0:
+            w("      *** DROP THIS ANCHOR. Expectancy <= 0 on n>=%d, per the pre-committed\n"
+              "      *** anchor rule in SYSTEM_SPEC_v1.md Layer 7. It does not get a second "
+              "block.\n" % ANCHOR_MIN_N)
+        else:
+            w("      clears its bar on n>=%d. Keep.\n" % ANCHOR_MIN_N)
+
     w("\n-- BY CONTEXT " + "-" * 63 + "\n")
     for label, key in (("direction", "direction"), ("4H trend", "htf_trend"),
                        ("symbol", "symbol")):
@@ -372,23 +414,27 @@ def self_test():
     random.seed(7)
     path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "_selftest_journal.csv")
     header = ["trade_id", "date_utc", "symbol", "setup", "direction", "grade",
-              "confluence", "htf_trend", "trigger_tf", "planned_entry", "planned_stop",
-              "planned_target", "planned_rr", "risk_pct", "actual_entry", "actual_exit",
-              "exit_reason", "r_realized", "mfe_r", "mae_r", "exit_policy", "adherence",
-              "deviation_reason", "notes", "chart"]
+              "confluence", "htf_trend", "anchor_tf", "trigger_tf", "planned_entry",
+              "planned_stop", "planned_target", "planned_rr", "risk_pct", "actual_entry",
+              "actual_exit", "exit_reason", "r_realized", "mfe_r", "mae_r", "exit_policy",
+              "adherence", "deviation_reason", "notes", "chart"]
+    anchors = {"1D": (2.5, 3.5), "4H": (1.2, 2.2), "1h": (0.7, 1.2), "15m": (0.4, 0.7)}
     rows = []
-    for i in range(1, 121):
+    for i in range(1, 161):
         setup = random.choice(["S1", "S1", "S2", "S3", "S4", "S4"])
         grade = "A" if random.random() < 0.45 else "B"
         clean = random.random() < 0.82
-        # A-grade and clean trades are given a genuinely better hit rate so the
-        # comparison logic has something real to detect.
+        anchor = "4H" if setup == "S4" else random.choice(["1D", "4H", "4H", "1h", "15m"])
+        # A-grade and clean trades get a genuinely better hit rate, and the 15m anchor a
+        # worse one, so the comparison logic has something real to detect.
         p = 0.44 if grade == "A" else 0.36
         if not clean:
             p -= 0.08
+        if anchor == "15m":
+            p -= 0.06
         won = random.random() < p
         entry = 100000.0
-        stop_pct = random.uniform(0.6, 2.0)
+        stop_pct = random.uniform(*anchors[anchor])
         stop = entry * (1 - stop_pct / 100.0)
         if won:
             mfe = round(random.uniform(2.0, 3.4), 1)
@@ -403,7 +449,8 @@ def self_test():
             random.choice(["BTCUSDT.P", "ETHUSDT.P", "SOLUSDT.P", "XRPUSDT.P"]),
             setup, random.choice(["long", "short"]), grade,
             "htf|fib|vp" if grade == "A" else "htf|fib",
-            "with" if random.random() < 0.75 else "against", "15m",
+            "with" if random.random() < 0.75 else "against", anchor,
+            {"1D": "1h", "4H": "15m", "1h": "5m", "15m": "5m"}[anchor],
             "%.2f" % entry, "%.2f" % stop, "%.2f" % (entry * 1.03), "2.4", "0.5",
             "%.2f" % entry, "%.2f" % (entry * 1.02), "target" if won else "stop",
             "%.3f" % r, mfe, mae, "partial_be",

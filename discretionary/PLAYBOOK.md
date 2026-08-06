@@ -8,9 +8,12 @@ Common requirements for every setup (from `SYSTEM_SPEC_v1.md`):
 - Level was on the map **before** price arrived (Layer 1).
 - Direction permitted by the 4H EMA200 context gate (Layer 2).
 - Trigger evaluated on a **closed bar**, entry after the close (Layer 4).
+- Trigger timeframe fixed by the anchor: 1D->1h, 4H->15m, 1h->5m, 15m->5m (1m for S2 only).
 - At least **2.0R to the next opposing level** (Layer 5).
-- Stop at least **0.5%** away (Layer 5).
-- Pre-trade journal row written **before** entry (Layer 6).
+- Stop clears both minimums: **fee drag <= 0.20R** (>= 0.40% at Breakout's 0.08% round
+  trip) and **>= 0.75 x ATR14 on the trigger timeframe** (Layer 5).
+- Confluence counted from the anchor timeframe **or higher**, never lower (Layer 1).
+- Pre-trade journal row written **before** entry, including `anchor_tf` (Layer 6).
 
 ---
 
@@ -184,10 +187,25 @@ Log, rather than skipping signals ad hoc.
 
 | | S1 Rejection | S2 SFP | S3 Range | S4 Volume spike |
 |---|---|---|---|---|
-| Timeframe anchor | 4H/1D level | any swing level | post-impulse range | 4H bar |
-| Trigger TF | 15m | 15m or 5m | 15m | 4H close |
+| Anchor TF | 1D / 4H / 1h / 15m | any, incl. 15m | the range's own TF | 4H, fixed |
+| Trigger TF | one step below anchor | one step below, 1m allowed | one step below anchor | 4H close |
 | Min grade with trend | B | B | B | n/a |
 | Min grade vs trend | not allowed | A | not allowed | not allowed |
 | Stop | far edge of zone + buffer | beyond wick | beyond boundary | 1.5 x ATR14 |
 | Target | next level, >= 2R | next level, >= 2R | opposite side, >= 2R | fixed 2R |
 | Discretion | high | high | high | **none** |
+
+### Breakeven winrate by stop distance, at 2:1
+
+Keep this in view when a tight stop is tempting. `breakeven p = (1 + fee_drag) / 3`.
+
+| Stop | Fee drag | Breakeven WR @ 2:1 |
+|---|---|---|
+| 0.40% (the cap) | 0.20R | 40.0% |
+| 0.60% | 0.13R | 37.8% |
+| 1.00% | 0.08R | 36.0% |
+| 2.00% | 0.04R | 34.7% |
+
+The measured winrate on the validated 4H setup was 41.7%. A 0.40% stop leaves 1.7 points
+of margin against that. A 1.00% stop leaves 5.7. That is the real cost of a low anchor,
+and it is why anchors get dropped on measurement rather than on preference.

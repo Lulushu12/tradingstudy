@@ -19,6 +19,12 @@ A mechanical system needs frequency to compound. A patient human does not, in th
 way. The edge thrown away for being too rare is the edge this system is designed to
 harvest, applied across a watchlist rather than one symbol so the trade count works.
 
+On timeframes: the study's rejection of 15m and 1h is stated at **1:1**, where fee drag
+puts the breakeven winrate at 54-56%. This system has a hard 2.0R floor, where the same
+fee drag puts it at **36-40%**. That is a different bar entirely, so 1D, 4H, 1h and 15m
+anchors are all permitted and the question of which ones pay is settled by the
+per-anchor rule in Layer 7, on data, rather than by assumption in either direction.
+
 The other thing the mechanical port lost is that it encoded the wrong half of the method.
 Jayson's process is level-quality judgment, range re-drawing, SFP reading and multi-
 timeframe momentum timing. `FROZEN_SPEC.md` reduced all of it to "WT divergence + MFI
@@ -47,6 +53,7 @@ the answer is to trade the rule.
 | `skips_template.csv` | Optional log of setups you passed on. |
 | `levels.py` | Builds the graded confluence level map from a TradingView CSV. |
 | `review.py` | The falsification engine. Run every 40 trades. |
+| `prop_math.py` | Monte Carlo of the Breakout evaluation. Sets risk per trade. |
 
 Both scripts are stdlib-only Python 3, no install step. The older `../study/` code needs
 pandas via `../study/run.sh`; this folder deliberately does not.
@@ -65,18 +72,38 @@ python3 review.py --self-test
 
 # 4. At every 40-trade review
 python3 review.py journal.csv
+
+# 5. Re-derive risk per trade if the prop rules turn out different
+python3 prop_math.py --target 10 --dd 6 --daily 3
 ```
+
+## Breakout constraints and sizing
+
+1-Step Classic: **10% profit target, 6% static max drawdown, 3% daily loss** (reset 00:30
+UTC, on equity including floating PnL), **0.04% per side / 0.08% round trip**, leverage
+5:1 on BTC/ETH and 2:1 on altcoins, no consistency rules or minimum days.
+
+Sourced from third-party reviews current to August 2026 because breakoutprop.com returns
+403 to automated fetches, and **those sources disagree** on max drawdown (6% vs 8%) and
+daily loss (3% vs 4-5%). Verify in your dashboard and re-run `prop_math.py` if anything
+differs.
+
+`prop_math.py` simulates reaching +10% before touching the static floor. At the study's
+measured 41.7% winrate, 0.40% risk passes 95.4% of the time in a median of 96 trades. The
+finding that changed the design: **winrate uncertainty dominates the sizing decision, not
+the drawdown rule.** A four-point winrate drop costs more pass probability than doubling
+risk does, which is why frequency is only worth chasing at constant setup quality.
+
+Risk per trade: **0.40% evaluation, 0.30% funded, 1.0% personal.**
 
 ## Before the first live trade
 
-Four items are still open and are listed at the bottom of `SYSTEM_SPEC_v1.md`:
+1. Confirm Breakout's numbers in your own dashboard, per the caveat above.
+2. Pick the final watchlist of 6-8 symbols. Check the 2:1 altcoin leverage cap allows the
+   intended size on each.
 
-1. Breakout's exact daily loss limit, drawdown rule and profit target. Every risk number
-   in Layer 5 is provisional until this is filled in.
-2. Whether Breakout's ATR indicator matches ATR14 with Wilder smoothing. Carried over
-   unverified from `FROZEN_SPEC.md`; it affects the S4 stop on every trade.
-3. The final watchlist of 8-10 symbols.
-4. The actual fee schedule. The 0.08% round trip was assumed and never verified.
+Closed: Breakout's ATR matches ATR14. Fee schedule confirmed at 0.08% round trip, which is
+what the prior work assumed.
 
 ## Pre-committed kill rule
 

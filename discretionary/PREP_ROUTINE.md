@@ -44,7 +44,8 @@ Symbols with C structure quality get no alerts and are not traded, no matter wha
 ## Daily, start of session, roughly 10 minutes
 
 1. Re-run `levels.py` for symbols where a new extreme printed. Prior day high/low update
-   every day, so this is not optional.
+   every day, so this is not optional. For symbols in play, also run the 1h export so the
+   lower anchors are prepared in advance rather than discovered live.
 2. If a range extended overnight, **re-pull it**. Per lesson 28 the whole updated range is
    now the working range, and the old golden pocket is no longer a level. Delete it.
 3. Confirm alerts are still set at the right prices.
@@ -58,17 +59,20 @@ Symbols with C structure quality get no alerts and are not traded, no matter wha
 
 Work down this list, in order. Any "no" ends it.
 
-1. Which symbol, which zone, what grade? If C: **stop**.
+1. Which symbol, which zone, what grade, **which anchor timeframe**? If C: **stop**.
 2. Is the direction permitted by the 4H context gate? Against trend needs grade A and an
    S2 setup. If not: **stop**.
 3. Which of S1, S2, S3, S4 is this? If you cannot name it: **stop**.
 4. Distance to the next opposing zone from the map. Is it >= 2.0R from a valid stop?
    If not: **stop**.
-5. Is the stop at least 0.5% away? If not, widen and re-check step 4, or **stop**.
-6. Wait for the trigger on the closed bar: MC divergence, money flow turn, cooldown of 3+
-   bars since the opposing dot, two consecutive higher lows or lower highs.
-7. **Write the pre-trade journal row.** Setup, grade, confluence families, planned entry,
-   stop, target, R:R, risk %.
+5. Does the stop clear **both** minimums: fee drag <= 0.20R (>= 0.40% at Breakout's
+   fees) and >= 0.75 x ATR14 on the trigger timeframe? If not, widen and re-check step 4,
+   or **stop**. You may not use the tighter stop.
+6. Wait for the trigger, on the timeframe the anchor dictates (1D->1h, 4H->15m, 1h->5m,
+   15m->5m, or 1m for S2 only), on a **closed bar**: MC divergence, money flow turn,
+   cooldown of 3+ bars since the opposing dot, two consecutive higher lows or lower highs.
+7. **Write the pre-trade journal row.** Setup, grade, confluence families, anchor
+   timeframe, planned entry, stop, target, R:R, risk %.
 8. Enter, market, after the bar closes.
 9. Set the stop immediately. Set the alert for the first partial.
 

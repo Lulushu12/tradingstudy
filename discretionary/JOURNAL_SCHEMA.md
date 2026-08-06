@@ -20,7 +20,8 @@ plan.
 | `grade` | enum | `A` `B` `C`. C only ever appears on a deviated row |
 | `confluence` | string | Pipe-separated families that agreed, e.g. `htf\|fib\|vp`. Allowed: `htf` `fib` `vp` `period` `ma`. For S4 write `n/a` |
 | `htf_trend` | enum | `with` `against`, relative to 4H EMA200 |
-| `trigger_tf` | string | `15m` `5m` `4H` |
+| `anchor_tf` | enum | `1D` `4H` `1h` `15m`. The timeframe the LEVEL was drawn on, not the trigger |
+| `trigger_tf` | string | Fixed by the anchor per Layer 4: 1D->1h, 4H->15m, 1h->5m, 15m->5m (1m for S2). S4 is always `4H` |
 | `planned_entry` | float | |
 | `planned_stop` | float | |
 | `planned_target` | float | Next opposing level, or the 2R level for S4 |
@@ -79,6 +80,8 @@ Mark `deviated` for any of these, **even if the trade won**:
 - Traded a C-grade level
 - Traded against the 4H trend on anything other than an A-grade S2
 - Took a setup with planned R:R below 2.0
+- Used a stop tighter than the 0.20R fee-drag cap or the 0.75 x ATR noise floor
+- Triggered on a finer timeframe than the anchor allows
 - Moved a stop away from entry
 - Sized above the stage's `risk_pct`, or above the grade multiplier
 - Traded after hitting the 2-loss daily limit or 4-loss weekly limit

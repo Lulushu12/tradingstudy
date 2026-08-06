@@ -35,34 +35,86 @@ The prior study established three things that this system does not get to argue 
    single liquid asset. The return target and the drawdown cap were mutually incompatible
    and no amount of discretion changes that.
 
-Therefore the realistic mandate:
+### Breakout constraints (1-Step Classic)
 
-| Stage | Risk/trade | Target trades/mo | Expectancy assumption | Implied monthly |
+| Rule | Value |
+|---|---|
+| Profit target | **10%** |
+| Max drawdown | **6%, static** (fixed floor at start equity minus 6%, does not trail up) |
+| Daily loss limit | **3%**, reset 00:30 UTC |
+| Basis | Account **equity**, including floating PnL. An open loser counts against you |
+| Commission | **0.04% per side, 0.08% round trip** |
+| Leverage | 5:1 BTC and ETH, 2:1 altcoins, system enforced |
+| Consistency rules / min days | None |
+
+Sourcing caveat: breakoutprop.com returns 403 to automated fetches, so these come from
+third-party reviews current to August 2026, and those sources **disagree** on some points
+(6% vs 8% max drawdown, 3% vs 4-5% daily). The set above is the most consistently
+corroborated for 1-Step Classic. **Verify each number in your own dashboard before sizing
+a single trade.** If any differ, re-run `prop_math.py` with the real values.
+
+The 2:1 altcoin leverage cap is a live constraint on the watchlist: an altcoin setup with
+a tight stop may not be sizeable to the intended risk. Check before planning the trade,
+not after.
+
+### Sizing, derived rather than guessed
+
+`prop_math.py` simulates reaching +10% before touching the static -6% floor, 20,000 runs
+per cell, compounding, with fee drag applied in R. At the study's measured 41.7% winrate
+at 2:1, and at a pessimistic 38% and an optimistic 46%:
+
+| Risk/trade | P(pass) @38% | P(pass) @42% | P(pass) @46% | Median trades to pass @42% |
 |---|---|---|---|---|
-| Prop challenge | 0.4% | 10-13 | +0.20R to +0.30R | +0.8% to +1.6% |
-| Prop funded | 0.5% | 10-13 | +0.20R to +0.30R | +1.0% to +2.0% |
-| Personal account | 1.0% | 10-13 | +0.20R to +0.30R | +2.0% to +4.0% |
+| 0.25% | 73.7% | 98.9% | 100% | 167 |
+| **0.30%** | **76.3%** | 98.1% | 99.8% | 137 |
+| **0.40%** | 73.7% | 95.4% | 99.3% | **96** |
+| 0.50% | 68.9% | 91.9% | 98.1% | 74 |
+| 0.75% | 59.9% | 82.4% | 93.2% | 41 |
+| 1.00% | 54.2% | 74.6% | 86.6% | 26 |
 
-These are planning figures derived from backtested numbers, not promises. They assume the
-prior study's expectancy holds for discretionary versions of the same setups, which is
-exactly the thing Layer 7 is built to test.
+Three things fall out of this, and they are not what I assumed before running it:
 
-**During the prop stage, size is not a return lever.** With a hard drawdown limit and an
-observed 9-trade losing streak at 2:1, risk per trade is capped near 0.4-0.5%. The only
-levers available are trade count (Layer 1 watchlist) and per-trade quality (Layer 3
-grading). If the plan for hitting a return number involves increasing size, the plan is
-to fail the account.
+1. **The static floor is more forgiving than a trailing one.** Once equity rises the
+   dollar buffer never shrinks, so even 1% risk passes 75% of the time at the measured
+   winrate. My earlier claim that risk was hard-capped near 0.4-0.5% was wrong.
+2. **Winrate uncertainty dominates the sizing decision, not the drawdown rule.** Moving
+   from 42% to 38%, well inside the confidence interval on a sample of this size, costs
+   more pass probability than doubling risk does. That is the actual risk here.
+3. **P(pass) peaks around 0.30% under the pessimistic winrate.** Below that you are just
+   adding months. Above it you are trading pass probability for speed.
+
+**Chosen: 0.40% per trade for the evaluation.** It gives up 2.6 points of pass probability
+against the 0.30% optimum at 38% winrate, and buys back roughly 40 trades of elapsed time.
+Revisit at the first 40-trade review with a measured winrate instead of an assumed one.
+
+| Stage | Risk/trade | Rationale |
+|---|---|---|
+| Prop evaluation | **0.40%** | Table above |
+| Prop funded | **0.30%** | A funded account is worth more than a challenge fee. Optimise survival |
+| Personal account | **1.0%** | No external floor, 12% self-imposed DD limit |
+
+### Time to pass, stated plainly
+
+At 0.40% risk and the measured winrate, the median is **96 trades**. At 12 trades a month
+that is eight months. At 25 trades a month it is four. This is why Layer 1 treats trade
+frequency as a first-class design problem rather than a nice-to-have, and it is the
+strongest argument for the multi-anchor approach in Layer 2. It is also why chasing
+frequency by lowering setup quality is self-defeating: the table shows a four-point
+winrate drop costs more than a doubling of trade count buys.
 
 ### Hard limits
 
-- Max drawdown, personal account: **12%** measured peak to trough on closed equity. At 8%
-  drop to half size until a new equity high.
-- Prop account: whatever the provider's published rules are, minus a 20% safety buffer.
-  **ACTION REQUIRED: paste Breakout's exact daily loss limit, max/trailing drawdown, and
-  profit target into this section before the first live trade.** Every number in Layer 5
-  is provisional until that is filled in.
-- Max 2 losing trades in a calendar day, then stop for the day regardless of setups.
+- Prop: the platform enforces 6% static and 3% daily. **Self-imposed stop at 4% total
+  drawdown**, two thirds of the real floor. Hitting the platform limit ends the account;
+  hitting yours ends a week. Never trade into the last third of the buffer.
+- Personal account: **12%** peak to trough on closed equity. At 8%, half size until a new
+  equity high.
+- Max 2 losing trades in a calendar day, then stop for the day. At 0.40% risk this caps a
+  day near 0.9% including fees, comfortably inside the 3% daily limit, so the daily rule
+  should never be the thing that stops you. If it ever is, something has gone badly wrong.
 - Max 4 losing trades in a calendar week, then stop for the week.
+- Floating PnL counts toward both limits. An open position sitting at -2% has already
+  spent the buffer even if you intend to hold it.
 
 ---
 
@@ -71,10 +123,52 @@ to fail the account.
 Discretion lives here. This is the part of the method that the mechanical port threw away,
 and the part `13-deciding-what-levels-to-keep-on-your-chart.md` says is the actual filter.
 
+### Anchor timeframes, and why the mechanical result does not transfer intact
+
+An earlier draft of this spec restricted levels to 4H and 1D anchors, on the grounds that
+`study/STRATEGY_FINDINGS.md` found no edge on 15m or 1h. That was an over-transfer of a
+mechanical result to a discretionary context, and it is corrected here.
+
+What actually transfers is the fee arithmetic. What does not is the conclusion.
+
+The 15m and 1h rejection in that study is stated at **1:1**: *"On 15m and 1h the fee drag
+(breakeven WR 54-56% @ 1:1) kills most edges."* This system does not trade 1:1. It has a
+hard 2.0R floor. At 2:1 the breakeven winrate is:
+
+```
+breakeven p = (1 + f) / 3        where f = fee drag in R = round_trip_% / stop_%
+```
+
+| Stop distance | Fee drag | Breakeven WR @ 2:1 | Breakeven WR @ 1:1 |
+|---|---|---|---|
+| 0.4% | 0.20R | 40.0% | 60.0% |
+| 0.6% | 0.13R | 37.8% | 56.7% |
+| 1.0% | 0.08R | 36.0% | 54.0% |
+| 2.0% | 0.04R | 34.7% | 52.0% |
+| frictionless | 0 | 33.3% | 50.0% |
+
+A 15m-anchored trade with a 0.6% stop needs **37.8%** at 2:1, not 56%. That is a
+completely different bar, and it is one a selective discretionary trader might clear. The
+mechanical scan could not test that because it could not encode selectivity.
+
+So: **anchors of 1D, 4H, 1h and 15m are all permitted.** Every trade logs its `anchor_tf`,
+`review.py` reports expectancy per anchor with the required breakeven winrate alongside,
+and Layer 7 carries a pre-committed rule for dropping an anchor that does not pay. The
+question moves from an argument to a measurement, which is the point of the whole system.
+
+Two honest caveats:
+
+- Fee drag is real and it is not a mechanical-versus-discretionary matter. A 0.4% stop
+  gives away 0.20R per trade whoever pulls the trigger. Layer 5 caps that explicitly.
+- Lower anchors mean more setups, and more setups mean more chances to relax the grading.
+  The Layer 0 table shows a four-point winrate drop costs more than doubling trade count
+  buys. Frequency is only worth having at constant quality.
+
 ### Watchlist
 
-Frequency comes from breadth, not from dropping timeframes. Target 8 to 10 liquid perps.
-Starting list, adjust at review only:
+With multiple anchors open, frequency now has two levers: more symbols and more anchors.
+Start with 6 to 8 liquid perps rather than 10, and let the journal show which lever is
+actually producing the good trades before widening either one.
 
 `BTCUSDT.P`, `ETHUSDT.P`, `SOLUSDT.P`, `XRPUSDT.P`, plus 4-6 others chosen for liquidity
 and for having clean, respected structure. Avoid anything where the 4H chart looks like
@@ -89,7 +183,11 @@ caps total correlated exposure. Breadth buys you *setup selection*, not independ
   lows, prior week high/low/close, the working range if one exists. Rank symbols A/B/C on
   how clean the structure is. Only A and B symbols get watched this week.
 - **Daily (start of your session):** update prior day high/low, refresh the working range
-  if a new extreme printed, set price alerts. No new analysis during the session.
+  if a new extreme printed, run the 1h map on symbols in play, set price alerts. No new
+  analysis during the session.
+- **1h and 15m anchors are still prepared in advance**, not discovered live. A 15m level
+  drawn while price approaches it is not a level, it is a rationalisation. The lower
+  anchors shorten the preparation horizon, they do not remove it.
 - **Never:** draw a new level while price is approaching it. If it was not on the map
   before price got there, it is not tradeable today. This is `34-trading-psychology.md`
   tip 1 as a hard rule.
@@ -103,11 +201,16 @@ Independent methods that count, one point each, maximum one point per family:
 
 | Family | Counts as a point when |
 |---|---|
-| HTF structure | A 1D or 4H swing high/low, or a broken level now flipped |
+| HTF structure | A swing high/low from the anchor timeframe **or higher**, or a broken level now flipped |
 | Fibonacci | 0.618 to 0.786 golden pocket of the current working swing |
 | Volume profile | Fixed-range POC, VAH, or VAL across the working range, or a naked POC |
 | Session/period | Prior week high/low, prior day high/low |
-| Moving average / VWAP | 4H 21EMA (in a trending market only), weekly or session VWAP |
+| Moving average / VWAP | 21EMA on the anchor timeframe (in a trending market only), weekly or session VWAP |
+
+Confluence only counts **downward**, never upward. A 15m-anchored setup may count a 4H
+swing high as its HTF structure point; a 4H setup may not count a 15m swing as anything.
+Without this rule a low anchor can manufacture an A grade out of noise, which is exactly
+how the grading stops meaning anything.
 
 Grade:
 
@@ -202,8 +305,19 @@ The level and the context say *where and which way*. The trigger says *now*.
 
 ### Trigger timeframe
 
-15m default for 4H-anchored levels. 5m permitted only for S2 (an SFP is visible on lower
-timeframes by construction, per lesson 26). Never below 5m.
+The trigger timeframe is fixed by the anchor. It is not a choice made in the moment.
+
+| Anchor | Trigger | Notes |
+|---|---|---|
+| 1D | 1h | |
+| 4H | 15m | The default pairing |
+| 1h | 5m | |
+| 15m | 1m | S2 only. A 15m anchor on any other setup triggers on 5m |
+
+**Never below 1m, and never a trigger timeframe finer than the table allows.** Dropping to
+a lower trigger than the anchor warrants is how a 2R plan becomes a 0.3% stop that fees
+eat. The Layer 5 fee-drag cap will usually reject those trades anyway; this rule stops you
+from planning them in the first place.
 
 ### Required trigger conditions
 
@@ -247,8 +361,8 @@ risk_amount   = account_equity x risk_pct x grade_multiplier
 position_size = risk_amount / stop_distance
 ```
 
-- `risk_pct`: 0.4% prop challenge, 0.5% prop funded, 1.0% personal. Set per stage, not
-  per trade, not per mood.
+- `risk_pct`: **0.40% prop evaluation, 0.30% prop funded, 1.0% personal**, per the
+  simulation table in Layer 0. Set per stage, not per trade, not per mood.
 - `grade_multiplier`: **A = 1.0, B = 0.6.** This is where the confluence grading either
   earns its place or is exposed as decoration, because Layer 7 compares A-grade and
   B-grade expectancy directly.
@@ -260,11 +374,35 @@ position_size = risk_amount / stop_distance
 - Beyond the invalidation point of the specific setup (see `PLAYBOOK.md` per setup), not a
   fixed ATR multiple. Exception: S4, which uses 1.5 x ATR(14) because that is how it was
   validated and it is not to be modified.
-- **Minimum stop distance: 0.5%** of entry price. A stop tighter than that on a 15m
-  trigger is noise, and it was already a rule in `FROZEN_SPEC.md` (0.6%) for good reason.
-  If the valid invalidation is closer than 0.5%, either widen to 0.5% and re-check R:R, or
-  skip. Do not use the tighter stop.
 - No maximum stop distance, but the R:R floor below will usually enforce one.
+
+Two minimums, both of which must hold. These replace the flat 0.5% rule from the first
+draft, which was calibrated for 4H-only anchors and would have wrongly blocked every
+valid 15m setup.
+
+**1. Fee-drag cap: fee drag must not exceed 0.20R.**
+
+```
+fee_drag_R = round_trip_fee_% / stop_distance_%
+```
+
+At Breakout's 0.08% round trip that means **stop distance >= 0.40% of entry price**. The
+cap is written in R rather than in percent so that it self-corrects if the fee schedule
+changes or if you trade a venue with different costs. A trade at the cap needs 40.0%
+winrate at 2:1 just to break even, against 33.3% frictionless. That is the whole tax of
+trading a tight stop, made visible before you take the trade rather than discovered in the
+equity curve.
+
+**2. Noise floor: stop >= 0.75 x ATR(14) on the trigger timeframe.**
+
+Fee drag is not the only problem with a tight stop. A stop inside normal bar noise gets
+hit by nothing in particular. The ATR floor scales with the timeframe automatically, which
+a fixed percentage cannot.
+
+If the genuine invalidation sits inside either minimum, you have two options: widen the
+stop to the minimum and re-check the 2.0R floor, or skip the trade. **You may not use the
+tighter stop.** Most of the time widening will break the R:R floor and the trade dies,
+which is the correct outcome.
 
 ### Reward and the R:R floor
 
@@ -365,6 +503,10 @@ At every review, `review.py` answers:
    more than any amount of willpower.
 3. **Does discretion beat the machine?** S1+S2+S3 pooled expectancy vs S4 expectancy. This
    is the whole premise of going discretionary. If discretion loses to S4, trade S4.
+4. **Which anchor timeframes actually pay?** Expectancy per `anchor_tf`, printed next to
+   the breakeven winrate each anchor's typical stop distance requires. A 15m anchor
+   running at 36% winrate is losing money; a 4H anchor at 36% is roughly breakeven. The
+   report shows the bar and the result side by side so the comparison is not eyeballed.
 
 ### Cadence
 
@@ -387,6 +529,23 @@ On falsification: stop trading S1, S2 and S3. Trade S4 mechanically only. That i
 failure of the project; that is the project returning a real answer, which is more than
 the last one did.
 
+### Pre-committed anchor rule
+
+Also written now, for the same reason. Evaluated at **40 trades on a given anchor**, not
+at 40 trades overall:
+
+- If an anchor's measured expectancy is **below zero and below its own breakeven winrate
+  bar** on a sample of 40 or more, that anchor is dropped. It does not get a second block
+  to prove itself.
+- If two anchors both clear their bar, keep both. Frequency is worth having when quality
+  holds, which is the entire premise of allowing the lower anchors.
+- An anchor with fewer than 40 trades is neither kept nor dropped. It is simply not yet
+  measured, and `review.py` will say so rather than pretending.
+
+This is the mechanism that settles the 15m question with data instead of argument. Neither
+the earlier blanket ban nor an assumption that discretion rescues low timeframes gets to
+decide it.
+
 Sample size honesty: at 12 trades/month, 100 trades is roughly 8 months. With a typical
 per-trade standard deviation near 1.2R, the standard error on expectancy at n=100 is about
 0.12R. That means a measured +0.20R is genuinely uncertain and a measured difference of
@@ -401,13 +560,20 @@ decisions off a 15-trade bucket.
 | Date | Change | Reason | Block |
 |---|---|---|---|
 | 2026-08-06 | v1 created | Replaces the mechanical MCB stack attempt | pre-trade |
+| 2026-08-06 | Breakout rules and 0.08% round-trip fee filled into Layer 0 | Researched from third-party sources, official site blocks automated access | pre-trade |
+| 2026-08-06 | Risk per trade set to 0.40% eval / 0.30% funded from `prop_math.py` | Replaced an assumed cap with a simulated one. The static floor turned out more forgiving than assumed and winrate uncertainty, not the drawdown rule, dominates sizing | pre-trade |
+| 2026-08-06 | Anchor timeframes widened to 1D/4H/1h/15m | The 15m ban over-transferred a mechanical 1:1 result to a 2:1 discretionary system. At 2:1 the breakeven bar is 36-40%, not 54-56%. Now settled by measurement per the anchor rule in Layer 7 | pre-trade |
+| 2026-08-06 | Flat 0.5% minimum stop replaced by a 0.20R fee-drag cap plus a 0.75 x ATR noise floor | The flat rule was calibrated for 4H-only anchors and would have blocked every valid 15m setup | pre-trade |
+| 2026-08-06 | ATR verification closed | Trader confirmed Breakout's ATR matches ATR14 | pre-trade |
 
 ### Open items blocking the first live trade
 
-1. Breakout's exact daily loss limit, max/trailing drawdown rule, and profit target,
-   pasted into Layer 0.
-2. Verification that Breakout's ATR indicator matches ATR14 with RMA/Wilder smoothing.
-   Carried over from `FROZEN_SPEC.md` section 7 and still unverified. It affects S4's stop
-   on every trade.
-3. Final watchlist of 8-10 symbols, chosen on liquidity and structure quality.
-4. Fee schedule confirmed. The prior work assumed 0.08% round trip, never verified.
+1. **Confirm the Breakout numbers in your own dashboard.** Layer 0's table is sourced from
+   third-party reviews that disagree with each other on max drawdown (6% vs 8%) and daily
+   loss (3% vs 4-5%), because breakoutprop.com returns 403 to automated fetches. If any
+   value differs, re-run `prop_math.py` with the real ones before sizing anything.
+2. Final watchlist of 6-8 symbols, chosen on liquidity and structure quality. Check the
+   2:1 altcoin leverage cap allows the intended size on each one.
+
+Closed: Breakout ATR matches ATR14 (confirmed by the trader). Fee schedule confirmed at
+0.04% per side, 0.08% round trip, which matches what the prior work assumed.
