@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+study/data/*.parquet
+study2/data/
+study2/raw/
+*.zip
