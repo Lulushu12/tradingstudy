@@ -40,10 +40,15 @@ PARAMS = dict(objective="binary", learning_rate=0.03, num_leaves=63,
 def bar_hours(ival):
     return {"15m": 0.25, "1h": 1.0, "4h": 4.0}[ival]
 
-def prep(ival):
+def prep(ival, start=None, drop_prefixes=(), only_prefixes=()):
     M = pd.read_parquet(f"{core.DATA}/matrix_{ival}.parquet")
+    if start is not None:
+        M = M[M["dt"] >= pd.Timestamp(start, tz="UTC")].reset_index(drop=True)
     M["sym_cat"] = M["sym"].astype("category")
     feats = [c for c in M.columns if c not in META and c != "sym_cat"]
+    if only_prefixes:
+        feats = [f for f in feats if any(f.startswith(p) for p in only_prefixes)]
+    feats = [f for f in feats if not any(f.startswith(p) for p in drop_prefixes)]
     return M, feats + ["sym_cat"]
 
 def fit_predict(M, feats, target, rr, tr_mask, te_mask):
@@ -69,7 +74,7 @@ def eval_threshold(M, te_idx, p, target, rr, thresh):
             "tpm": round(len(g) / months, 1), "wr": round(float(np.mean(y)), 4),
             "expR": round(float(np.mean(r)), 4), "totR": round(float(np.sum(r)), 1)}
 
-def run_target(M, feats, ival, side, tag):
+def run_target(M, feats, ival, side, tag, suffix=""):
     target = f"{side}_y_{tag}"
     rr = 1.0 if tag == "11" else 2.0
     emb = pd.Timedelta(hours=EMBARGO_BARS * bar_hours(ival))
@@ -97,8 +102,8 @@ def run_target(M, feats, ival, side, tag):
             best = s
     result = {"ival": ival, "target": target, "folds": fold_stats,
               "val_best": best}
-    if best is None:
-        result["holdout"] = None
+    if best is None or best["totR"] <= 0:
+        result["holdout"] = "NOT RUN - no positive validation edge"
         return result
     # final: train on ALL pre-2025 (minus embargo), evaluate holdout once
     tr_mask = M["dt"] < (core.TEST_START - emb)
@@ -115,17 +120,28 @@ def run_target(M, feats, ival, side, tag):
     tl["p"] = p[p > best["thresh"]]
     tl["side"] = side; tl["rr"] = rr
     tl.rename(columns={target: "y"}).to_parquet(
-        f"{core.DATA}/trades_{ival}_{side}_{tag}.parquet")
+        f"{core.DATA}/trades_{ival}_{side}_{tag}{suffix}.parquet")
     return result
 
 if __name__ == "__main__":
-    ival = sys.argv[1] if len(sys.argv) > 1 else "1h"
-    M, feats = prep(ival)
+    import argparse
+    ap = argparse.ArgumentParser()
+    ap.add_argument("ival")
+    ap.add_argument("--start", default=None)
+    ap.add_argument("--drop", default="", help="comma-sep feature prefixes to drop")
+    ap.add_argument("--only", default="", help="comma-sep feature prefixes to keep")
+    ap.add_argument("--suffix", default="", help="output filename suffix, e.g. _v2")
+    args = ap.parse_args()
+    drops = tuple(x for x in args.drop.split(",") if x)
+    onlys = tuple(x for x in args.only.split(",") if x)
+    M, feats = prep(args.ival, start=args.start, drop_prefixes=drops,
+                    only_prefixes=onlys)
+    print(f"{args.ival}{args.suffix}: {len(M)} rows, {len(feats)} feats", flush=True)
     out = {}
     for side in ("long", "short"):
         for tag in ("11", "21"):
-            r = run_target(M, feats, ival, side, tag)
+            r = run_target(M, feats, args.ival, side, tag, suffix=args.suffix)
             out[f"{side}_{tag}"] = r
             print(json.dumps(r, indent=1), flush=True)
-    with open(f"{core.DATA}/ml_{ival}.json", "w") as f:
+    with open(f"{core.DATA}/ml_{args.ival}{args.suffix}.json", "w") as f:
         json.dump(out, f, indent=1)
