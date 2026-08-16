@@ -40,9 +40,10 @@ def volspike_trades():
     sig = pd.concat(sigs)[["sym", "dt", "side", "rr"]]
     return portfolio.resolve_trades(sig, "4h")
 
-def ml_trades(fname, ival, side):
-    t = pd.read_parquet(f"{core.DATA}/{fname}")
-    sig = t[["sym", "dt"]].copy()
+def ml_trades(fnames, ival, side):
+    """Concat out-of-fold validation trades (train period) + holdout trades."""
+    t = pd.concat([pd.read_parquet(f"{core.DATA}/{f}") for f in fnames])
+    sig = t[["sym", "dt"]].drop_duplicates().copy()
     sig["side"] = side; sig["rr"] = 2.0
     return portfolio.resolve_trades(sig, ival)
 
@@ -91,8 +92,10 @@ if __name__ == "__main__":
         "glsr_short": pd.read_parquet(f"{core.DATA}/rtrades_glsr_short.parquet"),
         "whale_long": pd.read_parquet(f"{core.DATA}/rtrades_whale_long.parquet"),
         "btclead": pd.read_parquet(f"{core.DATA}/rtrades_btclead_alt.parquet"),
-        "ml4h_l21": ml_trades("trades_4h_long_21.parquet", "4h", "long"),
-        "ml4h_s21": ml_trades("trades_4h_short_21.parquet", "4h", "short"),
+        "ml4h_l21": ml_trades(["trades_4h_long_21_v2_val.parquet",
+                               "trades_4h_long_21_v2.parquet"], "4h", "long"),
+        "ml4h_s21": ml_trades(["trades_4h_short_21_v2_val.parquet",
+                               "trades_4h_short_21_v2.parquet"], "4h", "short"),
     }
     LO, HI = np.datetime64("2020-01-01"), np.datetime64("2027-01-01")
     print("== book stats (train | holdout) ==")

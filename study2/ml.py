@@ -121,6 +121,14 @@ def run_target(M, feats, ival, side, tag, suffix=""):
     tl["side"] = side; tl["rr"] = rr
     tl.rename(columns={target: "y"}).to_parquet(
         f"{core.DATA}/trades_{ival}_{side}_{tag}{suffix}.parquet")
+    # out-of-fold validation trades (each fold's model never saw its window):
+    # usable as TRAIN-period trade list for portfolio weighting
+    gv = M.loc[idx_val][p_val > best["thresh"]]
+    vv = gv[["sym", "dt", "entry", "stop_dist", "feeR", target]].copy()
+    vv["p"] = p_val[p_val > best["thresh"]]
+    vv["side"] = side; vv["rr"] = rr
+    vv.rename(columns={target: "y"}).to_parquet(
+        f"{core.DATA}/trades_{ival}_{side}_{tag}{suffix}_val.parquet")
     return result
 
 if __name__ == "__main__":
