@@ -91,7 +91,28 @@ Books are complementary (train monthly-R correlation: glsr_short vs
 whale_long -0.49, vs volspike +0.05). Risk weights chosen on train under a
 5% train-DD cap, then ONE holdout evaluation:
 
-<!-- FINAL_COMBO -->
+Two combos, weights frozen on train (grid search, max return s.t. train
+DD <= 5%), then one holdout look each:
+
+| Combo | Weights (risk/trade) | Train | Holdout 2025+ |
+|---|---|---|---|
+| Rules only | volspike 0.1%, glsr_short 0.2%, whale 0.1%, btclead 0.1% | +1.9%/mo, DD -4.2% | **+1.5%/mo, DD -6.0%**, 84% pos. months |
+| Rules + ML books | volspike 0.2%, glsr_short 0.1%, btclead 0.1%, ml4h_l21 0.1% | +2.4%/mo, DD -5.0% | **+2.0%/mo, DD -7.0%**, 68% pos. months |
+| Rules + ML, x2 risk | doubled | +4.7%/mo, DD -9.9% | +3.9%/mo, DD -13.6% |
+
+Reading: a 5% train-DD cap realized 6-7% DD out-of-sample — holdout DD
+overshoots calibration by ~1.2-1.4x, so honestly hitting a hard 6% cap means
+calibrating train to ~4%, i.e. **~1.5-1.7%/mo at <=6% DD**. Return scales
+linearly with risk, DD scales with it: 10%/mo implies roughly -30-35% max DD
+in this framework. The 10%/mo @ 6% DD combination remains structurally out of
+reach — but the honest frontier moved from ~1%/mo (single strategy) to
+~1.5-2%/mo (diversified books), i.e. roughly doubled, entirely thanks to
+not-priced-in features.
+
+Winrate check against the original bars: best 2:1 book (glsr_short) runs
+41.5% OOS vs the 50% target; best 1:1 book (4h ML short) runs 54.3% bar-level
+vs the 60% target. The gap to target is structural (fee-adjusted breakeven +
+achievable signal), not a search deficiency.
 
 ## Honest caveats
 
