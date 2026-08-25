@@ -33,11 +33,17 @@ platform fill: 0.04% per side (0.08% round trip) — 10x the assumed 0.004%.
    surrenders 20% of risk per trade to fees; the median stop (0.77%) surrenders 10%. Low-timeframe
    trading at 1:1 under this fee schedule requires a sustained 55–60% win rate.
 
-3. **Shorts were the only statistically significant pattern — and none had a legitimate bias.**
-   All 15 shorts were taken with 4H WT on the bullish side. Five against an explicit >+53 bullish
-   reading; ten in the "in-between" zone on discretionary wave-reading, which went ~2/10. Zero
-   shorts had the <−53 bearish bias the rules require. Trader confirms probable signal-shopping:
-   across 8 correlated pairs × unlimited timeframes, a "fitting" setup always exists.
+3. **Shorts were the only statistically significant pattern — and the bias behind them does not
+   survive a timeframe-robustness check.** The chart timeframe per trade is unknown (unlogged,
+   unremembered), so wt2 was computed at every short's entry across the full candidate HTF ladder
+   (15m, 30m, 1H, 2H, 4H, OKX feed). Result: 1 of 15 shorts had wt2 < −53 on ANY of the five
+   timeframes (n33, LINK 8/23, 1H). The 8/23 cluster (n34-37) sits at −45..−48 on 1H/2H —
+   borderline; a different feed or reading wt1 could flip those to compliant. Every short before
+   8/22 was unambiguous: no candidate timeframe anywhere near −53 during the rally leg. During the
+   test week only 6.3% of all 15m/30m bars across all pairs printed below −53, so even a
+   deliberate LTF hunt rarely found a bearish reading. Trader confirms probable signal-shopping;
+   because the timeframe was never logged, the bias rule is unauditable even by its author — a
+   rule that cannot be checked after the fact cannot constrain behavior before it.
 
 4. **The give-back was regime + tilt, concentrated in 16 hours.** From the 8/24 peak: two
    counter-trend shorts (AVAX, XRP) lost overnight; two longs (ETH, BTC) stopped on the week's
