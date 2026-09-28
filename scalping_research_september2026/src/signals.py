@@ -582,3 +582,31 @@ FAMILIES = [fam_ema_cross, fam_ema_pullback, fam_macd, fam_supertrend, fam_rsi_p
             fam_prev_day, fam_asia_sweep, fam_bb_revert, fam_rsi_extreme, fam_vwap, fam_zscore, fam_keltner,
             fam_cci_mfi, fam_candles, fam_sfp, fam_pivot_points, fam_divergence, fam_volume,
             fam_volume_profile, fam_fib, fam_time]
+
+
+# =============================================================== WAVE 2
+def fam_btc_leadlag(cx):
+    """BTC leads alts: BTC bar return large (in its own ATR units) while the alt lagged."""
+    if cx.sym == "BTCUSDT":
+        return
+    from data import bars
+    b = bars("BTCUSDT", cx.tf).reindex(cx.df.index)
+    bc, bo = b.close.values, b.open.values
+    batr = ind.atr(b.high.values, b.low.values, bc, 14)
+    bmove = (bc - bo) / batr
+    amove = (cx.c - cx.o) / cx.atr
+    for k in (1.0, 1.5, 2.0):
+        for lag in (0.25, 0.5):
+            L = (bmove > k) & (amove < lag * bmove)
+            S = (bmove < -k) & (amove > lag * bmove)
+            yield "btc_leadlag", f"{k}_{lag}", _sig(_nz(L).astype(bool), _nz(S).astype(bool)), None
+    # 3-bar version
+    b3 = (bc - shift(bc, 3)) / batr
+    a3 = (cx.c - shift(cx.c, 3)) / cx.atr
+    for k in (2.0, 3.0):
+        L = (b3 > k) & (a3 < 0.5 * b3)
+        S = (b3 < -k) & (a3 > 0.5 * b3)
+        yield "btc_leadlag3", f"{k}", _sig(_nz(L).astype(bool), _nz(S).astype(bool)), None
+
+
+WAVE2 = [fam_btc_leadlag]

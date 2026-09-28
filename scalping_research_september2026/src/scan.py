@@ -27,7 +27,8 @@ MIN_TRADES_IS = 40
 
 
 def run_task(args):
-    sym, tf = args
+    sym, tf, wave = args
+    fams = sg.WAVE2 if wave == "w2" else sg.FAMILIES
     t0 = time.time()
     cx = ctx(sym, tf)
     idx = cx.df.index
@@ -40,7 +41,7 @@ def run_task(args):
             biases.append((htf, kind, fx.htf_bias(cx, htf, kind)))
     rows = []
     zero_trail = cx.c
-    for fam in sg.FAMILIES:
+    for fam in fams:
         try:
             gen = list(fam(cx))
         except Exception as e:
@@ -77,14 +78,15 @@ def run_task(args):
                     rows.append(row)
         print(f"{sym} {tf} {fam.__name__} done, rows={len(rows)} t={time.time()-t0:.0f}s", flush=True)
     df = pd.DataFrame(rows)
-    df.to_parquet(f"../results/scan1_{sym}_{tf}.parquet")
+    df.to_parquet(f"../results/scan1_{sym}_{tf}{'' if wave == 'w1' else '_' + wave}.parquet")
     return sym, tf, len(rows), time.time() - t0
 
 
 if __name__ == "__main__":
     tfs = sys.argv[1].split(",") if len(sys.argv) > 1 else ["5m"]
     syms = sys.argv[2].split(",") if len(sys.argv) > 2 else SYMBOLS
-    tasks = [(s, t) for t in tfs for s in syms]
+    wave = sys.argv[3] if len(sys.argv) > 3 else "w1"
+    tasks = [(s, t, wave) for t in tfs for s in syms]
     with Pool(min(4, len(tasks))) as p:
         for res in p.imap_unordered(run_task, tasks):
             print("DONE", res, flush=True)
