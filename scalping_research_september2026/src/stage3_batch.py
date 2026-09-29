@@ -29,11 +29,49 @@ def select_candidates(tf, top=60):
     return a.head(top)
 
 
-def _suff(r, d):
-    k = max(1, int(np.ceil(len(r) * 0.06)))
-    return dict(n=len(r), s=r.sum(), q=(r ** 2).sum(), w=int((r > 0).sum()),
-                nl=int((d == 1).sum()), sl=r[d == 1].sum(), ns=int((d == -1).sum()), ss=r[d == -1].sum(),
-                top=np.sort(r)[::-1][:k])
+N_MONTHS = 12 * 7  # 2020-01 .. 2026-12
+TOPK = 96
+# compact layout: [n, s, q, w, nl, sl, ns, ss] + top[TOPK] + mon[N_MONTHS]
+VLEN = 8 + TOPK + N_MONTHS
+
+
+def bar_months(cx):
+    idx = cx.df.index
+    return ((idx.year - 2020) * 12 + idx.month - 1).values.astype(np.int64)
+
+
+def _suff(r, d, mon=None):
+    """Compact sufficient stats as one float32 vector. `mon` = month index of each trade's entry so
+    the pooled result can compute a TRUE monthly Sharpe (correlated trades land in the same month).
+    The pooled "sum minus best 1%" is exact as long as the pooled top-1% count <= TOPK per symbol."""
+    v = np.full(VLEN, np.nan, np.float32)
+    v[0] = len(r); v[1] = r.sum(); v[2] = (r ** 2).sum(); v[3] = (r > 0).sum()
+    v[4] = (d == 1).sum(); v[5] = r[d == 1].sum(); v[6] = (d == -1).sum(); v[7] = r[d == -1].sum()
+    top = np.sort(r)[::-1][:TOPK]
+    v[8:8 + len(top)] = top
+    v[8 + TOPK:] = 0.0
+    if mon is not None and len(r):
+        v[8 + TOPK:] = np.bincount(mon, weights=r, minlength=N_MONTHS)[:N_MONTHS]
+    return v
+
+
+def pool_stats(parts, months):
+    P = np.vstack(parts).astype(np.float64)
+    n = P[:, 0].sum()
+    if n < 20:
+        return dict(n=n)
+    s, q = P[:, 1].sum(), P[:, 2].sum()
+    m = s / n; sd = np.sqrt(max(q / n - m * m, 1e-12)); tpm = n / months
+    top = P[:, 8:8 + TOPK].ravel()
+    top = np.sort(top[~np.isnan(top)])[::-1][:max(1, int(n) // 100)]
+    nl, ns = P[:, 4].sum(), P[:, 6].sum()
+    mm = P[:, 8 + TOPK:].sum(axis=0)
+    nz = np.nonzero(mm)[0]
+    mm = mm[nz.min():nz.max() + 1] if len(nz) else mm
+    return dict(n=n, avg=m, msr=m / sd * np.sqrt(tpm), rob=s - top.sum(), wr=P[:, 3].sum() / n,
+                L=P[:, 5].sum() / max(nl, 1), S=P[:, 7].sum() / max(ns, 1), tpm=tpm,
+                pos=int((P[:, 1] > 0).sum()), true_msr=mm.mean() / mm.std() if mm.std() > 0 else np.nan,
+                worst_m=mm.min(), pos_m=(mm > 0).mean(), avg_m=mm.mean())
 
 
 def sym_task(args):
@@ -44,6 +82,7 @@ def sym_task(args):
     from data import IS_END
     cx = ctx(sym, tf)
     cut = np.searchsorted(cx.df.index.values, IS_END.to_datetime64())
+    bm = bar_months(cx)
     out = []
     for ci, (family, variant, htf, bias) in enumerate(cands):
         try:
@@ -58,26 +97,13 @@ def sym_task(args):
             tr = simulate(cx.o, cx.h, cx.l, cx.c, cx.h1, cx.l1, cx.mm, s, sd, cx.atr, cx.c,
                           ex["tp_r"], ex["be_r"], ex["trail"], ex["trail_mult"], ex["max_bars"], False,
                           0.0, 0.0, FEE, SLIP)
-            isb = (tr[:, 0].astype(int) + 1) < cut
-            r, d = tr[:, 6], tr[:, 2]
-            out.append((ci, tuple(ex.items()), _suff(r[isb], d[isb]), _suff(r[~isb], d[~isb])))
-        # free the cached signal to keep memory flat
+            eb = tr[:, 0].astype(int) + 1
+            isb = eb < cut
+            r, d, mo = tr[:, 6], tr[:, 2], bm[eb]
+            out.append((ci, tuple(ex.items()), _suff(r[isb], d[isb], mo[isb]), _suff(r[~isb], d[~isb], mo[~isb])))
         cx.cache.pop(("sig", family, variant, htf, bias), None)
     print("symbol done", sym, tf, flush=True)
     return sym, out
-
-
-def pool_stats(parts, months):
-    n = sum(p["n"] for p in parts)
-    if n < 20:
-        return dict(n=n)
-    s = sum(p["s"] for p in parts); q = sum(p["q"] for p in parts)
-    m = s / n; sd = np.sqrt(max(q / n - m * m, 1e-12)); tpm = n / months
-    top = np.sort(np.concatenate([p["top"] for p in parts]))[::-1][:max(1, n // 100)]
-    nl = sum(p["nl"] for p in parts); ns = sum(p["ns"] for p in parts)
-    return dict(n=n, avg=m, msr=m / sd * np.sqrt(tpm), rob=s - top.sum(), wr=sum(p["w"] for p in parts) / n,
-                L=sum(p["sl"] for p in parts) / max(nl, 1), S=sum(p["ss"] for p in parts) / max(ns, 1), tpm=tpm,
-                pos=sum(1 for p in parts if p["s"] > 0))
 
 
 def run_batch(tf, cands_df, workers=3, tag=""):

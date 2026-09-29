@@ -133,6 +133,13 @@ def simulate(o, h, l, c, h1, l1, mm, sig, sl_dist, atr_v, trail_src,
                     exit_px = c[j] * (1 - d * slip)
                     reason = 5
                     break
+            if trail_type == 4:
+                # profit-taking exit: close back beyond trail_src in the trade's favour
+                # (Connors-style: long exits when close > SMA(n))
+                if (d == 1 and c[j] > trail_src[j]) or (d == -1 and c[j] < trail_src[j]):
+                    exit_px = c[j] * (1 - d * slip)
+                    reason = 5
+                    break
             if be_r > 0 and not be_done:
                 if d * (ext - raw) >= be_r * sd:
                     # breakeven plus round-trip costs
