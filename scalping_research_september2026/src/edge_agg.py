@@ -5,7 +5,7 @@ import numpy as np, pandas as pd
 K = ["tf", "family", "variant", "htf", "bias", "H"]
 
 def pooled(tf, wave="w1"):
-    df = pd.concat([pd.read_parquet(f) for f in glob.glob(f"../results/edge_*_{tf}_{wave}.parquet")])
+    df = pd.concat([x for x in (pd.read_parquet(f) for f in glob.glob(f"../results/edge_*_{tf}_{wave}.parquet")) if len(x)])
     df = df.assign(is_pos=(df.is_sum > 0).astype(int), oos_pos=(df.oos_sum > 0).astype(int))
     g = df.groupby(K)
     a = g[["is_n", "is_sum", "is_sq", "oos_n", "oos_sum", "oos_sq", "is_pos", "oos_pos"]].sum()
