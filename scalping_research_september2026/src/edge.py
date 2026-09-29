@@ -3,7 +3,7 @@ Compare against ~0.12% round-trip cost. Signals within H bars of a previous coun
 dropped (non-overlapping), so counts and t-stats aren't inflated by clustering."""
 import sys
 import time
-from multiprocessing import Pool
+import multiprocessing as mp
 
 import numpy as np
 import pandas as pd
@@ -70,7 +70,8 @@ def run_task(args):
 if __name__ == "__main__":
     tfs = sys.argv[1].split(",") if len(sys.argv) > 1 else ["5m"]
     wave = sys.argv[2] if len(sys.argv) > 2 else "w1"
-    tasks = [(s, t, wave) for t in tfs for s in SYMBOLS]
-    with Pool(4) as p:
+    syms = sys.argv[3].split(",") if len(sys.argv) > 3 else SYMBOLS
+    tasks = [(s, t, wave) for t in tfs for s in syms]
+    with mp.get_context("spawn").Pool(4) as p:
         for r in p.imap_unordered(run_task, tasks):
             print("DONE", r, flush=True)

@@ -2,7 +2,7 @@
 Records per-year sums so we can check time-stability. Holdout (>= OOS_END) is discarded."""
 import sys
 import time
-from multiprocessing import Pool
+import multiprocessing as mp
 
 import numpy as np
 import pandas as pd
@@ -87,6 +87,6 @@ if __name__ == "__main__":
     syms = sys.argv[2].split(",") if len(sys.argv) > 2 else SYMBOLS
     wave = sys.argv[3] if len(sys.argv) > 3 else "w1"
     tasks = [(s, t, wave) for t in tfs for s in syms]
-    with Pool(min(4, len(tasks))) as p:
+    with mp.get_context("spawn").Pool(min(4, len(tasks))) as p:
         for res in p.imap_unordered(run_task, tasks):
             print("DONE", res, flush=True)
