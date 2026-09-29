@@ -1,0 +1,39 @@
+=== Per-trade stats by period (R, after costs) ===
+            n   avgR     WR     sumR  long_avg  short_avg
+per                                                      
+IS       1705  0.187  0.354  319.399     0.256      0.111
+OOS      1082  0.166  0.296  179.823     0.191      0.116
+HOLDOUT   604  0.005  0.467    3.294    -0.102      0.026
+
+=== HOLDOUT by coin ===
+sym    ADAUSDT  AVAXUSDT  BTCUSDT  ETHUSDT  SOLUSDT  XRPUSDT
+count   90.000   100.000  101.000   96.000  109.000  108.000
+mean     0.249    -0.051   -0.042    0.037   -0.043   -0.079
+sum     22.395    -5.127   -4.280    3.518   -4.690   -8.523
+
+=== HOLDOUT exit reasons ===
+reason
+stop    482
+time    122
+
+=== Account sim, risk 0.20%/trade ===
+IS       months  43  avg +1.49%  median +1.92%  worst -5.25%  best +8.18%  positive 65%  maxDD 10.49%  total +63.88%
+OOS      months  21  avg +1.71%  median +1.06%  worst -3.11%  best +10.30%  positive 67%  maxDD 6.71%  total +35.96%
+HOLDOUT  months  12  avg +0.05%  median -1.00%  worst -6.00%  best +7.85%  positive 42%  maxDD 10.62%  total +0.66%
+
+=== Account sim, risk 0.25%/trade ===
+IS       months  43  avg +1.86%  median +2.40%  worst -6.57%  best +10.23%  positive 65%  maxDD 13.12%  total +79.85%
+OOS      months  21  avg +2.14%  median +1.33%  worst -3.89%  best +12.87%  positive 67%  maxDD 8.39%  total +44.96%
+HOLDOUT  months  12  avg +0.07%  median -1.25%  worst -7.50%  best +9.81%  positive 42%  maxDD 13.28%  total +0.82%
+HOLDOUT monthly returns: 2025-10:-1.76% 2025-11:+4.21% 2025-12:+3.47% 2026-01:-4.23% 2026-02:+8.22% 2026-03:-0.89% 2026-04:-5.33% 2026-05:-5.37% 2026-06:+9.81% 2026-07:-7.50% 2026-08:+1.80% 2026-09:-1.60%
+HOLDOUT challenge (start weekly, +10% before -6%, until data ends): {'n': 30, 'pass_rate': np.float64(0.2), 'fail_rate': np.float64(0.5333333333333333), 'timeout': np.float64(0.26666666666666666), 'median_days_to_pass': np.float64(77.59375)}
+
+=== Account sim, risk 0.30%/trade ===
+IS       months  43  avg +2.23%  median +2.89%  worst -7.88%  best +12.27%  positive 65%  maxDD 15.74%  total +95.82%
+OOS      months  21  avg +2.57%  median +1.59%  worst -4.67%  best +15.44%  positive 67%  maxDD 10.06%  total +53.95%
+HOLDOUT  months  12  avg +0.08%  median -1.50%  worst -9.00%  best +11.77%  positive 42%  maxDD 15.93%  total +0.99%
+
+=== Account sim, risk 0.50%/trade ===
+IS       months  43  avg +3.71%  median +4.81%  worst -13.14%  best +20.45%  positive 65%  maxDD 26.23%  total +159.70%
+OOS      months  21  avg +4.28%  median +2.66%  worst -7.78%  best +25.74%  positive 67%  maxDD 16.77%  total +89.91%
+HOLDOUT  months  12  avg +0.14%  median -2.50%  worst -14.99%  best +19.62%  positive 42%  maxDD 26.56%  total +1.65%
