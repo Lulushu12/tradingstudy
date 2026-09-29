@@ -39,6 +39,15 @@ def build_signal(cx, spec, include_holdout):
         if not include_holdout:
             s[np.searchsorted(cx.df.index.values, OOS_END.to_datetime64()):] = 0
         return s, None
+    if kind == "tsmom":
+        _, hours, htf, bias = spec["sig"]
+        idx = cx.df.index + pd.Timedelta(minutes=TF_MIN[cx.tf])  # bar CLOSE time
+        when = (idx.minute == 0) & np.isin(idx.hour, hours)
+        b = fx.htf_bias(cx, htf, bias).astype(np.int64)
+        s = np.where(when, b, 0)
+        if not include_holdout:
+            s[np.searchsorted(cx.df.index.values, OOS_END.to_datetime64()):] = 0
+        return s, None
     raise ValueError(kind)
 
 
