@@ -16,7 +16,7 @@ OOS_END = pd.Timestamp("2025-10-01", tz="UTC")      # out-of-sample: 2024-01 .. 
 # holdout: 2025-10 .. present (locked until final evaluation)
 
 
-@lru_cache(maxsize=8)
+@lru_cache(maxsize=1)
 def load_1m(sym):
     df = pd.read_parquet(DATA / f"{sym}_1m.parquet")
     df.index = pd.to_datetime(df.pop("open_time"), unit="ms", utc=True)
@@ -24,7 +24,7 @@ def load_1m(sym):
     return df
 
 
-@lru_cache(maxsize=64)
+@lru_cache(maxsize=12)
 def bars(sym, tf):
     """OHLCV bars for tf. Index = bar open time. Includes taker buy volume and trade count."""
     m = load_1m(sym)

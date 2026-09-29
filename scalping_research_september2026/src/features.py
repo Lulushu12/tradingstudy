@@ -168,5 +168,5 @@ def htf_bias(cx, htf, kind):
     def f():
         df = bars(cx.sym, htf)
         b = pd.DataFrame({"b": _bias_on(df, kind).astype(np.float64)}, index=df.index)
-        return np.nan_to_num(htf_to_ltf(b, htf, cx.df.index, cx.tf).b.values).astype(np.int64)
+        return np.nan_to_num(htf_to_ltf(b, htf, cx.df.index, cx.tf).b.values).astype(np.int8)
     return F(cx, f"bias_{htf}_{kind}", f)

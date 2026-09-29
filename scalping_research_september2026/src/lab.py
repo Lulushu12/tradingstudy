@@ -27,12 +27,12 @@ class Ctx:
     cache: dict = field(default_factory=dict)
 
 
-@lru_cache(maxsize=32)
+@lru_cache(maxsize=2)
 def ctx(sym, tf="5m"):
     df = bars(sym, tf)
     m = load_1m(sym)
     o, h, l, c, v = (df[k].values.astype(np.float64) for k in ("open", "high", "low", "close", "volume"))
-    return Ctx(sym, tf, df, o, h, l, c, v, m.high.values, m.low.values, minute_map(sym, tf),
+    return Ctx(sym, tf, df, o, h, l, c, v, m.high.to_numpy(np.float64, copy=True), m.low.to_numpy(np.float64, copy=True), minute_map(sym, tf),
                ind.atr(h, l, c, 14))
 
 
