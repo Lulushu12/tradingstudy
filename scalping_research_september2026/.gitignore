@@ -4,3 +4,4 @@ __pycache__/
 results/*.log
 results/scan1_*.parquet
 results/edge_*.parquet
+results/wf_monthly_*.parquet

@@ -570,9 +570,11 @@ def _fib_scan(h, l, c, o, a, phi, pli, lvl, stop_lvl, min_atr):
 def fam_time(cx):
     """Pure time-of-day drift probe: enter at the start of each UTC hour in the HTF bias direction.
     (Only meaningful combined with a bias; tells us whether any hour carries directional drift.)"""
+    from data import TF_MIN
     lm = fx.minute_of_day(cx)
+    close_min = (lm + TF_MIN[cx.tf]) % 1440  # minute-of-day at which the bar CLOSES
     for hr in range(24):
-        m = lm == hr * 60 + (60 - 5)  # close of the bar before the hour -> enter at the hour open
+        m = close_min == ((hr + 1) % 24) * 60  # bar closing at the hour -> enter at that hour's open
         yield "hour_drift", f"{(hr + 1) % 24:02d}", _sig(m, np.zeros_like(m)), None
         yield "hour_drift_short", f"{(hr + 1) % 24:02d}", _sig(np.zeros_like(m), m), None
 
