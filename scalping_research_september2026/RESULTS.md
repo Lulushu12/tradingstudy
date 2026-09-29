@@ -54,6 +54,35 @@ About 340 signal variants x 85 higher-timeframe filters x several exit templates
 Other historical survivors in the holdout year: 4h momentum -0.069R/trade, 2h momentum -0.023R,
 RSI(3) dip -0.017R, Asia 60m fade (12h EMA200) +0.037R.
 
+## Follow-up: swap fee, 30m/1h entries, walk-forward (after the holdout failed)
+
+- **Breakoutprop daily swap (0.033% of position size for every position open at 00:00 UTC)** was not in
+  the first round of tests. Added in `src/engine2.py`. It makes every multi-day strategy above worse,
+  and favours being flat before 00:00 UTC.
+- **Execution on 15m, 30m and 1h**, with the swap fee, and exits either flat before 00:00 UTC or a
+  48h max hold: about 380,000 configs (all signal families x 21 trend filters x 12 exits), monthly P&L
+  for Jan 2020 to Sep 2026.
+- **Walk-forward test** (the holdout was spent, so this is the only honest method left): every quarter from
+  Jan 2022, pick the best configs using only the previous 12/24/36 months, trade them the next 3 months.
+  24 selector rules, all reported.
+
+| Universe | Configs | Best rule, monthly Sharpe | Typical rule | Random picks |
+|---|---|---|---|---|
+| 1h | 123,882 | 0.23 | about 0.03 | -0.39 |
+| 30m | 127,188 | 0.05 | about -0.07 | -0.49 |
+| 15m | 128,346 | 0.02 | about -0.13 | -0.98 |
+| All three | 379,416 | 0.11 | about -0.09 | -0.67 |
+
+Most rules lost money over the last 12 months on every timeframe. Choosing strategies by their recent past
+performance had no out-of-sample skill: what worked over the previous 1 to 3 years did not keep working over
+the next 3 months. Full tables in `results/wf_select_*.txt`.
+
+## Final conclusion
+
+With Binance OHLCV (plus funding) data, 0.04% fees, slippage and the 0.033% daily swap, no strategy family
+tested here shows an edge that persists into the most recent year, on 5m, 15m, 30m or 1h entries.
+Nothing here should be traded on a Breakoutprop account.
+
 ## Files
 
 - `src/`: data download, trade engine, indicators (TradingView-compatible definitions), signal library,
