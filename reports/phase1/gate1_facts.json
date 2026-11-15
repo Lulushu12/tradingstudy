@@ -1,0 +1,1696 @@
+{
+  "ticks": {
+    "BTC": {
+      "2022": 0.01,
+      "2023": 0.1,
+      "2024": 0.1,
+      "2025": 0.1
+    },
+    "ETH": {
+      "2022": 0.01,
+      "2023": 0.01,
+      "2024": 0.01,
+      "2025": 0.01
+    },
+    "SOL": {
+      "2022": 0.001,
+      "2023": 0.001,
+      "2024": 0.001,
+      "2025": 0.01
+    },
+    "ADA": {
+      "2022": 0.0001,
+      "2023": 0.0001,
+      "2024": 0.0001,
+      "2025": 0.0001
+    },
+    "XRP": {
+      "2022": 0.0001,
+      "2023": 0.0001,
+      "2024": 0.0001,
+      "2025": 0.0001
+    },
+    "DOGE": {
+      "2022": 1e-05,
+      "2023": 1e-05,
+      "2024": 1e-05,
+      "2025": 1e-05
+    },
+    "SUI": {
+      "2023": 0.0001,
+      "2024": 0.0001,
+      "2025": 0.0001
+    },
+    "LINK": {
+      "2022": 0.001,
+      "2023": 0.001,
+      "2024": 0.001,
+      "2025": 0.001
+    },
+    "AVAX": {
+      "2022": 0.001,
+      "2023": 0.001,
+      "2024": 0.001,
+      "2025": 0.001
+    }
+  },
+  "m1_range_pct": {
+    "BTC": {
+      "median": 0.0564,
+      "p90": 0.1627
+    },
+    "ETH": {
+      "median": 0.0799,
+      "p90": 0.2154
+    },
+    "SOL": {
+      "median": 0.1333,
+      "p90": 0.3248
+    },
+    "ADA": {
+      "median": 0.118,
+      "p90": 0.2874
+    },
+    "XRP": {
+      "median": 0.0994,
+      "p90": 0.2615
+    },
+    "DOGE": {
+      "median": 0.1163,
+      "p90": 0.3101
+    },
+    "SUI": {
+      "median": 0.1557,
+      "p90": 0.3582
+    },
+    "LINK": {
+      "median": 0.1236,
+      "p90": 0.2984
+    },
+    "AVAX": {
+      "median": 0.1293,
+      "p90": 0.3176
+    }
+  },
+  "fee_R": [
+    {
+      "symbol": "BTC",
+      "tf": "6m",
+      "fee_R_1.0atr_median": 0.436,
+      "fee_R_1.5atr_median": 0.29,
+      "fee_R_2.0atr_median": 0.218
+    },
+    {
+      "symbol": "BTC",
+      "tf": "15m",
+      "fee_R_1.0atr_median": 0.253,
+      "fee_R_1.5atr_median": 0.169,
+      "fee_R_2.0atr_median": 0.127
+    },
+    {
+      "symbol": "BTC",
+      "tf": "24m",
+      "fee_R_1.0atr_median": 0.197,
+      "fee_R_1.5atr_median": 0.131,
+      "fee_R_2.0atr_median": 0.099
+    },
+    {
+      "symbol": "BTC",
+      "tf": "1h",
+      "fee_R_1.0atr_median": 0.118,
+      "fee_R_1.5atr_median": 0.079,
+      "fee_R_2.0atr_median": 0.059
+    },
+    {
+      "symbol": "ETH",
+      "tf": "6m",
+      "fee_R_1.0atr_median": 0.317,
+      "fee_R_1.5atr_median": 0.211,
+      "fee_R_2.0atr_median": 0.158
+    },
+    {
+      "symbol": "ETH",
+      "tf": "15m",
+      "fee_R_1.0atr_median": 0.187,
+      "fee_R_1.5atr_median": 0.125,
+      "fee_R_2.0atr_median": 0.094
+    },
+    {
+      "symbol": "ETH",
+      "tf": "24m",
+      "fee_R_1.0atr_median": 0.147,
+      "fee_R_1.5atr_median": 0.098,
+      "fee_R_2.0atr_median": 0.073
+    },
+    {
+      "symbol": "ETH",
+      "tf": "1h",
+      "fee_R_1.0atr_median": 0.088,
+      "fee_R_1.5atr_median": 0.059,
+      "fee_R_2.0atr_median": 0.044
+    },
+    {
+      "symbol": "SOL",
+      "tf": "6m",
+      "fee_R_1.0atr_median": 0.205,
+      "fee_R_1.5atr_median": 0.137,
+      "fee_R_2.0atr_median": 0.103
+    },
+    {
+      "symbol": "SOL",
+      "tf": "15m",
+      "fee_R_1.0atr_median": 0.123,
+      "fee_R_1.5atr_median": 0.082,
+      "fee_R_2.0atr_median": 0.062
+    },
+    {
+      "symbol": "SOL",
+      "tf": "24m",
+      "fee_R_1.0atr_median": 0.097,
+      "fee_R_1.5atr_median": 0.065,
+      "fee_R_2.0atr_median": 0.049
+    },
+    {
+      "symbol": "SOL",
+      "tf": "1h",
+      "fee_R_1.0atr_median": 0.059,
+      "fee_R_1.5atr_median": 0.04,
+      "fee_R_2.0atr_median": 0.03
+    },
+    {
+      "symbol": "ADA",
+      "tf": "6m",
+      "fee_R_1.0atr_median": 0.235,
+      "fee_R_1.5atr_median": 0.156,
+      "fee_R_2.0atr_median": 0.117
+    },
+    {
+      "symbol": "ADA",
+      "tf": "15m",
+      "fee_R_1.0atr_median": 0.142,
+      "fee_R_1.5atr_median": 0.095,
+      "fee_R_2.0atr_median": 0.071
+    },
+    {
+      "symbol": "ADA",
+      "tf": "24m",
+      "fee_R_1.0atr_median": 0.112,
+      "fee_R_1.5atr_median": 0.075,
+      "fee_R_2.0atr_median": 0.056
+    },
+    {
+      "symbol": "ADA",
+      "tf": "1h",
+      "fee_R_1.0atr_median": 0.068,
+      "fee_R_1.5atr_median": 0.045,
+      "fee_R_2.0atr_median": 0.034
+    },
+    {
+      "symbol": "XRP",
+      "tf": "6m",
+      "fee_R_1.0atr_median": 0.276,
+      "fee_R_1.5atr_median": 0.184,
+      "fee_R_2.0atr_median": 0.138
+    },
+    {
+      "symbol": "XRP",
+      "tf": "15m",
+      "fee_R_1.0atr_median": 0.166,
+      "fee_R_1.5atr_median": 0.111,
+      "fee_R_2.0atr_median": 0.083
+    },
+    {
+      "symbol": "XRP",
+      "tf": "24m",
+      "fee_R_1.0atr_median": 0.13,
+      "fee_R_1.5atr_median": 0.087,
+      "fee_R_2.0atr_median": 0.065
+    },
+    {
+      "symbol": "XRP",
+      "tf": "1h",
+      "fee_R_1.0atr_median": 0.079,
+      "fee_R_1.5atr_median": 0.053,
+      "fee_R_2.0atr_median": 0.039
+    },
+    {
+      "symbol": "DOGE",
+      "tf": "6m",
+      "fee_R_1.0atr_median": 0.229,
+      "fee_R_1.5atr_median": 0.153,
+      "fee_R_2.0atr_median": 0.115
+    },
+    {
+      "symbol": "DOGE",
+      "tf": "15m",
+      "fee_R_1.0atr_median": 0.137,
+      "fee_R_1.5atr_median": 0.091,
+      "fee_R_2.0atr_median": 0.068
+    },
+    {
+      "symbol": "DOGE",
+      "tf": "24m",
+      "fee_R_1.0atr_median": 0.107,
+      "fee_R_1.5atr_median": 0.072,
+      "fee_R_2.0atr_median": 0.054
+    },
+    {
+      "symbol": "DOGE",
+      "tf": "1h",
+      "fee_R_1.0atr_median": 0.065,
+      "fee_R_1.5atr_median": 0.043,
+      "fee_R_2.0atr_median": 0.032
+    },
+    {
+      "symbol": "SUI",
+      "tf": "6m",
+      "fee_R_1.0atr_median": 0.173,
+      "fee_R_1.5atr_median": 0.115,
+      "fee_R_2.0atr_median": 0.086
+    },
+    {
+      "symbol": "SUI",
+      "tf": "15m",
+      "fee_R_1.0atr_median": 0.104,
+      "fee_R_1.5atr_median": 0.069,
+      "fee_R_2.0atr_median": 0.052
+    },
+    {
+      "symbol": "SUI",
+      "tf": "24m",
+      "fee_R_1.0atr_median": 0.081,
+      "fee_R_1.5atr_median": 0.054,
+      "fee_R_2.0atr_median": 0.041
+    },
+    {
+      "symbol": "SUI",
+      "tf": "1h",
+      "fee_R_1.0atr_median": 0.049,
+      "fee_R_1.5atr_median": 0.033,
+      "fee_R_2.0atr_median": 0.025
+    },
+    {
+      "symbol": "LINK",
+      "tf": "6m",
+      "fee_R_1.0atr_median": 0.217,
+      "fee_R_1.5atr_median": 0.145,
+      "fee_R_2.0atr_median": 0.109
+    },
+    {
+      "symbol": "LINK",
+      "tf": "15m",
+      "fee_R_1.0atr_median": 0.131,
+      "fee_R_1.5atr_median": 0.087,
+      "fee_R_2.0atr_median": 0.065
+    },
+    {
+      "symbol": "LINK",
+      "tf": "24m",
+      "fee_R_1.0atr_median": 0.103,
+      "fee_R_1.5atr_median": 0.069,
+      "fee_R_2.0atr_median": 0.051
+    },
+    {
+      "symbol": "LINK",
+      "tf": "1h",
+      "fee_R_1.0atr_median": 0.063,
+      "fee_R_1.5atr_median": 0.042,
+      "fee_R_2.0atr_median": 0.031
+    },
+    {
+      "symbol": "AVAX",
+      "tf": "6m",
+      "fee_R_1.0atr_median": 0.208,
+      "fee_R_1.5atr_median": 0.139,
+      "fee_R_2.0atr_median": 0.104
+    },
+    {
+      "symbol": "AVAX",
+      "tf": "15m",
+      "fee_R_1.0atr_median": 0.125,
+      "fee_R_1.5atr_median": 0.083,
+      "fee_R_2.0atr_median": 0.062
+    },
+    {
+      "symbol": "AVAX",
+      "tf": "24m",
+      "fee_R_1.0atr_median": 0.098,
+      "fee_R_1.5atr_median": 0.066,
+      "fee_R_2.0atr_median": 0.049
+    },
+    {
+      "symbol": "AVAX",
+      "tf": "1h",
+      "fee_R_1.0atr_median": 0.06,
+      "fee_R_1.5atr_median": 0.04,
+      "fee_R_2.0atr_median": 0.03
+    }
+  ],
+  "census": [
+    {
+      "symbol": "BTC",
+      "tf": "6m",
+      "days": 1413,
+      "wt_buy": 8037,
+      "wt_sell": 8209,
+      "wtdiv_reg": 5697,
+      "mfdiv_reg": 23962,
+      "stackA_w6": 3057,
+      "stackB_w6": 2523,
+      "stackA_w11": 4579,
+      "stackB_w11": 3800,
+      "stackA_w20": 6952,
+      "stackB_w20": 5979
+    },
+    {
+      "symbol": "BTC",
+      "tf": "15m",
+      "days": 1413,
+      "wt_buy": 3104,
+      "wt_sell": 3254,
+      "wtdiv_reg": 2198,
+      "mfdiv_reg": 9908,
+      "stackA_w6": 1178,
+      "stackB_w6": 1014,
+      "stackA_w11": 1805,
+      "stackB_w11": 1520,
+      "stackA_w20": 2735,
+      "stackB_w20": 2381
+    },
+    {
+      "symbol": "BTC",
+      "tf": "24m",
+      "days": 1413,
+      "wt_buy": 1884,
+      "wt_sell": 2021,
+      "wtdiv_reg": 1419,
+      "mfdiv_reg": 5883,
+      "stackA_w6": 755,
+      "stackB_w6": 623,
+      "stackA_w11": 1155,
+      "stackB_w11": 943,
+      "stackA_w20": 1732,
+      "stackB_w20": 1469
+    },
+    {
+      "symbol": "BTC",
+      "tf": "1h",
+      "days": 1413,
+      "wt_buy": 763,
+      "wt_sell": 816,
+      "wtdiv_reg": 584,
+      "mfdiv_reg": 2498,
+      "stackA_w6": 300,
+      "stackB_w6": 274,
+      "stackA_w11": 485,
+      "stackB_w11": 407,
+      "stackA_w20": 759,
+      "stackB_w20": 648
+    },
+    {
+      "symbol": "ETH",
+      "tf": "6m",
+      "days": 1413,
+      "wt_buy": 8050,
+      "wt_sell": 8294,
+      "wtdiv_reg": 5712,
+      "mfdiv_reg": 24335,
+      "stackA_w6": 3072,
+      "stackB_w6": 2599,
+      "stackA_w11": 4645,
+      "stackB_w11": 3946,
+      "stackA_w20": 7019,
+      "stackB_w20": 6133
+    },
+    {
+      "symbol": "ETH",
+      "tf": "15m",
+      "days": 1413,
+      "wt_buy": 3136,
+      "wt_sell": 3292,
+      "wtdiv_reg": 2260,
+      "mfdiv_reg": 9744,
+      "stackA_w6": 1166,
+      "stackB_w6": 993,
+      "stackA_w11": 1789,
+      "stackB_w11": 1515,
+      "stackA_w20": 2748,
+      "stackB_w20": 2402
+    },
+    {
+      "symbol": "ETH",
+      "tf": "24m",
+      "days": 1413,
+      "wt_buy": 1960,
+      "wt_sell": 2094,
+      "wtdiv_reg": 1483,
+      "mfdiv_reg": 5929,
+      "stackA_w6": 735,
+      "stackB_w6": 622,
+      "stackA_w11": 1163,
+      "stackB_w11": 959,
+      "stackA_w20": 1795,
+      "stackB_w20": 1501
+    },
+    {
+      "symbol": "ETH",
+      "tf": "1h",
+      "days": 1413,
+      "wt_buy": 813,
+      "wt_sell": 848,
+      "wtdiv_reg": 625,
+      "mfdiv_reg": 2403,
+      "stackA_w6": 348,
+      "stackB_w6": 315,
+      "stackA_w11": 525,
+      "stackB_w11": 457,
+      "stackA_w20": 800,
+      "stackB_w20": 678
+    },
+    {
+      "symbol": "SOL",
+      "tf": "6m",
+      "days": 1413,
+      "wt_buy": 8525,
+      "wt_sell": 8640,
+      "wtdiv_reg": 6672,
+      "mfdiv_reg": 23773,
+      "stackA_w6": 3723,
+      "stackB_w6": 3053,
+      "stackA_w11": 5584,
+      "stackB_w11": 4651,
+      "stackA_w20": 8276,
+      "stackB_w20": 7133
+    },
+    {
+      "symbol": "SOL",
+      "tf": "15m",
+      "days": 1413,
+      "wt_buy": 3473,
+      "wt_sell": 3377,
+      "wtdiv_reg": 2626,
+      "mfdiv_reg": 9670,
+      "stackA_w6": 1444,
+      "stackB_w6": 1257,
+      "stackA_w11": 2186,
+      "stackB_w11": 1848,
+      "stackA_w20": 3280,
+      "stackB_w20": 2831
+    },
+    {
+      "symbol": "SOL",
+      "tf": "24m",
+      "days": 1413,
+      "wt_buy": 2183,
+      "wt_sell": 2104,
+      "wtdiv_reg": 1633,
+      "mfdiv_reg": 5782,
+      "stackA_w6": 897,
+      "stackB_w6": 717,
+      "stackA_w11": 1327,
+      "stackB_w11": 1108,
+      "stackA_w20": 2000,
+      "stackB_w20": 1709
+    },
+    {
+      "symbol": "SOL",
+      "tf": "1h",
+      "days": 1413,
+      "wt_buy": 890,
+      "wt_sell": 854,
+      "wtdiv_reg": 701,
+      "mfdiv_reg": 2380,
+      "stackA_w6": 426,
+      "stackB_w6": 355,
+      "stackA_w11": 638,
+      "stackB_w11": 518,
+      "stackA_w20": 911,
+      "stackB_w20": 783
+    },
+    {
+      "symbol": "ADA",
+      "tf": "6m",
+      "days": 1413,
+      "wt_buy": 8664,
+      "wt_sell": 8421,
+      "wtdiv_reg": 6513,
+      "mfdiv_reg": 23586,
+      "stackA_w6": 3500,
+      "stackB_w6": 2903,
+      "stackA_w11": 5229,
+      "stackB_w11": 4418,
+      "stackA_w20": 7848,
+      "stackB_w20": 6801
+    },
+    {
+      "symbol": "ADA",
+      "tf": "15m",
+      "days": 1413,
+      "wt_buy": 3448,
+      "wt_sell": 3295,
+      "wtdiv_reg": 2549,
+      "mfdiv_reg": 9652,
+      "stackA_w6": 1439,
+      "stackB_w6": 1206,
+      "stackA_w11": 2126,
+      "stackB_w11": 1784,
+      "stackA_w20": 3184,
+      "stackB_w20": 2767
+    },
+    {
+      "symbol": "ADA",
+      "tf": "24m",
+      "days": 1413,
+      "wt_buy": 2159,
+      "wt_sell": 2064,
+      "wtdiv_reg": 1599,
+      "mfdiv_reg": 5812,
+      "stackA_w6": 839,
+      "stackB_w6": 707,
+      "stackA_w11": 1257,
+      "stackB_w11": 1071,
+      "stackA_w20": 1935,
+      "stackB_w20": 1699
+    },
+    {
+      "symbol": "ADA",
+      "tf": "1h",
+      "days": 1413,
+      "wt_buy": 903,
+      "wt_sell": 827,
+      "wtdiv_reg": 683,
+      "mfdiv_reg": 2349,
+      "stackA_w6": 389,
+      "stackB_w6": 317,
+      "stackA_w11": 561,
+      "stackB_w11": 470,
+      "stackA_w20": 865,
+      "stackB_w20": 735
+    },
+    {
+      "symbol": "XRP",
+      "tf": "6m",
+      "days": 1413,
+      "wt_buy": 8250,
+      "wt_sell": 8655,
+      "wtdiv_reg": 6107,
+      "mfdiv_reg": 23647,
+      "stackA_w6": 3301,
+      "stackB_w6": 2746,
+      "stackA_w11": 4945,
+      "stackB_w11": 4091,
+      "stackA_w20": 7326,
+      "stackB_w20": 6246
+    },
+    {
+      "symbol": "XRP",
+      "tf": "15m",
+      "days": 1413,
+      "wt_buy": 3258,
+      "wt_sell": 3373,
+      "wtdiv_reg": 2367,
+      "mfdiv_reg": 9695,
+      "stackA_w6": 1238,
+      "stackB_w6": 1067,
+      "stackA_w11": 1888,
+      "stackB_w11": 1599,
+      "stackA_w20": 2870,
+      "stackB_w20": 2518
+    },
+    {
+      "symbol": "XRP",
+      "tf": "24m",
+      "days": 1413,
+      "wt_buy": 2024,
+      "wt_sell": 2074,
+      "wtdiv_reg": 1454,
+      "mfdiv_reg": 5822,
+      "stackA_w6": 732,
+      "stackB_w6": 594,
+      "stackA_w11": 1085,
+      "stackB_w11": 894,
+      "stackA_w20": 1633,
+      "stackB_w20": 1437
+    },
+    {
+      "symbol": "XRP",
+      "tf": "1h",
+      "days": 1413,
+      "wt_buy": 847,
+      "wt_sell": 802,
+      "wtdiv_reg": 565,
+      "mfdiv_reg": 2444,
+      "stackA_w6": 296,
+      "stackB_w6": 252,
+      "stackA_w11": 453,
+      "stackB_w11": 387,
+      "stackA_w20": 682,
+      "stackB_w20": 570
+    },
+    {
+      "symbol": "DOGE",
+      "tf": "6m",
+      "days": 1413,
+      "wt_buy": 8203,
+      "wt_sell": 8411,
+      "wtdiv_reg": 5974,
+      "mfdiv_reg": 24199,
+      "stackA_w6": 3262,
+      "stackB_w6": 2679,
+      "stackA_w11": 4911,
+      "stackB_w11": 4072,
+      "stackA_w20": 7351,
+      "stackB_w20": 6373
+    },
+    {
+      "symbol": "DOGE",
+      "tf": "15m",
+      "days": 1413,
+      "wt_buy": 3296,
+      "wt_sell": 3356,
+      "wtdiv_reg": 2429,
+      "mfdiv_reg": 9588,
+      "stackA_w6": 1251,
+      "stackB_w6": 1066,
+      "stackA_w11": 1908,
+      "stackB_w11": 1610,
+      "stackA_w20": 2878,
+      "stackB_w20": 2540
+    },
+    {
+      "symbol": "DOGE",
+      "tf": "24m",
+      "days": 1413,
+      "wt_buy": 2093,
+      "wt_sell": 2099,
+      "wtdiv_reg": 1555,
+      "mfdiv_reg": 5793,
+      "stackA_w6": 797,
+      "stackB_w6": 666,
+      "stackA_w11": 1168,
+      "stackB_w11": 991,
+      "stackA_w20": 1809,
+      "stackB_w20": 1569
+    },
+    {
+      "symbol": "DOGE",
+      "tf": "1h",
+      "days": 1413,
+      "wt_buy": 835,
+      "wt_sell": 868,
+      "wtdiv_reg": 584,
+      "mfdiv_reg": 2378,
+      "stackA_w6": 314,
+      "stackB_w6": 246,
+      "stackA_w11": 457,
+      "stackB_w11": 375,
+      "stackA_w20": 681,
+      "stackB_w20": 584
+    },
+    {
+      "symbol": "SUI",
+      "tf": "6m",
+      "days": 926,
+      "wt_buy": 5867,
+      "wt_sell": 5546,
+      "wtdiv_reg": 4471,
+      "mfdiv_reg": 15419,
+      "stackA_w6": 2395,
+      "stackB_w6": 1920,
+      "stackA_w11": 3538,
+      "stackB_w11": 2924,
+      "stackA_w20": 5298,
+      "stackB_w20": 4507
+    },
+    {
+      "symbol": "SUI",
+      "tf": "15m",
+      "days": 926,
+      "wt_buy": 2306,
+      "wt_sell": 2165,
+      "wtdiv_reg": 1719,
+      "mfdiv_reg": 6196,
+      "stackA_w6": 976,
+      "stackB_w6": 811,
+      "stackA_w11": 1457,
+      "stackB_w11": 1235,
+      "stackA_w20": 2118,
+      "stackB_w20": 1816
+    },
+    {
+      "symbol": "SUI",
+      "tf": "24m",
+      "days": 926,
+      "wt_buy": 1420,
+      "wt_sell": 1340,
+      "wtdiv_reg": 1059,
+      "mfdiv_reg": 3893,
+      "stackA_w6": 564,
+      "stackB_w6": 477,
+      "stackA_w11": 851,
+      "stackB_w11": 685,
+      "stackA_w20": 1323,
+      "stackB_w20": 1130
+    },
+    {
+      "symbol": "SUI",
+      "tf": "1h",
+      "days": 926,
+      "wt_buy": 577,
+      "wt_sell": 531,
+      "wtdiv_reg": 421,
+      "mfdiv_reg": 1563,
+      "stackA_w6": 245,
+      "stackB_w6": 217,
+      "stackA_w11": 377,
+      "stackB_w11": 329,
+      "stackA_w20": 551,
+      "stackB_w20": 492
+    },
+    {
+      "symbol": "LINK",
+      "tf": "6m",
+      "days": 1413,
+      "wt_buy": 8738,
+      "wt_sell": 8502,
+      "wtdiv_reg": 6753,
+      "mfdiv_reg": 23876,
+      "stackA_w6": 3609,
+      "stackB_w6": 2953,
+      "stackA_w11": 5407,
+      "stackB_w11": 4460,
+      "stackA_w20": 8042,
+      "stackB_w20": 6957
+    },
+    {
+      "symbol": "LINK",
+      "tf": "15m",
+      "days": 1413,
+      "wt_buy": 3421,
+      "wt_sell": 3384,
+      "wtdiv_reg": 2631,
+      "mfdiv_reg": 9889,
+      "stackA_w6": 1495,
+      "stackB_w6": 1213,
+      "stackA_w11": 2247,
+      "stackB_w11": 1887,
+      "stackA_w20": 3356,
+      "stackB_w20": 2964
+    },
+    {
+      "symbol": "LINK",
+      "tf": "24m",
+      "days": 1413,
+      "wt_buy": 2107,
+      "wt_sell": 2124,
+      "wtdiv_reg": 1678,
+      "mfdiv_reg": 5936,
+      "stackA_w6": 975,
+      "stackB_w6": 823,
+      "stackA_w11": 1461,
+      "stackB_w11": 1241,
+      "stackA_w20": 2182,
+      "stackB_w20": 1929
+    },
+    {
+      "symbol": "LINK",
+      "tf": "1h",
+      "days": 1413,
+      "wt_buy": 853,
+      "wt_sell": 881,
+      "wtdiv_reg": 687,
+      "mfdiv_reg": 2412,
+      "stackA_w6": 379,
+      "stackB_w6": 330,
+      "stackA_w11": 571,
+      "stackB_w11": 464,
+      "stackA_w20": 868,
+      "stackB_w20": 730
+    },
+    {
+      "symbol": "AVAX",
+      "tf": "6m",
+      "days": 1413,
+      "wt_buy": 8802,
+      "wt_sell": 8294,
+      "wtdiv_reg": 6812,
+      "mfdiv_reg": 23678,
+      "stackA_w6": 3780,
+      "stackB_w6": 3123,
+      "stackA_w11": 5592,
+      "stackB_w11": 4624,
+      "stackA_w20": 8221,
+      "stackB_w20": 7085
+    },
+    {
+      "symbol": "AVAX",
+      "tf": "15m",
+      "days": 1413,
+      "wt_buy": 3532,
+      "wt_sell": 3251,
+      "wtdiv_reg": 2641,
+      "mfdiv_reg": 9593,
+      "stackA_w6": 1425,
+      "stackB_w6": 1208,
+      "stackA_w11": 2163,
+      "stackB_w11": 1831,
+      "stackA_w20": 3274,
+      "stackB_w20": 2831
+    },
+    {
+      "symbol": "AVAX",
+      "tf": "24m",
+      "days": 1413,
+      "wt_buy": 2206,
+      "wt_sell": 2029,
+      "wtdiv_reg": 1708,
+      "mfdiv_reg": 5750,
+      "stackA_w6": 889,
+      "stackB_w6": 727,
+      "stackA_w11": 1312,
+      "stackB_w11": 1105,
+      "stackA_w20": 1987,
+      "stackB_w20": 1686
+    },
+    {
+      "symbol": "AVAX",
+      "tf": "1h",
+      "days": 1413,
+      "wt_buy": 933,
+      "wt_sell": 808,
+      "wtdiv_reg": 703,
+      "mfdiv_reg": 2298,
+      "stackA_w6": 376,
+      "stackB_w6": 315,
+      "stackA_w11": 547,
+      "stackB_w11": 481,
+      "stackA_w20": 836,
+      "stackB_w20": 741
+    }
+  ],
+  "regimes": {
+    "BTC": {
+      "r1_trend": {
+        "1.0": 0.514,
+        "-1.0": 0.45,
+        "0.0": 0.036
+      },
+      "r2_trend": {
+        "0.0": 0.47,
+        "-1.0": 0.266,
+        "1.0": 0.263
+      },
+      "r3_trend": {
+        "1.0": 0.462,
+        "-1.0": 0.351,
+        "0.0": 0.187
+      }
+    },
+    "ETH": {
+      "r1_trend": {
+        "-1.0": 0.505,
+        "1.0": 0.456,
+        "0.0": 0.039
+      },
+      "r2_trend": {
+        "0.0": 0.498,
+        "-1.0": 0.287,
+        "1.0": 0.215
+      },
+      "r3_trend": {
+        "1.0": 0.422,
+        "-1.0": 0.386,
+        "0.0": 0.191
+      }
+    },
+    "SOL": {
+      "r1_trend": {
+        "-1.0": 0.499,
+        "1.0": 0.453,
+        "0.0": 0.048
+      },
+      "r2_trend": {
+        "0.0": 0.449,
+        "-1.0": 0.296,
+        "1.0": 0.256
+      },
+      "r3_trend": {
+        "1.0": 0.406,
+        "-1.0": 0.383,
+        "0.0": 0.21
+      }
+    },
+    "ADA": {
+      "r1_trend": {
+        "-1.0": 0.603,
+        "1.0": 0.354,
+        "0.0": 0.043
+      },
+      "r2_trend": {
+        "0.0": 0.511,
+        "-1.0": 0.303,
+        "1.0": 0.186
+      },
+      "r3_trend": {
+        "-1.0": 0.497,
+        "1.0": 0.278,
+        "0.0": 0.225
+      }
+    },
+    "XRP": {
+      "r1_trend": {
+        "-1.0": 0.507,
+        "1.0": 0.439,
+        "0.0": 0.055
+      },
+      "r2_trend": {
+        "0.0": 0.498,
+        "-1.0": 0.301,
+        "1.0": 0.201
+      },
+      "r3_trend": {
+        "-1.0": 0.397,
+        "1.0": 0.369,
+        "0.0": 0.233
+      }
+    },
+    "DOGE": {
+      "r1_trend": {
+        "-1.0": 0.572,
+        "1.0": 0.387,
+        "0.0": 0.041
+      },
+      "r2_trend": {
+        "0.0": 0.506,
+        "-1.0": 0.294,
+        "1.0": 0.2
+      },
+      "r3_trend": {
+        "-1.0": 0.466,
+        "1.0": 0.319,
+        "0.0": 0.216
+      }
+    },
+    "SUI": {
+      "r1_trend": {
+        "-1.0": 0.521,
+        "1.0": 0.444,
+        "0.0": 0.036
+      },
+      "r2_trend": {
+        "0.0": 0.529,
+        "-1.0": 0.256,
+        "1.0": 0.214
+      },
+      "r3_trend": {
+        "-1.0": 0.469,
+        "1.0": 0.429,
+        "0.0": 0.102
+      }
+    },
+    "LINK": {
+      "r1_trend": {
+        "-1.0": 0.516,
+        "1.0": 0.438,
+        "0.0": 0.047
+      },
+      "r2_trend": {
+        "0.0": 0.475,
+        "-1.0": 0.307,
+        "1.0": 0.218
+      },
+      "r3_trend": {
+        "-1.0": 0.408,
+        "1.0": 0.35,
+        "0.0": 0.241
+      }
+    },
+    "AVAX": {
+      "r1_trend": {
+        "-1.0": 0.582,
+        "1.0": 0.372,
+        "0.0": 0.045
+      },
+      "r2_trend": {
+        "0.0": 0.456,
+        "-1.0": 0.324,
+        "1.0": 0.219
+      },
+      "r3_trend": {
+        "-1.0": 0.484,
+        "1.0": 0.306,
+        "0.0": 0.21
+      }
+    }
+  },
+  "range_flip": [
+    {
+      "symbol": "BTC",
+      "tf": "6m",
+      "k": 2.0,
+      "days": 1413,
+      "A": 1107,
+      "B": 1573,
+      "ranges": 2769
+    },
+    {
+      "symbol": "BTC",
+      "tf": "6m",
+      "k": 3.0,
+      "days": 1413,
+      "A": 252,
+      "B": 350,
+      "ranges": 898
+    },
+    {
+      "symbol": "BTC",
+      "tf": "15m",
+      "k": 2.0,
+      "days": 1413,
+      "A": 442,
+      "B": 644,
+      "ranges": 1116
+    },
+    {
+      "symbol": "BTC",
+      "tf": "15m",
+      "k": 3.0,
+      "days": 1413,
+      "A": 99,
+      "B": 139,
+      "ranges": 329
+    },
+    {
+      "symbol": "BTC",
+      "tf": "24m",
+      "k": 2.0,
+      "days": 1413,
+      "A": 279,
+      "B": 392,
+      "ranges": 693
+    },
+    {
+      "symbol": "BTC",
+      "tf": "24m",
+      "k": 3.0,
+      "days": 1413,
+      "A": 51,
+      "B": 79,
+      "ranges": 212
+    },
+    {
+      "symbol": "BTC",
+      "tf": "1h",
+      "k": 2.0,
+      "days": 1413,
+      "A": 88,
+      "B": 146,
+      "ranges": 262
+    },
+    {
+      "symbol": "BTC",
+      "tf": "1h",
+      "k": 3.0,
+      "days": 1413,
+      "A": 21,
+      "B": 35,
+      "ranges": 76
+    },
+    {
+      "symbol": "ETH",
+      "tf": "6m",
+      "k": 2.0,
+      "days": 1413,
+      "A": 1078,
+      "B": 1610,
+      "ranges": 2750
+    },
+    {
+      "symbol": "ETH",
+      "tf": "6m",
+      "k": 3.0,
+      "days": 1413,
+      "A": 265,
+      "B": 377,
+      "ranges": 890
+    },
+    {
+      "symbol": "ETH",
+      "tf": "15m",
+      "k": 2.0,
+      "days": 1413,
+      "A": 440,
+      "B": 648,
+      "ranges": 1081
+    },
+    {
+      "symbol": "ETH",
+      "tf": "15m",
+      "k": 3.0,
+      "days": 1413,
+      "A": 98,
+      "B": 142,
+      "ranges": 345
+    },
+    {
+      "symbol": "ETH",
+      "tf": "24m",
+      "k": 2.0,
+      "days": 1413,
+      "A": 302,
+      "B": 432,
+      "ranges": 733
+    },
+    {
+      "symbol": "ETH",
+      "tf": "24m",
+      "k": 3.0,
+      "days": 1413,
+      "A": 68,
+      "B": 100,
+      "ranges": 215
+    },
+    {
+      "symbol": "ETH",
+      "tf": "1h",
+      "k": 2.0,
+      "days": 1413,
+      "A": 105,
+      "B": 155,
+      "ranges": 275
+    },
+    {
+      "symbol": "ETH",
+      "tf": "1h",
+      "k": 3.0,
+      "days": 1413,
+      "A": 31,
+      "B": 40,
+      "ranges": 85
+    },
+    {
+      "symbol": "SOL",
+      "tf": "6m",
+      "k": 2.0,
+      "days": 1413,
+      "A": 1102,
+      "B": 1646,
+      "ranges": 2931
+    },
+    {
+      "symbol": "SOL",
+      "tf": "6m",
+      "k": 3.0,
+      "days": 1413,
+      "A": 247,
+      "B": 359,
+      "ranges": 842
+    },
+    {
+      "symbol": "SOL",
+      "tf": "15m",
+      "k": 2.0,
+      "days": 1413,
+      "A": 413,
+      "B": 611,
+      "ranges": 1091
+    },
+    {
+      "symbol": "SOL",
+      "tf": "15m",
+      "k": 3.0,
+      "days": 1413,
+      "A": 97,
+      "B": 138,
+      "ranges": 338
+    },
+    {
+      "symbol": "SOL",
+      "tf": "24m",
+      "k": 2.0,
+      "days": 1413,
+      "A": 284,
+      "B": 417,
+      "ranges": 721
+    },
+    {
+      "symbol": "SOL",
+      "tf": "24m",
+      "k": 3.0,
+      "days": 1413,
+      "A": 70,
+      "B": 99,
+      "ranges": 224
+    },
+    {
+      "symbol": "SOL",
+      "tf": "1h",
+      "k": 2.0,
+      "days": 1413,
+      "A": 111,
+      "B": 148,
+      "ranges": 256
+    },
+    {
+      "symbol": "SOL",
+      "tf": "1h",
+      "k": 3.0,
+      "days": 1413,
+      "A": 23,
+      "B": 37,
+      "ranges": 75
+    },
+    {
+      "symbol": "ADA",
+      "tf": "6m",
+      "k": 2.0,
+      "days": 1413,
+      "A": 1090,
+      "B": 1622,
+      "ranges": 2912
+    },
+    {
+      "symbol": "ADA",
+      "tf": "6m",
+      "k": 3.0,
+      "days": 1413,
+      "A": 244,
+      "B": 357,
+      "ranges": 908
+    },
+    {
+      "symbol": "ADA",
+      "tf": "15m",
+      "k": 2.0,
+      "days": 1413,
+      "A": 449,
+      "B": 666,
+      "ranges": 1168
+    },
+    {
+      "symbol": "ADA",
+      "tf": "15m",
+      "k": 3.0,
+      "days": 1413,
+      "A": 103,
+      "B": 138,
+      "ranges": 338
+    },
+    {
+      "symbol": "ADA",
+      "tf": "24m",
+      "k": 2.0,
+      "days": 1413,
+      "A": 274,
+      "B": 416,
+      "ranges": 734
+    },
+    {
+      "symbol": "ADA",
+      "tf": "24m",
+      "k": 3.0,
+      "days": 1413,
+      "A": 62,
+      "B": 88,
+      "ranges": 204
+    },
+    {
+      "symbol": "ADA",
+      "tf": "1h",
+      "k": 2.0,
+      "days": 1413,
+      "A": 108,
+      "B": 158,
+      "ranges": 263
+    },
+    {
+      "symbol": "ADA",
+      "tf": "1h",
+      "k": 3.0,
+      "days": 1413,
+      "A": 22,
+      "B": 31,
+      "ranges": 74
+    },
+    {
+      "symbol": "XRP",
+      "tf": "6m",
+      "k": 2.0,
+      "days": 1413,
+      "A": 1119,
+      "B": 1677,
+      "ranges": 2894
+    },
+    {
+      "symbol": "XRP",
+      "tf": "6m",
+      "k": 3.0,
+      "days": 1413,
+      "A": 239,
+      "B": 336,
+      "ranges": 875
+    },
+    {
+      "symbol": "XRP",
+      "tf": "15m",
+      "k": 2.0,
+      "days": 1413,
+      "A": 458,
+      "B": 675,
+      "ranges": 1091
+    },
+    {
+      "symbol": "XRP",
+      "tf": "15m",
+      "k": 3.0,
+      "days": 1413,
+      "A": 110,
+      "B": 153,
+      "ranges": 346
+    },
+    {
+      "symbol": "XRP",
+      "tf": "24m",
+      "k": 2.0,
+      "days": 1413,
+      "A": 300,
+      "B": 414,
+      "ranges": 750
+    },
+    {
+      "symbol": "XRP",
+      "tf": "24m",
+      "k": 3.0,
+      "days": 1413,
+      "A": 69,
+      "B": 98,
+      "ranges": 231
+    },
+    {
+      "symbol": "XRP",
+      "tf": "1h",
+      "k": 2.0,
+      "days": 1413,
+      "A": 112,
+      "B": 168,
+      "ranges": 276
+    },
+    {
+      "symbol": "XRP",
+      "tf": "1h",
+      "k": 3.0,
+      "days": 1413,
+      "A": 22,
+      "B": 38,
+      "ranges": 71
+    },
+    {
+      "symbol": "DOGE",
+      "tf": "6m",
+      "k": 2.0,
+      "days": 1413,
+      "A": 1119,
+      "B": 1652,
+      "ranges": 2903
+    },
+    {
+      "symbol": "DOGE",
+      "tf": "6m",
+      "k": 3.0,
+      "days": 1413,
+      "A": 226,
+      "B": 351,
+      "ranges": 915
+    },
+    {
+      "symbol": "DOGE",
+      "tf": "15m",
+      "k": 2.0,
+      "days": 1413,
+      "A": 453,
+      "B": 664,
+      "ranges": 1117
+    },
+    {
+      "symbol": "DOGE",
+      "tf": "15m",
+      "k": 3.0,
+      "days": 1413,
+      "A": 102,
+      "B": 141,
+      "ranges": 330
+    },
+    {
+      "symbol": "DOGE",
+      "tf": "24m",
+      "k": 2.0,
+      "days": 1413,
+      "A": 270,
+      "B": 404,
+      "ranges": 683
+    },
+    {
+      "symbol": "DOGE",
+      "tf": "24m",
+      "k": 3.0,
+      "days": 1413,
+      "A": 75,
+      "B": 105,
+      "ranges": 220
+    },
+    {
+      "symbol": "DOGE",
+      "tf": "1h",
+      "k": 2.0,
+      "days": 1413,
+      "A": 113,
+      "B": 164,
+      "ranges": 260
+    },
+    {
+      "symbol": "DOGE",
+      "tf": "1h",
+      "k": 3.0,
+      "days": 1413,
+      "A": 27,
+      "B": 36,
+      "ranges": 74
+    },
+    {
+      "symbol": "SUI",
+      "tf": "6m",
+      "k": 2.0,
+      "days": 926,
+      "A": 639,
+      "B": 984,
+      "ranges": 1847
+    },
+    {
+      "symbol": "SUI",
+      "tf": "6m",
+      "k": 3.0,
+      "days": 926,
+      "A": 129,
+      "B": 203,
+      "ranges": 576
+    },
+    {
+      "symbol": "SUI",
+      "tf": "15m",
+      "k": 2.0,
+      "days": 926,
+      "A": 269,
+      "B": 416,
+      "ranges": 758
+    },
+    {
+      "symbol": "SUI",
+      "tf": "15m",
+      "k": 3.0,
+      "days": 926,
+      "A": 73,
+      "B": 94,
+      "ranges": 244
+    },
+    {
+      "symbol": "SUI",
+      "tf": "24m",
+      "k": 2.0,
+      "days": 926,
+      "A": 197,
+      "B": 298,
+      "ranges": 499
+    },
+    {
+      "symbol": "SUI",
+      "tf": "24m",
+      "k": 3.0,
+      "days": 926,
+      "A": 46,
+      "B": 58,
+      "ranges": 143
+    },
+    {
+      "symbol": "SUI",
+      "tf": "1h",
+      "k": 2.0,
+      "days": 926,
+      "A": 74,
+      "B": 108,
+      "ranges": 185
+    },
+    {
+      "symbol": "SUI",
+      "tf": "1h",
+      "k": 3.0,
+      "days": 926,
+      "A": 18,
+      "B": 23,
+      "ranges": 66
+    },
+    {
+      "symbol": "LINK",
+      "tf": "6m",
+      "k": 2.0,
+      "days": 1413,
+      "A": 1074,
+      "B": 1632,
+      "ranges": 2977
+    },
+    {
+      "symbol": "LINK",
+      "tf": "6m",
+      "k": 3.0,
+      "days": 1413,
+      "A": 232,
+      "B": 350,
+      "ranges": 924
+    },
+    {
+      "symbol": "LINK",
+      "tf": "15m",
+      "k": 2.0,
+      "days": 1413,
+      "A": 434,
+      "B": 643,
+      "ranges": 1177
+    },
+    {
+      "symbol": "LINK",
+      "tf": "15m",
+      "k": 3.0,
+      "days": 1413,
+      "A": 86,
+      "B": 117,
+      "ranges": 341
+    },
+    {
+      "symbol": "LINK",
+      "tf": "24m",
+      "k": 2.0,
+      "days": 1413,
+      "A": 264,
+      "B": 399,
+      "ranges": 730
+    },
+    {
+      "symbol": "LINK",
+      "tf": "24m",
+      "k": 3.0,
+      "days": 1413,
+      "A": 66,
+      "B": 92,
+      "ranges": 239
+    },
+    {
+      "symbol": "LINK",
+      "tf": "1h",
+      "k": 2.0,
+      "days": 1413,
+      "A": 123,
+      "B": 169,
+      "ranges": 293
+    },
+    {
+      "symbol": "LINK",
+      "tf": "1h",
+      "k": 3.0,
+      "days": 1413,
+      "A": 26,
+      "B": 37,
+      "ranges": 90
+    },
+    {
+      "symbol": "AVAX",
+      "tf": "6m",
+      "k": 2.0,
+      "days": 1413,
+      "A": 1022,
+      "B": 1565,
+      "ranges": 2922
+    },
+    {
+      "symbol": "AVAX",
+      "tf": "6m",
+      "k": 3.0,
+      "days": 1413,
+      "A": 227,
+      "B": 324,
+      "ranges": 917
+    },
+    {
+      "symbol": "AVAX",
+      "tf": "15m",
+      "k": 2.0,
+      "days": 1413,
+      "A": 405,
+      "B": 621,
+      "ranges": 1126
+    },
+    {
+      "symbol": "AVAX",
+      "tf": "15m",
+      "k": 3.0,
+      "days": 1413,
+      "A": 88,
+      "B": 134,
+      "ranges": 348
+    },
+    {
+      "symbol": "AVAX",
+      "tf": "24m",
+      "k": 2.0,
+      "days": 1413,
+      "A": 251,
+      "B": 383,
+      "ranges": 722
+    },
+    {
+      "symbol": "AVAX",
+      "tf": "24m",
+      "k": 3.0,
+      "days": 1413,
+      "A": 54,
+      "B": 80,
+      "ranges": 205
+    },
+    {
+      "symbol": "AVAX",
+      "tf": "1h",
+      "k": 2.0,
+      "days": 1413,
+      "A": 102,
+      "B": 153,
+      "ranges": 276
+    },
+    {
+      "symbol": "AVAX",
+      "tf": "1h",
+      "k": 3.0,
+      "days": 1413,
+      "A": 22,
+      "B": 32,
+      "ranges": 77
+    }
+  ]
+}

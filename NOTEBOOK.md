@@ -3,7 +3,8 @@
 Resume from this file plus ML_DISCOVERY_PROMPT.md (the standing brief, repo root) and PROTOCOL.md (once it exists).
 
 ## Current status
-- **Gate 0 approved (2026-11-15). Phase 1 in progress** (feature engine, MCB validation, Gate 1 proposals).
+- **Phase 1 complete. Waiting for Gate 1 approval.** Report: `reports/phase1/GATE1_REPORT.md`; proposals in
+  `PROTOCOL.md` (DRAFT, not frozen). Do not start Phase 2 until the user approves and PROTOCOL.md is frozen.
 - Phase 0 report: `reports/phase0/QA_REPORT.md`.
 
 ## Rebuilding the data (new session)
@@ -52,9 +53,18 @@ allows it). fapi.binance.com is geo-blocked from the cloud container, so there i
   cost) and carry only that one into discovery (user agreed). User does not remember whether the exports are real
   MCB or the clone; the validation will tell (column names suggest real MCB).
 
+## Phase 1 results (summary)
+- WaveTrend validated vs real MCB (100% cross-dot agreement). Money Flow = MCB_Clone_v1 formula on Heikin-Ashi
+  candles, no outer EMA (corr 0.99, 95% sign agreement). Brief's HTF formula ~86%, fixed 3H rejected.
+- Feature code: src/tradingstudy/features (mcb, divergence, htf, context, build), src/tradingstudy/structure
+  (swings, ranges, levels, profile, build). 60 tests incl. end-to-end real-data look-ahead test + mutation test.
+- Census: divergence stack ~12/day across coins at 15m (needs filtering to reach ~1/day); range flip 0.6/day at 15m k=3.
+- Known weaknesses flagged at Gate 1: contaminated holdout on all coins, small range-flip sample, level density makes
+  confluence weak, several divergence details are Claude's definitions.
+
 ## Open questions for the user
 1. Which coins were traded live in the last 12 months, and roughly how often?
-2. Limit order lifetime (default proposal: 1 bar) and daily reset time (default: 00:00 UTC). Proposed at Gate 1.
+2. All Gate 1 decisions listed in reports/phase1/GATE1_REPORT.md section 5.
 
 ## Issues to carry into Phase 1 / Gate 1
 - Fee in R is large on low timeframes (BTC dev medians: 6m-proxy 0.48R at 1x ATR stop, 15m 0.25R, 1h 0.12R).
