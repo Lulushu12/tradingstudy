@@ -3,6 +3,8 @@
 Scopes:
 - "dev":               bars fully inside [DEV_START, DEV_END). A bar is included only if it opens at or after
                        DEV_START and CLOSES at or before DEV_END, so no bar straddles into the primary holdout.
+- "dev_warmup":        like "dev" but starting WARMUP_DAYS earlier. For computing indicators/structure ONLY; callers
+                       must trim results back to the dev scope before any label, trade or statistic (builders do).
 - "qa":                full history. Reserved for data-quality checks (counts, gaps, duplicates). Must never be used
                        to compute prices, returns, indicators or anything outcome-related on holdout spans.
 - "holdout_primary":   [PRIMARY_HOLDOUT_START, end). Phase 4 only.
@@ -17,10 +19,11 @@ import json
 
 import pandas as pd
 
-from tradingstudy.config import CLEAN, DEV_END, DEV_START, PRIMARY_HOLDOUT_START, ROOT, SECONDARY_HOLDOUT_END, TIMEFRAMES
+from tradingstudy.config import (CLEAN, DEV_END, DEV_START, PRIMARY_HOLDOUT_START, ROOT, SECONDARY_HOLDOUT_END,
+                                 TIMEFRAMES, WARMUP_DAYS)
 
 UNLOCK_FILE = ROOT / "holdout_unlock.json"
-SCOPES = ("dev", "qa", "holdout_primary", "holdout_secondary")
+SCOPES = ("dev", "dev_warmup", "qa", "holdout_primary", "holdout_secondary")
 
 
 class HoldoutLocked(PermissionError):
@@ -52,6 +55,8 @@ def clip_scope(df: pd.DataFrame, tf: str, scope: str) -> pd.DataFrame:
     close_t = df.index + pd.Timedelta(minutes=bar_minutes(tf))
     if scope == "dev":
         m = (df.index >= DEV_START) & (close_t <= DEV_END)
+    elif scope == "dev_warmup":
+        m = (df.index >= DEV_START - pd.Timedelta(days=WARMUP_DAYS)) & (close_t <= DEV_END)
     elif scope == "holdout_primary":
         m = df.index >= PRIMARY_HOLDOUT_START
     else:
@@ -74,6 +79,8 @@ def load_funding(sym: str, scope: str = "dev") -> pd.DataFrame:
     df = pd.read_parquet(CLEAN / "funding" / f"{sym}.parquet")
     if scope == "dev":
         return df.loc[(df.index >= DEV_START) & (df.index < DEV_END)]
+    if scope == "dev_warmup":
+        return df.loc[(df.index >= DEV_START - pd.Timedelta(days=WARMUP_DAYS)) & (df.index < DEV_END)]
     if scope == "holdout_primary":
         return df.loc[df.index >= PRIMARY_HOLDOUT_START]
     if scope == "holdout_secondary":

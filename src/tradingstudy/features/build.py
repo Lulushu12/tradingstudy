@@ -5,6 +5,7 @@ where they become known. Market-structure features (brief 5.6) are added by feat
 """
 from __future__ import annotations
 
+import numpy as np
 import pandas as pd
 
 from tradingstudy.data.guard import clip_scope, load_bars, load_funding
@@ -26,7 +27,11 @@ def bars_any(sym: str, minutes: int, scope: str, m1: pd.DataFrame | None = None)
 
 
 def build_features(sym: str, tf: str, scope: str = "dev", mf_div_kwargs: dict | None = None,
-                   wt_div_kwargs: dict | None = None) -> pd.DataFrame:
+                   wt_div_kwargs: dict | None = None, warmup: bool = True) -> pd.DataFrame:
+    """warmup=True (PROTOCOL section 1): compute on 'dev_warmup' data, return only dev rows."""
+    out_scope = scope
+    if scope == "dev" and warmup:
+        scope = "dev_warmup"
     cm = EXEC_TFS[tf]
     bars = load_bars(sym, tf, scope)
     idx = bars.index
@@ -50,5 +55,11 @@ def build_features(sym: str, tf: str, scope: str = "dev", mf_div_kwargs: dict | 
     parts.append(context.trend_regimes(h4, d1, idx, cm))
     parts.append(context.funding_features(load_funding(sym, scope), idx, cm))
     out = pd.concat(parts, axis=1)
-    out.attrs.update(symbol=sym, tf=tf, chart_minutes=cm, scope=scope)
+    # divergence references: convert bar positions to timestamps so trimming warm-up rows cannot misalign them
+    for c in [c for c in out.columns if c.endswith("_ref")]:
+        r = out[c].to_numpy()
+        out[c] = pd.Series(pd.NaT, index=idx, dtype=idx.dtype).where(r < 0, idx[np.clip(r, 0, None)])
+    if out_scope != scope:
+        out = clip_scope(out, tf, out_scope)
+    out.attrs.update(symbol=sym, tf=tf, chart_minutes=cm, scope=out_scope)
     return out

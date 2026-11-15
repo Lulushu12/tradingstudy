@@ -31,8 +31,12 @@ TIMEFRAMES = {
 # Download snapshot: last complete UTC day available in the archives at download time.
 DOWNLOAD_DATE = pd.Timestamp("2026-11-15", tz="UTC")
 
-# PROVISIONAL splits (Gate 1 may adjust, then they freeze in PROTOCOL.md).
+# Splits, FROZEN in PROTOCOL.md at Gate 1 (2026-11-15).
 SECONDARY_HOLDOUT_END = pd.Timestamp("2022-01-01", tz="UTC")  # everything before this is locked
 PRIMARY_HOLDOUT_START = pd.Timestamp("2025-11-15", tz="UTC")  # most recent 12 months, locked
 DEV_START = SECONDARY_HOLDOUT_END
 DEV_END = PRIMARY_HOLDOUT_START  # exclusive
+
+# Warm-up (PROTOCOL section 1, approved): bars up to this many days before a split's first evaluated bar may be used
+# to compute indicators and structure only. Never for labels, trades or statistics.
+WARMUP_DAYS = 400

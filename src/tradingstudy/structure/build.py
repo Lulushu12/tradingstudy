@@ -10,7 +10,7 @@ from __future__ import annotations
 import numpy as np
 import pandas as pd
 
-from tradingstudy.data.guard import load_bars
+from tradingstudy.data.guard import clip_scope, load_bars
 from tradingstudy.features import ta
 from tradingstudy.features.build import EXEC_TFS, bars_any
 from tradingstudy.structure import levels as lv
@@ -19,7 +19,7 @@ from tradingstudy.structure.ranges import ranges_and_flips
 from tradingstudy.structure.swings import zigzag
 
 STRUCTURE_TFS = {"6m": 6, "15m": 15, "24m": 24, "30m": 30, "1h": 60, "4h": 240, "1D": 1440, "1W": 10080}
-STRUCT_DEFAULTS = dict(k=3.0, confluence_band=0.5, frvp_bin_frac=0.1, va_touch=0.5)
+STRUCT_DEFAULTS = dict(k=3.0, confluence_band=0.25, frvp_bin_frac=0.1, va_touch=0.5)  # PROTOCOL section 6
 MIN = pd.Timedelta(minutes=1)
 
 
@@ -76,7 +76,11 @@ def structure_tf(sym: str, tf: str, m1: pd.DataFrame, scope: str, k: float, rang
 
 
 def build_structure(sym: str, tf: str, scope: str = "dev", k: float | None = None, range_kw: dict | None = None,
-                    level_kw: dict | None = None, confluence_band: float | None = None):
+                    level_kw: dict | None = None, confluence_band: float | None = None, warmup: bool = True):
+    """warmup=True (PROTOCOL section 1): compute on 'dev_warmup' data, return only dev rows and dev events."""
+    out_scope = scope
+    if scope == "dev" and warmup:
+        scope = "dev_warmup"
     p = dict(STRUCT_DEFAULTS)
     if k is not None:
         p["k"] = k
@@ -96,6 +100,9 @@ def build_structure(sym: str, tf: str, scope: str = "dev", k: float | None = Non
     near_fib = np.full(len(ex), np.inf)
     near_fib_lvl = np.full(len(ex), np.nan)
     near_fib_tf = np.full(len(ex), np.nan)
+    type_hit = {t: np.zeros(len(ex), dtype=bool) for t in ("fib", "sr", "range", "profile")}
+    lvl_above = np.full(len(ex), np.inf)
+    lvl_below = np.full(len(ex), -np.inf)
     all_events = []
     for rank, stf in enumerate(tfs):
         S = structure_tf(sym, stf, m1, scope, p["k"], range_kw or {}, level_kw or {}, p["frvp_bin_frac"])
@@ -122,6 +129,16 @@ def build_structure(sym: str, tf: str, scope: str = "dev", k: float | None = Non
         feats[f"range_{stf}_pos"] = (close - rl) / (rh - rl)
         lb = S["last_broken"][np.clip(pos, 0, None)].copy(); lb[pos < 0] = np.nan
         levels += [np.c_[rh, rl], lb]
+        within = lambda X: (np.abs(X - close[:, None]) <= band[:, None]).any(axis=1)
+        type_hit["sr"] |= within(hp)
+        type_hit["range"] |= within(np.c_[rh, rl, lb[:, 0], lb[:, 1]])
+        type_hit["profile"] |= within(lb[:, 2:5])
+        # next opposing level candidates (PROTOCOL section 4): held S/R, active range bounds, last broken range bounds
+        cand = np.c_[hp, rh, rl, lb[:, 0], lb[:, 1]]
+        above = np.where(cand > close[:, None], cand, np.inf).min(axis=1)
+        below = np.where(cand < close[:, None], cand, -np.inf).max(axis=1)
+        lvl_above = np.minimum(lvl_above, above)
+        lvl_below = np.maximum(lvl_below, below)
         feats[f"lastrange_{stf}_dist_high_atr"] = (lb[:, 0] - close) / a
         feats[f"lastrange_{stf}_dist_low_atr"] = (lb[:, 1] - close) / a
         feats[f"lastrange_{stf}_dist_poc_atr"] = (lb[:, 2] - close) / a
@@ -131,6 +148,7 @@ def build_structure(sym: str, tf: str, scope: str = "dev", k: float | None = Non
         ratios = lv.FIB_EXEC if stf == tf else lv.FIB_HTF
         fl = np.stack([lv.fib_retrace(legs[:, g, 0], legs[:, g, 1], r) for g in range(legs.shape[1]) for r in ratios], axis=1)
         levels.append(fl)
+        type_hit["fib"] |= within(fl)
         last_leg = [lv.fib_retrace(legs[:, 0, 0], legs[:, 0, 1], r) for r in ratios]
         dl = np.stack([np.abs(x - close) / a for x in last_leg], axis=1)
         dl_f = np.where(np.isnan(dl), np.inf, dl)
@@ -146,6 +164,11 @@ def build_structure(sym: str, tf: str, scope: str = "dev", k: float | None = Non
             feats["fib_exec_in_0618_zone"] = ((close >= np.fmin(z0, z1)) & (close <= np.fmax(z0, z1))).astype(float)
             feats["leg_a"], feats["leg_b"] = legs[:, 0, 0], legs[:, 0, 1]
             feats["leg_dir"] = np.sign(legs[:, 0, 1] - legs[:, 0, 0])
+            # most recent confirmed up-leg and down-leg (swings alternate, so they are legs 0 and 1 in some order)
+            up0 = legs[:, 0, 1] > legs[:, 0, 0]
+            for nm, sel in (("up", up0), ("down", ~up0)):
+                feats[f"{nm}leg_a"] = np.where(sel, legs[:, 0, 0], legs[:, 1, 0])
+                feats[f"{nm}leg_b"] = np.where(sel, legs[:, 0, 1], legs[:, 1, 1])
         # confluence: levels of this TF within band of the execution close
         L = np.concatenate(levels, axis=1)
         hit = (np.abs(L - close[:, None]) <= band[:, None]).sum(axis=1)
@@ -169,6 +192,7 @@ def build_structure(sym: str, tf: str, scope: str = "dev", k: float | None = Non
         v = _take(pdp[c].to_numpy(), pos_d)
         feats[f"pdp_{c}_dist_atr"] = (v - close) / pd_atr
         conf_count += (np.abs(v - close) <= band)
+        type_hit["profile"] |= (np.abs(v - close) <= band)
         conf_top_tf = np.where((np.abs(v - close) <= band) & (conf_top_tf < 1440), 1440, conf_top_tf)
     vah, val = _take(pdp["vah"].to_numpy(), pos_d), _take(pdp["val"].to_numpy(), pos_d)
     feats["pdp_in_value"] = ((close >= val) & (close <= vah)).astype(float)
@@ -179,10 +203,18 @@ def build_structure(sym: str, tf: str, scope: str = "dev", k: float | None = Non
         feats[f"{name}_high_dist_atr"] = (_take(b["high"].to_numpy(), ps) - close) / ab
         feats[f"{name}_low_dist_atr"] = (_take(b["low"].to_numpy(), ps) - close) / ab
     feats["confluence_count"] = conf_count
+    feats["confluence_types"] = sum(type_hit[t].astype(float) for t in type_hit)
+    feats["next_level_above"] = np.where(np.isinf(lvl_above), np.nan, lvl_above)
+    feats["next_level_below"] = np.where(np.isinf(lvl_below), np.nan, lvl_below)
     feats["confluence_top_tf_min"] = conf_top_tf
     feats["fib_nearest_dist_atr"] = np.where(np.isinf(near_fib), np.nan, near_fib)
     feats["fib_nearest_level"] = near_fib_lvl
     feats["fib_nearest_tf_min"] = near_fib_tf
     out = pd.DataFrame(feats, index=idx)
     events = pd.concat(all_events, ignore_index=True) if all_events else pd.DataFrame()
+    if out_scope != scope:
+        out = clip_scope(out, tf, out_scope)
+        if len(events):
+            events = events[events["exec_time"].isin(out.index)].copy()
+            events["exec_bar"] = out.index.get_indexer(events["exec_time"])
     return out, events
