@@ -3,11 +3,12 @@
 Resume from this file plus ML_DISCOVERY_PROMPT.md (the standing brief, repo root) and PROTOCOL.md (once it exists).
 
 ## Current status
-- **Phase 0 complete. Waiting for Gate 0 approval.** Do not start Phase 1 until the user says go.
-- Report: `reports/phase0/QA_REPORT.md`.
+- **Gate 0 approved (2026-11-15). Phase 1 in progress** (feature engine, MCB validation, Gate 1 proposals).
+- Phase 0 report: `reports/phase0/QA_REPORT.md`.
 
 ## Rebuilding the data (new session)
-Data is not in git. Rebuild with `uv sync && uv run python -m tradingstudy.data.pipeline` (about 2 GB of downloads,
+Data is not in git. The "tradingstudy" cloud environment has a setup script that runs the pipeline at container
+build (unproven until the first fresh session; if data/clean is missing, run it manually). Manual rebuild: `uv sync && uv run python -m tradingstudy.data.pipeline` (about 2 GB of downloads,
 checksum-verified, roughly 10-15 minutes). Network: needs data.binance.vision (the "tradingstudy" cloud environment
 allows it). fapi.binance.com is geo-blocked from the cloud container, so there is no API gap-fill.
 
@@ -38,14 +39,22 @@ allows it). fapi.binance.com is geo-blocked from the cloud container, so there i
   resets at daily close (assumed 00:00 UTC, unconfirmed).
 - Risk: 0.5% of current equity per trade.
 
+- FROZEN_SPEC.md and CLAUDE_CODE_PROMPT.md are SUPERSEDED by ML_DISCOVERY_PROMPT.md (user, Gate 0).
+- No FROZEN_SPEC system baseline (user declined).
+- Holdout verdict judged on the 8 non-BTC coins; BTC reported separately (user agreed).
+- User traded some of the other coins live in the last 12 months, so the primary holdout is weaker on all coins,
+  not only BTC. BTC remains worst (old systematic study tested WT signals on 2025-01..2026-06). Caveat goes in PROTOCOL.md.
+- Canonical clone source: Lulushu12/Trading-training `indicators/MCB_Clone_v1.pine`. It does NOT match the brief's
+  section 5.2 baseline (pine uses 5-bar fractal divergences with -65/-40/+45/+15 filters and stdev-based MF; the brief
+  describes dot divergences, 5 dots, 300 bars, MF lookback 100). User confirmed no other indicator file exists, so the
+  brief's dot-divergence baseline is implemented from the brief's text.
+- Money Flow: choose the variant that best matches the TradingView exports (indicator matching, no P&L, no budget
+  cost) and carry only that one into discovery (user agreed). User does not remember whether the exports are real
+  MCB or the clone; the validation will tell (column names suggest real MCB).
+
 ## Open questions for the user
-1. Does ML_DISCOVERY_PROMPT.md officially supersede FROZEN_SPEC.md and CLAUDE_CODE_PROMPT.md? (Not answered.)
-2. Run the FROZEN_SPEC system unchanged as a third Phase 2 baseline? (Proposed, not answered.)
-3. Holdout verdict judged on the 8 non-BTC coins, BTC reported separately (BTC 2025-01..2026-06 was the old study's
-   test set and was traded live)? (Proposed, not answered.)
-4. Were any of the other 8 coins traded live in the last 12 months? (Not answered.)
-5. MCB Clone v1 PineScript is referenced in old prompts but not in the repo. Add it, or treat brief formulas as canonical?
-6. Limit order lifetime (proposal: cancel after 1 bar). Daily reset time (assumed 00:00 UTC).
+1. Which coins were traded live in the last 12 months, and roughly how often?
+2. Limit order lifetime (default proposal: 1 bar) and daily reset time (default: 00:00 UTC). Proposed at Gate 1.
 
 ## Issues to carry into Phase 1 / Gate 1
 - Fee in R is large on low timeframes (BTC dev medians: 6m-proxy 0.48R at 1x ATR stop, 15m 0.25R, 1h 0.12R).
