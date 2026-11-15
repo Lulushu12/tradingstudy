@@ -26,7 +26,8 @@ def bucket_starts(ts_ns: np.ndarray, minutes: int) -> np.ndarray:
     width = minutes * MIN_NS
     if minutes == 10080:
         return (ts_ns - MONDAY_EPOCH_NS) // width * width + MONDAY_EPOCH_NS
-    assert 1440 % minutes == 0 or minutes % 1440 == 0, f"{minutes}m is not day-aligned"
+    # Timeframes that divide a day are UTC-midnight aligned by this formula. Others (e.g. 150m, 600m, 3D) are
+    # anchored continuously from the Unix epoch; how TradingView anchors those is not verified.
     return ts_ns // width * width
 
 
