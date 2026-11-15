@@ -1,0 +1,1063 @@
+warning: The `UV_NATIVE_TLS` environment variable is deprecated and will be removed in a future release. Use `UV_SYSTEM_CERTS` instead.
+212 configurations
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-001 B1 6m A stop2.0 1R         None       n=12471 exp=-0.226 pf=0.65 fee=0.141 fill=0.96 [8s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-002 B1 6m A stop2.0 1.5R       None       n=11097 exp=-0.238 pf=0.69 fee=0.140 fill=0.96 [10s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-003 B1 6m A stop2.0 2R         None       n= 9896 exp=-0.241 pf=0.71 fee=0.140 fill=0.96 [13s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-004 B1 6m A stop2.0 3R         None       n= 8615 exp=-0.245 pf=0.73 fee=0.137 fill=0.96 [15s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-005 B1 6m A stop2.0 fib1.272   None       n= 8562 exp=-0.232 pf=0.74 fee=0.137 fill=0.96 [17s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-006 B1 6m A stop2.0 fib1.618   None       n= 7905 exp=-0.244 pf=0.74 fee=0.136 fill=0.97 [20s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-007 B1 6m A stop2.0 next_level None       n= 6245 exp=-0.240 pf=0.69 fee=0.147 fill=0.96 [21s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-008 B1 6m B stop2.0 1R         None       n=11712 exp=-0.240 pf=0.63 fee=0.141 fill=0.96 [25s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-009 B1 6m B stop2.0 1.5R       None       n=10501 exp=-0.254 pf=0.67 fee=0.142 fill=0.96 [28s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-010 B1 6m B stop2.0 2R         None       n= 9574 exp=-0.246 pf=0.71 fee=0.140 fill=0.96 [30s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-011 B1 6m B stop2.0 3R         None       n= 8639 exp=-0.240 pf=0.74 fee=0.138 fill=0.96 [32s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-012 B1 6m B stop2.0 fib1.272   None       n= 8401 exp=-0.211 pf=0.77 fee=0.138 fill=0.96 [34s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-013 B1 6m B stop2.0 fib1.618   None       n= 7804 exp=-0.240 pf=0.75 fee=0.137 fill=0.96 [36s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-014 B1 6m B stop2.0 next_level None       n= 5648 exp=-0.264 pf=0.67 fee=0.148 fill=0.96 [37s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-015 B1 15m A stop1.5 1R         None       n= 7340 exp=-0.141 pf=0.76 fee=0.104 fill=0.97 [40s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-016 B1 15m A stop1.5 1.5R       None       n= 6415 exp=-0.176 pf=0.75 fee=0.105 fill=0.97 [41s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-017 B1 15m A stop1.5 2R         None       n= 5890 exp=-0.172 pf=0.78 fee=0.105 fill=0.97 [42s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-018 B1 15m A stop1.5 3R         None       n= 5324 exp=-0.151 pf=0.82 fee=0.105 fill=0.97 [43s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-019 B1 15m A stop1.5 fib1.272   None       n= 5085 exp=-0.159 pf=0.82 fee=0.105 fill=0.97 [44s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-020 B1 15m A stop1.5 fib1.618   None       n= 4913 exp=-0.172 pf=0.81 fee=0.105 fill=0.97 [45s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-021 B1 15m A stop1.5 next_level None       n= 3645 exp=-0.157 pf=0.79 fee=0.107 fill=0.97 [46s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-022 B1 15m A stop2.0 1R         None       n= 6501 exp=-0.131 pf=0.77 fee=0.079 fill=0.98 [47s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-023 B1 15m A stop2.0 1.5R       None       n= 5670 exp=-0.131 pf=0.81 fee=0.079 fill=0.98 [48s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-024 B1 15m A stop2.0 2R         None       n= 5205 exp=-0.138 pf=0.81 fee=0.079 fill=0.98 [50s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-025 B1 15m A stop2.0 3R         None       n= 4716 exp=-0.120 pf=0.85 fee=0.078 fill=0.98 [51s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-026 B1 15m A stop2.0 fib1.272   None       n= 4759 exp=-0.115 pf=0.85 fee=0.079 fill=0.98 [52s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-027 B1 15m A stop2.0 fib1.618   None       n= 4576 exp=-0.112 pf=0.86 fee=0.078 fill=0.98 [53s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-028 B1 15m A stop2.0 next_level None       n= 2768 exp=-0.133 pf=0.81 fee=0.082 fill=0.98 [53s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-029 B1 15m B stop1.5 1R         None       n= 6770 exp=-0.161 pf=0.73 fee=0.106 fill=0.97 [56s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-030 B1 15m B stop1.5 1.5R       None       n= 6075 exp=-0.168 pf=0.76 fee=0.106 fill=0.97 [57s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-031 B1 15m B stop1.5 2R         None       n= 5727 exp=-0.174 pf=0.78 fee=0.107 fill=0.97 [58s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-032 B1 15m B stop1.5 3R         None       n= 5192 exp=-0.165 pf=0.81 fee=0.106 fill=0.97 [59s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-033 B1 15m B stop1.5 fib1.272   None       n= 4927 exp=-0.187 pf=0.79 fee=0.106 fill=0.97 [60s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-034 B1 15m B stop1.5 fib1.618   None       n= 4767 exp=-0.184 pf=0.80 fee=0.106 fill=0.97 [61s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-035 B1 15m B stop1.5 next_level None       n= 3346 exp=-0.162 pf=0.79 fee=0.110 fill=0.97 [62s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-036 B1 15m B stop2.0 1R         None       n= 6108 exp=-0.126 pf=0.78 fee=0.080 fill=0.98 [63s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-037 B1 15m B stop2.0 1.5R       None       n= 5483 exp=-0.128 pf=0.81 fee=0.080 fill=0.98 [64s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-038 B1 15m B stop2.0 2R         None       n= 5068 exp=-0.123 pf=0.83 fee=0.080 fill=0.98 [66s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-039 B1 15m B stop2.0 3R         None       n= 4611 exp=-0.139 pf=0.83 fee=0.080 fill=0.98 [67s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-040 B1 15m B stop2.0 fib1.272   None       n= 4616 exp=-0.147 pf=0.81 fee=0.080 fill=0.98 [68s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-041 B1 15m B stop2.0 fib1.618   None       n= 4478 exp=-0.143 pf=0.82 fee=0.080 fill=0.98 [69s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-042 B1 15m B stop2.0 next_level None       n= 2534 exp=-0.133 pf=0.81 fee=0.085 fill=0.98 [69s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-043 B1 24m A stop1.5 1R         None       n= 4887 exp=-0.154 pf=0.74 fee=0.083 fill=0.98 [71s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-044 B1 24m A stop1.5 1.5R       None       n= 4354 exp=-0.168 pf=0.76 fee=0.082 fill=0.98 [72s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-045 B1 24m A stop1.5 2R         None       n= 4143 exp=-0.162 pf=0.79 fee=0.083 fill=0.98 [73s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-046 B1 24m A stop1.5 3R         None       n= 3859 exp=-0.154 pf=0.81 fee=0.083 fill=0.98 [74s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-047 B1 24m A stop1.5 fib1.272   None       n= 3743 exp=-0.161 pf=0.81 fee=0.083 fill=0.98 [75s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-048 B1 24m A stop1.5 fib1.618   None       n= 3656 exp=-0.173 pf=0.80 fee=0.082 fill=0.98 [75s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-049 B1 24m A stop1.5 next_level None       n= 2433 exp=-0.180 pf=0.76 fee=0.085 fill=0.98 [76s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-050 B1 24m A stop2.0 1R         None       n= 4308 exp=-0.128 pf=0.78 fee=0.062 fill=0.98 [77s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-051 B1 24m A stop2.0 1.5R       None       n= 3886 exp=-0.129 pf=0.80 fee=0.062 fill=0.98 [78s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-052 B1 24m A stop2.0 2R         None       n= 3661 exp=-0.129 pf=0.82 fee=0.062 fill=0.98 [78s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-053 B1 24m A stop2.0 3R         None       n= 3457 exp=-0.134 pf=0.82 fee=0.062 fill=0.98 [79s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-054 B1 24m A stop2.0 fib1.272   None       n= 3448 exp=-0.135 pf=0.81 fee=0.062 fill=0.98 [80s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-055 B1 24m A stop2.0 fib1.618   None       n= 3391 exp=-0.137 pf=0.82 fee=0.062 fill=0.98 [81s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-056 B1 24m A stop2.0 next_level None       n= 1855 exp=-0.169 pf=0.75 fee=0.065 fill=0.98 [81s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-057 B1 24m B stop1.5 1R         None       n= 4474 exp=-0.157 pf=0.74 fee=0.082 fill=0.98 [83s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-058 B1 24m B stop1.5 1.5R       None       n= 4042 exp=-0.166 pf=0.76 fee=0.082 fill=0.98 [83s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-059 B1 24m B stop1.5 2R         None       n= 3861 exp=-0.169 pf=0.78 fee=0.083 fill=0.97 [84s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-060 B1 24m B stop1.5 3R         None       n= 3621 exp=-0.141 pf=0.83 fee=0.082 fill=0.97 [85s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-061 B1 24m B stop1.5 fib1.272   None       n= 3513 exp=-0.178 pf=0.79 fee=0.082 fill=0.97 [86s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-062 B1 24m B stop1.5 fib1.618   None       n= 3456 exp=-0.173 pf=0.80 fee=0.082 fill=0.97 [86s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-063 B1 24m B stop1.5 next_level None       n= 2250 exp=-0.152 pf=0.79 fee=0.086 fill=0.98 [87s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-064 B1 24m B stop2.0 1R         None       n= 3999 exp=-0.127 pf=0.78 fee=0.062 fill=0.98 [88s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-065 B1 24m B stop2.0 1.5R       None       n= 3646 exp=-0.123 pf=0.81 fee=0.062 fill=0.98 [88s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-066 B1 24m B stop2.0 2R         None       n= 3468 exp=-0.112 pf=0.84 fee=0.062 fill=0.98 [89s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-067 B1 24m B stop2.0 3R         None       n= 3291 exp=-0.133 pf=0.82 fee=0.062 fill=0.98 [90s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-068 B1 24m B stop2.0 fib1.272   None       n= 3293 exp=-0.139 pf=0.81 fee=0.062 fill=0.98 [91s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-069 B1 24m B stop2.0 fib1.618   None       n= 3259 exp=-0.129 pf=0.83 fee=0.062 fill=0.98 [91s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-070 B1 24m B stop2.0 next_level None       n= 1672 exp=-0.169 pf=0.75 fee=0.066 fill=0.98 [92s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-071 B1 1h A stop1.5 1R         None       n= 2272 exp=-0.049 pf=0.91 fee=0.048 fill=0.98 [93s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-072 B1 1h A stop1.5 1.5R       None       n= 2079 exp=-0.057 pf=0.90 fee=0.048 fill=0.98 [93s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-073 B1 1h A stop1.5 2R         None       n= 2000 exp=-0.060 pf=0.90 fee=0.048 fill=0.98 [94s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-074 B1 1h A stop1.5 3R         None       n= 1952 exp=-0.062 pf=0.90 fee=0.048 fill=0.98 [94s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-075 B1 1h A stop1.5 fib1.272   None       n= 1933 exp=-0.076 pf=0.88 fee=0.048 fill=0.99 [95s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-076 B1 1h A stop1.5 fib1.618   None       n= 1934 exp=-0.074 pf=0.89 fee=0.048 fill=0.98 [95s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-077 B1 1h A stop1.5 next_level None       n= 1230 exp=-0.081 pf=0.87 fee=0.048 fill=0.98 [95s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-078 B1 1h A stop2.0 1R         None       n= 1996 exp=-0.040 pf=0.92 fee=0.036 fill=0.99 [96s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-079 B1 1h A stop2.0 1.5R       None       n= 1868 exp=-0.046 pf=0.91 fee=0.036 fill=0.99 [96s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-080 B1 1h A stop2.0 2R         None       n= 1831 exp=-0.050 pf=0.91 fee=0.036 fill=0.99 [97s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-081 B1 1h A stop2.0 3R         None       n= 1802 exp=-0.044 pf=0.92 fee=0.036 fill=0.99 [97s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-082 B1 1h A stop2.0 fib1.272   None       n= 1783 exp=-0.056 pf=0.90 fee=0.036 fill=0.99 [98s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-083 B1 1h A stop2.0 fib1.618   None       n= 1795 exp=-0.054 pf=0.90 fee=0.036 fill=0.99 [98s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-084 B1 1h A stop2.0 next_level None       n=  953 exp=-0.087 pf=0.84 fee=0.036 fill=0.98 [99s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-085 B1 1h B stop1.5 1R         None       n= 2087 exp=-0.079 pf=0.85 fee=0.048 fill=0.98 [99s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-086 B1 1h B stop1.5 1.5R       None       n= 1944 exp=-0.090 pf=0.85 fee=0.048 fill=0.99 [100s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-087 B1 1h B stop1.5 2R         None       n= 1875 exp=-0.081 pf=0.87 fee=0.048 fill=0.99 [100s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-088 B1 1h B stop1.5 3R         None       n= 1825 exp=-0.080 pf=0.88 fee=0.048 fill=0.99 [101s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-089 B1 1h B stop1.5 fib1.272   None       n= 1801 exp=-0.077 pf=0.88 fee=0.048 fill=0.99 [101s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-090 B1 1h B stop1.5 fib1.618   None       n= 1807 exp=-0.076 pf=0.88 fee=0.048 fill=0.99 [101s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-091 B1 1h B stop1.5 next_level None       n= 1134 exp=-0.109 pf=0.83 fee=0.049 fill=0.98 [102s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-092 B1 1h B stop2.0 1R         None       n= 1874 exp=-0.069 pf=0.86 fee=0.036 fill=0.99 [102s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-093 B1 1h B stop2.0 1.5R       None       n= 1774 exp=-0.070 pf=0.87 fee=0.036 fill=0.99 [103s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-094 B1 1h B stop2.0 2R         None       n= 1729 exp=-0.078 pf=0.86 fee=0.036 fill=0.99 [103s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-095 B1 1h B stop2.0 3R         None       n= 1707 exp=-0.075 pf=0.87 fee=0.036 fill=0.99 [104s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-096 B1 1h B stop2.0 fib1.272   None       n= 1678 exp=-0.080 pf=0.86 fee=0.036 fill=0.99 [104s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-097 B1 1h B stop2.0 fib1.618   None       n= 1696 exp=-0.077 pf=0.86 fee=0.036 fill=0.99 [105s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-098 B1 1h B stop2.0 next_level None       n=  866 exp=-0.130 pf=0.78 fee=0.037 fill=0.99 [105s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-099 B2 6m A stop2.0 1R         None       n= 1493 exp=-0.260 pf=0.61 fee=0.144 fill=0.95 [107s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-100 B2 6m A stop2.0 1.5R       None       n= 1483 exp=-0.275 pf=0.65 fee=0.144 fill=0.95 [108s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-101 B2 6m A stop2.0 2R         None       n= 1478 exp=-0.297 pf=0.65 fee=0.144 fill=0.95 [108s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-102 B2 6m A stop2.0 3R         None       n= 1467 exp=-0.342 pf=0.64 fee=0.144 fill=0.95 [108s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-103 B2 6m A stop2.0 fib1.272   None       n= 1465 exp=-0.324 pf=0.65 fee=0.144 fill=0.95 [109s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-104 B2 6m A stop2.0 fib1.618   None       n= 1456 exp=-0.365 pf=0.63 fee=0.145 fill=0.95 [109s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-105 B2 6m A stop2.0 next_level None       n=  625 exp=-0.315 pf=0.61 fee=0.149 fill=0.96 [109s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-106 B2 6m B stop2.0 1R         None       n= 2168 exp=-0.216 pf=0.66 fee=0.144 fill=0.96 [111s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-107 B2 6m B stop2.0 1.5R       None       n= 2145 exp=-0.255 pf=0.67 fee=0.145 fill=0.96 [111s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-108 B2 6m B stop2.0 2R         None       n= 2133 exp=-0.280 pf=0.67 fee=0.144 fill=0.96 [112s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-109 B2 6m B stop2.0 3R         None       n= 2099 exp=-0.307 pf=0.68 fee=0.144 fill=0.96 [112s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-110 B2 6m B stop2.0 fib1.272   None       n= 2106 exp=-0.278 pf=0.70 fee=0.144 fill=0.96 [113s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-111 B2 6m B stop2.0 fib1.618   None       n= 2069 exp=-0.347 pf=0.65 fee=0.145 fill=0.96 [113s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-112 B2 6m B stop2.0 next_level None       n=  662 exp=-0.270 pf=0.66 fee=0.154 fill=0.96 [114s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-113 B2 15m A stop1.5 1R         None       n=  622 exp=-0.177 pf=0.71 fee=0.111 fill=0.97 [115s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-114 B2 15m A stop1.5 1.5R       None       n=  621 exp=-0.108 pf=0.84 fee=0.111 fill=0.97 [115s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-115 B2 15m A stop1.5 2R         None       n=  621 exp=-0.098 pf=0.87 fee=0.110 fill=0.97 [115s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-116 B2 15m A stop1.5 3R         None       n=  620 exp=-0.130 pf=0.85 fee=0.111 fill=0.97 [115s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-117 B2 15m A stop1.5 fib1.272   None       n=  618 exp=-0.132 pf=0.85 fee=0.111 fill=0.97 [115s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-118 B2 15m A stop1.5 fib1.618   None       n=  617 exp=-0.208 pf=0.78 fee=0.111 fill=0.97 [116s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-119 B2 15m A stop1.5 next_level None       n=  339 exp=-0.168 pf=0.78 fee=0.113 fill=0.97 [116s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-120 B2 15m A stop2.0 1R         None       n=  627 exp=-0.068 pf=0.88 fee=0.083 fill=0.97 [116s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-121 B2 15m A stop2.0 1.5R       None       n=  626 exp=-0.042 pf=0.93 fee=0.083 fill=0.97 [116s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-122 B2 15m A stop2.0 2R         None       n=  623 exp=-0.058 pf=0.92 fee=0.083 fill=0.97 [116s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-123 B2 15m A stop2.0 3R         None       n=  622 exp=-0.074 pf=0.91 fee=0.083 fill=0.97 [117s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-124 B2 15m A stop2.0 fib1.272   None       n=  620 exp=-0.050 pf=0.93 fee=0.083 fill=0.97 [117s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-125 B2 15m A stop2.0 fib1.618   None       n=  620 exp=-0.098 pf=0.88 fee=0.083 fill=0.97 [117s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-126 B2 15m A stop2.0 next_level None       n=  271 exp=-0.078 pf=0.88 fee=0.085 fill=0.97 [117s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-127 B2 15m B stop1.5 1R         None       n=  870 exp=-0.162 pf=0.73 fee=0.110 fill=0.97 [118s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-128 B2 15m B stop1.5 1.5R       None       n=  870 exp=-0.141 pf=0.80 fee=0.110 fill=0.97 [118s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-129 B2 15m B stop1.5 2R         None       n=  869 exp=-0.145 pf=0.81 fee=0.110 fill=0.97 [119s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-130 B2 15m B stop1.5 3R         None       n=  866 exp=-0.109 pf=0.87 fee=0.110 fill=0.97 [119s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-131 B2 15m B stop1.5 fib1.272   None       n=  864 exp=-0.102 pf=0.88 fee=0.110 fill=0.97 [119s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-132 B2 15m B stop1.5 fib1.618   None       n=  862 exp=-0.157 pf=0.83 fee=0.110 fill=0.97 [119s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-133 B2 15m B stop1.5 next_level None       n=  319 exp=-0.225 pf=0.71 fee=0.116 fill=0.97 [119s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-134 B2 15m B stop2.0 1R         None       n=  872 exp=-0.103 pf=0.82 fee=0.083 fill=0.98 [120s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-135 B2 15m B stop2.0 1.5R       None       n=  871 exp=-0.112 pf=0.83 fee=0.083 fill=0.98 [120s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-136 B2 15m B stop2.0 2R         None       n=  869 exp=-0.093 pf=0.87 fee=0.083 fill=0.98 [120s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-137 B2 15m B stop2.0 3R         None       n=  865 exp=-0.109 pf=0.86 fee=0.083 fill=0.98 [120s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-138 B2 15m B stop2.0 fib1.272   None       n=  866 exp=-0.085 pf=0.89 fee=0.083 fill=0.98 [120s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-139 B2 15m B stop2.0 fib1.618   None       n=  862 exp=-0.138 pf=0.84 fee=0.083 fill=0.98 [121s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-140 B2 15m B stop2.0 next_level None       n=  260 exp=-0.099 pf=0.85 fee=0.087 fill=0.98 [121s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-141 B2 24m A stop1.5 1R         None       n=  412 exp=-0.132 pf=0.77 fee=0.083 fill=0.97 [121s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-142 B2 24m A stop1.5 1.5R       None       n=  411 exp=-0.182 pf=0.74 fee=0.083 fill=0.97 [122s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-143 B2 24m A stop1.5 2R         None       n=  411 exp=-0.118 pf=0.84 fee=0.083 fill=0.97 [122s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-144 B2 24m A stop1.5 3R         None       n=  411 exp=-0.121 pf=0.85 fee=0.083 fill=0.97 [122s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-145 B2 24m A stop1.5 fib1.272   None       n=  411 exp=-0.209 pf=0.75 fee=0.083 fill=0.97 [122s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-146 B2 24m A stop1.5 fib1.618   None       n=  410 exp=-0.176 pf=0.79 fee=0.083 fill=0.97 [122s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-147 B2 24m A stop1.5 next_level None       n=  243 exp=-0.098 pf=0.86 fee=0.084 fill=0.96 [123s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-148 B2 24m A stop2.0 1R         None       n=  414 exp=-0.108 pf=0.81 fee=0.063 fill=0.98 [123s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-149 B2 24m A stop2.0 1.5R       None       n=  413 exp=-0.084 pf=0.87 fee=0.063 fill=0.98 [123s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-150 B2 24m A stop2.0 2R         None       n=  413 exp=-0.088 pf=0.87 fee=0.063 fill=0.98 [123s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-151 B2 24m A stop2.0 3R         None       n=  412 exp=-0.129 pf=0.82 fee=0.063 fill=0.98 [123s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-152 B2 24m A stop2.0 fib1.272   None       n=  411 exp=-0.178 pf=0.75 fee=0.063 fill=0.98 [123s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-153 B2 24m A stop2.0 fib1.618   None       n=  412 exp=-0.159 pf=0.79 fee=0.063 fill=0.98 [124s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-154 B2 24m A stop2.0 next_level None       n=  201 exp=-0.037 pf=0.94 fee=0.064 fill=0.98 [124s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-155 B2 24m B stop1.5 1R         None       n=  584 exp=-0.103 pf=0.82 fee=0.085 fill=0.98 [124s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-156 B2 24m B stop1.5 1.5R       None       n=  583 exp=-0.140 pf=0.80 fee=0.085 fill=0.98 [125s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-157 B2 24m B stop1.5 2R         None       n=  582 exp=-0.100 pf=0.86 fee=0.085 fill=0.98 [125s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-158 B2 24m B stop1.5 3R         None       n=  581 exp=-0.099 pf=0.88 fee=0.085 fill=0.98 [125s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-159 B2 24m B stop1.5 fib1.272   None       n=  580 exp=-0.178 pf=0.79 fee=0.085 fill=0.98 [125s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-160 B2 24m B stop1.5 fib1.618   None       n=  579 exp=-0.187 pf=0.78 fee=0.085 fill=0.98 [125s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-161 B2 24m B stop1.5 next_level None       n=  219 exp=-0.041 pf=0.94 fee=0.085 fill=0.98 [125s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-162 B2 24m B stop2.0 1R         None       n=  585 exp=-0.102 pf=0.82 fee=0.064 fill=0.98 [126s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-163 B2 24m B stop2.0 1.5R       None       n=  581 exp=-0.108 pf=0.83 fee=0.064 fill=0.98 [126s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-164 B2 24m B stop2.0 2R         None       n=  580 exp=-0.135 pf=0.81 fee=0.064 fill=0.98 [126s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-165 B2 24m B stop2.0 3R         None       n=  580 exp=-0.130 pf=0.83 fee=0.064 fill=0.98 [126s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-166 B2 24m B stop2.0 fib1.272   None       n=  580 exp=-0.167 pf=0.77 fee=0.064 fill=0.98 [126s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-167 B2 24m B stop2.0 fib1.618   None       n=  579 exp=-0.178 pf=0.77 fee=0.064 fill=0.98 [127s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-168 B2 24m B stop2.0 next_level None       n=  173 exp=-0.055 pf=0.91 fee=0.062 fill=0.98 [127s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-169 B2 1h A stop1.5 1R         None       n=  155 exp=-0.072 pf=0.86 fee=0.050 fill=0.99 [127s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-170 B2 1h A stop1.5 1.5R       None       n=  155 exp=-0.103 pf=0.83 fee=0.050 fill=0.99 [127s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-171 B2 1h A stop1.5 2R         None       n=  155 exp=-0.116 pf=0.82 fee=0.050 fill=0.99 [127s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-172 B2 1h A stop1.5 3R         None       n=  155 exp=-0.142 pf=0.80 fee=0.050 fill=0.99 [127s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-173 B2 1h A stop1.5 fib1.272   None       n=  155 exp=-0.139 pf=0.80 fee=0.050 fill=0.99 [128s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-174 B2 1h A stop1.5 fib1.618   None       n=  155 exp=-0.102 pf=0.85 fee=0.050 fill=0.99 [128s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-175 B2 1h A stop1.5 next_level None       n=  101 exp=-0.089 pf=0.86 fee=0.052 fill=0.98 [128s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-176 B2 1h A stop2.0 1R         None       n=  157 exp=-0.130 pf=0.75 fee=0.038 fill=1.00 [128s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-177 B2 1h A stop2.0 1.5R       None       n=  157 exp=-0.128 pf=0.77 fee=0.038 fill=1.00 [128s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-178 B2 1h A stop2.0 2R         None       n=  157 exp=-0.124 pf=0.79 fee=0.038 fill=1.00 [128s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-179 B2 1h A stop2.0 3R         None       n=  157 exp=-0.165 pf=0.73 fee=0.038 fill=1.00 [128s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-180 B2 1h A stop2.0 fib1.272   None       n=  157 exp=-0.126 pf=0.78 fee=0.038 fill=1.00 [128s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-181 B2 1h A stop2.0 fib1.618   None       n=  157 exp=-0.137 pf=0.77 fee=0.038 fill=1.00 [129s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-182 B2 1h A stop2.0 next_level None       n=   76 exp=-0.088 pf=0.84 fee=0.040 fill=1.00 [129s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-183 B2 1h B stop1.5 1R         None       n=  225 exp=-0.033 pf=0.93 fee=0.050 fill=1.00 [129s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-184 B2 1h B stop1.5 1.5R       None       n=  225 exp=-0.073 pf=0.88 fee=0.050 fill=1.00 [129s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-185 B2 1h B stop1.5 2R         None       n=  225 exp=-0.109 pf=0.83 fee=0.050 fill=1.00 [129s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-186 B2 1h B stop1.5 3R         None       n=  225 exp=-0.133 pf=0.80 fee=0.050 fill=1.00 [129s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-187 B2 1h B stop1.5 fib1.272   None       n=  225 exp=-0.112 pf=0.83 fee=0.050 fill=1.00 [130s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-188 B2 1h B stop1.5 fib1.618   None       n=  225 exp=-0.092 pf=0.86 fee=0.050 fill=1.00 [130s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-189 B2 1h B stop1.5 next_level None       n=   94 exp=+0.052 pf=1.09 fee=0.052 fill=0.99 [130s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-190 B2 1h B stop2.0 1R         None       n=  225 exp=-0.049 pf=0.90 fee=0.037 fill=1.00 [130s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-191 B2 1h B stop2.0 1.5R       None       n=  225 exp=-0.094 pf=0.83 fee=0.037 fill=1.00 [130s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-192 B2 1h B stop2.0 2R         None       n=  225 exp=-0.115 pf=0.79 fee=0.037 fill=1.00 [130s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-193 B2 1h B stop2.0 3R         None       n=  225 exp=-0.101 pf=0.82 fee=0.037 fill=1.00 [130s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-194 B2 1h B stop2.0 fib1.272   None       n=  225 exp=-0.095 pf=0.83 fee=0.037 fill=1.00 [131s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-195 B2 1h B stop2.0 fib1.618   None       n=  225 exp=-0.067 pf=0.88 fee=0.037 fill=1.00 [131s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-196 B2 1h B stop2.0 next_level None       n=   72 exp=+0.046 pf=1.09 fee=0.040 fill=1.00 [131s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-197 B3 6m A stop2.0 2R         near_cross n= 1825 exp=-0.222 pf=0.73 fee=0.131 fill=0.97 [133s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-198 B3 6m A stop2.0 2R         mf_dir     n= 3852 exp=-0.258 pf=0.69 fee=0.142 fill=0.96 [135s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-199 B3 6m B stop2.0 2R         near_cross n= 1611 exp=-0.201 pf=0.75 fee=0.130 fill=0.96 [137s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-200 B3 6m B stop2.0 2R         mf_dir     n= 3658 exp=-0.243 pf=0.71 fee=0.141 fill=0.96 [139s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-201 B3 15m A stop1.5 2R         near_cross n=  761 exp=-0.088 pf=0.88 fee=0.098 fill=0.96 [141s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-202 B3 15m A stop1.5 2R         mf_dir     n= 1765 exp=-0.148 pf=0.81 fee=0.107 fill=0.97 [142s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-203 B3 15m B stop1.5 2R         near_cross n=  703 exp=-0.073 pf=0.90 fee=0.095 fill=0.97 [143s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-204 B3 15m B stop1.5 2R         mf_dir     n= 1645 exp=-0.175 pf=0.78 fee=0.108 fill=0.97 [144s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-205 B3 24m A stop1.5 2R         near_cross n=  502 exp=-0.112 pf=0.85 fee=0.078 fill=0.98 [145s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-206 B3 24m A stop1.5 2R         mf_dir     n= 1116 exp=-0.143 pf=0.81 fee=0.084 fill=0.97 [146s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-207 B3 24m B stop1.5 2R         near_cross n=  429 exp=-0.077 pf=0.89 fee=0.077 fill=0.97 [147s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-208 B3 24m B stop1.5 2R         mf_dir     n= 1008 exp=-0.104 pf=0.86 fee=0.084 fill=0.97 [148s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-209 B3 1h A stop1.5 2R         near_cross n=  195 exp=-0.022 pf=0.97 fee=0.047 fill=0.98 [148s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-210 B3 1h A stop1.5 2R         mf_dir     n=  438 exp=-0.021 pf=0.96 fee=0.048 fill=0.98 [149s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-211 B3 1h B stop1.5 2R         near_cross n=  182 exp=-0.053 pf=0.92 fee=0.048 fill=0.98 [149s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P2-212 B3 1h B stop1.5 2R         mf_dir     n=  417 exp=-0.084 pf=0.87 fee=0.048 fill=0.99 [150s]
+done 150s

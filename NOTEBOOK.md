@@ -3,8 +3,9 @@
 Resume from this file plus ML_DISCOVERY_PROMPT.md (the standing brief, repo root) and PROTOCOL.md (once it exists).
 
 ## Current status
-- **Phase 1 complete. Waiting for Gate 1 approval.** Report: `reports/phase1/GATE1_REPORT.md`; proposals in
-  `PROTOCOL.md` (DRAFT, not frozen). Do not start Phase 2 until the user approves and PROTOCOL.md is frozen.
+- **Phase 2 complete. Waiting for Gate 2 discussion/approval.** Report: `reports/phase2/BASELINE_REPORT.md`.
+  PROTOCOL.md FROZEN 2026-11-15. Budget used: 212 of 800 configurations (all logged as P2-001..P2-212).
+  Do not start Phase 3 until the user approves at Gate 2.
 - Phase 0 report: `reports/phase0/QA_REPORT.md`.
 
 ## Rebuilding the data (new session)
@@ -62,9 +63,20 @@ allows it). fapi.binance.com is geo-blocked from the cloud container, so there i
 - Known weaknesses flagged at Gate 1: contaminated holdout on all coins, small range-flip sample, level density makes
   confluence weak, several divergence details are Claude's definitions.
 
+## Phase 2 results (summary)
+- All 212 baseline configurations have negative net expectancy except 2 tiny-sample ones (best +0.05R, 94 trades,
+  DSR 0.18). None meets any of S1, S2, S4, S5, S7. Deflated Sharpe ~0 everywhere.
+- Gross R (before fees) is about zero: the divergence stack and the range flip behave like coin flips at the entry;
+  fees (0.14R on 6m, 0.10R on 15m, 0.05R on 1h) make them losers. 6m is negative even before fees.
+- Hints (all still negative or small samples): higher TF is better (1h best); with-trend (R1) beats counter-trend in
+  Baseline 1 at every TF; HTF near-cross filter improves Baseline 1 on every TF; BTC is the worst coin almost everywhere.
+- Missed fills are rare (2-3% of orders, about half would have won): limit at close nearly always fills.
+- Code: src/tradingstudy/backtest (engine, portfolio, stats, signals, costs, cache), src/tradingstudy/phase2.
+  Trades per config: data/results/phase2/trades.parquet (not in git; rebuild with python -m tradingstudy.phase2.baselines).
+
 ## Open questions for the user
 1. Which coins were traded live in the last 12 months, and roughly how often?
-2. All Gate 1 decisions listed in reports/phase1/GATE1_REPORT.md section 5.
+2. Gate 2: whether and how to run Phase 3 discovery given the negative baselines (see BASELINE_REPORT.md).
 
 ## Issues to carry into Phase 1 / Gate 1
 - Fee in R is large on low timeframes (BTC dev medians: 6m-proxy 0.48R at 1x ATR stop, 15m 0.25R, 1h 0.12R).

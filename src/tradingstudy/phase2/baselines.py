@@ -72,8 +72,8 @@ def simulate_coin(sym: str, sig: pd.DataFrame, minutes: int, stop: float, target
     r["coin"] = sym
     r["sig_ts"] = sig_ts
     r["direction"] = sig["direction"].to_numpy()
-    r["r1_rel"] = sig["r1_trend"].to_numpy() * r["direction"]
-    r["r2_rel"] = sig["r2_trend"].to_numpy() * r["direction"]
+    r["r1_rel"] = sig["r1_trend"].to_numpy() * r["direction"] + 0.0  # + 0.0 turns -0.0 into 0.0
+    r["r2_rel"] = sig["r2_trend"].to_numpy() * r["direction"] + 0.0
     r["session"] = sig["session"].to_numpy()
     for c in ("fill_ts", "end_ts"):
         r[c] = r[c].fillna(r["sig_ts"]).astype("int64")

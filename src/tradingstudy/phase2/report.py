@@ -58,7 +58,7 @@ def main() -> None:
         folds = r.get("folds", {})
         rows.append({"id": r["id"], "family": r["family"], "tf": r["tf"], "variant": r["variant"], "stop": r["stop"],
                      "target": r["target"], "htf": r.get("htf"), "n": w.get("n", 0), "exp": w.get("exp_R", np.nan),
-                     "pf": w.get("pf", np.nan), "win": w.get("win_rate", np.nan), "fee": w.get("fee_R", np.nan),
+                     "pf": w.get("pf", np.nan), "win": w.get("win_rate", np.nan), "fee": w.get("fee_R", np.nan), "gross": w.get("gross_R", np.nan),
                      "slip": w.get("slip_R", np.nan), "fill": w.get("fill_rate", np.nan), "tpd": w.get("trades_per_day", np.nan),
                      "missed": w.get("missed_fills", 0), "missed_win": w.get("missed_winners", 0),
                      "folds_pos": sum(1 for v in folds.values() if v is not None and np.isfinite(v) and v > 0),
@@ -68,17 +68,18 @@ def main() -> None:
                      "n_2022": r["y2022"].get("n", 0), "streak": w.get("max_loss_streak", 0),
                      "passes": sum(r["crit"].values()), "fails": ",".join(k for k, v in r["crit"].items() if not v)})
     T = pd.DataFrame(rows)
+    T["htf"] = T["htf"].fillna("")
     ref = T[(T.target == REF_TARGET) & (T.stop == T.tf.map(ref_stop))]
     md = ["# Gate 2: Baseline Report", "",
           "Walk-forward test period 2023-01-01 to 2025-11-14 (6 folds), all 9 coins, fees, stop slippage, limit fills and "
           "missed fills always on, portfolio guards on. Baselines have no fitted parameters, so the same rule runs in every "
           f"fold. {len(R)} configurations evaluated, all logged in LEDGER.md (P2-001 to P2-{len(R):03d}).", ""]
     md += ["## 1. Headline: reference label (1.5 x ATR stop, 2.0 on 6m; 2R target)", "",
-           "| Config | Trades | Per day | Win | Exp R | PF | Fee R | Fill | Missed (winners) | Folds + | Coins + | DSR | P(breach 90d) |",
-           "|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
+           "| Config | Trades | Per day | Win | Gross R | Exp R | PF | Fee R | Fill | Missed (winners) | Folds + | Coins + | DSR | P(breach 90d) |",
+           "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
     for _, x in ref.iterrows():
         h = f" +{x.htf}" if x.htf else ""
-        md.append(f"| {x.family} {x.tf} {x.variant}{h} | {x.n} | {x.tpd:.2f} | {fmt(x.win, pct=True)} | {fmt(x.exp)} | {x.pf:.2f} | "
+        md.append(f"| {x.family} {x.tf} {x.variant}{h} | {x.n} | {x.tpd:.2f} | {fmt(x.win, pct=True)} | {fmt(x.gross)} | {fmt(x.exp)} | {x.pf:.2f} | "
                   f"{x.fee:.3f} | {fmt(x.fill, pct=True)} | {x.missed} ({x.missed_win}) | {x.folds_pos}/6 | {x.coins_pos}/9 | "
                   f"{x.dsr:.2f} | {fmt(x.p_any90, pct=True)} |")
     md += ["", "## 2. All labels: spread of expectancy across the 7 targets x stops", "",
@@ -93,7 +94,7 @@ def main() -> None:
            "R2 = 4h ADX >= 25 with DI direction relative to the trade (0 = no trend). Cells: expectancy R (trades).", "",
            "| Config | R1 with | R1 against | R1 mixed | R2 trend with | R2 trend against | R2 no trend |", "|---|---|---|---|---|---|---|"]
     def cell(d, k):
-        v = d.get(k)
+        v = d.get(k) or (d.get("-0.0") if k == "0.0" else None)  # 0 x -1 is stored as -0.0
         return f"{v['exp_R']:+.3f} ({v['n']})" if v else "n/a"
     for _, x in ref.iterrows():
         r = byid[x.id]
