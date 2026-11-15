@@ -1,0 +1,10 @@
+warning: The `UV_NATIVE_TLS` environment variable is deprecated and will be removed in a future release. Use `UV_SYSTEM_CERTS` instead.
+BTC: {'ok': 178, 'missing': 8}
+ETH: {'ok': 178, 'missing': 8}
+SOL: {'ok': 162, 'missing': 24}
+ADA: {'ok': 178, 'missing': 8}
+XRP: {'ok': 178, 'missing': 8}
+DOGE: {'ok': 166, 'missing': 20}
+SUI: {'ok': 98, 'missing': 88}
+LINK: {'ok': 178, 'missing': 8}
+AVAX: {'ok': 162, 'missing': 24}

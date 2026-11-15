@@ -1,0 +1,10 @@
+warning: The `UV_NATIVE_TLS` environment variable is deprecated and will be removed in a future release. Use `UV_SYSTEM_CERTS` instead.
+BTC: gap days=0 frozen days=10 downloads={'ok': 10}
+ETH: gap days=0 frozen days=15 downloads={'ok': 15}
+SOL: gap days=5 frozen days=62 downloads={'ok': 67}
+ADA: gap days=0 frozen days=105 downloads={'ok': 105}
+XRP: gap days=5 frozen days=21 downloads={'ok': 26}
+DOGE: gap days=0 frozen days=181 downloads={'ok': 181}
+SUI: gap days=0 frozen days=11 downloads={'ok': 11}
+LINK: gap days=0 frozen days=20 downloads={'ok': 20}
+AVAX: gap days=0 frozen days=87 downloads={'ok': 87}
