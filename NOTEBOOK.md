@@ -82,3 +82,8 @@ allows it). fapi.binance.com is geo-blocked from the cloud container, so there i
 - 2026-11-15, Phase 0: a file-format probe printed 2 rows (2 minutes) of raw BTC 1m prices from 2026-10, inside the
   provisional primary holdout. No strategy, indicator or outcome information. Breaks the letter of hard rule 2.
   Disclosed to the user. All later probes used pre-holdout files and the guard enforces this in code.
+- 2026-11-15, Phase 2 pre-run: (1) BUG found before any baseline run: ranges.py defaults were still the draft
+  values (tol 0.5 ATR, h_min 3 ATR) instead of the frozen 1.0 / 2.0. Fixed; feature cache rebuilt. No results had
+  been produced with the wrong values. (2) A "mechanical" sanity check printed stop/target/timeout exit counts for 6
+  ETH 15m configurations (B1 A and B2 A, 1.5 ATR stop, targets 2R / fib1.272 / next_level), which reveal win counts.
+  These configurations belong to the frozen baseline set, so no choice was made on them. Disclosed to the user.

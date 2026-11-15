@@ -1,6 +1,6 @@
 """Ranges and the range-flip setup (brief 5.6). Runs on the bars of ONE timeframe using that timeframe's zigzag swings.
 
-Range (confirmed, causal): evaluated each time a swing is confirmed, on the last four confirmed swings (two highs and
+Range (confirmed, causal; defaults frozen in PROTOCOL section 6): evaluated each time a swing is confirmed, on the last four confirmed swings (two highs and
 two lows, since swings alternate):
   - |high1 - high2| <= tol x ATR and |low1 - low2| <= tol x ATR
   - range high = max(highs), range low = min(lows); height (high - low) between h_min and h_max ATR
@@ -24,7 +24,7 @@ import pandas as pd
 
 from tradingstudy.features import ta
 
-DEFAULTS = dict(tol=0.5, h_min=3.0, h_max=12.0, min_bars=10, brk=0.25, ztol=0.25, inval=0.5, expiry=200)
+DEFAULTS = dict(tol=1.0, h_min=2.0, h_max=12.0, min_bars=10, brk=0.25, ztol=0.25, inval=0.5, expiry=200)
 EV_COLS = ["bar", "direction", "variant", "range_high", "range_low", "range_start", "range_confirm", "break_bar",
            "new_swing_px", "atr_at_break", "touches"]
 RANGE_COLS = ["start", "confirm", "end", "high", "low", "atr", "touches", "outcome"]  # outcome +1 breakout, -1 breakdown, 0 active
