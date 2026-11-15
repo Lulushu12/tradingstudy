@@ -1,0 +1,1415 @@
+{
+  "wavetrend": [
+    {
+      "symbol": "BTC",
+      "tf": "5m",
+      "wt1": {
+        "n": 396683,
+        "corr": 1.0,
+        "mae": 0.0001,
+        "max_abs_err": 1.3698,
+        "sign_agree": 1.0,
+        "slope_agree": 1.0
+      },
+      "wt2": {
+        "n": 396683,
+        "corr": 1.0,
+        "mae": 0.0001,
+        "max_abs_err": 0.6679,
+        "sign_agree": 1.0,
+        "slope_agree": 1.0
+      },
+      "wt_hist": {
+        "n": 396683,
+        "corr": 1.0,
+        "mae": 0.0,
+        "max_abs_err": 0.9132,
+        "sign_agree": 1.0,
+        "slope_agree": 1.0
+      },
+      "dots": {
+        "export_up": 39605,
+        "export_down": 39600,
+        "ours_green": 39605,
+        "ours_red": 39600,
+        "green_eq_up": 1.0,
+        "red_eq_down": 1.0,
+        "green_eq_down": 0.800332,
+        "red_eq_up": 0.800332
+      }
+    },
+    {
+      "symbol": "BTC",
+      "tf": "15m",
+      "wt1": {
+        "n": 133441,
+        "corr": 1.0,
+        "mae": 0.0001,
+        "max_abs_err": 2.1268,
+        "sign_agree": 1.0,
+        "slope_agree": 1.0
+      },
+      "wt2": {
+        "n": 133441,
+        "corr": 1.0,
+        "mae": 0.0001,
+        "max_abs_err": 1.8928,
+        "sign_agree": 1.0,
+        "slope_agree": 1.0
+      },
+      "wt_hist": {
+        "n": 133441,
+        "corr": 1.0,
+        "mae": 0.0,
+        "max_abs_err": 1.4179,
+        "sign_agree": 1.0,
+        "slope_agree": 1.0
+      },
+      "dots": {
+        "export_up": 13349,
+        "export_down": 13348,
+        "ours_green": 13349,
+        "ours_red": 13348,
+        "green_eq_up": 1.0,
+        "red_eq_down": 1.0,
+        "green_eq_down": 0.799934,
+        "red_eq_up": 0.799934
+      }
+    },
+    {
+      "symbol": "BTC",
+      "tf": "1h",
+      "wt1": {
+        "n": 17290,
+        "corr": 1.0,
+        "mae": 0.0,
+        "max_abs_err": 0.0971,
+        "sign_agree": 1.0,
+        "slope_agree": 1.0
+      },
+      "wt2": {
+        "n": 17290,
+        "corr": 1.0,
+        "mae": 0.0,
+        "max_abs_err": 0.0529,
+        "sign_agree": 1.0,
+        "slope_agree": 1.0
+      },
+      "wt_hist": {
+        "n": 17290,
+        "corr": 1.0,
+        "mae": 0.0,
+        "max_abs_err": 0.0647,
+        "sign_agree": 1.0,
+        "slope_agree": 1.0
+      },
+      "dots": {
+        "export_up": 1707,
+        "export_down": 1707,
+        "ours_green": 1707,
+        "ours_red": 1707,
+        "green_eq_up": 1.0,
+        "red_eq_down": 1.0,
+        "green_eq_down": 0.802545,
+        "red_eq_up": 0.802545
+      }
+    },
+    {
+      "symbol": "BTC",
+      "tf": "4h",
+      "wt1": {
+        "n": 8184,
+        "corr": 1.0,
+        "mae": 0.0,
+        "max_abs_err": 0.0275,
+        "sign_agree": 1.0,
+        "slope_agree": 1.0
+      },
+      "wt2": {
+        "n": 8184,
+        "corr": 1.0,
+        "mae": 0.0,
+        "max_abs_err": 0.0133,
+        "sign_agree": 1.0,
+        "slope_agree": 1.0
+      },
+      "wt_hist": {
+        "n": 8184,
+        "corr": 1.0,
+        "mae": 0.0,
+        "max_abs_err": 0.0184,
+        "sign_agree": 1.0,
+        "slope_agree": 1.0
+      },
+      "dots": {
+        "export_up": 799,
+        "export_down": 800,
+        "ours_green": 799,
+        "ours_red": 800,
+        "green_eq_up": 1.0,
+        "red_eq_down": 1.0,
+        "green_eq_down": 0.804619,
+        "red_eq_up": 0.804619
+      }
+    },
+    {
+      "symbol": "BTC",
+      "tf": "1D",
+      "wt1": {
+        "n": 1264,
+        "corr": 1.0,
+        "mae": 0.0,
+        "max_abs_err": 0.0,
+        "sign_agree": 1.0,
+        "slope_agree": 1.0
+      },
+      "wt2": {
+        "n": 1264,
+        "corr": 1.0,
+        "mae": 0.0,
+        "max_abs_err": 0.0,
+        "sign_agree": 1.0,
+        "slope_agree": 1.0
+      },
+      "wt_hist": {
+        "n": 1264,
+        "corr": 1.0,
+        "mae": 0.0,
+        "max_abs_err": 0.0,
+        "sign_agree": 1.0,
+        "slope_agree": 1.0
+      },
+      "dots": {
+        "export_up": 113,
+        "export_down": 114,
+        "ours_green": 113,
+        "ours_red": 114,
+        "green_eq_up": 1.0,
+        "red_eq_down": 1.0,
+        "green_eq_down": 0.820411,
+        "red_eq_up": 0.820411
+      }
+    },
+    {
+      "symbol": "BTC",
+      "tf": "1W",
+      "wt1": {
+        "n": 141,
+        "corr": 1.0,
+        "mae": 0.0044,
+        "max_abs_err": 0.0973,
+        "sign_agree": 1.0,
+        "slope_agree": 1.0
+      },
+      "wt2": {
+        "n": 141,
+        "corr": 1.0,
+        "mae": 0.0053,
+        "max_abs_err": 0.1165,
+        "sign_agree": 1.0,
+        "slope_agree": 1.0
+      },
+      "wt_hist": {
+        "n": 141,
+        "corr": 1.0,
+        "mae": 0.0009,
+        "max_abs_err": 0.0192,
+        "sign_agree": 1.0,
+        "slope_agree": 1.0
+      },
+      "dots": {
+        "export_up": 14,
+        "export_down": 15,
+        "ours_green": 14,
+        "ours_red": 15,
+        "green_eq_up": 1.0,
+        "red_eq_down": 1.0,
+        "green_eq_down": 0.794326,
+        "red_eq_up": 0.794326
+      }
+    }
+  ],
+  "mf_fit": {
+    "3x_developing": {
+      "hyp": "3x",
+      "developing": true,
+      "sma_len": 20,
+      "ema_len": 5,
+      "scale": 169.23541722382174,
+      "offset": -0.32206352223186696,
+      "corr_fit": 0.8907535682676212
+    },
+    "3x_step": {
+      "hyp": "3x",
+      "developing": false,
+      "sma_len": 20,
+      "ema_len": 2,
+      "scale": 164.9775017734647,
+      "offset": -0.30276253944949283,
+      "corr_fit": 0.8898438704974359
+    },
+    "3H_developing": {
+      "hyp": "3H",
+      "developing": true,
+      "sma_len": 10,
+      "ema_len": 3,
+      "scale": 88.19488990450152,
+      "offset": -0.38272223372253844,
+      "corr_fit": 0.6881136595367892
+    },
+    "3H_step": {
+      "hyp": "3H",
+      "developing": false,
+      "sma_len": 10,
+      "ema_len": 1,
+      "scale": 78.68792634682788,
+      "offset": -0.32446205526496036,
+      "corr_fit": 0.6216502501109498
+    },
+    "pine_affine": {
+      "scale": 0.9660306736183759,
+      "offset": 2.4496163698657383
+    },
+    "clone_affine": {
+      "scale": 1.6807769746875882,
+      "offset": 3.5547775332046743
+    }
+  },
+  "mf_eval": [
+    {
+      "n": 396683,
+      "corr": 0.96205,
+      "mae": 4.1185,
+      "max_abs_err": 23.211,
+      "sign_agree": 0.9003,
+      "slope_agree": 0.8474,
+      "symbol": "BTC",
+      "tf": "5m",
+      "segment": "all",
+      "candidate": "pine (as coded)"
+    },
+    {
+      "n": 396683,
+      "corr": 0.82135,
+      "mae": 8.603,
+      "max_abs_err": 46.5909,
+      "sign_agree": 0.7935,
+      "slope_agree": 0.6623,
+      "symbol": "BTC",
+      "tf": "5m",
+      "segment": "all",
+      "candidate": "clone h-l (as briefed)"
+    },
+    {
+      "n": 396683,
+      "corr": 0.99003,
+      "mae": 13.3612,
+      "max_abs_err": 72.8427,
+      "sign_agree": 0.9499,
+      "slope_agree": 0.9266,
+      "symbol": "BTC",
+      "tf": "5m",
+      "segment": "all",
+      "candidate": "pine on Heikin-Ashi (smooth 1)"
+    },
+    {
+      "n": 396683,
+      "corr": 0.98946,
+      "mae": 13.2652,
+      "max_abs_err": 72.3843,
+      "sign_agree": 0.9489,
+      "slope_agree": 0.9221,
+      "symbol": "BTC",
+      "tf": "5m",
+      "segment": "all",
+      "candidate": "pine on Heikin-Ashi (smooth 2)"
+    },
+    {
+      "n": 396683,
+      "corr": 0.98358,
+      "mae": 13.177,
+      "max_abs_err": 71.4408,
+      "sign_agree": 0.9377,
+      "slope_agree": 0.8439,
+      "symbol": "BTC",
+      "tf": "5m",
+      "segment": "all",
+      "candidate": "pine on Heikin-Ashi (smooth 4)"
+    },
+    {
+      "n": 396683,
+      "corr": 0.96205,
+      "mae": 3.6076,
+      "max_abs_err": 20.9926,
+      "sign_agree": 0.9128,
+      "slope_agree": 0.8474,
+      "symbol": "BTC",
+      "tf": "5m",
+      "segment": "all",
+      "candidate": "pine (fitted scale)"
+    },
+    {
+      "n": 396683,
+      "corr": 0.82135,
+      "mae": 7.6358,
+      "max_abs_err": 66.5239,
+      "sign_agree": 0.8087,
+      "slope_agree": 0.6623,
+      "symbol": "BTC",
+      "tf": "5m",
+      "segment": "all",
+      "candidate": "clone h-l (fitted scale)"
+    },
+    {
+      "n": 396683,
+      "corr": 0.89998,
+      "mae": 5.8341,
+      "max_abs_err": 35.7672,
+      "sign_agree": 0.8578,
+      "slope_agree": 0.7642,
+      "symbol": "BTC",
+      "tf": "5m",
+      "segment": "all",
+      "candidate": "htf 3x_developing (sma20, ema5)"
+    },
+    {
+      "n": 396683,
+      "corr": 0.89804,
+      "mae": 5.8849,
+      "max_abs_err": 37.3386,
+      "sign_agree": 0.8557,
+      "slope_agree": 0.7192,
+      "symbol": "BTC",
+      "tf": "5m",
+      "segment": "all",
+      "candidate": "htf 3x_step (sma20, ema2)"
+    },
+    {
+      "n": 396683,
+      "corr": 0.39782,
+      "mae": 12.8267,
+      "max_abs_err": 66.8648,
+      "sign_agree": 0.6327,
+      "slope_agree": 0.6852,
+      "symbol": "BTC",
+      "tf": "5m",
+      "segment": "all",
+      "candidate": "htf 3H_developing (sma10, ema3)"
+    },
+    {
+      "n": 396683,
+      "corr": 0.26497,
+      "mae": 13.6762,
+      "max_abs_err": 73.1512,
+      "sign_agree": 0.5885,
+      "slope_agree": 0.0155,
+      "symbol": "BTC",
+      "tf": "5m",
+      "segment": "all",
+      "candidate": "htf 3H_step (sma10, ema1)"
+    },
+    {
+      "n": 68677,
+      "corr": 0.95853,
+      "mae": 4.1841,
+      "max_abs_err": 22.4546,
+      "sign_agree": 0.8907,
+      "slope_agree": 0.8403,
+      "symbol": "BTC",
+      "tf": "15m",
+      "segment": "fit_2022_2023",
+      "candidate": "pine (as coded)"
+    },
+    {
+      "n": 68677,
+      "corr": 0.82962,
+      "mae": 8.5991,
+      "max_abs_err": 39.0623,
+      "sign_agree": 0.785,
+      "slope_agree": 0.6505,
+      "symbol": "BTC",
+      "tf": "15m",
+      "segment": "fit_2022_2023",
+      "candidate": "clone h-l (as briefed)"
+    },
+    {
+      "n": 68677,
+      "corr": 0.98909,
+      "mae": 12.542,
+      "max_abs_err": 62.1303,
+      "sign_agree": 0.9444,
+      "slope_agree": 0.926,
+      "symbol": "BTC",
+      "tf": "15m",
+      "segment": "fit_2022_2023",
+      "candidate": "pine on Heikin-Ashi (smooth 1)"
+    },
+    {
+      "n": 68677,
+      "corr": 0.98846,
+      "mae": 12.4421,
+      "max_abs_err": 61.5417,
+      "sign_agree": 0.9433,
+      "slope_agree": 0.9234,
+      "symbol": "BTC",
+      "tf": "15m",
+      "segment": "fit_2022_2023",
+      "candidate": "pine on Heikin-Ashi (smooth 2)"
+    },
+    {
+      "n": 68677,
+      "corr": 0.9822,
+      "mae": 12.3576,
+      "max_abs_err": 60.7916,
+      "sign_agree": 0.9329,
+      "slope_agree": 0.8445,
+      "symbol": "BTC",
+      "tf": "15m",
+      "segment": "fit_2022_2023",
+      "candidate": "pine on Heikin-Ashi (smooth 4)"
+    },
+    {
+      "n": 68677,
+      "corr": 0.95853,
+      "mae": 3.6498,
+      "max_abs_err": 20.5393,
+      "sign_agree": 0.9006,
+      "slope_agree": 0.8403,
+      "symbol": "BTC",
+      "tf": "15m",
+      "segment": "fit_2022_2023",
+      "candidate": "pine (fitted scale)"
+    },
+    {
+      "n": 68677,
+      "corr": 0.82962,
+      "mae": 7.1716,
+      "max_abs_err": 35.167,
+      "sign_agree": 0.8012,
+      "slope_agree": 0.6505,
+      "symbol": "BTC",
+      "tf": "15m",
+      "segment": "fit_2022_2023",
+      "candidate": "clone h-l (fitted scale)"
+    },
+    {
+      "n": 68677,
+      "corr": 0.89075,
+      "mae": 5.8083,
+      "max_abs_err": 29.1716,
+      "sign_agree": 0.8495,
+      "slope_agree": 0.7536,
+      "symbol": "BTC",
+      "tf": "15m",
+      "segment": "fit_2022_2023",
+      "candidate": "htf 3x_developing (sma20, ema5)"
+    },
+    {
+      "n": 68677,
+      "corr": 0.88984,
+      "mae": 5.8395,
+      "max_abs_err": 29.1258,
+      "sign_agree": 0.8464,
+      "slope_agree": 0.7129,
+      "symbol": "BTC",
+      "tf": "15m",
+      "segment": "fit_2022_2023",
+      "candidate": "htf 3x_step (sma20, ema2)"
+    },
+    {
+      "n": 68677,
+      "corr": 0.68811,
+      "mae": 9.3194,
+      "max_abs_err": 53.9321,
+      "sign_agree": 0.7387,
+      "slope_agree": 0.6645,
+      "symbol": "BTC",
+      "tf": "15m",
+      "segment": "fit_2022_2023",
+      "candidate": "htf 3H_developing (sma10, ema3)"
+    },
+    {
+      "n": 68677,
+      "corr": 0.62165,
+      "mae": 10.054,
+      "max_abs_err": 56.787,
+      "sign_agree": 0.7086,
+      "slope_agree": 0.0486,
+      "symbol": "BTC",
+      "tf": "15m",
+      "segment": "fit_2022_2023",
+      "candidate": "htf 3H_step (sma10, ema1)"
+    },
+    {
+      "n": 64764,
+      "corr": 0.96389,
+      "mae": 4.1621,
+      "max_abs_err": 18.9398,
+      "sign_agree": 0.8983,
+      "slope_agree": 0.8436,
+      "symbol": "BTC",
+      "tf": "15m",
+      "segment": "test_2024_2025",
+      "candidate": "pine (as coded)"
+    },
+    {
+      "n": 64764,
+      "corr": 0.8602,
+      "mae": 8.6615,
+      "max_abs_err": 41.7483,
+      "sign_agree": 0.8099,
+      "slope_agree": 0.6605,
+      "symbol": "BTC",
+      "tf": "15m",
+      "segment": "test_2024_2025",
+      "candidate": "clone h-l (as briefed)"
+    },
+    {
+      "n": 64764,
+      "corr": 0.99029,
+      "mae": 13.689,
+      "max_abs_err": 64.5009,
+      "sign_agree": 0.9511,
+      "slope_agree": 0.9275,
+      "symbol": "BTC",
+      "tf": "15m",
+      "segment": "test_2024_2025",
+      "candidate": "pine on Heikin-Ashi (smooth 1)"
+    },
+    {
+      "n": 64764,
+      "corr": 0.98985,
+      "mae": 13.5908,
+      "max_abs_err": 63.6998,
+      "sign_agree": 0.9501,
+      "slope_agree": 0.9241,
+      "symbol": "BTC",
+      "tf": "15m",
+      "segment": "test_2024_2025",
+      "candidate": "pine on Heikin-Ashi (smooth 2)"
+    },
+    {
+      "n": 64764,
+      "corr": 0.98441,
+      "mae": 13.4983,
+      "max_abs_err": 63.0159,
+      "sign_agree": 0.9398,
+      "slope_agree": 0.8441,
+      "symbol": "BTC",
+      "tf": "15m",
+      "segment": "test_2024_2025",
+      "candidate": "pine on Heikin-Ashi (smooth 4)"
+    },
+    {
+      "n": 64764,
+      "corr": 0.96389,
+      "mae": 3.6304,
+      "max_abs_err": 18.2727,
+      "sign_agree": 0.9122,
+      "slope_agree": 0.8436,
+      "symbol": "BTC",
+      "tf": "15m",
+      "segment": "test_2024_2025",
+      "candidate": "pine (fitted scale)"
+    },
+    {
+      "n": 64764,
+      "corr": 0.8602,
+      "mae": 6.9835,
+      "max_abs_err": 35.9597,
+      "sign_agree": 0.83,
+      "slope_agree": 0.6605,
+      "symbol": "BTC",
+      "tf": "15m",
+      "segment": "test_2024_2025",
+      "candidate": "clone h-l (fitted scale)"
+    },
+    {
+      "n": 64764,
+      "corr": 0.91296,
+      "mae": 5.5823,
+      "max_abs_err": 27.0097,
+      "sign_agree": 0.868,
+      "slope_agree": 0.7613,
+      "symbol": "BTC",
+      "tf": "15m",
+      "segment": "test_2024_2025",
+      "candidate": "htf 3x_developing (sma20, ema5)"
+    },
+    {
+      "n": 64764,
+      "corr": 0.91057,
+      "mae": 5.658,
+      "max_abs_err": 28.4745,
+      "sign_agree": 0.8668,
+      "slope_agree": 0.7202,
+      "symbol": "BTC",
+      "tf": "15m",
+      "segment": "test_2024_2025",
+      "candidate": "htf 3x_step (sma20, ema2)"
+    },
+    {
+      "n": 64764,
+      "corr": 0.65545,
+      "mae": 10.3241,
+      "max_abs_err": 47.0228,
+      "sign_agree": 0.7292,
+      "slope_agree": 0.6707,
+      "symbol": "BTC",
+      "tf": "15m",
+      "segment": "test_2024_2025",
+      "candidate": "htf 3H_developing (sma10, ema3)"
+    },
+    {
+      "n": 64764,
+      "corr": 0.5833,
+      "mae": 11.0906,
+      "max_abs_err": 48.8778,
+      "sign_agree": 0.7041,
+      "slope_agree": 0.049,
+      "symbol": "BTC",
+      "tf": "15m",
+      "segment": "test_2024_2025",
+      "candidate": "htf 3H_step (sma10, ema1)"
+    },
+    {
+      "n": 17290,
+      "corr": 0.96092,
+      "mae": 4.5384,
+      "max_abs_err": 19.8864,
+      "sign_agree": 0.8842,
+      "slope_agree": 0.8469,
+      "symbol": "BTC",
+      "tf": "1h",
+      "segment": "all",
+      "candidate": "pine (as coded)"
+    },
+    {
+      "n": 17290,
+      "corr": 0.85997,
+      "mae": 9.3257,
+      "max_abs_err": 40.05,
+      "sign_agree": 0.8017,
+      "slope_agree": 0.6616,
+      "symbol": "BTC",
+      "tf": "1h",
+      "segment": "all",
+      "candidate": "clone h-l (as briefed)"
+    },
+    {
+      "n": 17290,
+      "corr": 0.99067,
+      "mae": 13.7595,
+      "max_abs_err": 59.2303,
+      "sign_agree": 0.9466,
+      "slope_agree": 0.9267,
+      "symbol": "BTC",
+      "tf": "1h",
+      "segment": "all",
+      "candidate": "pine on Heikin-Ashi (smooth 1)"
+    },
+    {
+      "n": 17290,
+      "corr": 0.99016,
+      "mae": 13.6625,
+      "max_abs_err": 56.8584,
+      "sign_agree": 0.9438,
+      "slope_agree": 0.9217,
+      "symbol": "BTC",
+      "tf": "1h",
+      "segment": "all",
+      "candidate": "pine on Heikin-Ashi (smooth 2)"
+    },
+    {
+      "n": 17290,
+      "corr": 0.98481,
+      "mae": 13.5737,
+      "max_abs_err": 56.2629,
+      "sign_agree": 0.933,
+      "slope_agree": 0.8442,
+      "symbol": "BTC",
+      "tf": "1h",
+      "segment": "all",
+      "candidate": "pine on Heikin-Ashi (smooth 4)"
+    },
+    {
+      "n": 17290,
+      "corr": 0.96092,
+      "mae": 3.8863,
+      "max_abs_err": 17.5844,
+      "sign_agree": 0.8985,
+      "slope_agree": 0.8469,
+      "symbol": "BTC",
+      "tf": "1h",
+      "segment": "all",
+      "candidate": "pine (fitted scale)"
+    },
+    {
+      "n": 17290,
+      "corr": 0.85997,
+      "mae": 7.2675,
+      "max_abs_err": 30.858,
+      "sign_agree": 0.8213,
+      "slope_agree": 0.6616,
+      "symbol": "BTC",
+      "tf": "1h",
+      "segment": "all",
+      "candidate": "clone h-l (fitted scale)"
+    },
+    {
+      "n": 17290,
+      "corr": 0.90815,
+      "mae": 5.9563,
+      "max_abs_err": 27.6026,
+      "sign_agree": 0.8541,
+      "slope_agree": 0.7564,
+      "symbol": "BTC",
+      "tf": "1h",
+      "segment": "all",
+      "candidate": "htf 3x_developing (sma20, ema5)"
+    },
+    {
+      "n": 17290,
+      "corr": 0.90716,
+      "mae": 5.9726,
+      "max_abs_err": 28.7694,
+      "sign_agree": 0.8552,
+      "slope_agree": 0.7196,
+      "symbol": "BTC",
+      "tf": "1h",
+      "segment": "all",
+      "candidate": "htf 3x_step (sma20, ema2)"
+    },
+    {
+      "n": 17290,
+      "corr": 0.60818,
+      "mae": 11.1745,
+      "max_abs_err": 47.955,
+      "sign_agree": 0.7079,
+      "slope_agree": 0.6452,
+      "symbol": "BTC",
+      "tf": "1h",
+      "segment": "all",
+      "candidate": "htf 3H_developing (sma10, ema3)"
+    },
+    {
+      "n": 17290,
+      "corr": 0.60772,
+      "mae": 11.1807,
+      "max_abs_err": 43.9464,
+      "sign_agree": 0.7079,
+      "slope_agree": 0.2157,
+      "symbol": "BTC",
+      "tf": "1h",
+      "segment": "all",
+      "candidate": "htf 3H_step (sma10, ema1)"
+    },
+    {
+      "n": 8184,
+      "corr": 0.96751,
+      "mae": 4.0758,
+      "max_abs_err": 16.9367,
+      "sign_agree": 0.8996,
+      "slope_agree": 0.8469,
+      "symbol": "BTC",
+      "tf": "4h",
+      "segment": "all",
+      "candidate": "pine (as coded)"
+    },
+    {
+      "n": 8184,
+      "corr": 0.84967,
+      "mae": 9.36,
+      "max_abs_err": 40.2714,
+      "sign_agree": 0.826,
+      "slope_agree": 0.6557,
+      "symbol": "BTC",
+      "tf": "4h",
+      "segment": "all",
+      "candidate": "clone h-l (as briefed)"
+    },
+    {
+      "n": 8184,
+      "corr": 0.99199,
+      "mae": 14.4571,
+      "max_abs_err": 59.7293,
+      "sign_agree": 0.9501,
+      "slope_agree": 0.9242,
+      "symbol": "BTC",
+      "tf": "4h",
+      "segment": "all",
+      "candidate": "pine on Heikin-Ashi (smooth 1)"
+    },
+    {
+      "n": 8184,
+      "corr": 0.99113,
+      "mae": 14.3739,
+      "max_abs_err": 58.563,
+      "sign_agree": 0.9493,
+      "slope_agree": 0.9246,
+      "symbol": "BTC",
+      "tf": "4h",
+      "segment": "all",
+      "candidate": "pine on Heikin-Ashi (smooth 2)"
+    },
+    {
+      "n": 8184,
+      "corr": 0.98513,
+      "mae": 14.307,
+      "max_abs_err": 57.5119,
+      "sign_agree": 0.9396,
+      "slope_agree": 0.845,
+      "symbol": "BTC",
+      "tf": "4h",
+      "segment": "all",
+      "candidate": "pine on Heikin-Ashi (smooth 4)"
+    },
+    {
+      "n": 8184,
+      "corr": 0.96751,
+      "mae": 3.5647,
+      "max_abs_err": 15.1439,
+      "sign_agree": 0.9205,
+      "slope_agree": 0.8469,
+      "symbol": "BTC",
+      "tf": "4h",
+      "segment": "all",
+      "candidate": "pine (fitted scale)"
+    },
+    {
+      "n": 8184,
+      "corr": 0.84967,
+      "mae": 7.6426,
+      "max_abs_err": 31.8592,
+      "sign_agree": 0.8229,
+      "slope_agree": 0.6557,
+      "symbol": "BTC",
+      "tf": "4h",
+      "segment": "all",
+      "candidate": "clone h-l (fitted scale)"
+    },
+    {
+      "n": 8184,
+      "corr": 0.89224,
+      "mae": 6.5422,
+      "max_abs_err": 26.8739,
+      "sign_agree": 0.8515,
+      "slope_agree": 0.7689,
+      "symbol": "BTC",
+      "tf": "4h",
+      "segment": "all",
+      "candidate": "htf 3x_developing (sma20, ema5)"
+    },
+    {
+      "n": 8184,
+      "corr": 0.88964,
+      "mae": 6.6187,
+      "max_abs_err": 27.2854,
+      "sign_agree": 0.8462,
+      "slope_agree": 0.7079,
+      "symbol": "BTC",
+      "tf": "4h",
+      "segment": "all",
+      "candidate": "htf 3x_step (sma20, ema2)"
+    },
+    {
+      "n": 1264,
+      "corr": 0.97482,
+      "mae": 3.8174,
+      "max_abs_err": 12.1173,
+      "sign_agree": 0.8845,
+      "slope_agree": 0.8432,
+      "symbol": "BTC",
+      "tf": "1D",
+      "segment": "all",
+      "candidate": "pine (as coded)"
+    },
+    {
+      "n": 1264,
+      "corr": 0.86458,
+      "mae": 10.0585,
+      "max_abs_err": 39.3133,
+      "sign_agree": 0.8252,
+      "slope_agree": 0.6698,
+      "symbol": "BTC",
+      "tf": "1D",
+      "segment": "all",
+      "candidate": "clone h-l (as briefed)"
+    },
+    {
+      "n": 1264,
+      "corr": 0.99511,
+      "mae": 14.7935,
+      "max_abs_err": 47.384,
+      "sign_agree": 0.9557,
+      "slope_agree": 0.9359,
+      "symbol": "BTC",
+      "tf": "1D",
+      "segment": "all",
+      "candidate": "pine on Heikin-Ashi (smooth 1)"
+    },
+    {
+      "n": 1264,
+      "corr": 0.99449,
+      "mae": 14.6971,
+      "max_abs_err": 45.2075,
+      "sign_agree": 0.9565,
+      "slope_agree": 0.9153,
+      "symbol": "BTC",
+      "tf": "1D",
+      "segment": "all",
+      "candidate": "pine on Heikin-Ashi (smooth 2)"
+    },
+    {
+      "n": 1264,
+      "corr": 0.98916,
+      "mae": 14.6332,
+      "max_abs_err": 44.4732,
+      "sign_agree": 0.9367,
+      "slope_agree": 0.8448,
+      "symbol": "BTC",
+      "tf": "1D",
+      "segment": "all",
+      "candidate": "pine on Heikin-Ashi (smooth 4)"
+    },
+    {
+      "n": 1264,
+      "corr": 0.97482,
+      "mae": 3.3633,
+      "max_abs_err": 13.2929,
+      "sign_agree": 0.8908,
+      "slope_agree": 0.8432,
+      "symbol": "BTC",
+      "tf": "1D",
+      "segment": "all",
+      "candidate": "pine (fitted scale)"
+    },
+    {
+      "n": 1264,
+      "corr": 0.86458,
+      "mae": 7.6609,
+      "max_abs_err": 28.6152,
+      "sign_agree": 0.7959,
+      "slope_agree": 0.6698,
+      "symbol": "BTC",
+      "tf": "1D",
+      "segment": "all",
+      "candidate": "clone h-l (fitted scale)"
+    },
+    {
+      "n": 1264,
+      "corr": 0.91283,
+      "mae": 5.9033,
+      "max_abs_err": 24.733,
+      "sign_agree": 0.8639,
+      "slope_agree": 0.7783,
+      "symbol": "BTC",
+      "tf": "1D",
+      "segment": "all",
+      "candidate": "htf 3x_developing (sma20, ema5)"
+    },
+    {
+      "n": 1264,
+      "corr": 0.90668,
+      "mae": 6.09,
+      "max_abs_err": 29.306,
+      "sign_agree": 0.8568,
+      "slope_agree": 0.7055,
+      "symbol": "BTC",
+      "tf": "1D",
+      "segment": "all",
+      "candidate": "htf 3x_step (sma20, ema2)"
+    },
+    {
+      "n": 133,
+      "corr": 0.9719,
+      "mae": 2.5629,
+      "max_abs_err": 5.683,
+      "sign_agree": 0.9774,
+      "slope_agree": 0.8258,
+      "symbol": "BTC",
+      "tf": "1W",
+      "segment": "all",
+      "candidate": "pine (as coded)"
+    },
+    {
+      "n": 141,
+      "corr": 0.9478,
+      "mae": 8.7402,
+      "max_abs_err": 20.2966,
+      "sign_agree": 0.9362,
+      "slope_agree": 0.65,
+      "symbol": "BTC",
+      "tf": "1W",
+      "segment": "all",
+      "candidate": "clone h-l (as briefed)"
+    },
+    {
+      "n": 136,
+      "corr": 0.9952,
+      "mae": 16.056,
+      "max_abs_err": 30.9573,
+      "sign_agree": 0.9044,
+      "slope_agree": 0.9333,
+      "symbol": "BTC",
+      "tf": "1W",
+      "segment": "all",
+      "candidate": "pine on Heikin-Ashi (smooth 1)"
+    },
+    {
+      "n": 135,
+      "corr": 0.99368,
+      "mae": 15.983,
+      "max_abs_err": 30.2615,
+      "sign_agree": 0.9037,
+      "slope_agree": 0.9552,
+      "symbol": "BTC",
+      "tf": "1W",
+      "segment": "all",
+      "candidate": "pine on Heikin-Ashi (smooth 2)"
+    },
+    {
+      "n": 133,
+      "corr": 0.98175,
+      "mae": 15.8623,
+      "max_abs_err": 30.2345,
+      "sign_agree": 0.8872,
+      "slope_agree": 0.8409,
+      "symbol": "BTC",
+      "tf": "1W",
+      "segment": "all",
+      "candidate": "pine on Heikin-Ashi (smooth 4)"
+    },
+    {
+      "n": 133,
+      "corr": 0.9719,
+      "mae": 3.4677,
+      "max_abs_err": 7.779,
+      "sign_agree": 0.9624,
+      "slope_agree": 0.8258,
+      "symbol": "BTC",
+      "tf": "1W",
+      "segment": "all",
+      "candidate": "pine (fitted scale)"
+    },
+    {
+      "n": 141,
+      "corr": 0.9478,
+      "mae": 3.3335,
+      "max_abs_err": 9.4742,
+      "sign_agree": 0.9504,
+      "slope_agree": 0.65,
+      "symbol": "BTC",
+      "tf": "1W",
+      "segment": "all",
+      "candidate": "clone h-l (fitted scale)"
+    },
+    {
+      "n": 141,
+      "corr": 0.97463,
+      "mae": 4.9016,
+      "max_abs_err": 10.864,
+      "sign_agree": 0.9504,
+      "slope_agree": 0.7571,
+      "symbol": "BTC",
+      "tf": "1W",
+      "segment": "all",
+      "candidate": "htf 3x_developing (sma20, ema5)"
+    },
+    {
+      "n": 0,
+      "symbol": "BTC",
+      "tf": "1W",
+      "segment": "all",
+      "candidate": "htf 3x_step (sma20, ema2)"
+    },
+    {
+      "n": 125483,
+      "corr": 1.0,
+      "mae": 0.0011,
+      "max_abs_err": 0.577,
+      "sign_agree": 1.0,
+      "slope_agree": 1.0,
+      "symbol": "XRP",
+      "tf": "15m",
+      "segment": "all",
+      "candidate": "pine (as coded)"
+    },
+    {
+      "n": 125483,
+      "corr": 0.83937,
+      "mae": 8.4531,
+      "max_abs_err": 40.7553,
+      "sign_agree": 0.8145,
+      "slope_agree": 0.7757,
+      "symbol": "XRP",
+      "tf": "15m",
+      "segment": "all",
+      "candidate": "clone h-l (as briefed)"
+    },
+    {
+      "n": 125483,
+      "corr": 0.96303,
+      "mae": 13.6081,
+      "max_abs_err": 74.9835,
+      "sign_agree": 0.9063,
+      "slope_agree": 0.8348,
+      "symbol": "XRP",
+      "tf": "15m",
+      "segment": "all",
+      "candidate": "pine on Heikin-Ashi (smooth 1)"
+    },
+    {
+      "n": 125483,
+      "corr": 0.96268,
+      "mae": 13.5068,
+      "max_abs_err": 74.0137,
+      "sign_agree": 0.9062,
+      "slope_agree": 0.8067,
+      "symbol": "XRP",
+      "tf": "15m",
+      "segment": "all",
+      "candidate": "pine on Heikin-Ashi (smooth 2)"
+    },
+    {
+      "n": 125483,
+      "corr": 0.95853,
+      "mae": 13.3715,
+      "max_abs_err": 73.6621,
+      "sign_agree": 0.9019,
+      "slope_agree": 0.7617,
+      "symbol": "XRP",
+      "tf": "15m",
+      "segment": "all",
+      "candidate": "pine on Heikin-Ashi (smooth 4)"
+    },
+    {
+      "n": 125483,
+      "corr": 1.0,
+      "mae": 2.5221,
+      "max_abs_err": 4.7221,
+      "sign_agree": 0.938,
+      "slope_agree": 1.0,
+      "symbol": "XRP",
+      "tf": "15m",
+      "segment": "all",
+      "candidate": "pine (fitted scale)"
+    },
+    {
+      "n": 125483,
+      "corr": 0.83937,
+      "mae": 7.8456,
+      "max_abs_err": 39.8285,
+      "sign_agree": 0.7876,
+      "slope_agree": 0.7757,
+      "symbol": "XRP",
+      "tf": "15m",
+      "segment": "all",
+      "candidate": "clone h-l (fitted scale)"
+    },
+    {
+      "n": 125483,
+      "corr": 0.87254,
+      "mae": 7.0528,
+      "max_abs_err": 35.5067,
+      "sign_agree": 0.8143,
+      "slope_agree": 0.8029,
+      "symbol": "XRP",
+      "tf": "15m",
+      "segment": "all",
+      "candidate": "htf 3x_developing (sma20, ema5)"
+    },
+    {
+      "n": 125483,
+      "corr": 0.86779,
+      "mae": 7.1464,
+      "max_abs_err": 37.1635,
+      "sign_agree": 0.8126,
+      "slope_agree": 0.6728,
+      "symbol": "XRP",
+      "tf": "15m",
+      "segment": "all",
+      "candidate": "htf 3x_step (sma20, ema2)"
+    },
+    {
+      "n": 125483,
+      "corr": 0.66612,
+      "mae": 9.8408,
+      "max_abs_err": 57.9025,
+      "sign_agree": 0.7256,
+      "slope_agree": 0.7144,
+      "symbol": "XRP",
+      "tf": "15m",
+      "segment": "all",
+      "candidate": "htf 3H_developing (sma10, ema3)"
+    },
+    {
+      "n": 125483,
+      "corr": 0.6049,
+      "mae": 10.4512,
+      "max_abs_err": 64.735,
+      "sign_agree": 0.7025,
+      "slope_agree": 0.0488,
+      "symbol": "XRP",
+      "tf": "15m",
+      "segment": "all",
+      "candidate": "htf 3H_step (sma10, ema1)"
+    }
+  ],
+  "htf_scale_by_tf": [
+    {
+      "symbol": "BTC",
+      "tf": "5m",
+      "model": "3x_developing",
+      "scale": 157.3,
+      "offset": -0.302
+    },
+    {
+      "symbol": "BTC",
+      "tf": "5m",
+      "model": "3x_step",
+      "scale": 153.53,
+      "offset": -0.316
+    },
+    {
+      "symbol": "BTC",
+      "tf": "5m",
+      "model": "3H_developing",
+      "scale": 50.42,
+      "offset": -0.449
+    },
+    {
+      "symbol": "BTC",
+      "tf": "5m",
+      "model": "3H_step",
+      "scale": 33.55,
+      "offset": -0.217
+    },
+    {
+      "symbol": "BTC",
+      "tf": "15m",
+      "model": "3x_developing",
+      "scale": 165.1,
+      "offset": -0.313
+    },
+    {
+      "symbol": "BTC",
+      "tf": "15m",
+      "model": "3x_step",
+      "scale": 161.13,
+      "offset": -0.303
+    },
+    {
+      "symbol": "BTC",
+      "tf": "15m",
+      "model": "3H_developing",
+      "scale": 85.23,
+      "offset": -0.648
+    },
+    {
+      "symbol": "BTC",
+      "tf": "15m",
+      "model": "3H_step",
+      "scale": 75.71,
+      "offset": -0.547
+    },
+    {
+      "symbol": "BTC",
+      "tf": "1h",
+      "model": "3x_developing",
+      "scale": 173.34,
+      "offset": -1.279
+    },
+    {
+      "symbol": "BTC",
+      "tf": "1h",
+      "model": "3x_step",
+      "scale": 169.55,
+      "offset": -1.303
+    },
+    {
+      "symbol": "BTC",
+      "tf": "1h",
+      "model": "3H_developing",
+      "scale": 80.78,
+      "offset": -0.234
+    },
+    {
+      "symbol": "BTC",
+      "tf": "1h",
+      "model": "3H_step",
+      "scale": 78.12,
+      "offset": -0.267
+    },
+    {
+      "symbol": "BTC",
+      "tf": "4h",
+      "model": "3x_developing",
+      "scale": 166.86,
+      "offset": -1.34
+    },
+    {
+      "symbol": "BTC",
+      "tf": "4h",
+      "model": "3x_step",
+      "scale": 163.58,
+      "offset": -1.373
+    },
+    {
+      "symbol": "BTC",
+      "tf": "1D",
+      "model": "3x_developing",
+      "scale": 174.29,
+      "offset": 0.7
+    },
+    {
+      "symbol": "BTC",
+      "tf": "1D",
+      "model": "3x_step",
+      "scale": 170.01,
+      "offset": 0.767
+    },
+    {
+      "symbol": "BTC",
+      "tf": "1W",
+      "model": "3x_developing",
+      "scale": 146.97,
+      "offset": -1.836
+    },
+    {
+      "symbol": "BTC",
+      "tf": "1W",
+      "model": "3x_step",
+      "scale": NaN,
+      "offset": NaN
+    },
+    {
+      "symbol": "XRP",
+      "tf": "15m",
+      "model": "3x_developing",
+      "scale": 160.05,
+      "offset": -4.303
+    },
+    {
+      "symbol": "XRP",
+      "tf": "15m",
+      "model": "3x_step",
+      "scale": 155.52,
+      "offset": -4.244
+    },
+    {
+      "symbol": "XRP",
+      "tf": "15m",
+      "model": "3H_developing",
+      "scale": 83.91,
+      "offset": -3.19
+    },
+    {
+      "symbol": "XRP",
+      "tf": "15m",
+      "model": "3H_step",
+      "scale": 75.35,
+      "offset": -3.065
+    }
+  ]
+}
