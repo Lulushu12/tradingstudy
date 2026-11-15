@@ -1,9 +1,7 @@
 # PROTOCOL
 
-**Status: DRAFT, pending Gate 1 approval. Not frozen.** Once the user approves, the status line changes to FROZEN
-with the date, and any later change needs explicit user approval and a logged reason in the change log at the bottom.
-
-All numbers below are proposals. Items marked [DECIDE] need an explicit user choice.
+**Status: FROZEN 2026-11-15 (Gate 1 approved by the user).** Any change needs explicit user approval and a logged
+reason in the change log at the bottom. Criteria can never be loosened after results exist.
 
 ---
 
@@ -17,7 +15,7 @@ All numbers below are proposals. Items marked [DECIDE] need an explicit user cho
   study that tested WaveTrend signals, and the user traded several of the coins live during the primary holdout period.
   The primary holdout is therefore weaker than a blind holdout on every coin. Holdout verdicts are judged on the
   non-BTC coins; BTC is reported separately.
-- **Warm-up [DECIDE]:** bars up to 400 days before a split's first evaluated bar may be used to compute indicators and
+- **Warm-up (approved):** bars up to 400 days before a split's first evaluated bar may be used to compute indicators and
   structure only. No label, trade or statistic is ever computed on a warm-up bar. For the dev set this uses 2020-11 to
   2021-12 prices from the secondary holdout as warm-up only. Without it, trend regimes are missing for the first ~2
   months of dev and weekly structure has 2 to 8 swings in total.
@@ -34,10 +32,14 @@ All numbers below are proposals. Items marked [DECIDE] need an explicit user cho
 - No random shuffling across time, ever.
 
 ## 3. Execution and account model (always on)
-- Signal on a closed execution bar t. **Limit entry at close[t]**, live for the next execution bar only, then cancelled.
-- **Fill:** only if price trades through the limit by at least one tick inside bar t+1 (checked on 1m bars).
-  Long: 1m low <= limit - tick. Fill price = limit, no slippage.
-- **Missed fill:** price touched the limit but did not trade through. Logged with the outcome the trade would have had.
+- Signal on a closed execution bar t. **Limit entry at close[t]**, checked on 1m bars from the next minute.
+- **Order life:** the limit stays live until (a) it fills, (b) price moves 0.5R in the trade's favour without filling
+  (long: 1m high >= limit + 0.5 x stop distance), then it is cancelled, or (c) 24 h pass, then it is cancelled.
+  If one 1m bar both trades through the limit and reaches the cancel level, the fill is assumed (the order is exposed).
+- **Fill:** only if price trades through the limit by at least one tick. Long: 1m low <= limit - tick.
+  Fill price = limit, no slippage.
+- **Missed fill:** price touched the limit (long: low <= limit) but never traded through before cancellation or
+  expiry. Logged with the outcome the trade would have had if filled at the first touch.
 - **Stop:** entry -/+ stop_mult x ATR14 of the execution TF at bar t. Stop-market. Fill = stop price minus slippage.
 - **Target:** fixed at entry. Limit order, fills only on trade-through by one tick.
 - **Same-minute ambiguity:** if one 1m bar reaches both stop and target, the stop is assumed. In the fill minute only
@@ -49,18 +51,20 @@ All numbers below are proposals. Items marked [DECIDE] need an explicit user cho
   Configurable. Every candidate is also reported at 2x slippage.
 - **Tick sizes:** inferred per coin and year from the data (e.g. BTC 0.01 in 2022, 0.1 from 2023; SOL 0.001 to 0.01 in 2025).
 - **Risk:** 0.5% of current equity per trade. Size = risk / stop distance.
-- **Account rules (Breakout):** daily loss limit 3% of the start-of-day balance, realized P&L only, reset 00:00 UTC
-  [DECIDE: confirm reset time]. Max drawdown 6% static from the starting balance.
-- **Risk guards [DECIDE]:** at most 1 open position or pending limit per coin; at most 3 open positions account-wide;
-  no new entries for the rest of the UTC day once realized day P&L reaches -2.0%.
+- **Account rules (Breakout):** daily loss limit 3% of the start-of-day balance, realized P&L only, reset 00:00 UTC.
+  Max drawdown 6% static from the starting balance.
+- **Risk guards (approved):** at most 1 open position or pending limit per coin; at most 3 open positions
+  account-wide (pending limits count toward the 3, so a fill can never create a 4th position); no new entries for the
+  rest of the UTC day once realized day P&L reaches -2.0%.
 
 ## 4. Labels (triple barrier, Breakout-compatible)
 - Stops: {1.5, 2.0} x ATR14. The 1.0 x ATR stop is dropped (median fee 0.14R on 15m, 0.23R on 6m).
   On 6m only the 2.0 x ATR stop is used.
 - Targets, R family: {1R, 1.5R, 2R, 3R}.
-- Targets, level family (exploratory): 1.272 and 1.618 extension of the last confirmed leg in the trade direction on
-  the execution TF (A + e(B - A)); next opposing level (nearest held S/R or range boundary beyond entry, from the
-  execution TF and higher structure TFs). Trades whose level target is under 1R are skipped.
+- Targets, level family (exploratory): 1.272 and 1.618 extension of the most recent confirmed leg in the trade
+  direction on the execution TF (long: last up-leg A -> B, target A + e(B - A)); next opposing level (nearest held S/R,
+  active range boundary or last broken range boundary beyond entry, from the execution TF and higher structure TFs).
+  Trades whose level target is under 1R (or on the wrong side of entry) are skipped.
 - Timeout 24 h. Entry variants A (confirmed) and B (front-run) per event definition.
 
 ## 5. Event definitions (frozen with this protocol)
@@ -79,7 +83,7 @@ All numbers below are proposals. Items marked [DECIDE] need an explicit user cho
   Variant A = rejection bar; Variant B = first touch of the retest zone.
 - **HTF layer variant (separate):** Baseline 1 filtered by (i) HTF (10 x TF) WaveTrend near-cross in the trade direction,
   or (ii) HTF Money Flow rising for longs / falling for shorts. Each filter tested on its own.
-- **Trend regimes [DECIDE]:** R1 = price vs 4h EMA200 and its 1-day slope (direction); R2 = 4h ADX(14) >= 25 with DI
+- **Trend regimes (approved, may be revisited at a gate):** R1 = price vs 4h EMA200 and its 1-day slope (direction); R2 = 4h ADX(14) >= 25 with DI
   direction (trend strength). R3 (1D SMA50) is computed but not used for the regime breakdown.
 
 ## 6. Fixed parameters (not searched unless approved at a gate)
@@ -90,8 +94,7 @@ All numbers below are proposals. Items marked [DECIDE] need an explicit user cho
 - FRVP: range start to breakdown bar, 1m volume, bins 0.1 x ATR of the range TF; value area 70%; LVN = local minimum
   below 25% of POC volume. Previous-UTC-day profile with bins 0.05 x 1D ATR.
 - Fibonacci: execution TF 0.618 only (zone 0.618 to 0.65); higher TFs 0.382, 0.5, 0.618, 0.786; last 3 legs.
-- Confluence [DECIDE]: levels from the execution TF and all higher structure TFs within 0.25 x execution ATR
-  (draft code uses 0.5; at 0.5 the median bar already has 4 levels nearby, which makes the score uninformative);
+- Confluence (approved): levels from the execution TF and all higher structure TFs within 0.25 x execution ATR,
   plus a count of distinct level types (Fib, held S/R, range boundary, profile).
 - HTF layer: multiplier 10, near-cross threshold 2.
 
@@ -141,4 +144,7 @@ All numbers below are proposals. Items marked [DECIDE] need an explicit user cho
 - After results exist, criteria cannot be loosened. A criterion believed wrong is logged; the verdict still uses it.
 
 ## Change log
-- (none yet)
+- 2026-11-15: initial freeze at Gate 1. User decisions: splits, warm-up and walk-forward approved after explanation;
+  limit order life changed from 1 bar to "until 0.5R favourable move or 24 h" (user); risk guards, 00:00 UTC reset,
+  labels, regimes R1/R2, range parameters, confluence, grids, budget 800 and criteria S1-S10 approved as proposed.
+  Interpretation added by Claude and stated here for review: pending limits count toward the 3-position cap.
