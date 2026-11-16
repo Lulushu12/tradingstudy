@@ -1,0 +1,38 @@
+warning: The `UV_NATIVE_TLS` environment variable is deprecated and will be removed in a future release. Use `UV_SYSTEM_CERTS` instead.
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P3-001 stack 15m A n=  444 exp=-0.301 gross=-0.153 pf=0.65 stab=1/6 final: r2_rel == 1.0 AND fib_exec_in_0618_zone == 1.0 [7s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P3-002 stack 15m B n=  251 exp=-0.278 gross=-0.166 pf=0.65 stab=1/6 final: r2_rel == 1.0 AND fib_exec_in_0618_zone == 1.0 [9s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P3-003 stack 24m A n=  264 exp=-0.148 gross=-0.047 pf=0.79 stab=3/6 final: r1_rel == 1.0 AND htf_near_cross_rel == 1.0 [10s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P3-004 stack 24m B n=  269 exp=-0.085 gross=+0.018 pf=0.88 stab=4/6 final: r1_rel == 1.0 AND htf_near_cross_rel == 1.0 [11s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P3-005 stack 1h  A n=  192 exp=-0.113 gross=-0.062 pf=0.81 stab=1/6 final: htf_near_cross_rel == 1.0 AND session == asia [12s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P3-006 stack 1h  B n=  203 exp=-0.163 gross=-0.097 pf=0.76 stab=0/6 final: cmf4h_rel <= -0.137 AND htf_near_cross_rel == 1.0 [13s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P3-007 flips 15m A n=  185 exp=-0.279 gross=-0.135 pf=0.66 stab=0/6 final: atr_pctile_30d > 0.705 AND cmf_rel <= -0.0909 [15s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P3-008 flips 15m B n=  210 exp=-0.360 gross=-0.203 pf=0.59 stab=0/6 final: cmf4h_rel <= -0.0163 AND r2_rel == 0.0 [16s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P3-009 flips 24m A n=  179 exp=-0.152 gross=-0.054 pf=0.80 stab=3/6 final: funding_z_rel <= -0.117 AND confluence_types <= 1 [17s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P3-010 flips 24m B n=  214 exp=-0.245 gross=-0.110 pf=0.70 stab=2/6 final: atr_pctile_30d > 0.746 AND cmf4h_rel <= 0.0889 [18s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P3-011 flips 1h  A n=  147 exp=-0.228 gross=-0.155 pf=0.69 stab=0/6 final: confluence_types <= 1 AND sr_dist <= 1.14 [18s]
+/home/user/tradingstudy/src/tradingstudy/backtest/stats.py:55: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  m = f.groupby(pd.to_datetime(f["fill_ts"], utc=True).dt.to_period("M"))["net_R"].sum()
+P3-012 flips 1h  B n=  149 exp=-0.264 gross=-0.188 pf=0.65 stab=0/6 final: atr_pctile_30d > 0.486 AND cmf_rel <= 0.0269 [19s]
+done 19s

@@ -3,7 +3,10 @@
 Resume from this file plus ML_DISCOVERY_PROMPT.md (the standing brief, repo root) and PROTOCOL.md (once it exists).
 
 ## Current status
-- **Phase 2 re-run (Amendment 1 definitions) complete. Waiting for the user's go on the Phase 3 discovery plan.**
+- **Phase 3 discovery complete: NO candidate. Waiting for the user's decision (stop with "no system found", or a new
+  pre-declared hypothesis).** Report: `reports/phase3/DISCOVERY_REPORT.md`. Budget used 390 of 800 (P3-001..012).
+  Holdouts were NOT opened (Phase 4 not reached), so they remain clean for any future hypothesis.
+- Earlier status: Phase 2 re-run (Amendment 1 definitions) complete.
   Reports: `reports/phase2/BASELINE_REPORT.md` (v1, P2-001..212) and `reports/phase2/BASELINE_V2_REPORT.md`
   (v2, P2-213..378). PROTOCOL.md FROZEN 2026-11-15 with Amendment 1 (2026-11-16). Budget used: 378 of 800.
   User chose option A (narrow discovery) at Gate 2; the concrete discovery plan still needs approval.
@@ -83,9 +86,19 @@ allows it). fapi.binance.com is geo-blocked from the cloud container, so there i
 - Consistent hints across v1 and v2: 1h best; with-trend beats counter-trend for the divergence stack on every TF;
   HTF near-cross helps on 1h/24m; BTC worst coin. Longs and shorts both negative (no sign bug).
 
+## Phase 3 results (summary)
+- 12 walk-forward rule-search procedures (stack v2 and pooled range flips x 15m/24m/1h x A/B): all negative out of
+  sample (-0.085R to -0.360R net), DSR 0.00, every one fails S1, S2, S3, S4, S5, S7, S9.
+- Classic overfitting signature: rules picked on training data showed +0.15R to +0.28R, then lost in the next fold.
+- Most stable rule: 24m stack front-run, "with 4h trend AND HTF near-cross" (picked 4/6 folds): gross +0.018R,
+  net -0.085R. Not a candidate.
+- Label grid and stability neighbours deliberately not run: the declared plan allows "at most 3"; with no procedure
+  positive out of sample, tuning targets would be fishing.
+
 ## Open questions for the user
 1. Which coins were traded live in the last 12 months, and roughly how often?
-2. Approve (or change) the concrete Phase 3 discovery plan proposed after the v2 re-run.
+2. Final decision after Phase 3: stop with the verdict "no system found", or declare a new hypothesis (new plan,
+   counted against the remaining 410 configurations).
 
 ## Issues to carry into Phase 1 / Gate 1
 - Fee in R is large on low timeframes (BTC dev medians: 6m-proxy 0.48R at 1x ATR stop, 15m 0.25R, 1h 0.12R).

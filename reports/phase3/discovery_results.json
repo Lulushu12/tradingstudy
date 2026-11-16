@@ -1,0 +1,2778 @@
+{
+ "n_trials_total": 390,
+ "sr_var_trials": 0.02083535838122555,
+ "results": [
+  {
+   "family": "stack",
+   "tf": "15m",
+   "variant": "A",
+   "stop": "structure",
+   "target": "2R",
+   "htf": null,
+   "id": "P3-001",
+   "wf": {
+    "n": 444,
+    "exp_R": -0.30103354069521293,
+    "win_rate": 0.3108108108108108,
+    "pf": 0.6485122727679666,
+    "sd_R": 1.4198901441606315,
+    "sr": -0.2120118531234464,
+    "total_R": -133.65889206867453,
+    "max_loss_streak": 18,
+    "skew": 0.8230169640214066,
+    "kurt": 1.7503129496526684,
+    "orders": 455,
+    "fill_rate": 0.9758241758241758,
+    "missed_fills": 9,
+    "missed_winners": 7,
+    "missed_hyp_exp_R": 1.065318665792254,
+    "fee_R": 0.1479414112294216,
+    "slip_R": 0.06845914286260223,
+    "gross_R": -0.15309212946579126,
+    "trades_per_day": 0.4232602478551001,
+    "timeouts": 8,
+    "months_positive": 0.3333333333333333
+   },
+   "y2022": {
+    "n": 0,
+    "orders": 0,
+    "fill_rate": NaN,
+    "missed_fills": 0,
+    "missed_winners": 0,
+    "missed_hyp_exp_R": NaN,
+    "fee_R": NaN,
+    "slip_R": NaN,
+    "gross_R": NaN,
+    "trades_per_day": 0.0,
+    "timeouts": 0
+   },
+   "account_full_dev": {
+    "final_equity": 0.5054083458472826,
+    "max_dd": 0.5062466282032723,
+    "daily_breaches": 1,
+    "first_daily_breach": "2024-09-19",
+    "max_breach": "2023-02-14 13:29:00+00:00"
+   },
+   "folds": {
+    "2023H1": -0.28939493774717384,
+    "2023H2": -0.17351759872590208,
+    "2024H1": -0.4138182158738056,
+    "2024H2": -0.4440583331867191,
+    "2025H1": -0.10823458892541554,
+    "2025H2": 0.1015163768472612
+   },
+   "folds_n": {
+    "2023H1": 87,
+    "2023H2": 94,
+    "2024H1": 27,
+    "2024H2": 172,
+    "2025H1": 53,
+    "2025H2": 11
+   },
+   "coins": {
+    "ADA": {
+     "n": 53,
+     "exp_R": -0.22578068820755037,
+     "total_R": -11.96637647500017
+    },
+    "AVAX": {
+     "n": 57,
+     "exp_R": -0.22685182499952278,
+     "total_R": -12.930554024972798
+    },
+    "BTC": {
+     "n": 49,
+     "exp_R": -0.5130930368535838,
+     "total_R": -25.141558805825603
+    },
+    "DOGE": {
+     "n": 43,
+     "exp_R": 0.06644963272979405,
+     "total_R": 2.857334207381144
+    },
+    "ETH": {
+     "n": 41,
+     "exp_R": -0.20749918455147526,
+     "total_R": -8.507466566610486
+    },
+    "LINK": {
+     "n": 51,
+     "exp_R": -0.3844358188744452,
+     "total_R": -19.606226762596705
+    },
+    "SOL": {
+     "n": 68,
+     "exp_R": -0.4008295136299464,
+     "total_R": -27.256406926836355
+    },
+    "SUI": {
+     "n": 36,
+     "exp_R": -0.3895182238360386,
+     "total_R": -14.02265605809739
+    },
+    "XRP": {
+     "n": 46,
+     "exp_R": -0.3714126229590467,
+     "total_R": -17.084980656116148
+    }
+   },
+   "max_coin_share": NaN,
+   "coins_positive": 1,
+   "nonbtc_positive": 1,
+   "regime_r1": {
+    "-1.0": {
+     "n": 202,
+     "exp_R": -0.1941
+    },
+    "0.0": {
+     "n": 30,
+     "exp_R": -0.4776
+    },
+    "1.0": {
+     "n": 211,
+     "exp_R": -0.3744
+    }
+   },
+   "regime_r2": {
+    "-1.0": {
+     "n": 116,
+     "exp_R": -0.2911
+    },
+    "0.0": {
+     "n": 192,
+     "exp_R": -0.3612
+    },
+    "1.0": {
+     "n": 136,
+     "exp_R": -0.2245
+    }
+   },
+   "session": {
+    "asia": {
+     "n": 9,
+     "exp_R": -0.8715
+    },
+    "europe": {
+     "n": 364,
+     "exp_R": -0.3251
+    },
+    "late": {
+     "n": 56,
+     "exp_R": -0.0829
+    },
+    "us": {
+     "n": 15,
+     "exp_R": -0.1903
+    }
+   },
+   "mc": {
+    "p_daily_breach_30d": 0.0,
+    "p_max_breach_30d": 0.0842,
+    "p_any_breach_30d": 0.0842,
+    "p_daily_breach_60d": 0.0,
+    "p_max_breach_60d": 0.3474,
+    "p_any_breach_60d": 0.3474,
+    "p_daily_breach_90d": 0.0,
+    "p_max_breach_90d": 0.5611,
+    "p_any_breach_90d": 0.5611,
+    "median_return_90d": -0.056061200198133765
+   },
+   "final_rule": "r2_rel == 1.0 AND fib_exec_in_0618_zone == 1.0",
+   "final_train_n": 113,
+   "final_train_exp": 0.20380573779482258,
+   "rule_stability": 1,
+   "fold_rules": [
+    {
+     "fold": "2023H1",
+     "rule": "htf_mf_rel == 1.0 AND session == europe",
+     "train_n": 251,
+     "train_exp": 0.22467542430003493,
+     "test_signals": 2421,
+     "test_selected": 121
+    },
+    {
+     "fold": "2023H2",
+     "rule": "htf_mf_rel == 1.0 AND session == europe",
+     "train_n": 364,
+     "train_exp": 0.11293902146271347,
+     "test_signals": 2691,
+     "test_selected": 122
+    },
+    {
+     "fold": "2024H1",
+     "rule": "funding_z_rel > 0.285 AND fib_exec_in_0618_zone == 1.0",
+     "train_n": 106,
+     "train_exp": 0.05769037252565798,
+     "test_signals": 3062,
+     "test_selected": 29
+    },
+    {
+     "fold": "2024H2",
+     "rule": "atr_pctile_30d <= 0.359 AND session == europe",
+     "train_n": 1021,
+     "train_exp": -0.0003748726599141299,
+     "test_signals": 3066,
+     "test_selected": 231
+    },
+    {
+     "fold": "2025H1",
+     "rule": "r2_rel == 1.0 AND session == late",
+     "train_n": 303,
+     "train_exp": 0.017047392793459293,
+     "test_signals": 3271,
+     "test_selected": 71
+    },
+    {
+     "fold": "2025H2",
+     "rule": "r2_rel == 1.0 AND fib_exec_in_0618_zone == 1.0",
+     "train_n": 101,
+     "train_exp": 0.19822327500690964,
+     "test_signals": 2577,
+     "test_selected": 11
+    }
+   ],
+   "dsr": 1.0342409329650231e-35
+  },
+  {
+   "family": "stack",
+   "tf": "15m",
+   "variant": "B",
+   "stop": "structure",
+   "target": "2R",
+   "htf": null,
+   "id": "P3-002",
+   "wf": {
+    "n": 251,
+    "exp_R": -0.27814388587041394,
+    "win_rate": 0.3107569721115538,
+    "pf": 0.6548935280234068,
+    "sd_R": 1.365714394682736,
+    "sr": -0.20366182486860918,
+    "total_R": -69.8141153534739,
+    "max_loss_streak": 11,
+    "skew": 0.8689819888956501,
+    "kurt": 1.8738969971806592,
+    "orders": 263,
+    "fill_rate": 0.9543726235741445,
+    "missed_fills": 10,
+    "missed_winners": 3,
+    "missed_hyp_exp_R": -0.35333970310187046,
+    "fee_R": 0.11188962117979552,
+    "slip_R": 0.05350461886786405,
+    "gross_R": -0.16625426469061838,
+    "trades_per_day": 0.23927550047664442,
+    "timeouts": 16,
+    "months_positive": 0.35294117647058826
+   },
+   "y2022": {
+    "n": 0,
+    "orders": 0,
+    "fill_rate": NaN,
+    "missed_fills": 0,
+    "missed_winners": 0,
+    "missed_hyp_exp_R": NaN,
+    "fee_R": NaN,
+    "slip_R": NaN,
+    "gross_R": NaN,
+    "trades_per_day": 0.0,
+    "timeouts": 0
+   },
+   "account_full_dev": {
+    "final_equity": 0.700975655635225,
+    "max_dd": 0.32325085865087644,
+    "daily_breaches": 0,
+    "first_daily_breach": null,
+    "max_breach": "2023-06-01 07:54:00+00:00"
+   },
+   "folds": {
+    "2023H1": -0.18520980710764648,
+    "2023H2": -0.18406384531056252,
+    "2024H1": -0.11910930380799384,
+    "2024H2": -0.3153645838722323,
+    "2025H1": -0.6697666059717475,
+    "2025H2": -0.3266010180920367
+   },
+   "folds_n": {
+    "2023H1": 87,
+    "2023H2": 43,
+    "2024H1": 34,
+    "2024H2": 36,
+    "2025H1": 40,
+    "2025H2": 11
+   },
+   "coins": {
+    "ADA": {
+     "n": 23,
+     "exp_R": 0.13714630511825882,
+     "total_R": 3.154365017719953
+    },
+    "AVAX": {
+     "n": 30,
+     "exp_R": -0.23620738297100324,
+     "total_R": -7.086221489130097
+    },
+    "BTC": {
+     "n": 27,
+     "exp_R": -0.818262710695407,
+     "total_R": -22.09309318877599
+    },
+    "DOGE": {
+     "n": 23,
+     "exp_R": 0.04764198547482386,
+     "total_R": 1.0957656659209487
+    },
+    "ETH": {
+     "n": 32,
+     "exp_R": -0.03498784707645691,
+     "total_R": -1.1196111064466212
+    },
+    "LINK": {
+     "n": 35,
+     "exp_R": -0.107711726688142,
+     "total_R": -3.76991043408497
+    },
+    "SOL": {
+     "n": 31,
+     "exp_R": -0.33628511637585073,
+     "total_R": -10.424838607651372
+    },
+    "SUI": {
+     "n": 22,
+     "exp_R": -0.5197117161690386,
+     "total_R": -11.433657755718848
+    },
+    "XRP": {
+     "n": 28,
+     "exp_R": -0.6477469091181035,
+     "total_R": -18.1369134553069
+    }
+   },
+   "max_coin_share": NaN,
+   "coins_positive": 2,
+   "nonbtc_positive": 2,
+   "regime_r1": {
+    "-1.0": {
+     "n": 130,
+     "exp_R": -0.2096
+    },
+    "0.0": {
+     "n": 8,
+     "exp_R": -0.6236
+    },
+    "1.0": {
+     "n": 111,
+     "exp_R": -0.3191
+    }
+   },
+   "regime_r2": {
+    "-1.0": {
+     "n": 81,
+     "exp_R": -0.2111
+    },
+    "0.0": {
+     "n": 125,
+     "exp_R": -0.3759
+    },
+    "1.0": {
+     "n": 45,
+     "exp_R": -0.1274
+    }
+   },
+   "session": {
+    "asia": {
+     "n": 151,
+     "exp_R": -0.229
+    },
+    "europe": {
+     "n": 36,
+     "exp_R": -0.2638
+    },
+    "late": {
+     "n": 7,
+     "exp_R": -1.167
+    },
+    "us": {
+     "n": 57,
+     "exp_R": -0.3082
+    }
+   },
+   "mc": {
+    "p_daily_breach_30d": 0.0,
+    "p_max_breach_30d": 0.0033,
+    "p_any_breach_30d": 0.0033,
+    "p_daily_breach_60d": 0.0,
+    "p_max_breach_60d": 0.0685,
+    "p_any_breach_60d": 0.0685,
+    "p_daily_breach_90d": 0.0,
+    "p_max_breach_90d": 0.2008,
+    "p_any_breach_90d": 0.2008,
+    "median_return_90d": -0.029003359938432838
+   },
+   "final_rule": "r2_rel == 1.0 AND fib_exec_in_0618_zone == 1.0",
+   "final_train_n": 142,
+   "final_train_exp": -0.03307294815065623,
+   "rule_stability": 1,
+   "fold_rules": [
+    {
+     "fold": "2023H1",
+     "rule": "cmf_rel > 0.0321 AND htf_near_cross_rel == 1.0",
+     "train_n": 190,
+     "train_exp": 0.08251040222354095,
+     "test_signals": 3257,
+     "test_selected": 99
+    },
+    {
+     "fold": "2023H2",
+     "rule": "cmf4h_rel > 0.00751 AND fib_exec_in_0618_zone == 1.0",
+     "train_n": 109,
+     "train_exp": 0.045436619089585795,
+     "test_signals": 3669,
+     "test_selected": 49
+    },
+    {
+     "fold": "2024H1",
+     "rule": "session == asia AND fib_exec_in_0618_zone == 1.0",
+     "train_n": 109,
+     "train_exp": 0.18161590911461822,
+     "test_signals": 4107,
+     "test_selected": 41
+    },
+    {
+     "fold": "2024H2",
+     "rule": "session == asia AND fib_exec_in_0618_zone == 1.0",
+     "train_n": 142,
+     "train_exp": 0.09738763786809598,
+     "test_signals": 4227,
+     "test_selected": 40
+    },
+    {
+     "fold": "2025H1",
+     "rule": "session == asia AND fib_exec_in_0618_zone == 1.0",
+     "train_n": 180,
+     "train_exp": 0.052992552631901585,
+     "test_signals": 4439,
+     "test_selected": 43
+    },
+    {
+     "fold": "2025H2",
+     "rule": "r2_rel == 1.0 AND fib_exec_in_0618_zone == 1.0",
+     "train_n": 130,
+     "train_exp": -0.00029125194124874823,
+     "test_signals": 3439,
+     "test_selected": 12
+    }
+   ],
+   "dsr": 1.86272310989749e-20
+  },
+  {
+   "family": "stack",
+   "tf": "24m",
+   "variant": "A",
+   "stop": "structure",
+   "target": "2R",
+   "htf": null,
+   "id": "P3-003",
+   "wf": {
+    "n": 264,
+    "exp_R": -0.14805159507732796,
+    "win_rate": 0.36742424242424243,
+    "pf": 0.7947659392022165,
+    "sd_R": 1.366708713291503,
+    "sr": -0.10832710264996334,
+    "total_R": -39.08562110041458,
+    "max_loss_streak": 8,
+    "skew": 0.6735156303803017,
+    "kurt": 1.6225586633768123,
+    "orders": 271,
+    "fill_rate": 0.974169741697417,
+    "missed_fills": 5,
+    "missed_winners": 1,
+    "missed_hyp_exp_R": -0.5759997477890527,
+    "fee_R": 0.1009794117983207,
+    "slip_R": 0.046826931192729,
+    "gross_R": -0.04707218327900726,
+    "trades_per_day": 0.25166825548141086,
+    "timeouts": 31,
+    "months_positive": 0.4
+   },
+   "y2022": {
+    "n": 0,
+    "orders": 0,
+    "fill_rate": NaN,
+    "missed_fills": 0,
+    "missed_winners": 0,
+    "missed_hyp_exp_R": NaN,
+    "fee_R": NaN,
+    "slip_R": NaN,
+    "gross_R": NaN,
+    "trades_per_day": 0.0,
+    "timeouts": 0
+   },
+   "account_full_dev": {
+    "final_equity": 0.8161912420131097,
+    "max_dd": 0.19678246054679327,
+    "daily_breaches": 0,
+    "first_daily_breach": null,
+    "max_breach": "2023-03-12 17:25:00+00:00"
+   },
+   "folds": {
+    "2023H1": -0.4885350579694772,
+    "2023H2": 0.023868678484732325,
+    "2024H1": -0.17462343956819265,
+    "2024H2": -0.35983320163814825,
+    "2025H1": -0.4004551237603335,
+    "2025H2": 0.02267163993970505
+   },
+   "folds_n": {
+    "2023H1": 42,
+    "2023H2": 126,
+    "2024H1": 23,
+    "2024H2": 27,
+    "2025H1": 21,
+    "2025H2": 25
+   },
+   "coins": {
+    "ADA": {
+     "n": 39,
+     "exp_R": -0.2275283063289234,
+     "total_R": -8.873603946828013
+    },
+    "AVAX": {
+     "n": 28,
+     "exp_R": -0.38806404245170706,
+     "total_R": -10.865793188647798
+    },
+    "BTC": {
+     "n": 24,
+     "exp_R": -0.1495189135722849,
+     "total_R": -3.5884539257348376
+    },
+    "DOGE": {
+     "n": 24,
+     "exp_R": -0.02973789718538102,
+     "total_R": -0.7137095324491445
+    },
+    "ETH": {
+     "n": 26,
+     "exp_R": 0.15416586500965762,
+     "total_R": 4.0083124902510985
+    },
+    "LINK": {
+     "n": 31,
+     "exp_R": 0.1705428402729883,
+     "total_R": 5.286828048462637
+    },
+    "SOL": {
+     "n": 38,
+     "exp_R": -0.13816490637485476,
+     "total_R": -5.250266442244481
+    },
+    "SUI": {
+     "n": 25,
+     "exp_R": -0.36844806213704545,
+     "total_R": -9.211201553426136
+    },
+    "XRP": {
+     "n": 29,
+     "exp_R": -0.34061148447579015,
+     "total_R": -9.877733049797914
+    }
+   },
+   "max_coin_share": NaN,
+   "coins_positive": 2,
+   "nonbtc_positive": 2,
+   "regime_r1": {
+    "-1.0": {
+     "n": 14,
+     "exp_R": -0.5714
+    },
+    "0.0": {
+     "n": 1,
+     "exp_R": -1.1547
+    },
+    "1.0": {
+     "n": 247,
+     "exp_R": -0.1123
+    }
+   },
+   "regime_r2": {
+    "-1.0": {
+     "n": 48,
+     "exp_R": -0.208
+    },
+    "0.0": {
+     "n": 120,
+     "exp_R": -0.0219
+    },
+    "1.0": {
+     "n": 96,
+     "exp_R": -0.2757
+    }
+   },
+   "session": {
+    "asia": {
+     "n": 192,
+     "exp_R": -0.143
+    },
+    "europe": {
+     "n": 18,
+     "exp_R": -0.0258
+    },
+    "late": {
+     "n": 5,
+     "exp_R": -0.6487
+    },
+    "us": {
+     "n": 49,
+     "exp_R": -0.1616
+    }
+   },
+   "mc": {
+    "p_daily_breach_30d": 0.0,
+    "p_max_breach_30d": 0.0057,
+    "p_any_breach_30d": 0.0057,
+    "p_daily_breach_60d": 0.0,
+    "p_max_breach_60d": 0.0573,
+    "p_any_breach_60d": 0.0573,
+    "p_daily_breach_90d": 0.0,
+    "p_max_breach_90d": 0.1477,
+    "p_any_breach_90d": 0.1477,
+    "median_return_90d": -0.017475708493161823
+   },
+   "final_rule": "r1_rel == 1.0 AND htf_near_cross_rel == 1.0",
+   "final_train_n": 221,
+   "final_train_exp": 0.0816987142355858,
+   "rule_stability": 3,
+   "fold_rules": [
+    {
+     "fold": "2023H1",
+     "rule": "r2_rel == 1.0 AND session == asia",
+     "train_n": 114,
+     "train_exp": 0.24782238312807353,
+     "test_signals": 1472,
+     "test_selected": 56
+    },
+    {
+     "fold": "2023H2",
+     "rule": "r1_rel == 1.0 AND session == asia",
+     "train_n": 481,
+     "train_exp": 0.09923627698279391,
+     "test_signals": 1664,
+     "test_selected": 171
+    },
+    {
+     "fold": "2024H1",
+     "rule": "r1_rel == 1.0 AND htf_near_cross_rel == 1.0",
+     "train_n": 101,
+     "train_exp": 0.28174087700228057,
+     "test_signals": 1746,
+     "test_selected": 26
+    },
+    {
+     "fold": "2024H2",
+     "rule": "r1_rel == 1.0 AND htf_near_cross_rel == 1.0",
+     "train_n": 126,
+     "train_exp": 0.17338518599906008,
+     "test_signals": 1933,
+     "test_selected": 31
+    },
+    {
+     "fold": "2025H1",
+     "rule": "session == us AND fib_exec_in_0618_zone == 1.0",
+     "train_n": 103,
+     "train_exp": 0.12366404182546072,
+     "test_signals": 1952,
+     "test_selected": 22
+    },
+    {
+     "fold": "2025H2",
+     "rule": "r1_rel == 1.0 AND htf_near_cross_rel == 1.0",
+     "train_n": 193,
+     "train_exp": 0.11053185260883974,
+     "test_signals": 1537,
+     "test_selected": 30
+    }
+   ],
+   "dsr": 1.9380323815136082e-17
+  },
+  {
+   "family": "stack",
+   "tf": "24m",
+   "variant": "B",
+   "stop": "structure",
+   "target": "2R",
+   "htf": null,
+   "id": "P3-004",
+   "wf": {
+    "n": 269,
+    "exp_R": -0.08491481049891014,
+    "win_rate": 0.379182156133829,
+    "pf": 0.8831195436297667,
+    "sd_R": 1.4314830031865897,
+    "sr": -0.059319468208762056,
+    "total_R": -22.842084024206827,
+    "max_loss_streak": 9,
+    "skew": 0.5686054255522276,
+    "kurt": 1.438605155704967,
+    "orders": 279,
+    "fill_rate": 0.96415770609319,
+    "missed_fills": 7,
+    "missed_winners": 4,
+    "missed_hyp_exp_R": 0.29674004539694154,
+    "fee_R": 0.10258815539418356,
+    "slip_R": 0.048832541343853585,
+    "gross_R": 0.017673344895273408,
+    "trades_per_day": 0.25643469971401334,
+    "timeouts": 22,
+    "months_positive": 0.34285714285714286
+   },
+   "y2022": {
+    "n": 0,
+    "orders": 0,
+    "fill_rate": NaN,
+    "missed_fills": 0,
+    "missed_winners": 0,
+    "missed_hyp_exp_R": NaN,
+    "fee_R": NaN,
+    "slip_R": NaN,
+    "gross_R": NaN,
+    "trades_per_day": 0.0,
+    "timeouts": 0
+   },
+   "account_full_dev": {
+    "final_equity": 0.8852030414155576,
+    "max_dd": 0.13428649379995306,
+    "daily_breaches": 0,
+    "first_daily_breach": null,
+    "max_breach": "2023-03-21 07:12:00+00:00"
+   },
+   "folds": {
+    "2023H1": -0.2642676450666864,
+    "2023H2": -0.0890448911487354,
+    "2024H1": 0.019957936580058674,
+    "2024H2": 0.16920901979726383,
+    "2025H1": 0.03873853264895268,
+    "2025H2": -0.32988798796726737
+   },
+   "folds_n": {
+    "2023H1": 68,
+    "2023H2": 31,
+    "2024H1": 38,
+    "2024H2": 49,
+    "2025H1": 44,
+    "2025H2": 39
+   },
+   "coins": {
+    "ADA": {
+     "n": 31,
+     "exp_R": -0.07563057421552694,
+     "total_R": -2.344547800681335
+    },
+    "AVAX": {
+     "n": 37,
+     "exp_R": -0.021662118742305458,
+     "total_R": -0.8014983934653019
+    },
+    "BTC": {
+     "n": 27,
+     "exp_R": -0.6136757336787625,
+     "total_R": -16.569244809326587
+    },
+    "DOGE": {
+     "n": 23,
+     "exp_R": -0.016951400340824718,
+     "total_R": -0.38988220783896854
+    },
+    "ETH": {
+     "n": 33,
+     "exp_R": -0.2557412162663183,
+     "total_R": -8.439460136788504
+    },
+    "LINK": {
+     "n": 34,
+     "exp_R": -0.026726695817834697,
+     "total_R": -0.9087076578063797
+    },
+    "SOL": {
+     "n": 20,
+     "exp_R": -0.23713930690928353,
+     "total_R": -4.742786138185671
+    },
+    "SUI": {
+     "n": 33,
+     "exp_R": -0.15380197206573254,
+     "total_R": -5.075465078169174
+    },
+    "XRP": {
+     "n": 31,
+     "exp_R": 0.5299841354211323,
+     "total_R": 16.429508198055103
+    }
+   },
+   "max_coin_share": NaN,
+   "coins_positive": 1,
+   "nonbtc_positive": 1,
+   "regime_r1": {
+    "-1.0": {
+     "n": 14,
+     "exp_R": 0.5984
+    },
+    "0.0": {
+     "n": 3,
+     "exp_R": -0.148
+    },
+    "1.0": {
+     "n": 249,
+     "exp_R": -0.1106
+    }
+   },
+   "regime_r2": {
+    "-1.0": {
+     "n": 34,
+     "exp_R": 0.1365
+    },
+    "0.0": {
+     "n": 100,
+     "exp_R": -0.2784
+    },
+    "1.0": {
+     "n": 135,
+     "exp_R": 0.0026
+    }
+   },
+   "session": {
+    "asia": {
+     "n": 119,
+     "exp_R": -0.0942
+    },
+    "europe": {
+     "n": 56,
+     "exp_R": -0.1705
+    },
+    "late": {
+     "n": 19,
+     "exp_R": -0.1406
+    },
+    "us": {
+     "n": 75,
+     "exp_R": 0.0078
+    }
+   },
+   "mc": {
+    "p_daily_breach_30d": 0.0,
+    "p_max_breach_30d": 0.0064,
+    "p_any_breach_30d": 0.0064,
+    "p_daily_breach_60d": 0.0,
+    "p_max_breach_60d": 0.0537,
+    "p_any_breach_60d": 0.0537,
+    "p_daily_breach_90d": 0.0,
+    "p_max_breach_90d": 0.1317,
+    "p_any_breach_90d": 0.1317,
+    "median_return_90d": -0.01182951514092756
+   },
+   "final_rule": "r1_rel == 1.0 AND htf_near_cross_rel == 1.0",
+   "final_train_n": 341,
+   "final_train_exp": 0.09043361464652368,
+   "rule_stability": 4,
+   "fold_rules": [
+    {
+     "fold": "2023H1",
+     "rule": "r2_rel == 1.0 AND session == asia",
+     "train_n": 155,
+     "train_exp": 0.186576080622267,
+     "test_signals": 1989,
+     "test_selected": 84
+    },
+    {
+     "fold": "2023H2",
+     "rule": "funding_z_rel <= -0.597 AND r2_rel == 1.0",
+     "train_n": 100,
+     "train_exp": 0.2829805590469608,
+     "test_signals": 2193,
+     "test_selected": 43
+    },
+    {
+     "fold": "2024H1",
+     "rule": "r1_rel == 1.0 AND htf_near_cross_rel == 1.0",
+     "train_n": 147,
+     "train_exp": 0.2415860275282266,
+     "test_signals": 2417,
+     "test_selected": 50
+    },
+    {
+     "fold": "2024H2",
+     "rule": "r1_rel == 1.0 AND htf_near_cross_rel == 1.0",
+     "train_n": 196,
+     "train_exp": 0.15454595080051842,
+     "test_signals": 2612,
+     "test_selected": 55
+    },
+    {
+     "fold": "2025H1",
+     "rule": "r1_rel == 1.0 AND htf_near_cross_rel == 1.0",
+     "train_n": 244,
+     "train_exp": 0.15729366828759603,
+     "test_signals": 2688,
+     "test_selected": 57
+    },
+    {
+     "fold": "2025H2",
+     "rule": "r1_rel == 1.0 AND htf_near_cross_rel == 1.0",
+     "train_n": 298,
+     "train_exp": 0.1532999170564483,
+     "test_signals": 2108,
+     "test_selected": 46
+    }
+   ],
+   "dsr": 1.7348280548078938e-15
+  },
+  {
+   "family": "stack",
+   "tf": "1h",
+   "variant": "A",
+   "stop": "structure",
+   "target": "2R",
+   "htf": null,
+   "id": "P3-005",
+   "wf": {
+    "n": 192,
+    "exp_R": -0.11268010805189367,
+    "win_rate": 0.3854166666666667,
+    "pf": 0.8073340331401062,
+    "sd_R": 1.1859445666505959,
+    "sr": -0.09501296369199656,
+    "total_R": -21.634580745963586,
+    "max_loss_streak": 9,
+    "skew": 0.7610783064565929,
+    "kurt": 2.0293782687796234,
+    "orders": 195,
+    "fill_rate": 0.9846153846153847,
+    "missed_fills": 2,
+    "missed_winners": 1,
+    "missed_hyp_exp_R": 0.36192915085804156,
+    "fee_R": 0.050702450255412125,
+    "slip_R": 0.027413662536492172,
+    "gross_R": -0.061977657796481546,
+    "trades_per_day": 0.18303145853193517,
+    "timeouts": 60,
+    "months_positive": 0.4
+   },
+   "y2022": {
+    "n": 0,
+    "orders": 0,
+    "fill_rate": NaN,
+    "missed_fills": 0,
+    "missed_winners": 0,
+    "missed_hyp_exp_R": NaN,
+    "fee_R": NaN,
+    "slip_R": NaN,
+    "gross_R": NaN,
+    "trades_per_day": 0.0,
+    "timeouts": 0
+   },
+   "account_full_dev": {
+    "final_equity": 0.8939773462223359,
+    "max_dd": 0.1432300204827317,
+    "daily_breaches": 0,
+    "first_daily_breach": null,
+    "max_breach": "2024-09-18 15:42:00+00:00"
+   },
+   "folds": {
+    "2023H1": 0.023069094976678122,
+    "2023H2": -0.07929040493913618,
+    "2024H1": 0.02936474126934438,
+    "2024H2": -0.3858527904267478,
+    "2025H1": -0.22736286744729664,
+    "2025H2": -0.02053614725081174
+   },
+   "folds_n": {
+    "2023H1": 53,
+    "2023H2": 34,
+    "2024H1": 33,
+    "2024H2": 47,
+    "2025H1": 12,
+    "2025H2": 13
+   },
+   "coins": {
+    "ADA": {
+     "n": 22,
+     "exp_R": -0.013894415713846782,
+     "total_R": -0.3056771457046292
+    },
+    "AVAX": {
+     "n": 25,
+     "exp_R": 0.10292802452176052,
+     "total_R": 2.573200613044013
+    },
+    "BTC": {
+     "n": 22,
+     "exp_R": 0.3256598768549235,
+     "total_R": 7.164517290808316
+    },
+    "DOGE": {
+     "n": 21,
+     "exp_R": -0.03254009758097901,
+     "total_R": -0.6833420492005593
+    },
+    "ETH": {
+     "n": 13,
+     "exp_R": -0.1625392843668677,
+     "total_R": -2.11301069676928
+    },
+    "LINK": {
+     "n": 22,
+     "exp_R": -0.5750924593334943,
+     "total_R": -12.652034105336874
+    },
+    "SOL": {
+     "n": 33,
+     "exp_R": -0.34971743794987353,
+     "total_R": -11.540675452345827
+    },
+    "SUI": {
+     "n": 18,
+     "exp_R": -0.24640842255933426,
+     "total_R": -4.435351606068017
+    },
+    "XRP": {
+     "n": 16,
+     "exp_R": 0.02236202535057963,
+     "total_R": 0.35779240560927406
+    }
+   },
+   "max_coin_share": NaN,
+   "coins_positive": 3,
+   "nonbtc_positive": 2,
+   "regime_r1": {
+    "-1.0": {
+     "n": 154,
+     "exp_R": -0.1781
+    },
+    "0.0": {
+     "n": 11,
+     "exp_R": 0.3758
+    },
+    "1.0": {
+     "n": 27,
+     "exp_R": 0.0615
+    }
+   },
+   "regime_r2": {
+    "-1.0": {
+     "n": 127,
+     "exp_R": -0.134
+    },
+    "0.0": {
+     "n": 60,
+     "exp_R": -0.1254
+    },
+    "1.0": {
+     "n": 5,
+     "exp_R": 0.5824
+    }
+   },
+   "session": {
+    "asia": {
+     "n": 52,
+     "exp_R": -0.1872
+    },
+    "europe": {
+     "n": 26,
+     "exp_R": -0.2736
+    },
+    "late": {
+     "n": 69,
+     "exp_R": 0.0182
+    },
+    "us": {
+     "n": 45,
+     "exp_R": -0.1343
+    }
+   },
+   "mc": {
+    "p_daily_breach_30d": 0.0,
+    "p_max_breach_30d": 0.0,
+    "p_any_breach_30d": 0.0,
+    "p_daily_breach_60d": 0.0,
+    "p_max_breach_60d": 0.0032,
+    "p_any_breach_60d": 0.0032,
+    "p_daily_breach_90d": 0.0,
+    "p_max_breach_90d": 0.0234,
+    "p_any_breach_90d": 0.0234,
+    "median_return_90d": -0.010715578888724098
+   },
+   "final_rule": "htf_near_cross_rel == 1.0 AND session == asia",
+   "final_train_n": 155,
+   "final_train_exp": 0.21484305144332078,
+   "rule_stability": 1,
+   "fold_rules": [
+    {
+     "fold": "2023H1",
+     "rule": "sr_dist > 0.96 AND session == late",
+     "train_n": 115,
+     "train_exp": 0.24063202092212624,
+     "test_signals": 617,
+     "test_selected": 61
+    },
+    {
+     "fold": "2023H2",
+     "rule": "r1_rel == -1.0 AND htf_near_cross_rel == 1.0",
+     "train_n": 106,
+     "train_exp": 0.19808249088436874,
+     "test_signals": 667,
+     "test_selected": 42
+    },
+    {
+     "fold": "2024H1",
+     "rule": "atr_pctile_30d <= 0.739 AND htf_near_cross_rel == 1.0",
+     "train_n": 127,
+     "train_exp": 0.30726631541012733,
+     "test_signals": 763,
+     "test_selected": 45
+    },
+    {
+     "fold": "2024H2",
+     "rule": "atr_pctile_30d <= 0.718 AND htf_near_cross_rel == 1.0",
+     "train_n": 162,
+     "train_exp": 0.28666487896533965,
+     "test_signals": 948,
+     "test_selected": 60
+    },
+    {
+     "fold": "2025H1",
+     "rule": "cmf4h_rel > -0.0422 AND htf_near_cross_rel == 1.0",
+     "train_n": 121,
+     "train_exp": 0.17617428644907707,
+     "test_signals": 697,
+     "test_selected": 14
+    },
+    {
+     "fold": "2025H2",
+     "rule": "htf_near_cross_rel == 1.0 AND session == asia",
+     "train_n": 138,
+     "train_exp": 0.24220381638747684,
+     "test_signals": 568,
+     "test_selected": 17
+    }
+   ],
+   "dsr": 1.3208659871414068e-12
+  },
+  {
+   "family": "stack",
+   "tf": "1h",
+   "variant": "B",
+   "stop": "structure",
+   "target": "2R",
+   "htf": null,
+   "id": "P3-006",
+   "wf": {
+    "n": 203,
+    "exp_R": -0.16313809342481836,
+    "win_rate": 0.33004926108374383,
+    "pf": 0.7581880412879243,
+    "sd_R": 1.2737050448303293,
+    "sr": -0.1280815319739509,
+    "total_R": -33.117032965238124,
+    "max_loss_streak": 14,
+    "skew": 0.8041412826252173,
+    "kurt": 1.8864098588342448,
+    "orders": 203,
+    "fill_rate": 1.0,
+    "missed_fills": 0,
+    "missed_winners": 0,
+    "missed_hyp_exp_R": NaN,
+    "fee_R": 0.06603831017219941,
+    "slip_R": 0.031373971657714626,
+    "gross_R": -0.0970997832526189,
+    "trades_per_day": 0.19351763584366063,
+    "timeouts": 40,
+    "months_positive": 0.4117647058823529
+   },
+   "y2022": {
+    "n": 0,
+    "orders": 0,
+    "fill_rate": NaN,
+    "missed_fills": 0,
+    "missed_winners": 0,
+    "missed_hyp_exp_R": NaN,
+    "fee_R": NaN,
+    "slip_R": NaN,
+    "gross_R": NaN,
+    "trades_per_day": 0.0,
+    "timeouts": 0
+   },
+   "account_full_dev": {
+    "final_equity": 0.8435645065748976,
+    "max_dd": 0.19094640436692922,
+    "daily_breaches": 0,
+    "first_daily_breach": null,
+    "max_breach": "2025-02-05 18:52:00+00:00"
+   },
+   "folds": {
+    "2023H1": -0.003503034103398095,
+    "2023H2": -0.007051942197504435,
+    "2024H1": 0.10310848616566215,
+    "2024H2": -0.29462150334588877,
+    "2025H1": -0.3528373948199275,
+    "2025H2": -0.4586320083233954
+   },
+   "folds_n": {
+    "2023H1": 40,
+    "2023H2": 44,
+    "2024H1": 20,
+    "2024H2": 38,
+    "2025H1": 42,
+    "2025H2": 19
+   },
+   "coins": {
+    "ADA": {
+     "n": 17,
+     "exp_R": 0.05801023177107345,
+     "total_R": 0.9861739401082487
+    },
+    "AVAX": {
+     "n": 23,
+     "exp_R": 0.12301534631623535,
+     "total_R": 2.8293529652734133
+    },
+    "BTC": {
+     "n": 22,
+     "exp_R": -0.6252897380935173,
+     "total_R": -13.75637423805738
+    },
+    "DOGE": {
+     "n": 32,
+     "exp_R": 0.01935893121222583,
+     "total_R": 0.6194857987912266
+    },
+    "ETH": {
+     "n": 21,
+     "exp_R": -0.0724938910457434,
+     "total_R": -1.5223717119606115
+    },
+    "LINK": {
+     "n": 27,
+     "exp_R": -0.439129901486201,
+     "total_R": -11.856507340127427
+    },
+    "SOL": {
+     "n": 33,
+     "exp_R": -0.21101983901804125,
+     "total_R": -6.963654687595361
+    },
+    "SUI": {
+     "n": 12,
+     "exp_R": -0.7176978233567728,
+     "total_R": -8.612373880281273
+    },
+    "XRP": {
+     "n": 16,
+     "exp_R": 0.3224522617881902,
+     "total_R": 5.159236188611043
+    }
+   },
+   "max_coin_share": NaN,
+   "coins_positive": 4,
+   "nonbtc_positive": 4,
+   "regime_r1": {
+    "-1.0": {
+     "n": 139,
+     "exp_R": -0.1294
+    },
+    "0.0": {
+     "n": 5,
+     "exp_R": 0.1887
+    },
+    "1.0": {
+     "n": 58,
+     "exp_R": -0.2587
+    }
+   },
+   "regime_r2": {
+    "-1.0": {
+     "n": 108,
+     "exp_R": 0.0755
+    },
+    "0.0": {
+     "n": 86,
+     "exp_R": -0.4231
+    },
+    "1.0": {
+     "n": 9,
+     "exp_R": -0.5423
+    }
+   },
+   "session": {
+    "asia": {
+     "n": 6,
+     "exp_R": -0.0791
+    },
+    "europe": {
+     "n": 86,
+     "exp_R": -0.0302
+    },
+    "late": {
+     "n": 64,
+     "exp_R": -0.2329
+    },
+    "us": {
+     "n": 47,
+     "exp_R": -0.3221
+    }
+   },
+   "mc": {
+    "p_daily_breach_30d": 0.0,
+    "p_max_breach_30d": 0.0004,
+    "p_any_breach_30d": 0.0004,
+    "p_daily_breach_60d": 0.0,
+    "p_max_breach_60d": 0.017,
+    "p_any_breach_60d": 0.017,
+    "p_daily_breach_90d": 0.0,
+    "p_max_breach_90d": 0.0672,
+    "p_any_breach_90d": 0.0672,
+    "median_return_90d": -0.014360188258825346
+   },
+   "final_rule": "cmf4h_rel <= -0.137 AND htf_near_cross_rel == 1.0",
+   "final_train_n": 155,
+   "final_train_exp": 0.13722565670256975,
+   "rule_stability": 0,
+   "fold_rules": [
+    {
+     "fold": "2023H1",
+     "rule": "atr_pctile_30d <= 0.369 AND session == europe",
+     "train_n": 113,
+     "train_exp": 0.1393827499343299,
+     "test_signals": 804,
+     "test_selected": 44
+    },
+    {
+     "fold": "2023H2",
+     "rule": "htf_mf_rel == 1.0 AND session == europe",
+     "train_n": 128,
+     "train_exp": 0.1960640954343777,
+     "test_signals": 903,
+     "test_selected": 50
+    },
+    {
+     "fold": "2024H1",
+     "rule": "funding_z_rel <= -0.672 AND session == late",
+     "train_n": 123,
+     "train_exp": 0.16614641838096433,
+     "test_signals": 982,
+     "test_selected": 27
+    },
+    {
+     "fold": "2024H2",
+     "rule": "htf_near_cross_rel == 1.0 AND session == us",
+     "train_n": 116,
+     "train_exp": 0.19225438425887537,
+     "test_signals": 1204,
+     "test_selected": 43
+    },
+    {
+     "fold": "2025H1",
+     "rule": "funding_z_rel <= -0.691 AND session == late",
+     "train_n": 194,
+     "train_exp": 0.09761012608199024,
+     "test_signals": 1061,
+     "test_selected": 48
+    },
+    {
+     "fold": "2025H2",
+     "rule": "funding_z_rel <= -0.705 AND htf_near_cross_rel == 1.0",
+     "train_n": 145,
+     "train_exp": 0.1428130414799927,
+     "test_signals": 831,
+     "test_selected": 22
+    }
+   ],
+   "dsr": 2.419132270197307e-14
+  },
+  {
+   "family": "flips",
+   "tf": "15m",
+   "variant": "A",
+   "stop": "structure",
+   "target": "2R",
+   "htf": null,
+   "id": "P3-007",
+   "wf": {
+    "n": 185,
+    "exp_R": -0.278657698025273,
+    "win_rate": 0.31351351351351353,
+    "pf": 0.6649417210094313,
+    "sd_R": 1.4160988536285333,
+    "sr": -0.19677842214987742,
+    "total_R": -51.55167413467551,
+    "max_loss_streak": 11,
+    "skew": 0.7979506078214158,
+    "kurt": 1.7464071130036458,
+    "orders": 194,
+    "fill_rate": 0.9536082474226805,
+    "missed_fills": 7,
+    "missed_winners": 3,
+    "missed_hyp_exp_R": 0.012310163531097087,
+    "fee_R": 0.14380076485172974,
+    "slip_R": 0.06565925599386174,
+    "gross_R": -0.13485693317354328,
+    "trades_per_day": 0.17635843660629172,
+    "timeouts": 8,
+    "months_positive": 0.3142857142857143
+   },
+   "y2022": {
+    "n": 0,
+    "orders": 0,
+    "fill_rate": NaN,
+    "missed_fills": 0,
+    "missed_winners": 0,
+    "missed_hyp_exp_R": NaN,
+    "fee_R": NaN,
+    "slip_R": NaN,
+    "gross_R": NaN,
+    "trades_per_day": 0.0,
+    "timeouts": 0
+   },
+   "account_full_dev": {
+    "final_equity": 0.769035925266917,
+    "max_dd": 0.2435841683208917,
+    "daily_breaches": 0,
+    "first_daily_breach": null,
+    "max_breach": "2023-04-22 16:13:00+00:00"
+   },
+   "folds": {
+    "2023H1": -0.4671004071971668,
+    "2023H2": -0.3398114512883063,
+    "2024H1": 0.11263054063483965,
+    "2024H2": -0.41370183369350566,
+    "2025H1": 0.06481071893735281,
+    "2025H2": -0.31121611951027833
+   },
+   "folds_n": {
+    "2023H1": 62,
+    "2023H2": 41,
+    "2024H1": 23,
+    "2024H2": 26,
+    "2025H1": 26,
+    "2025H2": 7
+   },
+   "coins": {
+    "ADA": {
+     "n": 19,
+     "exp_R": -0.7337684026126334,
+     "total_R": -13.941599649640034
+    },
+    "AVAX": {
+     "n": 21,
+     "exp_R": -0.00510692919232001,
+     "total_R": -0.10724551303872021
+    },
+    "BTC": {
+     "n": 27,
+     "exp_R": -0.3914088749216916,
+     "total_R": -10.568039622885673
+    },
+    "DOGE": {
+     "n": 22,
+     "exp_R": -0.40066657587863674,
+     "total_R": -8.814664669330009
+    },
+    "ETH": {
+     "n": 19,
+     "exp_R": -0.1731628045219902,
+     "total_R": -3.290093285917814
+    },
+    "LINK": {
+     "n": 19,
+     "exp_R": 0.1439203255784266,
+     "total_R": 2.7344861859901055
+    },
+    "SOL": {
+     "n": 15,
+     "exp_R": -0.521251456012933,
+     "total_R": -7.818771840193994
+    },
+    "SUI": {
+     "n": 21,
+     "exp_R": -0.14608242688900586,
+     "total_R": -3.067730964669123
+    },
+    "XRP": {
+     "n": 22,
+     "exp_R": -0.30354612613592025,
+     "total_R": -6.678014774990245
+    }
+   },
+   "max_coin_share": NaN,
+   "coins_positive": 1,
+   "nonbtc_positive": 1,
+   "regime_r1": {
+    "-1.0": {
+     "n": 78,
+     "exp_R": -0.256
+    },
+    "0.0": {
+     "n": 8,
+     "exp_R": -0.4344
+    },
+    "1.0": {
+     "n": 99,
+     "exp_R": -0.2839
+    }
+   },
+   "regime_r2": {
+    "-1.0": {
+     "n": 33,
+     "exp_R": -0.2188
+    },
+    "0.0": {
+     "n": 82,
+     "exp_R": -0.1832
+    },
+    "1.0": {
+     "n": 70,
+     "exp_R": -0.4186
+    }
+   },
+   "session": {
+    "asia": {
+     "n": 52,
+     "exp_R": -0.6723
+    },
+    "europe": {
+     "n": 27,
+     "exp_R": 0.069
+    },
+    "late": {
+     "n": 23,
+     "exp_R": -0.1986
+    },
+    "us": {
+     "n": 83,
+     "exp_R": -0.1673
+    }
+   },
+   "mc": {
+    "p_daily_breach_30d": 0.0,
+    "p_max_breach_30d": 0.0012,
+    "p_any_breach_30d": 0.0012,
+    "p_daily_breach_60d": 0.0,
+    "p_max_breach_60d": 0.0305,
+    "p_any_breach_60d": 0.0305,
+    "p_daily_breach_90d": 0.0,
+    "p_max_breach_90d": 0.1119,
+    "p_any_breach_90d": 0.1119,
+    "median_return_90d": -0.021996887784589525
+   },
+   "final_rule": "atr_pctile_30d > 0.705 AND cmf_rel <= -0.0909",
+   "final_train_n": 102,
+   "final_train_exp": 0.204527232917732,
+   "rule_stability": 0,
+   "fold_rules": [
+    {
+     "fold": "2023H1",
+     "rule": "atr_pctile_30d > 0.326 AND sr_dist > 0.589",
+     "train_n": 100,
+     "train_exp": -0.003582466725727036,
+     "test_signals": 151,
+     "test_selected": 67
+    },
+    {
+     "fold": "2023H2",
+     "rule": "funding_z_rel <= -0.191",
+     "train_n": 121,
+     "train_exp": -0.0979999502404202,
+     "test_signals": 138,
+     "test_selected": 50
+    },
+    {
+     "fold": "2024H1",
+     "rule": "atr_pctile_30d > 0.366 AND sr_dist > 1.18",
+     "train_n": 100,
+     "train_exp": 0.007778097899702991,
+     "test_signals": 133,
+     "test_selected": 25
+    },
+    {
+     "fold": "2024H2",
+     "rule": "atr_pctile_30d > 0.703 AND htf_mf_rel == 1.0",
+     "train_n": 109,
+     "train_exp": 0.08311381778543499,
+     "test_signals": 124,
+     "test_selected": 31
+    },
+    {
+     "fold": "2025H1",
+     "rule": "cmf_rel <= -0.0905 AND cmf4h_rel > -0.0281",
+     "train_n": 144,
+     "train_exp": -0.0006763240849318822,
+     "test_signals": 136,
+     "test_selected": 30
+    },
+    {
+     "fold": "2025H2",
+     "rule": "sr_dist > 1.19 AND r1_rel == -1.0",
+     "train_n": 128,
+     "train_exp": 0.10178456677497105,
+     "test_signals": 99,
+     "test_selected": 8
+    }
+   ],
+   "dsr": 1.690108555490866e-15
+  },
+  {
+   "family": "flips",
+   "tf": "15m",
+   "variant": "B",
+   "stop": "structure",
+   "target": "2R",
+   "htf": null,
+   "id": "P3-008",
+   "wf": {
+    "n": 210,
+    "exp_R": -0.3601009739987189,
+    "win_rate": 0.30952380952380953,
+    "pf": 0.5860216323997571,
+    "sd_R": 1.3871671600362725,
+    "sr": -0.2595945062520819,
+    "total_R": -75.62120453973097,
+    "max_loss_streak": 16,
+    "skew": 0.8634372279341419,
+    "kurt": 1.9093567445914783,
+    "orders": 220,
+    "fill_rate": 0.9545454545454546,
+    "missed_fills": 8,
+    "missed_winners": 5,
+    "missed_hyp_exp_R": 0.49399676751373267,
+    "fee_R": 0.15743887106867777,
+    "slip_R": 0.07054232994334053,
+    "gross_R": -0.20266210293004108,
+    "trades_per_day": 0.2001906577693041,
+    "timeouts": 11,
+    "months_positive": 0.3142857142857143
+   },
+   "y2022": {
+    "n": 0,
+    "orders": 0,
+    "fill_rate": NaN,
+    "missed_fills": 0,
+    "missed_winners": 0,
+    "missed_hyp_exp_R": NaN,
+    "fee_R": NaN,
+    "slip_R": NaN,
+    "gross_R": NaN,
+    "trades_per_day": 0.0,
+    "timeouts": 0
+   },
+   "account_full_dev": {
+    "final_equity": 0.6814792011536641,
+    "max_dd": 0.3207956132412776,
+    "daily_breaches": 0,
+    "first_daily_breach": null,
+    "max_breach": "2023-02-22 22:40:00+00:00"
+   },
+   "folds": {
+    "2023H1": -0.7023409272802554,
+    "2023H2": -0.19224810945748003,
+    "2024H1": 0.08841302437210291,
+    "2024H2": -0.3891655101033283,
+    "2025H1": -0.3058733341042763,
+    "2025H2": -0.3766184261915305
+   },
+   "folds_n": {
+    "2023H1": 55,
+    "2023H2": 58,
+    "2024H1": 19,
+    "2024H2": 27,
+    "2025H1": 31,
+    "2025H2": 20
+   },
+   "coins": {
+    "ADA": {
+     "n": 21,
+     "exp_R": -0.3475992918596104,
+     "total_R": -7.2995851290518186
+    },
+    "AVAX": {
+     "n": 14,
+     "exp_R": -0.10429848740674906,
+     "total_R": -1.4601788236944868
+    },
+    "BTC": {
+     "n": 32,
+     "exp_R": -0.9917291098767395,
+     "total_R": -31.735331516055663
+    },
+    "DOGE": {
+     "n": 17,
+     "exp_R": -0.2575694977928026,
+     "total_R": -4.378681462477644
+    },
+    "ETH": {
+     "n": 38,
+     "exp_R": -0.18634247302476853,
+     "total_R": -7.081013974941204
+    },
+    "LINK": {
+     "n": 19,
+     "exp_R": -0.024862960311886336,
+     "total_R": -0.4723962459258404
+    },
+    "SOL": {
+     "n": 24,
+     "exp_R": -0.4911880385471196,
+     "total_R": -11.78851292513087
+    },
+    "SUI": {
+     "n": 24,
+     "exp_R": -0.47334093551686296,
+     "total_R": -11.360182452404711
+    },
+    "XRP": {
+     "n": 21,
+     "exp_R": -0.002158190954701394,
+     "total_R": -0.045322010048729267
+    }
+   },
+   "max_coin_share": NaN,
+   "coins_positive": 0,
+   "nonbtc_positive": 0,
+   "regime_r1": {
+    "-1.0": {
+     "n": 90,
+     "exp_R": -0.2186
+    },
+    "0.0": {
+     "n": 10,
+     "exp_R": -0.3434
+    },
+    "1.0": {
+     "n": 109,
+     "exp_R": -0.4709
+    }
+   },
+   "regime_r2": {
+    "-1.0": {
+     "n": 40,
+     "exp_R": -0.4145
+    },
+    "0.0": {
+     "n": 96,
+     "exp_R": -0.3198
+    },
+    "1.0": {
+     "n": 74,
+     "exp_R": -0.383
+    }
+   },
+   "session": {
+    "asia": {
+     "n": 53,
+     "exp_R": -0.4838
+    },
+    "europe": {
+     "n": 40,
+     "exp_R": -0.2199
+    },
+    "late": {
+     "n": 24,
+     "exp_R": -0.4137
+    },
+    "us": {
+     "n": 93,
+     "exp_R": -0.3361
+    }
+   },
+   "mc": {
+    "p_daily_breach_30d": 0.0,
+    "p_max_breach_30d": 0.0014,
+    "p_any_breach_30d": 0.0014,
+    "p_daily_breach_60d": 0.0,
+    "p_max_breach_60d": 0.0611,
+    "p_any_breach_60d": 0.0611,
+    "p_daily_breach_90d": 0.0,
+    "p_max_breach_90d": 0.203,
+    "p_any_breach_90d": 0.203,
+    "median_return_90d": -0.032295932868128374
+   },
+   "final_rule": "cmf4h_rel <= -0.0163 AND r2_rel == 0.0",
+   "final_train_n": 159,
+   "final_train_exp": -0.027462103881827998,
+   "rule_stability": 0,
+   "fold_rules": [
+    {
+     "fold": "2023H1",
+     "rule": "cmf_rel <= 0.00239 AND confluence_types <= 2",
+     "train_n": 128,
+     "train_exp": -0.0323747208563278,
+     "test_signals": 187,
+     "test_selected": 89
+    },
+    {
+     "fold": "2023H2",
+     "rule": "atr_pctile_30d > 0.368 AND sr_dist > 0.36",
+     "train_n": 145,
+     "train_exp": -0.1633390683074956,
+     "test_signals": 172,
+     "test_selected": 77
+    },
+    {
+     "fold": "2024H1",
+     "rule": "atr_pctile_30d > 0.397 AND cmf4h_rel <= -0.0163",
+     "train_n": 101,
+     "train_exp": 0.0926452217839173,
+     "test_signals": 159,
+     "test_selected": 30
+    },
+    {
+     "fold": "2024H2",
+     "rule": "atr_pctile_30d > 0.39 AND cmf4h_rel <= -0.0151",
+     "train_n": 125,
+     "train_exp": 0.08934063515375817,
+     "test_signals": 161,
+     "test_selected": 43
+    },
+    {
+     "fold": "2025H1",
+     "rule": "atr_pctile_30d > 0.406 AND cmf4h_rel <= -0.0151",
+     "train_n": 150,
+     "train_exp": 0.021666477200010886,
+     "test_signals": 174,
+     "test_selected": 41
+    },
+    {
+     "fold": "2025H2",
+     "rule": "atr_pctile_30d > 0.406 AND cmf4h_rel <= -0.0166",
+     "train_n": 174,
+     "train_exp": -0.021129322879384696,
+     "test_signals": 130,
+     "test_selected": 25
+    }
+   ],
+   "dsr": 1.7609542950480982e-19
+  },
+  {
+   "family": "flips",
+   "tf": "24m",
+   "variant": "A",
+   "stop": "structure",
+   "target": "2R",
+   "htf": null,
+   "id": "P3-009",
+   "wf": {
+    "n": 179,
+    "exp_R": -0.15231030690065592,
+    "win_rate": 0.35195530726256985,
+    "pf": 0.7963488645052442,
+    "sd_R": 1.4066440985730764,
+    "sr": -0.10827920655634363,
+    "total_R": -27.26354493521741,
+    "max_loss_streak": 12,
+    "skew": 0.7068918993849893,
+    "kurt": 1.6033419977125536,
+    "orders": 186,
+    "fill_rate": 0.9623655913978495,
+    "missed_fills": 4,
+    "missed_winners": 2,
+    "missed_hyp_exp_R": 0.2568230433464635,
+    "fee_R": 0.09806734590939001,
+    "slip_R": 0.04721397603413455,
+    "gross_R": -0.05424296099126586,
+    "trades_per_day": 0.17063870352716873,
+    "timeouts": 16,
+    "months_positive": 0.4
+   },
+   "y2022": {
+    "n": 0,
+    "orders": 0,
+    "fill_rate": NaN,
+    "missed_fills": 0,
+    "missed_winners": 0,
+    "missed_hyp_exp_R": NaN,
+    "fee_R": NaN,
+    "slip_R": NaN,
+    "gross_R": NaN,
+    "trades_per_day": 0.0,
+    "timeouts": 0
+   },
+   "account_full_dev": {
+    "final_equity": 0.8684981582286216,
+    "max_dd": 0.18218998604421877,
+    "daily_breaches": 0,
+    "first_daily_breach": null,
+    "max_breach": "2023-06-22 11:02:00+00:00"
+   },
+   "folds": {
+    "2023H1": -0.31302829050006253,
+    "2023H2": -0.19765664717813428,
+    "2024H1": 0.0034341124462548907,
+    "2024H2": 0.10745620900149719,
+    "2025H1": -0.5718403114194874,
+    "2025H2": 0.26303394071716424
+   },
+   "folds_n": {
+    "2023H1": 52,
+    "2023H2": 41,
+    "2024H1": 33,
+    "2024H2": 23,
+    "2025H1": 16,
+    "2025H2": 14
+   },
+   "coins": {
+    "ADA": {
+     "n": 20,
+     "exp_R": 0.0010328708235239682,
+     "total_R": 0.02065741647047936
+    },
+    "AVAX": {
+     "n": 15,
+     "exp_R": 0.2408842774516115,
+     "total_R": 3.6132641617741728
+    },
+    "BTC": {
+     "n": 19,
+     "exp_R": -0.8887280475325503,
+     "total_R": -16.885832903118455
+    },
+    "DOGE": {
+     "n": 16,
+     "exp_R": -0.4726723362130144,
+     "total_R": -7.562757379408231
+    },
+    "ETH": {
+     "n": 23,
+     "exp_R": -0.24155740818271254,
+     "total_R": -5.555820388202388
+    },
+    "LINK": {
+     "n": 19,
+     "exp_R": -0.14917113691275677,
+     "total_R": -2.8342516013423786
+    },
+    "SOL": {
+     "n": 23,
+     "exp_R": 0.23824838465523304,
+     "total_R": 5.47971284707036
+    },
+    "SUI": {
+     "n": 25,
+     "exp_R": 0.084328570024174,
+     "total_R": 2.10821425060435
+    },
+    "XRP": {
+     "n": 19,
+     "exp_R": -0.29719638626659556,
+     "total_R": -5.646731339065315
+    }
+   },
+   "max_coin_share": NaN,
+   "coins_positive": 4,
+   "nonbtc_positive": 4,
+   "regime_r1": {
+    "-1.0": {
+     "n": 81,
+     "exp_R": -0.0284
+    },
+    "0.0": {
+     "n": 8,
+     "exp_R": -0.1076
+    },
+    "1.0": {
+     "n": 89,
+     "exp_R": -0.257
+    }
+   },
+   "regime_r2": {
+    "-1.0": {
+     "n": 38,
+     "exp_R": 0.051
+    },
+    "0.0": {
+     "n": 80,
+     "exp_R": -0.2168
+    },
+    "1.0": {
+     "n": 61,
+     "exp_R": -0.1944
+    }
+   },
+   "session": {
+    "asia": {
+     "n": 62,
+     "exp_R": -0.2715
+    },
+    "europe": {
+     "n": 28,
+     "exp_R": -0.2379
+    },
+    "late": {
+     "n": 14,
+     "exp_R": -0.1573
+    },
+    "us": {
+     "n": 75,
+     "exp_R": -0.0209
+    }
+   },
+   "mc": {
+    "p_daily_breach_30d": 0.0,
+    "p_max_breach_30d": 0.0002,
+    "p_any_breach_30d": 0.0002,
+    "p_daily_breach_60d": 0.0,
+    "p_max_breach_60d": 0.0126,
+    "p_any_breach_60d": 0.0126,
+    "p_daily_breach_90d": 0.0,
+    "p_max_breach_90d": 0.0503,
+    "p_any_breach_90d": 0.0503,
+    "median_return_90d": -0.012252401506803512
+   },
+   "final_rule": "funding_z_rel <= -0.117 AND confluence_types <= 1",
+   "final_train_n": 160,
+   "final_train_exp": 0.13352588192106568,
+   "rule_stability": 3,
+   "fold_rules": [
+    {
+     "fold": "2023H1",
+     "rule": "atr_pctile_30d > 0.361 AND htf_near_cross_rel == 0.0",
+     "train_n": 102,
+     "train_exp": 0.03057803806616797,
+     "test_signals": 102,
+     "test_selected": 62
+    },
+    {
+     "fold": "2023H2",
+     "rule": "atr_pctile_30d > 0.333 AND cmf4h_rel <= 0.0728",
+     "train_n": 108,
+     "train_exp": 0.137487851809628,
+     "test_signals": 109,
+     "test_selected": 53
+    },
+    {
+     "fold": "2024H1",
+     "rule": "funding_z_rel <= -0.126 AND htf_near_cross_rel == 0.0",
+     "train_n": 108,
+     "train_exp": 0.1350095919202388,
+     "test_signals": 101,
+     "test_selected": 38
+    },
+    {
+     "fold": "2024H2",
+     "rule": "funding_z_rel <= -0.137 AND confluence_types <= 1",
+     "train_n": 104,
+     "train_exp": 0.23838459079430824,
+     "test_signals": 96,
+     "test_selected": 24
+    },
+    {
+     "fold": "2025H1",
+     "rule": "funding_z_rel <= -0.141 AND confluence_types <= 1",
+     "train_n": 126,
+     "train_exp": 0.22616869303644654,
+     "test_signals": 89,
+     "test_selected": 17
+    },
+    {
+     "fold": "2025H2",
+     "rule": "funding_z_rel <= -0.12 AND confluence_types <= 1",
+     "train_n": 146,
+     "train_exp": 0.12069103792393214,
+     "test_signals": 65,
+     "test_selected": 14
+    }
+   ],
+   "dsr": 2.3853046551469397e-12
+  },
+  {
+   "family": "flips",
+   "tf": "24m",
+   "variant": "B",
+   "stop": "structure",
+   "target": "2R",
+   "htf": null,
+   "id": "P3-010",
+   "wf": {
+    "n": 214,
+    "exp_R": -0.24495624944243233,
+    "win_rate": 0.3411214953271028,
+    "pf": 0.6962908114680504,
+    "sd_R": 1.4047907204038181,
+    "sr": -0.17437205833194694,
+    "total_R": -52.42063738068052,
+    "max_loss_streak": 18,
+    "skew": 0.7443388831048864,
+    "kurt": 1.6776678372655132,
+    "orders": 223,
+    "fill_rate": 0.9596412556053812,
+    "missed_fills": 8,
+    "missed_winners": 5,
+    "missed_hyp_exp_R": 0.6071910813415362,
+    "fee_R": 0.1347085589588013,
+    "slip_R": 0.060412207124972944,
+    "gross_R": -0.11024769048363106,
+    "trades_per_day": 0.20400381315538607,
+    "timeouts": 14,
+    "months_positive": 0.3333333333333333
+   },
+   "y2022": {
+    "n": 0,
+    "orders": 0,
+    "fill_rate": NaN,
+    "missed_fills": 0,
+    "missed_winners": 0,
+    "missed_hyp_exp_R": NaN,
+    "fee_R": NaN,
+    "slip_R": NaN,
+    "gross_R": NaN,
+    "trades_per_day": 0.0,
+    "timeouts": 0
+   },
+   "account_full_dev": {
+    "final_equity": 0.765372080843986,
+    "max_dd": 0.2625466255930715,
+    "daily_breaches": 0,
+    "first_daily_breach": null,
+    "max_breach": "2023-04-02 13:41:00+00:00"
+   },
+   "folds": {
+    "2023H1": -0.28802462829560205,
+    "2023H2": -0.2609227188104486,
+    "2024H1": -0.21352856373581647,
+    "2024H2": 0.4997236040923073,
+    "2025H1": -0.6298992078825533,
+    "2025H2": -0.5026589572411658
+   },
+   "folds_n": {
+    "2023H1": 91,
+    "2023H2": 35,
+    "2024H1": 39,
+    "2024H2": 18,
+    "2025H1": 17,
+    "2025H2": 14
+   },
+   "coins": {
+    "ADA": {
+     "n": 17,
+     "exp_R": 0.4345676897827332,
+     "total_R": 7.387650726306465
+    },
+    "AVAX": {
+     "n": 15,
+     "exp_R": 0.4338692239349983,
+     "total_R": 6.508038359024975
+    },
+    "BTC": {
+     "n": 23,
+     "exp_R": -1.0910392084604292,
+     "total_R": -25.093901794589872
+    },
+    "DOGE": {
+     "n": 26,
+     "exp_R": -0.18440281796638747,
+     "total_R": -4.794473267126074
+    },
+    "ETH": {
+     "n": 32,
+     "exp_R": -0.36767685622269786,
+     "total_R": -11.765659399126331
+    },
+    "LINK": {
+     "n": 25,
+     "exp_R": -0.49744416758964166,
+     "total_R": -12.436104189741041
+    },
+    "SOL": {
+     "n": 26,
+     "exp_R": -0.037648378510612215,
+     "total_R": -0.9788578412759177
+    },
+    "SUI": {
+     "n": 20,
+     "exp_R": -0.542877814409785,
+     "total_R": -10.8575562881957
+    },
+    "XRP": {
+     "n": 30,
+     "exp_R": -0.01299245619856768,
+     "total_R": -0.38977368595703044
+    }
+   },
+   "max_coin_share": NaN,
+   "coins_positive": 2,
+   "nonbtc_positive": 2,
+   "regime_r1": {
+    "-1.0": {
+     "n": 81,
+     "exp_R": -0.0547
+    },
+    "0.0": {
+     "n": 8,
+     "exp_R": -0.2664
+    },
+    "1.0": {
+     "n": 122,
+     "exp_R": -0.3717
+    }
+   },
+   "regime_r2": {
+    "-1.0": {
+     "n": 30,
+     "exp_R": -0.2652
+    },
+    "0.0": {
+     "n": 101,
+     "exp_R": -0.3345
+    },
+    "1.0": {
+     "n": 83,
+     "exp_R": -0.1287
+    }
+   },
+   "session": {
+    "asia": {
+     "n": 56,
+     "exp_R": -0.224
+    },
+    "europe": {
+     "n": 38,
+     "exp_R": -0.0344
+    },
+    "late": {
+     "n": 19,
+     "exp_R": -0.712
+    },
+    "us": {
+     "n": 101,
+     "exp_R": -0.2479
+    }
+   },
+   "mc": {
+    "p_daily_breach_30d": 0.0,
+    "p_max_breach_30d": 0.0014,
+    "p_any_breach_30d": 0.0014,
+    "p_daily_breach_60d": 0.0,
+    "p_max_breach_60d": 0.0372,
+    "p_any_breach_60d": 0.0372,
+    "p_daily_breach_90d": 0.0,
+    "p_max_breach_90d": 0.13,
+    "p_any_breach_90d": 0.13,
+    "median_return_90d": -0.023324888527199272
+   },
+   "final_rule": "atr_pctile_30d > 0.746 AND cmf4h_rel <= 0.0889",
+   "final_train_n": 140,
+   "final_train_exp": 0.07567402776100472,
+   "rule_stability": 2,
+   "fold_rules": [
+    {
+     "fold": "2023H1",
+     "rule": "htf_near_cross_rel == 0.0",
+     "train_n": 135,
+     "train_exp": -0.25012861922098745,
+     "test_signals": 145,
+     "test_selected": 133
+    },
+    {
+     "fold": "2023H2",
+     "rule": "atr_pctile_30d > 0.33 AND cmf4h_rel <= 0.0731",
+     "train_n": 107,
+     "train_exp": -0.15167854025699118,
+     "test_signals": 133,
+     "test_selected": 59
+    },
+    {
+     "fold": "2024H1",
+     "rule": "funding_z_rel <= 0.00647 AND htf_near_cross_rel == 0.0",
+     "train_n": 104,
+     "train_exp": -0.10490088024269865,
+     "test_signals": 135,
+     "test_selected": 56
+    },
+    {
+     "fold": "2024H2",
+     "rule": "funding_z_rel <= -0.0729 AND cmf4h_rel <= 0.085",
+     "train_n": 106,
+     "train_exp": 0.039865261330223896,
+     "test_signals": 126,
+     "test_selected": 25
+    },
+    {
+     "fold": "2025H1",
+     "rule": "funding_z_rel <= -0.0528 AND cmf4h_rel <= 0.086",
+     "train_n": 124,
+     "train_exp": 0.10703255563834185,
+     "test_signals": 124,
+     "test_selected": 26
+    },
+    {
+     "fold": "2025H2",
+     "rule": "atr_pctile_30d > 0.762 AND cmf4h_rel <= 0.0886",
+     "train_n": 124,
+     "train_exp": 0.08726697653349094,
+     "test_signals": 90,
+     "test_selected": 17
+    }
+   ],
+   "dsr": 6.384905338027302e-17
+  },
+  {
+   "family": "flips",
+   "tf": "1h",
+   "variant": "A",
+   "stop": "structure",
+   "target": "2R",
+   "htf": null,
+   "id": "P3-011",
+   "wf": {
+    "n": 147,
+    "exp_R": -0.22845437327402313,
+    "win_rate": 0.30612244897959184,
+    "pf": 0.6850272083571989,
+    "sd_R": 1.2965865583531044,
+    "sr": -0.17619677745556828,
+    "total_R": -33.5827928712814,
+    "max_loss_streak": 13,
+    "skew": 0.913952206193912,
+    "kurt": 2.023679984964052,
+    "orders": 149,
+    "fill_rate": 0.9865771812080537,
+    "missed_fills": 1,
+    "missed_winners": 0,
+    "missed_hyp_exp_R": -1.2605222656865165,
+    "fee_R": 0.07366939166483498,
+    "slip_R": 0.03504193502294215,
+    "gross_R": -0.15478498160918816,
+    "trades_per_day": 0.14013346043851288,
+    "timeouts": 19,
+    "months_positive": 0.3142857142857143
+   },
+   "y2022": {
+    "n": 0,
+    "orders": 0,
+    "fill_rate": NaN,
+    "missed_fills": 0,
+    "missed_winners": 0,
+    "missed_hyp_exp_R": NaN,
+    "fee_R": NaN,
+    "slip_R": NaN,
+    "gross_R": NaN,
+    "trades_per_day": 0.0,
+    "timeouts": 0
+   },
+   "account_full_dev": {
+    "final_equity": 0.8426680780172967,
+    "max_dd": 0.19064882812944484,
+    "daily_breaches": 0,
+    "first_daily_breach": null,
+    "max_breach": "2023-09-15 02:01:00+00:00"
+   },
+   "folds": {
+    "2023H1": -0.0202633941462927,
+    "2023H2": -0.534515324436866,
+    "2024H1": -0.18726631529726184,
+    "2024H2": -0.6245002776592828,
+    "2025H1": 0.0042944364987700994,
+    "2025H2": 0.09420265361588133
+   },
+   "folds_n": {
+    "2023H1": 37,
+    "2023H2": 36,
+    "2024H1": 29,
+    "2024H2": 15,
+    "2025H1": 18,
+    "2025H2": 12
+   },
+   "coins": {
+    "ADA": {
+     "n": 16,
+     "exp_R": 0.049380310530687324,
+     "total_R": 0.7900849684909972
+    },
+    "AVAX": {
+     "n": 12,
+     "exp_R": -0.6663386459605353,
+     "total_R": -7.996063751526423
+    },
+    "BTC": {
+     "n": 15,
+     "exp_R": -0.24920532680715388,
+     "total_R": -3.7380799021073083
+    },
+    "DOGE": {
+     "n": 19,
+     "exp_R": -0.23771174068715775,
+     "total_R": -4.516523073055997
+    },
+    "ETH": {
+     "n": 15,
+     "exp_R": -0.11059238366089723,
+     "total_R": -1.6588857549134584
+    },
+    "LINK": {
+     "n": 18,
+     "exp_R": -0.0035339990002053704,
+     "total_R": -0.06361198200369667
+    },
+    "SOL": {
+     "n": 21,
+     "exp_R": -0.7699577450306185,
+     "total_R": -16.16911264564299
+    },
+    "SUI": {
+     "n": 16,
+     "exp_R": 0.2727983293579302,
+     "total_R": 4.364773269726883
+    },
+    "XRP": {
+     "n": 15,
+     "exp_R": -0.3063582666832939,
+     "total_R": -4.595374000249409
+    }
+   },
+   "max_coin_share": NaN,
+   "coins_positive": 2,
+   "nonbtc_positive": 2,
+   "regime_r1": {
+    "-1.0": {
+     "n": 43,
+     "exp_R": -0.086
+    },
+    "0.0": {
+     "n": 11,
+     "exp_R": -0.7
+    },
+    "1.0": {
+     "n": 92,
+     "exp_R": -0.2284
+    }
+   },
+   "regime_r2": {
+    "-1.0": {
+     "n": 25,
+     "exp_R": -0.2634
+    },
+    "0.0": {
+     "n": 73,
+     "exp_R": -0.262
+    },
+    "1.0": {
+     "n": 49,
+     "exp_R": -0.1606
+    }
+   },
+   "session": {
+    "asia": {
+     "n": 30,
+     "exp_R": -0.2741
+    },
+    "europe": {
+     "n": 32,
+     "exp_R": -0.3367
+    },
+    "late": {
+     "n": 20,
+     "exp_R": 0.0066
+    },
+    "us": {
+     "n": 65,
+     "exp_R": -0.2265
+    }
+   },
+   "mc": {
+    "p_daily_breach_30d": 0.0,
+    "p_max_breach_30d": 0.0,
+    "p_any_breach_30d": 0.0,
+    "p_daily_breach_60d": 0.0,
+    "p_max_breach_60d": 0.005,
+    "p_any_breach_60d": 0.005,
+    "p_daily_breach_90d": 0.0,
+    "p_max_breach_90d": 0.028,
+    "p_any_breach_90d": 0.028,
+    "median_return_90d": -0.0148303908191878
+   },
+   "final_rule": "confluence_types <= 1 AND sr_dist <= 1.14",
+   "final_train_n": 109,
+   "final_train_exp": 0.06037842487894355,
+   "rule_stability": 0,
+   "fold_rules": [
+    {
+     "fold": "2023H1",
+     "rule": "no filter",
+     "train_n": 49,
+     "train_exp": 0.093479307827242,
+     "test_signals": 39,
+     "test_selected": 39
+    },
+    {
+     "fold": "2023H2",
+     "rule": "no filter",
+     "train_n": 86,
+     "train_exp": 0.0535812170254984,
+     "test_signals": 38,
+     "test_selected": 38
+    },
+    {
+     "fold": "2024H1",
+     "rule": "htf_near_cross_rel == 0.0",
+     "train_n": 118,
+     "train_exp": -0.08825593054332101,
+     "test_signals": 30,
+     "test_selected": 30
+    },
+    {
+     "fold": "2024H2",
+     "rule": "sr_dist <= 1.19 AND fib_exec_in_0618_zone == 0.0",
+     "train_n": 100,
+     "train_exp": 0.04997496326081545,
+     "test_signals": 22,
+     "test_selected": 18
+    },
+    {
+     "fold": "2025H1",
+     "rule": "sr_dist <= 1.14 AND htf_near_cross_rel == 0.0",
+     "train_n": 112,
+     "train_exp": -0.006517862159502222,
+     "test_signals": 31,
+     "test_selected": 18
+    },
+    {
+     "fold": "2025H2",
+     "rule": "sr_dist <= 1.14 AND htf_near_cross_rel == 0.0",
+     "train_n": 131,
+     "train_exp": -0.013830760853819579,
+     "test_signals": 19,
+     "test_selected": 13
+    }
+   ],
+   "dsr": 6.372703898290193e-12
+  },
+  {
+   "family": "flips",
+   "tf": "1h",
+   "variant": "B",
+   "stop": "structure",
+   "target": "2R",
+   "htf": null,
+   "id": "P3-012",
+   "wf": {
+    "n": 149,
+    "exp_R": -0.26377010920595334,
+    "win_rate": 0.3087248322147651,
+    "pf": 0.6453391408639577,
+    "sd_R": 1.2859610067755591,
+    "sr": -0.20511516897960622,
+    "total_R": -39.301746271687044,
+    "max_loss_streak": 11,
+    "skew": 0.9506018416421383,
+    "kurt": 2.096598894329636,
+    "orders": 150,
+    "fill_rate": 0.9933333333333333,
+    "missed_fills": 0,
+    "missed_winners": 0,
+    "missed_hyp_exp_R": NaN,
+    "fee_R": 0.07529952260550886,
+    "slip_R": 0.03589427037907634,
+    "gross_R": -0.1884705866004445,
+    "trades_per_day": 0.14204003813155386,
+    "timeouts": 19,
+    "months_positive": 0.29411764705882354
+   },
+   "y2022": {
+    "n": 0,
+    "orders": 0,
+    "fill_rate": NaN,
+    "missed_fills": 0,
+    "missed_winners": 0,
+    "missed_hyp_exp_R": NaN,
+    "fee_R": NaN,
+    "slip_R": NaN,
+    "gross_R": NaN,
+    "trades_per_day": 0.0,
+    "timeouts": 0
+   },
+   "account_full_dev": {
+    "final_equity": 0.8187865438065463,
+    "max_dd": 0.19125013115626233,
+    "daily_breaches": 0,
+    "first_daily_breach": null,
+    "max_breach": "2023-05-19 15:20:00+00:00"
+   },
+   "folds": {
+    "2023H1": -0.5603108964114677,
+    "2023H2": 0.09256030623814483,
+    "2024H1": -0.41550989911417624,
+    "2024H2": -0.5065197203560783,
+    "2025H1": -0.1545413284283195,
+    "2025H2": 0.18915351198229885
+   },
+   "folds_n": {
+    "2023H1": 39,
+    "2023H2": 37,
+    "2024H1": 27,
+    "2024H2": 17,
+    "2025H1": 19,
+    "2025H2": 10
+   },
+   "coins": {
+    "ADA": {
+     "n": 15,
+     "exp_R": -0.18210189627408255,
+     "total_R": -2.7315284441112384
+    },
+    "AVAX": {
+     "n": 12,
+     "exp_R": -0.12352290875303058,
+     "total_R": -1.482274905036367
+    },
+    "BTC": {
+     "n": 19,
+     "exp_R": -0.7748560045986489,
+     "total_R": -14.72226408737433
+    },
+    "DOGE": {
+     "n": 21,
+     "exp_R": -0.40272114420720534,
+     "total_R": -8.457144028351312
+    },
+    "ETH": {
+     "n": 14,
+     "exp_R": -0.14338996913345262,
+     "total_R": -2.0074595678683367
+    },
+    "LINK": {
+     "n": 18,
+     "exp_R": -0.35200835918783174,
+     "total_R": -6.336150465380971
+    },
+    "SOL": {
+     "n": 18,
+     "exp_R": -0.5506860558979564,
+     "total_R": -9.912349006163215
+    },
+    "SUI": {
+     "n": 16,
+     "exp_R": 0.21147481096151932,
+     "total_R": 3.383596975384309
+    },
+    "XRP": {
+     "n": 16,
+     "exp_R": 0.18523920357590085,
+     "total_R": 2.9638272572144135
+    }
+   },
+   "max_coin_share": NaN,
+   "coins_positive": 2,
+   "nonbtc_positive": 2,
+   "regime_r1": {
+    "-1.0": {
+     "n": 40,
+     "exp_R": -0.2456
+    },
+    "0.0": {
+     "n": 6,
+     "exp_R": -1.1403
+    },
+    "1.0": {
+     "n": 102,
+     "exp_R": -0.2104
+    }
+   },
+   "regime_r2": {
+    "-1.0": {
+     "n": 17,
+     "exp_R": -0.7218
+    },
+    "0.0": {
+     "n": 70,
+     "exp_R": -0.3551
+    },
+    "1.0": {
+     "n": 62,
+     "exp_R": -0.0351
+    }
+   },
+   "session": {
+    "asia": {
+     "n": 27,
+     "exp_R": -0.0663
+    },
+    "europe": {
+     "n": 29,
+     "exp_R": -0.7151
+    },
+    "late": {
+     "n": 16,
+     "exp_R": -0.208
+    },
+    "us": {
+     "n": 77,
+     "exp_R": -0.1746
+    }
+   },
+   "mc": {
+    "p_daily_breach_30d": 0.0,
+    "p_max_breach_30d": 0.0,
+    "p_any_breach_30d": 0.0,
+    "p_daily_breach_60d": 0.0,
+    "p_max_breach_60d": 0.006,
+    "p_any_breach_60d": 0.006,
+    "p_daily_breach_90d": 0.0,
+    "p_max_breach_90d": 0.0347,
+    "p_any_breach_90d": 0.0347,
+    "median_return_90d": -0.01686824693537403
+   },
+   "final_rule": "atr_pctile_30d > 0.486 AND cmf_rel <= 0.0269",
+   "final_train_n": 103,
+   "final_train_exp": -0.06913015049838693,
+   "rule_stability": 0,
+   "fold_rules": [
+    {
+     "fold": "2023H1",
+     "rule": "no filter",
+     "train_n": 56,
+     "train_exp": -0.23274894344641264,
+     "test_signals": 52,
+     "test_selected": 52
+    },
+    {
+     "fold": "2023H2",
+     "rule": "no filter",
+     "train_n": 94,
+     "train_exp": -0.3501077267986673,
+     "test_signals": 52,
+     "test_selected": 52
+    },
+    {
+     "fold": "2024H1",
+     "rule": "htf_near_cross_rel == 0.0 AND fib_exec_in_0618_zone == 0.0",
+     "train_n": 118,
+     "train_exp": -0.24534969296683642,
+     "test_signals": 38,
+     "test_selected": 38
+    },
+    {
+     "fold": "2024H2",
+     "rule": "atr_pctile_30d > 0.478 AND htf_near_cross_rel == 0.0",
+     "train_n": 101,
+     "train_exp": -0.105971405053549,
+     "test_signals": 33,
+     "test_selected": 24
+    },
+    {
+     "fold": "2025H1",
+     "rule": "atr_pctile_30d > 0.483 AND htf_near_cross_rel == 0.0",
+     "train_n": 118,
+     "train_exp": -0.16367751827509983,
+     "test_signals": 43,
+     "test_selected": 25
+    },
+    {
+     "fold": "2025H2",
+     "rule": "atr_pctile_30d > 0.486 AND fib_exec_in_0618_zone == 0.0",
+     "train_n": 136,
+     "train_exp": -0.14615259500317568,
+     "test_signals": 23,
+     "test_selected": 14
+    }
+   ],
+   "dsr": 1.0244391161028414e-12
+  }
+ ]
+}
