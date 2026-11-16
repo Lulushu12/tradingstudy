@@ -4,3 +4,4 @@ __pycache__/
 *.pyc
 holdout_unlock.json
 reports/phase2/run.log
+reports/phase2/run_v2.log

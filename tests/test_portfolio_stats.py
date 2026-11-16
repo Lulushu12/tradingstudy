@@ -51,3 +51,12 @@ def test_deflated_sharpe_behaviour():
     assert p1 == pytest.approx(0.9992, abs=1e-3)   # single trial: plain probabilistic Sharpe vs 0
     p800 = deflated_sharpe(0.1, 1000, 0.0, 3.0, 800, 0.03**2)
     assert p800 < p1                                # more trials -> harder to clear
+
+
+def test_structure_stops_side_and_minimum():
+    from tradingstudy.backtest.signals import _finish
+    sig = pd.DataFrame({"close": [100.0, 100.0, 100.0, 100.0], "atr14": [2.0] * 4, "direction": [1, 1, -1, -1]})
+    out = _finish(sig.copy(), np.array([98.0, 99.5, 103.0, 99.0]))
+    # long stop 2 below = 1 ATR ok; long stop 0.5 below < 0.5 ATR -> skipped; short stop 3 above ok; short stop below entry -> skipped
+    assert out["stop_dist"].tolist()[0] == 2.0 and np.isnan(out["stop_dist"].iloc[1])
+    assert out["stop_dist"].iloc[2] == 3.0 and np.isnan(out["stop_dist"].iloc[3])

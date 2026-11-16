@@ -60,7 +60,7 @@ def simulate_coin(sym: str, sig: pd.DataFrame, minutes: int, stop: float, target
         return pd.DataFrame()
     sig_ts = (sig.index + pd.Timedelta(minutes=minutes)).as_unit("ns").asi8
     start = np.searchsorted(A["ts"], sig_ts, side="left")
-    sd = stop * sig["atr14"].to_numpy()
+    sd = sig["stop_dist"].to_numpy(np.float64) if stop == "structure" else stop * sig["atr14"].to_numpy()
     tgt = target_prices(sig, sd, target)
     ticks = np.array([tick_for(sym, y) for y in sig.index.year], dtype=float)
     slip = np.full(len(sig), SLIPPAGE[sym])
