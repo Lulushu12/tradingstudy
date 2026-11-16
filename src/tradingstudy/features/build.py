@@ -27,7 +27,7 @@ def bars_any(sym: str, minutes: int, scope: str, m1: pd.DataFrame | None = None)
 
 
 def build_features(sym: str, tf: str, scope: str = "dev", mf_div_kwargs: dict | None = None,
-                   wt_div_kwargs: dict | None = None, warmup: bool = True) -> pd.DataFrame:
+                   wt_div_kwargs: dict | None = None, warmup: bool = True, defs: str = "v1") -> pd.DataFrame:
     """warmup=True (PROTOCOL section 1): compute on 'dev_warmup' data, return only dev rows."""
     out_scope = scope
     if scope == "dev" and warmup:
@@ -40,8 +40,9 @@ def build_features(sym: str, tf: str, scope: str = "dev", mf_div_kwargs: dict | 
     parts = [
         bars[["open", "high", "low", "close", "volume", "n_1m", "complete"]],
         wt, mcb.wt_signals(wt), mf.to_frame(),
-        divergence.wt_dot_divergences(wt, bars, **(wt_div_kwargs or {})),
-        divergence.pivot_divergences(mf.to_numpy(), bars, **(mf_div_kwargs or {})),
+        (divergence.wt_dot_divergences_v2 if defs == "v2" else divergence.wt_dot_divergences)(wt, bars, **(wt_div_kwargs or {})),
+        (divergence.mf_fractal_divergences_v2(mf.to_numpy(), bars, **(mf_div_kwargs or {})) if defs == "v2"
+         else divergence.pivot_divergences(mf.to_numpy(), bars, **(mf_div_kwargs or {}))),
         context.cmf(bars).to_frame("cmf"),
         context.atr_regime(bars, cm),
         context.session(idx, cm),
@@ -56,7 +57,7 @@ def build_features(sym: str, tf: str, scope: str = "dev", mf_div_kwargs: dict | 
     parts.append(context.funding_features(load_funding(sym, scope), idx, cm))
     out = pd.concat(parts, axis=1)
     # divergence references: convert bar positions to timestamps so trimming warm-up rows cannot misalign them
-    for c in [c for c in out.columns if c.endswith("_ref")]:
+    for c in [c for c in out.columns if c.endswith("_ref") or c.endswith("_pivot")]:
         r = out[c].to_numpy()
         out[c] = pd.Series(pd.NaT, index=idx, dtype=idx.dtype).where(r < 0, idx[np.clip(r, 0, None)])
     if out_scope != scope:

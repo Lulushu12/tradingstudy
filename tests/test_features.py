@@ -157,6 +157,10 @@ def test_funding_uses_published_values_only():
 
 
 DIV_FEATURES = {
+    "wt_dot_div_v2": lambda d: divergence.wt_dot_divergences_v2(mcb.wavetrend(d), d),
+    "mf_fractal_div_v2": lambda d: divergence.mf_fractal_divergences_v2(mcb.mf_pine_ha(d, smooth=1), d),
+    "stack_b_v2": lambda d: divergence.stack_b_v2(pd.concat([divergence.wt_dot_divergences_v2(mcb.wavetrend(d), d),
+                                                             divergence.mf_fractal_divergences_v2(mcb.mf_pine_ha(d, smooth=1), d)], axis=1), "bull"),
     "wt_dot_div": lambda d: divergence.wt_dot_divergences(mcb.wavetrend(d), d),
     "mf_pivot_div": lambda d: divergence.pivot_divergences(mcb.mf_pine_ha(d, smooth=1), d),
 }
@@ -182,3 +186,19 @@ def test_divergence_events_on_handmade_series():
     ev = divergence.pivot_divergences(mf, bars)
     assert ev["mfdiv_bull_reg"].to_numpy().nonzero()[0].tolist() == [28]
     assert ev.loc[ev.index[28], "mfdiv_bull_reg_ref"] == 10
+
+
+def test_mf_fractal_v2_handmade():
+    # pivot lows at 10 (-6) and 20 (-4, higher) with price lower at 20 -> regular bullish, known at 22
+    n = 30
+    mf = np.full(n, 3.0)
+    mf[8:13] = [-2, -3, -6, -3, -2]
+    mf[18:23] = [-1, -2, -4, -2, -1]
+    low = np.full(n, 100.0); low[10] = 95; low[20] = 94
+    bars = pd.DataFrame({"low": low, "high": low + 1}, index=pd.date_range("2024-01-01", periods=n, freq="15min", tz="UTC"))
+    ev = divergence.mf_fractal_divergences_v2(mf, bars)
+    assert ev["mfdiv_bull_reg"].to_numpy().nonzero()[0].tolist() == [22]
+    assert ev["mfdiv_bull_reg_pivot"].iloc[22] == 20
+    # a pivot above the -2.5 filter does not count
+    mf2 = mf.copy(); mf2[20] = -2.0; mf2[19] = mf2[21] = -1.5; mf2[18] = mf2[22] = -1.0
+    assert not divergence.mf_fractal_divergences_v2(mf2, bars)["mfdiv_bull_reg"].any()

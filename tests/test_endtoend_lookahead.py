@@ -30,21 +30,21 @@ def _funding_trunc(real):
     return load
 
 
-@pytest.mark.parametrize("tf", ["15m", "1h"])
-def test_all_features_no_lookahead(tf, monkeypatch):
+@pytest.mark.parametrize("tf,defs", [("15m", "v1"), ("1h", "v1"), ("15m", "v2"), ("1h", "v2")])
+def test_all_features_no_lookahead(tf, defs, monkeypatch):
     warnings.filterwarnings("ignore")
     from tradingstudy.features import build as fb
     from tradingstudy.structure import build as sb
 
-    full_f = fb.build_features("BTC", tf)
-    full_s, full_ev = sb.build_structure("BTC", tf)
+    full_f = fb.build_features("BTC", tf, defs=defs)
+    full_s, full_ev = sb.build_structure("BTC", tf, defs=defs)
 
     real_load, real_fund = guard.load_bars, guard.load_funding
     for mod in (fb, sb):
         monkeypatch.setattr(mod, "load_bars", _truncating_loader(real_load))
     monkeypatch.setattr(fb, "load_funding", _funding_trunc(real_fund))
-    trunc_f = fb.build_features("BTC", tf)
-    trunc_s, trunc_ev = sb.build_structure("BTC", tf)
+    trunc_f = fb.build_features("BTC", tf, defs=defs)
+    trunc_s, trunc_ev = sb.build_structure("BTC", tf, defs=defs)
 
     cm = fb.EXEC_TFS[tf]
     ok = trunc_f.index[trunc_f.index + pd.Timedelta(minutes=cm) <= CUT]
@@ -56,5 +56,7 @@ def test_all_features_no_lookahead(tf, monkeypatch):
     key = ["tf", "variant", "direction", "exec_time"]
     fe = full_ev[full_ev["exec_time"] + pd.Timedelta(minutes=cm) <= CUT].sort_values(key).reset_index(drop=True)
     te = trunc_ev.sort_values(key).reset_index(drop=True)
-    cols = key + ["range_high", "range_low", "break_bar", "new_swing_px"]
+    cols = key + (["range_high", "range_low", "break_bar", "new_swing_px"] if defs == "v1"
+                  else ["range_high", "range_low", "level", "new_swing_px", "retest_extreme"])
+    assert len(fe) > 0
     pd.testing.assert_frame_equal(fe[cols], te[cols])

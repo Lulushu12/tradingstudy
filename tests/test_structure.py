@@ -110,3 +110,45 @@ def test_structure_no_lookahead_synthetic(cut):
     for k in ("price", "strength", "role", "flipped"):
         np.testing.assert_array_equal(f_h[k][:cut], t_h[k])
     np.testing.assert_array_equal(f_l[:cut], t_l)
+
+
+# ---------------- v2: armed setups + retest scanner with the "respect" rule ----------------
+from tradingstudy.structure.ranges import range_setups_v2, scan_retests  # noqa: E402
+
+
+def v2_events(bars, same_tf=True, exec_bars=None, exec_min=15):
+    sw = zigzag(bars, 3)
+    _, su, _ = range_setups_v2(bars, sw)
+    return su, scan_retests(su, bars, 15, bars if exec_bars is None else exec_bars, exec_min, same_tf)
+
+
+def test_v2_flip_fires_with_respect_rule():
+    closes, touch_bar, reject_bar = bearish_flip_path()
+    bars = path_bars(closes)
+    su, ev = v2_events(bars)
+    bear = ev[ev.direction == -1]
+    assert bear.loc[bear.variant == 1, "bar"].tolist() == [touch_bar]
+    assert bear.loc[bear.variant == 0, "bar"].tolist() == [reject_bar]
+    # structure stop input: highest high from the first touch to the entry bar
+    assert bear.loc[bear.variant == 0, "retest_extreme"].iloc[0] == pytest.approx(bars.high.iloc[touch_bar:reject_bar + 1].max())
+
+
+def test_v2_rejection_must_not_open_beyond_level():
+    closes, touch_bar, reject_bar = bearish_flip_path()
+    bars = path_bars(closes)
+    # make the rejection candle open ABOVE the old range low (99.5) while still closing red below it
+    bars.iloc[reject_bar, bars.columns.get_loc("open")] = 99.8
+    bars.iloc[reject_bar, bars.columns.get_loc("high")] = 100.0
+    _, ev = v2_events(bars)
+    a = ev[(ev.direction == -1) & (ev.variant == 0)]
+    assert reject_bar not in a["bar"].tolist()
+
+
+def test_v2_htf_scan_starts_after_armed_bar_close():
+    closes, touch_bar, reject_bar = bearish_flip_path()
+    bars = path_bars(closes)
+    su, ev_same = v2_events(bars)
+    _, ev_htf = v2_events(bars, same_tf=False)
+    armed = su[su.direction == -1]["armed_bar"].iloc[0]
+    assert (ev_htf["bar"] > armed).all()  # never on or before the armed range-TF bar
+    assert len(ev_same) >= len(ev_htf)

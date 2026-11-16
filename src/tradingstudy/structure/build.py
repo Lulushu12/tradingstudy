@@ -15,7 +15,7 @@ from tradingstudy.features import ta
 from tradingstudy.features.build import EXEC_TFS, bars_any
 from tradingstudy.structure import levels as lv
 from tradingstudy.structure.profile import prev_day_profiles, volume_profile
-from tradingstudy.structure.ranges import ranges_and_flips
+from tradingstudy.structure.ranges import range_setups_v2, ranges_and_flips, scan_retests
 from tradingstudy.structure.swings import zigzag
 
 STRUCTURE_TFS = {"6m": 6, "15m": 15, "24m": 24, "30m": 30, "1h": 60, "4h": 240, "1D": 1440, "1W": 10080}
@@ -35,12 +35,34 @@ def _take(arr: np.ndarray, pos: np.ndarray) -> np.ndarray:
     return out
 
 
-def structure_tf(sym: str, tf: str, m1: pd.DataFrame, scope: str, k: float, range_kw: dict, level_kw: dict, frvp_bin_frac: float):
+def _frvp_setup_features(setups: pd.DataFrame, bars: pd.DataFrame, minutes: int, m1: pd.DataFrame, frvp_bin_frac: float, cache: dict) -> pd.DataFrame:
+    rows = []
+    for e in setups.itertuples(index=False):
+        key = (int(e.range_start), int(e.break_bar))
+        p = cache.get(key)
+        if p is None:
+            t0, t1 = bars.index[key[0]], bars.index[key[1]] + minutes * MIN
+            p = volume_profile(m1.loc[(m1.index >= t0) & (m1.index < t1)], frvp_bin_frac * e.atr_brk)
+            cache[key] = p
+        edge = p["val"] if e.direction == -1 else p["vah"]
+        rows.append({"frvp_poc": p["poc"], "frvp_vah": p["vah"], "frvp_val": p["val"],
+                     "retest_dist_va_edge_atr": (e.level - edge) / e.atr_brk, "retest_dist_poc_atr": (e.level - p["poc"]) / e.atr_brk,
+                     "retest_near_lvn": bool(len(p["lvns"]) and np.min(np.abs(p["lvns"] - e.level)) <= 0.5 * e.atr_brk)})
+    return pd.DataFrame(rows, index=setups.index)
+
+
+def structure_tf(sym: str, tf: str, m1: pd.DataFrame, scope: str, k: float, range_kw: dict, level_kw: dict, frvp_bin_frac: float,
+                 defs: str = "v1"):
     minutes = STRUCTURE_TFS[tf]
     bars = bars_any(sym, minutes, scope, m1=m1)
     atr = ta.atr(bars["high"], bars["low"], bars["close"], 14)
     sw = zigzag(bars, k)
-    state, events, ranges = ranges_and_flips(bars, sw, **range_kw)
+    setups = None
+    if defs == "v2":
+        state, setups, ranges = range_setups_v2(bars, sw, **range_kw)
+        events = pd.DataFrame()
+    else:
+        state, events, ranges = ranges_and_flips(bars, sw, **range_kw)
     held = lv.held_levels(bars, sw, atr, minutes, **level_kw)
     legs = lv.fib_legs(sw, len(bars))
     n = len(bars)
@@ -69,14 +91,18 @@ def structure_tf(sym: str, tf: str, m1: pd.DataFrame, scope: str, k: float, rang
                             "retest_dist_poc_atr": (level - p["poc"]) / e.atr_at_break,
                             "retest_near_lvn": bool(len(p["lvns"]) and np.min(np.abs(p["lvns"] - level)) <= 0.5 * e.atr_at_break)})
         events = pd.concat([events.reset_index(drop=True), pd.DataFrame(ev_rows)], axis=1)
-    events["tf"] = tf
-    events["known_at"] = events["time"] + minutes * MIN if len(events) else pd.Series(dtype="datetime64[ns, UTC]")
+    if defs == "v1":
+        events["tf"] = tf
+        events["known_at"] = events["time"] + minutes * MIN if len(events) else pd.Series(dtype="datetime64[ns, UTC]")
+    elif len(setups):
+        setups = pd.concat([setups, _frvp_setup_features(setups, bars, minutes, m1, frvp_bin_frac, prof_cache)], axis=1)
     return {"bars": bars, "minutes": minutes, "atr": atr, "swings": sw, "state": state, "events": events,
-            "ranges": ranges, "held": held, "legs": legs, "last_broken": lb}
+            "ranges": ranges, "held": held, "legs": legs, "last_broken": lb, "setups": setups}
 
 
 def build_structure(sym: str, tf: str, scope: str = "dev", k: float | None = None, range_kw: dict | None = None,
-                    level_kw: dict | None = None, confluence_band: float | None = None, warmup: bool = True):
+                    level_kw: dict | None = None, confluence_band: float | None = None, warmup: bool = True,
+                    defs: str = "v1"):
     """warmup=True (PROTOCOL section 1): compute on 'dev_warmup' data, return only dev rows and dev events."""
     out_scope = scope
     if scope == "dev" and warmup:
@@ -105,7 +131,7 @@ def build_structure(sym: str, tf: str, scope: str = "dev", k: float | None = Non
     lvl_below = np.full(len(ex), -np.inf)
     all_events = []
     for rank, stf in enumerate(tfs):
-        S = structure_tf(sym, stf, m1, scope, p["k"], range_kw or {}, level_kw or {}, p["frvp_bin_frac"])
+        S = structure_tf(sym, stf, m1, scope, p["k"], range_kw or {}, level_kw or {}, p["frvp_bin_frac"], defs=defs)
         pos = _align_pos(S["bars"].index, S["minutes"], idx, cm)
         a = _take(S["atr"], pos)
         levels = []  # (n_exec, K) blocks of level prices
@@ -174,9 +200,17 @@ def build_structure(sym: str, tf: str, scope: str = "dev", k: float | None = Non
         hit = (np.abs(L - close[:, None]) <= band[:, None]).sum(axis=1)
         conf_count += hit
         conf_top_tf = np.where(hit > 0, STRUCTURE_TFS[stf], conf_top_tf)
+        # v2 flip events: same-TF ranges, and 1h/4h ranges with the retest timed on the execution TF
+        if defs == "v2" and S["setups"] is not None and len(S["setups"]) and (stf == tf or stf in ("1h", "4h")):
+            ev2 = scan_retests(S["setups"], S["bars"], S["minutes"], ex, cm, same_tf=(stf == tf), **(range_kw or {}))
+            if len(ev2):
+                ev2["tf"] = stf if stf == tf else f"{stf}>{tf}"
+                ev2["exec_time"] = ev2["time"]
+                ev2["exec_bar"] = ev2["bar"]
+                all_events.append(ev2)
         # flip events of this TF, mapped to the first execution bar whose close is at or after the event's close
         ev = S["events"]
-        if len(ev):
+        if defs == "v1" and len(ev):
             ev = ev.copy()
             ev["exec_bar"] = np.searchsorted((idx + cm * MIN).as_unit("ns").asi8, ev["known_at"].dt.as_unit("ns").astype("int64").to_numpy(), side="left")
             ev = ev[ev["exec_bar"] < len(idx)]
