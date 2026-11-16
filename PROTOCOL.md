@@ -183,6 +183,29 @@ Claude's interpretations, before any discovery run. The 212 Phase 2 results stay
 - **Re-run before discovery (counts against the budget):** stack v2 42, same-TF flip v2 42, HTF-range flip 70,
   HTF layer on stack v2 12 = 166. Ledger total 378 of 800; 422 remain for discovery. The deflated Sharpe uses N = 378.
 
+## Phase 3 discovery plan (approved by the user 2026-11-16, declared before any discovery run)
+- **Event families:** (1) divergence stack v2; (2) range flips pooled per execution TF (same-TF ranges plus 1h and 4h
+  ranges with the retest on the execution TF; one signal per bar, conflicting directions skipped).
+  Execution TFs 15m, 24m, 1h; Variants A and B. 2 x 3 x 2 = 12 search procedures.
+- **Selection label:** structure stop, 2R target (reference). Rule selection uses each signal's own simulated outcome
+  (net R of filled trades, portfolio rules not applied); out-of-sample evaluation uses the full engine and portfolio.
+- **Features (fixed list, direction-relative where marked):** r1_rel, r2_rel (trend direction/strength relative to the
+  trade); htf_near_cross_rel; htf_mf_rel (HTF MF rising for longs / not rising for shorts); atr_pctile_30d; session;
+  funding_z_rel (funding z x direction); cmf_rel (exec CMF x direction); cmf4h_rel (4h CMF x direction);
+  confluence_types; fib_exec_in_0618_zone; sr_dist (absolute distance to the nearest execution-TF S/R level, ATR).
+- **Conditions:** numeric features: x <= q33, x <= q67, x > q33, x > q67 with q = tertile cut points of the fold's
+  training signals; categorical and binary features: x == value. **Rules:** no filter, any single condition, or any
+  pair of conditions on two different features.
+- **Fold training data:** all dev signals whose signal time is at least 7 days before the fold start (embargo) and
+  whose trade or order ended before that point (purge). The rule with the highest training expectancy among rules with
+  at least 100 training trades is applied unchanged to the fold's signals.
+- **Final rule:** the same procedure trained on all dev data before 2025-11-15 (with the same purge). S10 requires
+  the same rule (same features and directions of conditions) to be selected in at least 4 of the 6 folds.
+- **Budget accounting:** each procedure counts as 1 configuration (12). Then for at most the 3 best procedures by
+  out-of-sample expectancy: the 7-target label grid (up to 21) and parameter-stability neighbours (up to ~30).
+  Stated caveat: the many rules tried inside each fold are not counted in N for the deflated Sharpe, which flatters
+  the result; the high bar of S1-S10 is the protection.
+
 ## Change log
 - 2026-11-15: initial freeze at Gate 1. User decisions: splits, warm-up and walk-forward approved after explanation;
   limit order life changed from 1 bar to "until 0.5R favourable move or 24 h" (user); risk guards, 00:00 UTC reset,
@@ -190,3 +213,4 @@ Claude's interpretations, before any discovery run. The 212 Phase 2 results stay
   Interpretation added by Claude and stated here for review: pending limits count toward the 3-position cap.
 - 2026-11-16: Amendment 1 at Gate 2 (see above). User decisions: WT anchor filter, frozen-spec MF divergence and
   front-run, structure stops, respect rule, higher-TF ranges, 6m dropped. Success and kill criteria unchanged.
+- 2026-11-16: Phase 3 discovery plan declared and approved (section above). No criteria changed.
