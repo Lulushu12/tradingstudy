@@ -138,3 +138,15 @@ def flip_signals_v2(df: pd.DataFrame, events: pd.DataFrame, label: str, variant:
     a = sig["atr14"].to_numpy()
     stop_px = e["retest_extreme"].to_numpy() - sig["direction"].to_numpy() * STOP_BUFFER_ATR * a
     return _finish(sig, stop_px)
+
+
+def wtdiv_signals_v2(df: pd.DataFrame) -> pd.DataFrame:
+    """WT regular dot divergence alone (anchor rule), entered at the dot bar, divergence structure stop."""
+    bull = df["wtdiv_bull_reg"].to_numpy(bool); bear = df["wtdiv_bear_reg"].to_numpy(bool)
+    ls, ss = divergence_stop_px(df)
+    both = bull & bear
+    d = np.where(bull & ~both, 1, np.where(bear & ~both, -1, 0))
+    m = d != 0
+    sig = df.loc[m, META].copy()
+    sig["direction"] = d[m]
+    return _finish(sig, np.where(d[m] == 1, ls[m], ss[m]))
