@@ -104,6 +104,10 @@ allows it). fapi.binance.com is geo-blocked from the cloud container, so there i
   -0.05..-0.12 vs -0.10..-0.13). Best: 1h stack with strong Macro View bias, -0.053R, gross +0.002R.
 - Follow-up (target grid, stability) not run: declared to run only if a configuration is positive out of sample.
 
+## Exit diagnostic (E003)
+- Favourable vs adverse excursion after entry is symmetric for every entry set (46-51% favourable-first; random control
+  48-50%; median MFE = median MAE). No exit rule (partials, trailing, breakeven) can extract an edge from these entries.
+
 ## Open questions for the user
 1. Which coins were traded live in the last 12 months, and roughly how often?
 2. Final decision after Phase 3: stop with the verdict "no system found", or declare a new hypothesis (new plan,

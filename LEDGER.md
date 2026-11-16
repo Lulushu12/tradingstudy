@@ -479,3 +479,17 @@ The experiment budget (frozen at Gate 1) counts entries marked `counts: yes`.
 | P3-037 | MCB entries taken only with the 10x Macro View bias are profitable | 1h wtdiv bias lean (len 50, thr 60.0, x10) 2R | 2758 | -0.091 | -0.039 | 0.85 | 0/6 | 0/9 | 0.00 | fails S1,S2,S4,S5,S7,S8,S9 |
 | P3-038 | MCB entries taken only with the 10x Macro View bias are profitable | 1h wtdiv bias any (len 50, thr 60.0, x10) 2R | 2110 | -0.090 | -0.038 | 0.85 | 0/6 | 2/9 | 0.00 | fails S1,S2,S4,S5,S7,S8,S9 |
 | P3-039 | MCB entries taken only with the 10x Macro View bias are profitable | 1h wtdiv bias strong (len 50, thr 60.0, x10) 2R | 1660 | -0.074 | -0.022 | 0.88 | 1/6 | 4/9 | 0.00 | fails S1,S2,S4,S5,S7,S8,S9 |
+
+## E003 (descriptive, counts: no)
+- Date: 2026-11-16
+- Hypothesis: none chosen. Diagnostic requested by the user before considering partial exits: is there any
+  favourable/adverse asymmetry after entry that some exit rule (partials, trailing, breakeven) could extract?
+- Configuration: filled entries (independent simulation, no portfolio) of stack v2 A and B, pooled range flips A, and
+  stack v2 A gated by Macro View lean, on 15m/24m/1h; CONTROL = random bars and directions with a 1.5 ATR stop.
+  Measured on 1m bars over 24 h after the fill: MFE, MAE, and first touch of +x vs -x R (x = 0.5, 1, 2).
+- Split: walk-forward test period 2023-01-01..2025-11-14.
+- Results: favourable-first rates 46-51% for every entry set (control 48-50%); median MFE equals median MAE within
+  about 0.1R everywhere (e.g. stack A 1h 1.18 vs 1.19 R); longs and shorts both symmetric. Full table:
+  reports/phase3/EXCURSION_REPORT.md.
+- Verdict: no exploitable asymmetry. No exit rule can turn these entries into an edge; partial-exit hypothesis not
+  pursued.
