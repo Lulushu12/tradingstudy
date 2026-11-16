@@ -3,8 +3,9 @@
 Resume from this file plus ML_DISCOVERY_PROMPT.md (the standing brief, repo root) and PROTOCOL.md (once it exists).
 
 ## Current status
-- **Phase 3 discovery complete: NO candidate. Waiting for the user's decision (stop with "no system found", or a new
-  pre-declared hypothesis).** Report: `reports/phase3/DISCOVERY_REPORT.md`. Budget used 390 of 800 (P3-001..012).
+- **Hypothesis H-MV (Macro View gate, Amendment 2) tested: NO candidate (27/27 negative). Waiting for the user's
+  decision.** Reports: `reports/phase3/DISCOVERY_REPORT.md`, `reports/phase3/HMV_REPORT.md`. Budget used 417 of 800
+  (P3-001..039).
   Holdouts were NOT opened (Phase 4 not reached), so they remain clean for any future hypothesis.
 - Earlier status: Phase 2 re-run (Amendment 1 definitions) complete.
   Reports: `reports/phase2/BASELINE_REPORT.md` (v1, P2-001..212) and `reports/phase2/BASELINE_V2_REPORT.md`
@@ -94,6 +95,14 @@ allows it). fapi.binance.com is geo-blocked from the cloud container, so there i
   net -0.085R. Not a candidate.
 - Label grid and stability neighbours deliberately not run: the declared plan allows "at most 3"; with no procedure
   positive out of sample, tuning targets would be fishing.
+
+## H-MV results (summary)
+- Macro View replica: user's indicator from Trading-training branch claude/practical-galileo-wyubia (f_macro_core),
+  exact timing, user's lean rule. Code: src/tradingstudy/features/macro.py, phase3/hmv.py.
+- 27 configurations (stack A, stack B, WT divergence alone x lean/any/strong x 15m/24m/1h): all negative, -0.05R to
+  -0.25R net, DSR 0.00. Gated results are about the same as ungated (15m -0.16..-0.24 vs -0.20..-0.23; 1h
+  -0.05..-0.12 vs -0.10..-0.13). Best: 1h stack with strong Macro View bias, -0.053R, gross +0.002R.
+- Follow-up (target grid, stability) not run: declared to run only if a configuration is positive out of sample.
 
 ## Open questions for the user
 1. Which coins were traded live in the last 12 months, and roughly how often?

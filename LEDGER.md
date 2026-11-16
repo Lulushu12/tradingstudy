@@ -446,3 +446,36 @@ The experiment budget (frozen at Gate 1) counts entries marked `counts: yes`.
 | P3-010 | A <=2-condition context filter makes the flips events profitable out of sample | flips 24m B structure stop 2R, walk-forward rule search | 214 | -0.245 | -0.110 | 0.70 | 1/6 | 2/9 | 0.00 | 2/6 | atr_pctile_30d > 0.746 AND cmf4h_rel <= 0.0889 | fails S1,S2,S3,S4,S5,S7,S8,S9,S10 |
 | P3-011 | A <=2-condition context filter makes the flips events profitable out of sample | flips 1h A structure stop 2R, walk-forward rule search | 147 | -0.228 | -0.155 | 0.69 | 2/6 | 2/9 | 0.00 | 0/6 | confluence_types <= 1 AND sr_dist <= 1.14 | fails S1,S2,S3,S4,S5,S7,S9,S10 |
 | P3-012 | A <=2-condition context filter makes the flips events profitable out of sample | flips 1h B structure stop 2R, walk-forward rule search | 149 | -0.264 | -0.188 | 0.65 | 2/6 | 2/9 | 0.00 | 0/6 | atr_pctile_30d > 0.486 AND cmf_rel <= 0.0269 | fails S1,S2,S3,S4,S5,S7,S9,S10 |
+
+## Hypothesis H-MV, Macro View gate (counts: yes, 27 configurations)
+- Date: 2026-11-16. Declared in PROTOCOL Amendment 2. Split: walk-forward test period 2023-01-01..2025-11-14, fixed rules, 9 coins, structure stop, 2R. DSR with N = 417.
+
+| id | hypothesis | configuration | n | exp R | gross R | PF | folds+ | coins+ | DSR | verdict |
+|---|---|---|---|---|---|---|---|---|---|---|
+| P3-013 | MCB entries taken only with the 10x Macro View bias are profitable | 15m stackA bias lean (len 50, thr 60.0, x10) 2R | 3878 | -0.176 | -0.058 | 0.77 | 0/6 | 0/9 | 0.00 | fails S1,S2,S3,S4,S5,S7,S8,S9 |
+| P3-014 | MCB entries taken only with the 10x Macro View bias are profitable | 15m stackA bias any (len 50, thr 60.0, x10) 2R | 3010 | -0.157 | -0.041 | 0.80 | 0/6 | 0/9 | 0.00 | fails S1,S2,S4,S5,S7,S8,S9 |
+| P3-015 | MCB entries taken only with the 10x Macro View bias are profitable | 15m stackA bias strong (len 50, thr 60.0, x10) 2R | 2309 | -0.204 | -0.089 | 0.74 | 0/6 | 0/9 | 0.00 | fails S1,S2,S4,S5,S7,S8,S9 |
+| P3-016 | MCB entries taken only with the 10x Macro View bias are profitable | 15m stackB bias lean (len 50, thr 60.0, x10) 2R | 5095 | -0.218 | -0.091 | 0.73 | 0/6 | 0/9 | 0.00 | fails S1,S2,S3,S4,S5,S7,S8,S9 |
+| P3-017 | MCB entries taken only with the 10x Macro View bias are profitable | 15m stackB bias any (len 50, thr 60.0, x10) 2R | 3978 | -0.231 | -0.105 | 0.71 | 0/6 | 0/9 | 0.00 | fails S1,S2,S3,S4,S5,S7,S8,S9 |
+| P3-018 | MCB entries taken only with the 10x Macro View bias are profitable | 15m stackB bias strong (len 50, thr 60.0, x10) 2R | 3117 | -0.238 | -0.116 | 0.71 | 0/6 | 0/9 | 0.00 | fails S1,S2,S4,S5,S7,S8,S9 |
+| P3-019 | MCB entries taken only with the 10x Macro View bias are profitable | 15m wtdiv bias lean (len 50, thr 60.0, x10) 2R | 6601 | -0.208 | -0.094 | 0.73 | 0/6 | 0/9 | 0.00 | fails S1,S2,S3,S4,S5,S7,S8,S9 |
+| P3-020 | MCB entries taken only with the 10x Macro View bias are profitable | 15m wtdiv bias any (len 50, thr 60.0, x10) 2R | 5499 | -0.235 | -0.121 | 0.71 | 0/6 | 0/9 | 0.00 | fails S1,S2,S3,S4,S5,S7,S8,S9 |
+| P3-021 | MCB entries taken only with the 10x Macro View bias are profitable | 15m wtdiv bias strong (len 50, thr 60.0, x10) 2R | 4308 | -0.245 | -0.134 | 0.69 | 0/6 | 0/9 | 0.00 | fails S1,S2,S3,S4,S5,S7,S8,S9 |
+| P3-022 | MCB entries taken only with the 10x Macro View bias are profitable | 24m stackA bias lean (len 50, thr 60.0, x10) 2R | 2653 | -0.156 | -0.067 | 0.79 | 0/6 | 0/9 | 0.00 | fails S1,S2,S4,S5,S7,S8,S9 |
+| P3-023 | MCB entries taken only with the 10x Macro View bias are profitable | 24m stackA bias any (len 50, thr 60.0, x10) 2R | 2019 | -0.191 | -0.102 | 0.74 | 0/6 | 0/9 | 0.00 | fails S1,S2,S4,S5,S7,S8,S9 |
+| P3-024 | MCB entries taken only with the 10x Macro View bias are profitable | 24m stackA bias strong (len 50, thr 60.0, x10) 2R | 1525 | -0.157 | -0.069 | 0.79 | 0/6 | 1/9 | 0.00 | fails S1,S2,S4,S5,S7,S8,S9 |
+| P3-025 | MCB entries taken only with the 10x Macro View bias are profitable | 24m stackB bias lean (len 50, thr 60.0, x10) 2R | 3522 | -0.174 | -0.078 | 0.77 | 0/6 | 0/9 | 0.00 | fails S1,S2,S3,S4,S5,S7,S8,S9 |
+| P3-026 | MCB entries taken only with the 10x Macro View bias are profitable | 24m stackB bias any (len 50, thr 60.0, x10) 2R | 2754 | -0.197 | -0.101 | 0.74 | 0/6 | 0/9 | 0.00 | fails S1,S2,S4,S5,S7,S8,S9 |
+| P3-027 | MCB entries taken only with the 10x Macro View bias are profitable | 24m stackB bias strong (len 50, thr 60.0, x10) 2R | 2092 | -0.173 | -0.076 | 0.77 | 0/6 | 0/9 | 0.00 | fails S1,S2,S4,S5,S7,S8,S9 |
+| P3-028 | MCB entries taken only with the 10x Macro View bias are profitable | 24m wtdiv bias lean (len 50, thr 60.0, x10) 2R | 4931 | -0.136 | -0.048 | 0.81 | 0/6 | 0/9 | 0.00 | fails S1,S2,S3,S4,S5,S7,S8,S9 |
+| P3-029 | MCB entries taken only with the 10x Macro View bias are profitable | 24m wtdiv bias any (len 50, thr 60.0, x10) 2R | 4001 | -0.172 | -0.085 | 0.77 | 0/6 | 0/9 | 0.00 | fails S1,S2,S3,S4,S5,S7,S8,S9 |
+| P3-030 | MCB entries taken only with the 10x Macro View bias are profitable | 24m wtdiv bias strong (len 50, thr 60.0, x10) 2R | 3104 | -0.177 | -0.090 | 0.76 | 0/6 | 0/9 | 0.00 | fails S1,S2,S4,S5,S7,S8,S9 |
+| P3-031 | MCB entries taken only with the 10x Macro View bias are profitable | 1h stackA bias lean (len 50, thr 60.0, x10) 2R | 1310 | -0.085 | -0.032 | 0.86 | 2/6 | 0/9 | 0.00 | fails S1,S2,S4,S5,S7,S8,S9 |
+| P3-032 | MCB entries taken only with the 10x Macro View bias are profitable | 1h stackA bias any (len 50, thr 60.0, x10) 2R | 984 | -0.082 | -0.030 | 0.86 | 2/6 | 0/9 | 0.00 | fails S1,S2,S4,S5,S7,S8,S9 |
+| P3-033 | MCB entries taken only with the 10x Macro View bias are profitable | 1h stackA bias strong (len 50, thr 60.0, x10) 2R | 762 | -0.055 | -0.004 | 0.91 | 2/6 | 2/9 | 0.00 | fails S1,S2,S4,S5,S7,S8,S9 |
+| P3-034 | MCB entries taken only with the 10x Macro View bias are profitable | 1h stackB bias lean (len 50, thr 60.0, x10) 2R | 1870 | -0.115 | -0.057 | 0.82 | 0/6 | 1/9 | 0.00 | fails S1,S2,S4,S5,S7,S8,S9 |
+| P3-035 | MCB entries taken only with the 10x Macro View bias are profitable | 1h stackB bias any (len 50, thr 60.0, x10) 2R | 1402 | -0.075 | -0.017 | 0.88 | 1/6 | 3/9 | 0.00 | fails S1,S2,S4,S5,S7,S8,S9 |
+| P3-036 | MCB entries taken only with the 10x Macro View bias are profitable | 1h stackB bias strong (len 50, thr 60.0, x10) 2R | 1087 | -0.053 | +0.002 | 0.91 | 2/6 | 3/9 | 0.00 | fails S1,S2,S4,S5,S7,S8,S9 |
+| P3-037 | MCB entries taken only with the 10x Macro View bias are profitable | 1h wtdiv bias lean (len 50, thr 60.0, x10) 2R | 2758 | -0.091 | -0.039 | 0.85 | 0/6 | 0/9 | 0.00 | fails S1,S2,S4,S5,S7,S8,S9 |
+| P3-038 | MCB entries taken only with the 10x Macro View bias are profitable | 1h wtdiv bias any (len 50, thr 60.0, x10) 2R | 2110 | -0.090 | -0.038 | 0.85 | 0/6 | 2/9 | 0.00 | fails S1,S2,S4,S5,S7,S8,S9 |
+| P3-039 | MCB entries taken only with the 10x Macro View bias are profitable | 1h wtdiv bias strong (len 50, thr 60.0, x10) 2R | 1660 | -0.074 | -0.022 | 0.88 | 1/6 | 4/9 | 0.00 | fails S1,S2,S4,S5,S7,S8,S9 |
