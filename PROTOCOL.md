@@ -206,6 +206,30 @@ Claude's interpretations, before any discovery run. The 212 Phase 2 results stay
   Stated caveat: the many rules tried inside each fold are not counted in N for the deflated Sharpe, which flatters
   the result; the high bar of S1-S10 is the protection.
 
+## Amendment 2: hypothesis H-MV (declared 2026-11-16, approved by the user, before any H-MV run)
+**Hypothesis:** the user's MCB entry signals, taken only in the direction of the user's "Macro View" bias on 10 x the
+chart timeframe, have positive net expectancy.
+- **Macro View (replica of the user's indicator, Trading-training branch claude/practical-galileo-wyubia,
+  MCB_Clone_v1.pine f_macro_core):** on the source TF (10 x chart TF), over the last 50 CLOSED source candles, the
+  share of candles with wt2 > 0 and wt2 < 0, and with MF > 0 and MF < 0, where MF is the clone's own formula
+  EMA(SMA((close-open)/stdev(close,7) x 150, 60) - 2.5, 4) (the formula on the user's chart, not the Heikin-Ashi one).
+  State: +2 if WT bull share >= 60% (and > bear share) and MF bull share >= 60%; +1 if WT bull only; -1 / -2 mirrored;
+  0 otherwise. Timing as in the indicator (request.security with lookahead on and [1]): a chart bar sees the state of
+  the last source candle that closed at or before the chart bar's OPEN.
+- **Bias, 3 versions:** (1) LEAN (the user's rule): +1 when state > 0, -1 when state < 0; when state = 0 the bias is
+  the opposite of the last non-zero state (red then neutral = bullish; green then neutral = bearish) and stays until
+  the colour changes again; no trade before any colour. (2) ANY: +1 if state >= +1, -1 if state <= -1, else no trade.
+  (3) STRONG: +1 if state = +2, -1 if state = -2, else no trade.
+- **Entries, 3 versions:** divergence stack v2 Variant A; divergence stack v2 Variant B; WT regular dot divergence
+  alone (anchor rule, confirmed at the dot). Only signals whose direction equals the bias are taken.
+- **TFs:** 15m, 24m, 1h (source TFs 150m, 240m, 600m). Structure stop, 2R target. 3 x 3 x 3 = 27 configurations.
+- **Follow-up only if a configuration has positive out-of-sample net expectancy:** for at most the 3 best, the
+  target grid (1R, 1.5R, 3R, fib 1.272, fib 1.618, next level) and stability neighbours (lookback 30/70, threshold
+  55/65, multiplier 8/12). Hard cap 70 configurations for H-MV. Same frozen criteria S1-S9; S6 via the neighbours;
+  S10 (rule stability) is not applicable to a fixed, pre-declared rule. Deflated Sharpe N = all configurations so far.
+- **Caveat stated in advance:** Macro View was designed by the user while looking at recent charts that overlap the
+  walk-forward years; only the sealed holdouts can settle a pass.
+
 ## Change log
 - 2026-11-15: initial freeze at Gate 1. User decisions: splits, warm-up and walk-forward approved after explanation;
   limit order life changed from 1 bar to "until 0.5R favourable move or 24 h" (user); risk guards, 00:00 UTC reset,
@@ -214,3 +238,5 @@ Claude's interpretations, before any discovery run. The 212 Phase 2 results stay
 - 2026-11-16: Amendment 1 at Gate 2 (see above). User decisions: WT anchor filter, frozen-spec MF divergence and
   front-run, structure stops, respect rule, higher-TF ranges, 6m dropped. Success and kill criteria unchanged.
 - 2026-11-16: Phase 3 discovery plan declared and approved (section above). No criteria changed.
+- 2026-11-16: Phase 3 discovery found no candidate (P3-001..012). Amendment 2 (hypothesis H-MV) declared and approved
+  before any H-MV run. No criteria changed.
