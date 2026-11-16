@@ -3,9 +3,10 @@
 Resume from this file plus ML_DISCOVERY_PROMPT.md (the standing brief, repo root) and PROTOCOL.md (once it exists).
 
 ## Current status
-- **Phase 2 complete. Waiting for Gate 2 discussion/approval.** Report: `reports/phase2/BASELINE_REPORT.md`.
-  PROTOCOL.md FROZEN 2026-11-15. Budget used: 212 of 800 configurations (all logged as P2-001..P2-212).
-  Do not start Phase 3 until the user approves at Gate 2.
+- **Phase 2 re-run (Amendment 1 definitions) complete. Waiting for the user's go on the Phase 3 discovery plan.**
+  Reports: `reports/phase2/BASELINE_REPORT.md` (v1, P2-001..212) and `reports/phase2/BASELINE_V2_REPORT.md`
+  (v2, P2-213..378). PROTOCOL.md FROZEN 2026-11-15 with Amendment 1 (2026-11-16). Budget used: 378 of 800.
+  User chose option A (narrow discovery) at Gate 2; the concrete discovery plan still needs approval.
 - Phase 0 report: `reports/phase0/QA_REPORT.md`.
 
 ## Rebuilding the data (new session)
@@ -74,9 +75,17 @@ allows it). fapi.binance.com is geo-blocked from the cloud container, so there i
 - Code: src/tradingstudy/backtest (engine, portfolio, stats, signals, costs, cache), src/tradingstudy/phase2.
   Trades per config: data/results/phase2/trades.parquet (not in git; rebuild with python -m tradingstudy.phase2.baselines).
 
+## Phase 2 re-run results (v2, Amendment 1)
+- All 166 negative except 3 tiny-sample cases; best: stack v2 1h confirmed + HTF near-cross, 2R, +0.037R over 290
+  trades, 3/6 folds, 5/9 coins, DSR 0.00. None meets S1, S2, S5 or S7.
+- Corrected definitions did not help: stack v2 gross R -0.09 (15m) to -0.04 (1h); range flip with respect rule gross
+  -0.03 to -0.15; higher-TF ranges are rare (36-156 trades in 3 years across 9 coins) and negative.
+- Consistent hints across v1 and v2: 1h best; with-trend beats counter-trend for the divergence stack on every TF;
+  HTF near-cross helps on 1h/24m; BTC worst coin. Longs and shorts both negative (no sign bug).
+
 ## Open questions for the user
 1. Which coins were traded live in the last 12 months, and roughly how often?
-2. Gate 2: whether and how to run Phase 3 discovery given the negative baselines (see BASELINE_REPORT.md).
+2. Approve (or change) the concrete Phase 3 discovery plan proposed after the v2 re-run.
 
 ## Issues to carry into Phase 1 / Gate 1
 - Fee in R is large on low timeframes (BTC dev medians: 6m-proxy 0.48R at 1x ATR stop, 15m 0.25R, 1h 0.12R).
