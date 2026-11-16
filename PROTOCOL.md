@@ -143,8 +143,50 @@ reason in the change log at the bottom. Criteria can never be loosened after res
   without explicit user approval, logged as a protocol change.
 - After results exist, criteria cannot be loosened. A criterion believed wrong is logged; the verdict still uses it.
 
+## Amendment 1 (Gate 2, 2026-11-16, approved by the user). Overrides sections 4, 5 and 7 where they conflict.
+Reason: after the Phase 2 baselines (all negative, gross R about zero), the user corrected definitions that were
+Claude's interpretations, before any discovery run. The 212 Phase 2 results stay in the ledger unchanged.
+
+- **Execution TFs:** 15m, 24m, 1h. 6m is dropped from discovery (negative even before fees in every baseline).
+- **WT dot divergence (regular):** the level filter applies to the ANCHOR (earlier) dot: bullish anchor wt2 <= -53,
+  bearish anchor >= +53. The signal (new) dot can be anywhere. Everything else as section 5.
+- **MF divergence (old FROZEN_SPEC / MCB_Clone_v1.pine f_findDivs logic):** pivot = 5-bar fractal on MF (MF at bar p
+  strictly lower than the 2 bars before and the 2 bars after; mirrored for highs), known at p + 2. A pivot counts only
+  if MF <= -2.5 (bearish >= +2.5). Each counting pivot is compared with the previous counting pivot only.
+  Price at a pivot = lowest low (highest high) over bars p-2..p. Regular bullish: price lower AND MF higher.
+  Hidden mirrored (feature only). The Money Flow formula stays the MCB-matched Heikin-Ashi version (section 5).
+- **Divergence stack, Variant A:** WT regular dot divergence + MF regular divergence, same direction, within 11 bars
+  between their confirmation bars; entry on the later confirmation.
+- **Divergence stack, Variant B (old FROZEN_SPEC front-run):** leg 1 = either oscillator's regular divergence, fully
+  confirmed. Leg 2 = the other oscillator, at the first bar t where ALL hold: (a) its reference (previous counting MF
+  pivot, or previous green/red dot beyond -53/+53) is no older than 50 bars; (b) price has gone beyond the reference
+  extreme (lowest low of the last 3 bars below the reference's swing low; MF reference swing low = lowest low of the
+  5 bars ending at the reference pivot; WT reference = its wave low); (c) the oscillator is still on the divergent side
+  of the reference (MF: mf[t-1] above the reference MF; WT: the lowest wt1 of the current wave above the anchor dot
+  level); (d) the oscillator ticked once in the reversal direction (MF: mf[t] > mf[t-1]; WT: wt1[t] > wt1[t-1] while
+  wt1 is still below wt2, i.e. before the dot). Level filter on the reference only. Leg 1's pivot (MF pivot bar or WT
+  dot bar) is at most 11 bars before t; same bar allowed. One entry per leg-1 event.
+  (Adaptation stated for review: the old spec used fractal WT divergences on wt2; with dot divergences the WT
+  front-run tick is taken on wt1 before the cross.)
+- **Range flip rejection ("respect" rule):** Variant A: a bar that touched the retest zone, whose OPEN and CLOSE are
+  both on the correct side of the old level (bearish: open <= level and close < level; wick beyond is allowed), with a
+  body in the trade direction. Variant B: the first touch bar whose open and close are both on the correct side (any
+  colour).
+- **Higher-timeframe ranges:** in addition to same-TF ranges, ranges/breakdown/lower low detected on a range TF
+  (1h or 4h) with the retest and rejection timed on a lower execution TF. Pairs: 1h>15m, 4h>15m, 1h>24m, 4h>24m,
+  4h>1h. Zone tolerance and invalidation use the range TF's ATR at the breakdown; expiry = 200 range-TF bars.
+- **Stops: structure-based, replacing the ATR stops.** Divergence trades: beyond the current swing (long: lowest low
+  since the previous red dot, and over the last 13 bars, whichever is lower) plus 0.1 x ATR(exec). Range flips: beyond
+  the retest extreme (bearish: highest high from the first touch to the entry bar) plus 0.1 x ATR(exec). A trade whose
+  stop is closer than 0.5 x ATR(exec) is skipped. R targets and the 0.5R cancel use this structure R.
+- **Labels:** structure stop x {1R, 1.5R, 2R, 3R, fib 1.272, fib 1.618, next level}.
+- **Re-run before discovery (counts against the budget):** stack v2 42, same-TF flip v2 42, HTF-range flip 70,
+  HTF layer on stack v2 12 = 166. Ledger total 378 of 800; 422 remain for discovery. The deflated Sharpe uses N = 378.
+
 ## Change log
 - 2026-11-15: initial freeze at Gate 1. User decisions: splits, warm-up and walk-forward approved after explanation;
   limit order life changed from 1 bar to "until 0.5R favourable move or 24 h" (user); risk guards, 00:00 UTC reset,
   labels, regimes R1/R2, range parameters, confluence, grids, budget 800 and criteria S1-S10 approved as proposed.
   Interpretation added by Claude and stated here for review: pending limits count toward the 3-position cap.
+- 2026-11-16: Amendment 1 at Gate 2 (see above). User decisions: WT anchor filter, frozen-spec MF divergence and
+  front-run, structure stops, respect rule, higher-TF ranges, 6m dropped. Success and kill criteria unchanged.
