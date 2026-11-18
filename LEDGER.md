@@ -527,3 +527,21 @@ The experiment budget (frozen at Gate 1) counts entries marked `counts: yes`.
   any group (best: 4h WT divergence with Macro View lean, 52.2% / 55.0%). Not promising by the frozen rule.
   Observation recorded without acting on it: the 4h early reaction is the first non-random pattern in the study; at a
   1R target its implied net result is roughly +0.03 to +0.05 R after fees, below the +0.10 R bar.
+
+## Hypothesis H-VS, 4h volume-spike trend continuation (counts: yes, 12 configurations)
+- Date: 2026-11-18. Declared in PROTOCOL Amendment 3. Walk-forward test period, 9 coins. DSR with N = 429.
+
+| id | hypothesis | configuration | n | exp R | gross R | PF | folds+ | coins+ | DSR | verdict |
+|---|---|---|---|---|---|---|---|---|---|---|
+| P3-040 | 4h volume-spike trend continuation holds on 9 coins | C1 original: market entry, 50-day hold (vol x1.8, EMA200, 1.5 ATR, 2.0R) | 1192 | +0.072 | +0.098 | 1.11 | 4/6 | 8/9 | 0.00 | fails S1,S2,S5,S7,S8,S9 |
+| P3-041 | 4h volume-spike trend continuation holds on 9 coins | C2 brief: limit at close, 24h timeout (vol x1.8, EMA200, 1.5 ATR, 2.0R) | 1684 | +0.037 | +0.065 | 1.08 | 4/6 | 6/9 | 0.00 | fails S1,S2,S5,S7,S8 |
+| P3-042 | 4h volume-spike trend continuation holds on 9 coins | C3 limit at close, 50-day hold (vol x1.8, EMA200, 1.5 ATR, 2.0R) | 1177 | +0.073 | +0.100 | 1.11 | 4/6 | 8/9 | 0.00 | fails S1,S2,S5,S7,S8,S9 |
+| P3-043 | 4h volume-spike trend continuation holds on 9 coins | C4 market entry, 24h timeout (vol x1.8, EMA200, 1.5 ATR, 2.0R) | 1711 | +0.031 | +0.059 | 1.07 | 4/6 | 6/9 | 0.00 | fails S1,S2,S5,S7,S8,S9 |
+| P3-044 | 4h volume-spike trend continuation holds on 9 coins | neighbour of P3-042: vol_mult=1.5 (vol x1.5, EMA200, 1.5 ATR, 2.0R) | 1348 | +0.025 | +0.050 | 1.04 | 4/6 | 6/9 | 0.00 | fails S1,S2,S5,S7,S8 |
+| P3-045 | 4h volume-spike trend continuation holds on 9 coins | neighbour of P3-042: vol_mult=2.1 (vol x2.1, EMA200, 1.5 ATR, 2.0R) | 1017 | +0.126 | +0.153 | 1.20 | 5/6 | 7/9 | 0.00 | fails S2,S5,S7,S8 |
+| P3-046 | 4h volume-spike trend continuation holds on 9 coins | neighbour of P3-042: ema_len=150 (vol x1.8, EMA150, 1.5 ATR, 2.0R) | 1188 | +0.098 | +0.125 | 1.15 | 5/6 | 8/9 | 0.00 | fails S1,S2,S7,S8 |
+| P3-047 | 4h volume-spike trend continuation holds on 9 coins | neighbour of P3-042: ema_len=250 (vol x1.8, EMA250, 1.5 ATR, 2.0R) | 1179 | +0.066 | +0.092 | 1.10 | 4/6 | 7/9 | 0.00 | fails S1,S2,S5,S7,S8 |
+| P3-048 | 4h volume-spike trend continuation holds on 9 coins | neighbour of P3-042: stop_atr=1.0 (vol x1.8, EMA200, 1.0 ATR, 2.0R) | 1825 | +0.071 | +0.112 | 1.11 | 5/6 | 8/9 | 0.00 | fails S1,S2,S7,S8 |
+| P3-049 | 4h volume-spike trend continuation holds on 9 coins | neighbour of P3-042: stop_atr=2.0 (vol x1.8, EMA200, 2.0 ATR, 2.0R) | 785 | +0.079 | +0.098 | 1.12 | 5/6 | 7/9 | 0.00 | fails S1,S2,S5,S7,S8 |
+| P3-050 | 4h volume-spike trend continuation holds on 9 coins | neighbour of P3-042: target_r=1.5 (vol x1.8, EMA200, 1.5 ATR, 1.5R) | 1438 | +0.078 | +0.105 | 1.13 | 5/6 | 8/9 | 0.00 | fails S1,S2,S5,S7,S8 |
+| P3-051 | 4h volume-spike trend continuation holds on 9 coins | neighbour of P3-042: target_r=3.0 (vol x1.8, EMA200, 1.5 ATR, 3.0R) | 909 | +0.071 | +0.097 | 1.09 | 4/6 | 7/9 | 0.00 | fails S1,S2,S5,S7,S8,S9 |

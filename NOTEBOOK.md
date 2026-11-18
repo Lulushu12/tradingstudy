@@ -115,6 +115,13 @@ allows it). fapi.binance.com is geo-blocked from the cloud container, so there i
   (53-55% at 0.5-1R vs control ~49-51%) that fades by 2R. Did not meet the declared rule. Implied net ~+0.03-0.05R
   at 1R, below the bar. Report: reports/phase3/RANGE_HTF_DIAGNOSTICS.md.
 
+## H-VS results (Amendment 3, 2026-11-18)
+- 4h volume-spike trend continuation on 9 coins: all 12 configurations positive out of sample (+0.025 to +0.126 R),
+  positive in 2022 too, 8/9 coins positive (XRP negative): first real-looking effect of the study, small.
+- NOT a candidate: fails S1, S7 (DSR 0.00; 0.75 even counting only H-VS), S8 (29-32% breach of 6% within 90 days at
+  0.5% risk; max DD 24-33% over dev), core configs also S2 and S5 (SOL 43-54% of profit), S6 narrowly.
+- Loses in 2023 (chop), wins 2022 and 2024-25 (trend). Report: reports/phase3/HVS_REPORT.md. Ledger total 433 of 800.
+
 ## Open questions for the user
 1. Which coins were traded live in the last 12 months, and roughly how often?
 2. Final decision after Phase 3: stop with the verdict "no system found", or declare a new hypothesis (new plan,

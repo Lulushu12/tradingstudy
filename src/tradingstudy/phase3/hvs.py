@@ -113,7 +113,29 @@ def run(cfgs: list[dict], out_name: str) -> list[dict]:
     return results
 
 
+def neighbour_configs(best: dict) -> list[dict]:
+    """Amendment 3 stability neighbours around the best core configuration (one parameter moved at a time)."""
+    moves = [("vol_mult", 1.5), ("vol_mult", 2.1), ("ema_len", 150), ("ema_len", 250),
+             ("stop_atr", 1.0), ("stop_atr", 2.0), ("target_r", 1.5), ("target_r", 3.0)]
+    out = []
+    for i, (k, v) in enumerate(moves):
+        c = {kk: vv for kk, vv in best.items() if kk not in ("id",)}
+        c[k] = v
+        c["id"] = f"P3-{44 + i:03d}"
+        c["variant"] = f"neighbour of {best['id']}: {k}={v}"
+        c["stop"], c["target"] = f"{c['stop_atr']}xATR", f"{c['target_r']}R"
+        out.append(c)
+    return out
+
+
 if __name__ == "__main__":
     if len(sys.argv) > 1 and sys.argv[1] == "neighbours":
-        raise SystemExit("neighbours are declared only after a positive core result; run from a reviewed script")
-    run(core_configs(), "hvs_results.json")
+        core = {c["id"]: c for c in core_configs()}
+        res = json.loads((OUT / "hvs_results.json").read_text())["results"]
+        best = max((r for r in res if r["wf"].get("exp_R", -9) > 0), key=lambda r: r["wf"]["exp_R"], default=None)
+        if best is None:
+            raise SystemExit("no positive core configuration: neighbours not declared to run")
+        print("best core:", best["id"], best["variant"])
+        run(neighbour_configs(core[best["id"]]), "hvs_neighbours.json")
+    else:
+        run(core_configs(), "hvs_results.json")
