@@ -32,10 +32,10 @@ STOP, TARGET, TIMEOUT, END_OF_DATA = 1, 2, 3, 4
 
 
 @nb.njit(cache=True)
-def _run_trade(ts, o, h, l, c, j, d, entry, stop, target, tick, slip, fee_rate, R):
-    """Trade filled at minute j. Returns exit_idx, reason, exit_px, gross_R, fee_R, slip_R."""
+def _run_trade(ts, o, h, l, c, j, d, entry, stop, target, tick, slip, fee_rate, R, hold_ns=DAY_NS):
+    """Trade filled at minute j. Returns exit_idx, reason, exit_px, gross_R, fee_R, slip_R. Timeout after hold_ns."""
     n = ts.shape[0]
-    t_end = ts[j] + DAY_NS
+    t_end = ts[j] + hold_ns
     # fill minute: stop only
     if (d == 1 and l[j] <= stop) or (d == -1 and h[j] >= stop):
         px = stop * (1 - slip) if d == 1 else stop * (1 + slip)
@@ -70,7 +70,17 @@ def _run_trade(ts, o, h, l, c, j, d, entry, stop, target, tick, slip, fee_rate, 
 @nb.njit(cache=True)
 def simulate(ts, o, h, l, c, start_idx, sig_ts, direction, entry, stop_dist, target, tick, slip, fee_rate):
     """Arrays of length n_signals except the 1m arrays. start_idx = first 1m bar at or after the signal close.
-    Returns a (n_signals, 14) float array; see COLS."""
+    Returns a (n_signals, 14) float array; see COLS. Protocol defaults: limit entry, 24 h order life and timeout."""
+    return simulate_ex(ts, o, h, l, c, start_idx, sig_ts, direction, entry, stop_dist, target, tick, slip, fee_rate,
+                       DAY_NS, DAY_NS, False)
+
+
+@nb.njit(cache=True)
+def simulate_ex(ts, o, h, l, c, start_idx, sig_ts, direction, entry, stop_dist, target, tick, slip, fee_rate,
+                pend_ns, hold_ns, market):
+    """As simulate, plus: pend_ns = limit order life; hold_ns = timeout after the fill; market=True fills at the open of
+    the first 1m bar at/after the signal close (worse by slippage) and then `target` is read as an R MULTIPLE measured
+    from the fill price, with the stop at fill -/+ stop_dist (as in the user's original study)."""
     ns = start_idx.shape[0]
     n = ts.shape[0]
     out = np.full((ns, 14), np.nan)
@@ -86,9 +96,19 @@ def simulate(ts, o, h, l, c, start_idx, sig_ts, direction, entry, stop_dist, tar
         if j0 >= n:
             out[s, 0] = NO_DATA
             continue
+        if market:
+            e = o[j0] * (1 + d * slip[s])
+            stop = e - d * R
+            tgt = e + d * target[s] * R
+            xi, reason, px, g, f, sl = _run_trade(ts, o, h, l, c, j0, d, e, stop, tgt, tick[s], slip[s], fee_rate, R, hold_ns)
+            out[s, 0] = FILLED; out[s, 1] = 1.0
+            out[s, 2] = j0; out[s, 3] = xi; out[s, 4] = reason; out[s, 5] = px
+            out[s, 6] = g; out[s, 7] = f; out[s, 8] = sl; out[s, 9] = g - f
+            out[s, 10] = ts[j0]; out[s, 11] = ts[xi]
+            continue
         stop = e - d * R
         cancel_lvl = e + d * 0.5 * R
-        t_exp = sig_ts[s] + DAY_NS
+        t_exp = sig_ts[s] + pend_ns
         fill = -1
         touch = -1
         status = EXPIRED
@@ -118,14 +138,14 @@ def simulate(ts, o, h, l, c, start_idx, sig_ts, direction, entry, stop_dist, tar
         out[s, 0] = status
         out[s, 1] = 1.0 if touch >= 0 else 0.0
         if status == FILLED:
-            xi, reason, px, g, f, sl = _run_trade(ts, o, h, l, c, fill, d, e, stop, tgt, tick[s], slip[s], fee_rate, R)
+            xi, reason, px, g, f, sl = _run_trade(ts, o, h, l, c, fill, d, e, stop, tgt, tick[s], slip[s], fee_rate, R, hold_ns)
             out[s, 2] = fill; out[s, 3] = xi; out[s, 4] = reason; out[s, 5] = px
             out[s, 6] = g; out[s, 7] = f; out[s, 8] = sl; out[s, 9] = g - f
             out[s, 10] = ts[fill]; out[s, 11] = ts[xi]
         else:
             out[s, 11] = ts[end_i]  # time the order stopped occupying the coin
             if touch >= 0:  # missed fill: hypothetical fill at the first touch
-                xi, reason, px, g, f, sl = _run_trade(ts, o, h, l, c, touch, d, e, stop, tgt, tick[s], slip[s], fee_rate, R)
+                xi, reason, px, g, f, sl = _run_trade(ts, o, h, l, c, touch, d, e, stop, tgt, tick[s], slip[s], fee_rate, R, hold_ns)
                 out[s, 12] = g - f
                 out[s, 13] = reason
     return out

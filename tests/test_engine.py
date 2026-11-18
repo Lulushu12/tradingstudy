@@ -99,3 +99,33 @@ def test_fill_and_cancel_same_minute_is_fill():
 def test_skipped_when_target_invalid():
     r = run(flat(3), target=np.nan)
     assert r["status"] == E.SKIPPED
+
+
+def run_ex(bars, d=1, R=1.0, target=2.0, slip=0.0, hold_min=1440, market=True, entry=100.0):
+    b = np.asarray(bars, dtype=float)
+    ts = T0 + np.arange(len(b), dtype=np.int64) * MIN
+    out = E.simulate_ex(ts, b[:, 0], b[:, 1], b[:, 2], b[:, 3], np.array([0]), np.array([ts[0]]), np.array([d]),
+                        np.array([entry]), np.array([R]), np.array([target]), np.array([0.1]), np.array([slip]),
+                        E.FEE_RATE, E.DAY_NS, hold_min * MIN, market)
+    return dict(zip(E.COLS, out[0]))
+
+
+def test_market_entry_fills_at_open_and_targets_from_fill():
+    bars = [[101.0, 101.2, 100.8, 101.0], [101.0, 103.2, 100.9, 103.0]]  # fill at 101 (open), target 101 + 2R = 103
+    r = run_ex(bars, slip=0.0)
+    assert r["status"] == E.FILLED and r["fill_idx"] == 0
+    assert r["exit_reason"] == E.TARGET and r["exit_px"] == pytest.approx(103.0)
+    assert r["gross_R"] == pytest.approx(2.0)
+
+
+def test_market_entry_slippage_and_long_hold():
+    bars = [[100.0, 100.1, 99.9, 100.0]] + flat(3000, 100.5)
+    r = run_ex(bars, slip=0.001, hold_min=2880)  # 48 h hold, nothing hit -> timeout at minute 2879
+    assert r["exit_reason"] == E.TIMEOUT and r["exit_idx"] == 2879
+    assert r["gross_R"] == pytest.approx(100.5 * 0.999 - 100.1)  # fill at 100 x 1.001
+
+
+def test_default_simulate_unchanged():
+    bars = [[100.0, 100.0, 99.85, 99.9]] + flat(1600, 100.4)
+    r = run(bars)
+    assert r["exit_reason"] == E.TIMEOUT and r["exit_idx"] == 1439
