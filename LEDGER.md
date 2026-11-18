@@ -560,3 +560,12 @@ The experiment budget (frozen at Gate 1) counts entries marked `counts: yes`.
 - **Promising only if, for some predictor and target:** the extreme-bin difference is >= 6 percentage points with the
   SAME sign in both halves, AND |z| >= 3 on the full dev period, AND (for T1 at x = 0.5 ATR) the better bin's
   first-touch rate is >= 55% (or <= 45%), AND >= 300 days per bin. Otherwise the idea closes.
+
+## E006 result (descriptive, counts: no), 2026-11-18
+- 1,413 days x 9 coins = 12,217 coin-days. Unconditional: up first 48.8% (0.25 ATR) / 48.6% (0.5 ATR); bigger
+  up-extension 49.1%.
+- 0 of 15 predictor/target pairs meet the declared rule. Closest: close location of the previous day vs up-first at
+  0.5 ATR: high-close days 52.7% vs low-close days 45.4% (+7.4 points, z = 2.87), but +2.3 points in 2022-23 vs +12.0
+  in 2024-25 (fails the both-halves rule) and the best bin is 52.7% (< 55%). All other differences 0-5 points, |z| < 1.8.
+- Verdict: NOT promising. Next-day odds from these daily features are close to a coin flip. Idea closed.
+  Report: reports/phase3/DAILY_ODDS.md.

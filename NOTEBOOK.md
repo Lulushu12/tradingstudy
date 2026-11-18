@@ -122,6 +122,10 @@ allows it). fapi.binance.com is geo-blocked from the cloud container, so there i
   0.5% risk; max DD 24-33% over dev), core configs also S2 and S5 (SOL 43-54% of profit), S6 narrowly.
 - Loses in 2023 (chop), wins 2022 and 2024-25 (trend). Report: reports/phase3/HVS_REPORT.md. Ledger total 433 of 800.
 
+## E006 daily odds (2026-11-18)
+- 5 pre-declared daily predictors x 3 next-day targets: 0 of 15 meet the rule. Best: previous close near the high ->
+  52.7% up-first vs 45.4% after a low close, inconsistent across halves. Daily-odds idea closed.
+
 ## Open questions for the user
 1. Which coins were traded live in the last 12 months, and roughly how often?
 2. Final decision after Phase 3: stop with the verdict "no system found", or declare a new hypothesis (new plan,
