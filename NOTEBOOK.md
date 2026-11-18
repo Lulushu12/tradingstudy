@@ -108,6 +108,13 @@ allows it). fapi.binance.com is geo-blocked from the cloud container, so there i
 - Favourable vs adverse excursion after entry is symmetric for every entry set (46-51% favourable-first; random control
   48-50%; median MFE = median MAE). No exit rule (partials, trailing, breakeven) can extract an edge from these entries.
 
+## Diagnostics E004 / E005 (2026-11-18)
+- E004 range edges: ranges short-lived (median life 4 h on 15m to 72 h on 4h), price inside a confirmed range ~7% of
+  the time; edges hold 2-4 points WORSE than a random walk. Range fading closed.
+- E005 HTF entries + 15m structure stop: 1h signals random; 4h signals show a small early favourable reaction
+  (53-55% at 0.5-1R vs control ~49-51%) that fades by 2R. Did not meet the declared rule. Implied net ~+0.03-0.05R
+  at 1R, below the bar. Report: reports/phase3/RANGE_HTF_DIAGNOSTICS.md.
+
 ## Open questions for the user
 1. Which coins were traded live in the last 12 months, and roughly how often?
 2. Final decision after Phase 3: stop with the verdict "no system found", or declare a new hypothesis (new plan,

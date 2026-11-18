@@ -508,3 +508,22 @@ The experiment budget (frozen at Gate 1) counts entries marked `counts: yes`.
   (4h signals): first touch of +x R vs -x R for x = 0.5, 1, 2, 3. Control: random 1h/4h bars, random direction, same
   stop construction. Walk-forward test period 2023-01-01..2025-11-14.
   **Promising only if** favourable-first at 0.5R and 1R >= 55% AND >= control + 5 points AND >= 300 signals.
+
+## E004 result (descriptive, counts: no), 2026-11-18
+- Ranges (frozen v2 detector): median life after confirmation 3.8 h (15m), 6 h (24m), 17 h (1h), 72 h (4h); price is
+  inside a confirmed range about 7% of the time on every TF.
+- Edge touches (8,451 / 5,161 / 1,998 / 472 on 15m / 24m / 1h / 4h): price reached the midpoint first 18.1% / 17.4% /
+  17.5% / 13.6% of the time vs a random-walk benchmark of 20.5% / 19.6% / 19.5% / 17.9%: edges hold 2 to 4 points WORSE
+  than chance, on both bottoms and tops. Gross fade-to-mid result negative everywhere (-0.12 to -0.39 R before fees;
+  the mean fee column is inflated by touches closing right at the edge, irrelevant to the verdict).
+- Verdict against the declared rule: NOT promising (difference negative). Range-edge fading closed.
+
+## E005 result (descriptive, counts: no), 2026-11-18
+- 1h signals with a 15m structure stop (+1 ATR): favourable-first 49.6-51.5% at 0.5R, 48.6-49.8% at 1R; control 50.9% /
+  50.5%. No reaction.
+- 4h signals: favourable-first 52.2-54.6% at 0.5R and 53.2-55.0% at 1R vs control 50.6% / 48.8% (about +3 to +6 points,
+  n = 447 to 2,788), falling to 45-50% at 2R and 42-47% at 3R. A small early favourable reaction that fades.
+- Verdict against the declared rule (>= 55% at BOTH 0.5R and 1R, >= control + 5 points, >= 300 signals): NOT met by
+  any group (best: 4h WT divergence with Macro View lean, 52.2% / 55.0%). Not promising by the frozen rule.
+  Observation recorded without acting on it: the 4h early reaction is the first non-random pattern in the study; at a
+  1R target its implied net result is roughly +0.03 to +0.05 R after fees, below the +0.10 R bar.
