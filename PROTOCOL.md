@@ -230,6 +230,24 @@ chart timeframe, have positive net expectancy.
 - **Caveat stated in advance:** Macro View was designed by the user while looking at recent charts that overlap the
   walk-forward years; only the sealed holdouts can settle a pass.
 
+## Amendment 3: hypothesis H-VS (declared 2026-11-18, approved by the user, before any H-VS run)
+**Hypothesis:** the 4h volume-spike trend-continuation setup from the user's earlier study (study/STRATEGY_FINDINGS.md,
+study/finalists.py, kind="volspike"), the only robust edge found there, holds across all 9 coins out of sample.
+This is a pre-existing hypothesis, not one discovered in this study.
+- **Signal (closed 4h bar, exact original rules):** long if close > EMA200(4h close) AND volume / SMA20(volume) > 1.8
+  AND close > open; short if close < EMA200 AND volume ratio > 1.8 AND close < open.
+- **Core configurations (4), stop 1.5 x ATR14(4h), target 2R:**
+  C1 original execution: market entry at the next 1m open after the signal close (fill with the coin's slippage),
+  hold up to 300 4h bars (50 days);  C2 brief execution: limit at the signal close (0.5R cancel, 24 h order life),
+  24 h timeout;  C3 limit entry with the 300-bar hold;  C4 market entry with the 24 h timeout.
+- **Eligibility:** all four are judged against S1-S9. C1, C3 and C4 break brief constraints (limit entries, 24 h
+  timeout); one of them can go to the holdout only if the user explicitly accepts that execution change at the gate.
+- **Follow-up only if a core configuration has positive out-of-sample net expectancy:** stability neighbours for the
+  best one (volume multiple 1.5/2.1, EMA 150/250, stop 1.0/2.0 ATR, target 1.5R/3R) = 8. Hard cap 30 for H-VS.
+- Portfolio guards, fees, slippage, walk-forward folds and criteria unchanged. Deflated Sharpe N = all configurations.
+- **Caveat stated in advance:** this setup was found on BTC with a 2025-01..2026-06 test set that overlaps the primary
+  holdout; holdout verdicts for it use the 8 non-BTC coins only, as already frozen.
+
 ## Change log
 - 2026-11-15: initial freeze at Gate 1. User decisions: splits, warm-up and walk-forward approved after explanation;
   limit order life changed from 1 bar to "until 0.5R favourable move or 24 h" (user); risk guards, 00:00 UTC reset,
@@ -240,3 +258,5 @@ chart timeframe, have positive net expectancy.
 - 2026-11-16: Phase 3 discovery plan declared and approved (section above). No criteria changed.
 - 2026-11-16: Phase 3 discovery found no candidate (P3-001..012). Amendment 2 (hypothesis H-MV) declared and approved
   before any H-MV run. No criteria changed.
+- 2026-11-18: H-MV found no candidate (P3-013..039). Diagnostics E003-E005 logged. Amendment 3 (hypothesis H-VS)
+  declared and approved before any H-VS run. No criteria changed.
