@@ -545,3 +545,18 @@ The experiment budget (frozen at Gate 1) counts entries marked `counts: yes`.
 | P3-049 | 4h volume-spike trend continuation holds on 9 coins | neighbour of P3-042: stop_atr=2.0 (vol x1.8, EMA200, 2.0 ATR, 2.0R) | 785 | +0.079 | +0.098 | 1.12 | 5/6 | 7/9 | 0.00 | fails S1,S2,S5,S7,S8 |
 | P3-050 | 4h volume-spike trend continuation holds on 9 coins | neighbour of P3-042: target_r=1.5 (vol x1.8, EMA200, 1.5 ATR, 1.5R) | 1438 | +0.078 | +0.105 | 1.13 | 5/6 | 8/9 | 0.00 | fails S1,S2,S5,S7,S8 |
 | P3-051 | 4h volume-spike trend continuation holds on 9 coins | neighbour of P3-042: target_r=3.0 (vol x1.8, EMA200, 1.5 ATR, 3.0R) | 909 | +0.071 | +0.097 | 1.09 | 4/6 | 7/9 | 0.00 | fails S1,S2,S5,S7,S8,S9 |
+
+## E006 declared before running (descriptive, counts: no), 2026-11-18: next-day odds from the daily timeframe
+- **Days:** UTC days (Binance 1D bars). Predictors use day D only (known at D's close); targets are about day D+1.
+  9 coins, dev period. Split: first half 2022-01-01..2023-12-31, second half 2024-01-01..2025-11-14.
+- **Targets (D+1):** T1 first touch from D+1's open on 1m bars: +x before -x, x = 0.25 and 0.5 x ATR14(1D) as of D's
+  close (neither within the day = excluded; same minute = counted as neither). T2 bigger extension from the open:
+  (high - open) > (open - low).
+- **Predictors (5, fixed cut-offs, not fitted):** P1 D's close location (close - low)/(high - low): < 0.33 / 0.33-0.67
+  / > 0.67. P2 D's wick imbalance (upper wick - lower wick)/(high - low): < -0.2 / middle / > 0.2. P3 D up day vs down
+  day. P4 D+1 weekend vs weekday. P5 funding z-score at D's close (90 prints): < -1.5 / middle / > +1.5.
+- **Statistics:** P(up) per bin; difference between the extreme bins; z from a day-clustered bootstrap (resampling
+  whole dates across coins, 1,000 draws), because the coins move together.
+- **Promising only if, for some predictor and target:** the extreme-bin difference is >= 6 percentage points with the
+  SAME sign in both halves, AND |z| >= 3 on the full dev period, AND (for T1 at x = 0.5 ATR) the better bin's
+  first-touch rate is >= 55% (or <= 45%), AND >= 300 days per bin. Otherwise the idea closes.
