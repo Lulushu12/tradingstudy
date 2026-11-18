@@ -493,3 +493,18 @@ The experiment budget (frozen at Gate 1) counts entries marked `counts: yes`.
   reports/phase3/EXCURSION_REPORT.md.
 - Verdict: no exploitable asymmetry. No exit rule can turn these entries into an edge; partial-exit hypothesis not
   pursued.
+
+## E004 and E005 declared before running (descriptive, counts: no), 2026-11-18
+- **E004 range edges.** Ranges from the frozen v2 detector (k=3, tol 1.0 ATR, height 2-12 ATR) on 15m, 24m, 1h, 4h,
+  9 coins, dev period. D1: lifetime after confirmation and share of time inside a confirmed range. D2: each first touch
+  of an active range edge from inside (bar low within 0.25 ATR of the range low, previous close outside that zone;
+  mirrored for the top). From the touch bar's close, on 1m bars: does price reach the range midpoint before trading
+  0.25 ATR beyond the edge? Benchmark = driftless random walk (gambler's ruin) probability for the same distances.
+  Implied fade-to-mid result in R (stop 0.25 ATR beyond the edge) before and after fees.
+  **Promising only if** actual minus benchmark >= +5 percentage points AND implied net R >= +0.10 AND >= 300 touches.
+- **E005 HTF entries with LTF structure stops.** Signals on 1h and 4h (divergence stack v2 Variant A, WT dot divergence
+  alone), ungated and gated by Macro View lean (10 x the signal TF). Stop = most recent confirmed 15m zigzag swing
+  (k=3) beyond the entry, plus 1 x ATR(15m). From the signal bar's close, on 1m bars over 24 h (1h signals) / 48 h
+  (4h signals): first touch of +x R vs -x R for x = 0.5, 1, 2, 3. Control: random 1h/4h bars, random direction, same
+  stop construction. Walk-forward test period 2023-01-01..2025-11-14.
+  **Promising only if** favourable-first at 0.5R and 1R >= 55% AND >= control + 5 points AND >= 300 signals.
